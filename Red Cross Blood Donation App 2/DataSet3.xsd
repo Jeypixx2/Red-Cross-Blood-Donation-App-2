@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="DataSet3" targetNamespace="http://tempuri.org/DataSet3.xsd" xmlns:mstns="http://tempuri.org/DataSet3.xsd" xmlns="http://tempuri.org/DataSet3.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="DataSet3" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:Generator_UserDSName="DataSet3" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="DataSet3">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="Blood_Inven_Rep" msprop:Generator_RowClassName="Blood_Inven_RepRow" msprop:Generator_RowEvHandlerName="Blood_Inven_RepRowChangeEventHandler" msprop:Generator_RowDeletedName="Blood_Inven_RepRowDeleted" msprop:Generator_RowDeletingName="Blood_Inven_RepRowDeleting" msprop:Generator_RowEvArgName="Blood_Inven_RepRowChangeEvent" msprop:Generator_TablePropName="Blood_Inven_Rep" msprop:Generator_RowChangedName="Blood_Inven_RepRowChanged" msprop:Generator_UserTableName="Blood_Inven_Rep" msprop:Generator_RowChangingName="Blood_Inven_RepRowChanging" msprop:Generator_TableClassName="Blood_Inven_RepDataTable" msprop:Generator_TableVarName="tableBlood_Inven_Rep">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="BloodType" msprop:Generator_UserColumnName="BloodType" msprop:Generator_ColumnPropNameInTable="BloodTypeColumn" msprop:Generator_ColumnPropNameInRow="BloodType" msprop:Generator_ColumnVarNameInTable="columnBloodType" type="xs:string" minOccurs="0" />
+              <xs:element name="Blood_Group" msprop:Generator_UserColumnName="Blood_Group" msprop:Generator_ColumnPropNameInTable="Blood_GroupColumn" msprop:Generator_ColumnPropNameInRow="Blood_Group" msprop:Generator_ColumnVarNameInTable="columnBlood_Group" type="xs:string" minOccurs="0" />
+              <xs:element name="RhesusFactor" msprop:Generator_UserColumnName="RhesusFactor" msprop:Generator_ColumnPropNameInTable="RhesusFactorColumn" msprop:Generator_ColumnPropNameInRow="RhesusFactor" msprop:Generator_ColumnVarNameInTable="columnRhesusFactor" type="xs:string" minOccurs="0" />
+              <xs:element name="Number_Of_Unit" msprop:Generator_ColumnPropNameInRow="Number_Of_Unit" msprop:Generator_ColumnPropNameInTable="Number_Of_UnitColumn" msprop:Generator_ColumnVarNameInTable="columnNumber_Of_Unit" msprop:Generator_UserColumnName="Number_Of_Unit" type="xs:string" minOccurs="0" />
+              <xs:element name="Expiration_Date" msprop:Generator_ColumnPropNameInRow="Expiration_Date" msprop:Generator_ColumnPropNameInTable="Expiration_DateColumn" msprop:Generator_ColumnVarNameInTable="columnExpiration_Date" msprop:Generator_UserColumnName="Expiration_Date" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
