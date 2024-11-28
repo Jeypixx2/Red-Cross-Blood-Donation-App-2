@@ -7,38 +7,42 @@ Public Class Donor_Registration_Report
     End Sub
 
     Private Sub ReportViewer1_Load(sender As Object, e As EventArgs) Handles ReportViewer1.Load
-
+        ' Any additional logic for ReportViewer1 Load can go here
     End Sub
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
         Try
-            Connect()
+            ' Use the existing connection from MySQLModule
+            Dim connection As MySqlConnection = MySQLModule.conn
 
-            Dim query As String = "SELECT donors.DonorID, donors.FirstName, donors.MiddleName, donors.LastName, donors.BloodType, donors.RegDate, " &
-                                  "CASE " &
-                                  "    WHEN eligibility.EligibilityStatus = 1 THEN 'Eligible' " &
-                                  "    WHEN eligibility.EligibilityStatus = 0 THEN 'Not Eligible' " &
-                                  "END AS EligibilityStatus " &
-                                  "FROM donors " &
-                                  "JOIN eligibility ON donors.DonorID = eligibility.DonorID"
-            Dim cmd As New MySqlCommand(query, conn)
-            Dim da As New MySqlDataAdapter(cmd)
-            Dim dt As New DataTable
-            da.Fill(dt)
+            If connection IsNot Nothing AndAlso connection.State = ConnectionState.Open Then
+                Dim query As String = "SELECT donors.DonorID, donors.FirstName, donors.MiddleName, donors.LastName, donors.BloodType, donors.RegDate, " &
+                                      "CASE " &
+                                      "    WHEN eligibility.EligibilityStatus = 1 THEN 'Eligible' " &
+                                      "    WHEN eligibility.EligibilityStatus = 0 THEN 'Not Eligible' " &
+                                      "END AS EligibilityStatus " &
+                                      "FROM donors " &
+                                      "JOIN eligibility ON donors.DonorID = eligibility.DonorID"
+                Dim cmd As New MySqlCommand(query, connection)
+                Dim da As New MySqlDataAdapter(cmd)
+                Dim dt As New DataTable
+                da.Fill(dt)
 
-            With Me.ReportViewer1.LocalReport
-                .DataSources.Clear()
-                .ReportPath = "C:\Users\WINDOWS\source\repos\Red Cross Blood Donation App 2\Red Cross Blood Donation App 2\Donor_Reg_Report.rdlc" ' Adjust path if needed
-                .DataSources.Add(New ReportDataSource("DataSet1", dt))
-            End With
+                ' Set up the report data source and path
+                With Me.ReportViewer1.LocalReport
+                    .DataSources.Clear()
+                    .ReportPath = "C:\Users\WINDOWS\source\repos\Red Cross Blood Donation App 2\Red Cross Blood Donation App 2\Donor_Reg_Report.rdlc" ' Adjust path if needed
+                    .DataSources.Add(New ReportDataSource("DataSet1", dt))
+                End With
 
-            Me.ReportViewer1.RefreshReport()
+                Me.ReportViewer1.RefreshReport()
+            Else
+                MessageBox.Show("Database connection is not open.")
+            End If
         Catch ex As Exception
             MsgBox("Error: " & ex.Message, MsgBoxStyle.Critical)
         Finally
-            If conn.State = ConnectionState.Open Then
-                conn.Close()
-            End If
+            ' No need to close the connection here since it's managed by MySQLModule
         End Try
     End Sub
 End Class

@@ -43,4 +43,8 @@ Public Class Blood_Inventory_Report
             End If
         End Try
     End Sub
+
+    Private Sub Blood_Inventory_Report_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+
+    End Sub
 End Class

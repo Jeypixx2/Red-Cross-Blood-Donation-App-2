@@ -25,7 +25,7 @@ Public Class Donation_Management_old
     ' Method to split BloodType and assign values to txtBloodType and txtRhesusFactor
     Private Sub SetBloodTypeAndRhesus()
         If Not String.IsNullOrEmpty(BloodType) Then
-            ' Remove the last character if it's a + or -
+            ' Remove the last character if it's a + or - 
             Dim bloodTypeChar As String = BloodType.Substring(0, BloodType.Length - 1)
             ' Set the Rhesus factor based on the last character
             Dim rhesusFactor As String = If(BloodType.Last() = "+", "Rh+", "Rh-")
@@ -68,11 +68,11 @@ Public Class Donation_Management_old
 
     ' Method to insert donation data into the database
     Private Sub InsertDonationData()
-        Dim connectionString As String = "Server=localhost;Database=redcrossdb;Uid=root;Pwd=;"
-        Using connection As New MySqlConnection(connectionString)
-            Try
-                connection.Open()
+        ' Use the existing connection from MySQLModule (no need to call Connect again)
+        Dim connection As MySqlConnection = MySQLModule.conn
 
+        If connection IsNot Nothing AndAlso connection.State = ConnectionState.Open Then
+            Try
                 ' SQL query for inserting the donation data into the database
                 Dim query As String = "INSERT INTO donation (DonationDate, DonorID, BloodType, RhesusFactor, BloodVolume, CollectionMethod, DonationTime, DonationType, NextEligibilityDate) " &
                                       "VALUES (@DonationDate, @DonorID, @BloodType, @RhesusFactor, @BloodVolume, @CollectionMethod, @DonationTime, @DonationType, @NextEligibilityDate)"
@@ -95,10 +95,10 @@ Public Class Donation_Management_old
                 End Using
             Catch ex As MySqlException
                 MessageBox.Show("Database error: " & ex.Message)
-            Finally
-                connection.Close()
             End Try
-        End Using
+        Else
+            MessageBox.Show("Database connection is not open.")
+        End If
     End Sub
 
     ' Function to calculate the next eligibility date

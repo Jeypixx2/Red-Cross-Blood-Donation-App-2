@@ -2,6 +2,7 @@
     Public frmhelper As New FormHelper
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         'frmhelper.Seeders()
+        MySQLModule.Connect()
     End Sub
 
     Private Sub PictureBox1_Click(sender As Object, e As EventArgs) Handles pbLogo.Click
