@@ -72,6 +72,7 @@ Partial Class Blood_Inventory_Report
         Me.Controls.Add(Me.Button1)
         Me.Name = "Blood_Inventory_Report"
         Me.Text = "Blood_Inventory_Report"
+        Me.WindowState = System.Windows.Forms.FormWindowState.Maximized
         Me.ResumeLayout(False)
 
     End Sub

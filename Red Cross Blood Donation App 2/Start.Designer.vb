@@ -30,23 +30,22 @@ Partial Class Start
         '
         'pbLogo
         '
-        Me.pbLogo.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.pbLogo.Anchor = System.Windows.Forms.AnchorStyles.Top
         Me.pbLogo.Image = Global.Red_Cross_Blood_Donation_App_2.My.Resources.Resources.Red_Cross_logo
-        Me.pbLogo.Location = New System.Drawing.Point(66, 25)
+        Me.pbLogo.Location = New System.Drawing.Point(383, 106)
         Me.pbLogo.Name = "pbLogo"
-        Me.pbLogo.Size = New System.Drawing.Size(168, 156)
+        Me.pbLogo.Size = New System.Drawing.Size(376, 156)
         Me.pbLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
         Me.pbLogo.TabIndex = 1
         Me.pbLogo.TabStop = False
         '
         'btnAdmin
         '
+        Me.btnAdmin.Anchor = System.Windows.Forms.AnchorStyles.Top
         Me.btnAdmin.BackColor = System.Drawing.Color.FromArgb(CType(CType(207, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(6, Byte), Integer))
         Me.btnAdmin.Font = New System.Drawing.Font("Arial", 15.75!)
         Me.btnAdmin.ForeColor = System.Drawing.SystemColors.ButtonHighlight
-        Me.btnAdmin.Location = New System.Drawing.Point(12, 199)
+        Me.btnAdmin.Location = New System.Drawing.Point(434, 376)
         Me.btnAdmin.Name = "btnAdmin"
         Me.btnAdmin.Size = New System.Drawing.Size(279, 53)
         Me.btnAdmin.TabIndex = 2
@@ -55,10 +54,11 @@ Partial Class Start
         '
         'btnHealthcareprovider
         '
+        Me.btnHealthcareprovider.Anchor = System.Windows.Forms.AnchorStyles.Top
         Me.btnHealthcareprovider.BackColor = System.Drawing.Color.FromArgb(CType(CType(207, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(6, Byte), Integer))
         Me.btnHealthcareprovider.Font = New System.Drawing.Font("Arial", 15.75!)
         Me.btnHealthcareprovider.ForeColor = System.Drawing.SystemColors.ButtonHighlight
-        Me.btnHealthcareprovider.Location = New System.Drawing.Point(12, 268)
+        Me.btnHealthcareprovider.Location = New System.Drawing.Point(434, 523)
         Me.btnHealthcareprovider.Name = "btnHealthcareprovider"
         Me.btnHealthcareprovider.Size = New System.Drawing.Size(279, 53)
         Me.btnHealthcareprovider.TabIndex = 3
@@ -67,14 +67,17 @@ Partial Class Start
         '
         'Start
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
-        Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(303, 354)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
+        Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
+        Me.AutoSize = True
+        Me.ClientSize = New System.Drawing.Size(1146, 652)
         Me.Controls.Add(Me.btnHealthcareprovider)
         Me.Controls.Add(Me.btnAdmin)
         Me.Controls.Add(Me.pbLogo)
+        Me.MinimizeBox = False
         Me.Name = "Start"
         Me.Text = "Start"
+        Me.WindowState = System.Windows.Forms.FormWindowState.Maximized
         CType(Me.pbLogo, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 

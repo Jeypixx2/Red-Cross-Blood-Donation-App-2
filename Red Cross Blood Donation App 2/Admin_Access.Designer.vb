@@ -33,25 +33,21 @@ Partial Class Admin_Access
         '
         'pbLogo
         '
-        Me.pbLogo.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.pbLogo.Anchor = System.Windows.Forms.AnchorStyles.Top
         Me.pbLogo.Image = Global.Red_Cross_Blood_Donation_App_2.My.Resources.Resources.Red_Cross_logo
-        Me.pbLogo.Location = New System.Drawing.Point(173, 12)
+        Me.pbLogo.Location = New System.Drawing.Point(215, 29)
         Me.pbLogo.Name = "pbLogo"
-        Me.pbLogo.Size = New System.Drawing.Size(237, 194)
+        Me.pbLogo.Size = New System.Drawing.Size(592, 194)
         Me.pbLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
         Me.pbLogo.TabIndex = 0
         Me.pbLogo.TabStop = False
         '
         'Label1
         '
-        Me.Label1.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Label1.Anchor = System.Windows.Forms.AnchorStyles.Top
         Me.Label1.AutoSize = True
         Me.Label1.Font = New System.Drawing.Font("Arial", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label1.Location = New System.Drawing.Point(56, 231)
+        Me.Label1.Location = New System.Drawing.Point(281, 264)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(105, 24)
         Me.Label1.TabIndex = 1
@@ -59,12 +55,10 @@ Partial Class Admin_Access
         '
         'Label2
         '
-        Me.Label2.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Label2.Anchor = System.Windows.Forms.AnchorStyles.Top
         Me.Label2.AutoSize = True
         Me.Label2.Font = New System.Drawing.Font("Arial", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label2.Location = New System.Drawing.Point(56, 310)
+        Me.Label2.Location = New System.Drawing.Point(281, 332)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(103, 24)
         Me.Label2.TabIndex = 2
@@ -72,11 +66,9 @@ Partial Class Admin_Access
         '
         'txtUsername
         '
-        Me.txtUsername.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.txtUsername.Anchor = System.Windows.Forms.AnchorStyles.Top
         Me.txtUsername.Font = New System.Drawing.Font("Arial", 15.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtUsername.Location = New System.Drawing.Point(60, 258)
+        Me.txtUsername.Location = New System.Drawing.Point(285, 291)
         Me.txtUsername.Name = "txtUsername"
         Me.txtUsername.Size = New System.Drawing.Size(442, 30)
         Me.txtUsername.TabIndex = 3
@@ -84,11 +76,9 @@ Partial Class Admin_Access
         '
         'txtPassword
         '
-        Me.txtPassword.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.txtPassword.Anchor = System.Windows.Forms.AnchorStyles.Top
         Me.txtPassword.Font = New System.Drawing.Font("Arial", 15.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtPassword.Location = New System.Drawing.Point(60, 337)
+        Me.txtPassword.Location = New System.Drawing.Point(285, 359)
         Me.txtPassword.Name = "txtPassword"
         Me.txtPassword.PasswordChar = Global.Microsoft.VisualBasic.ChrW(42)
         Me.txtPassword.Size = New System.Drawing.Size(442, 30)
@@ -97,15 +87,13 @@ Partial Class Admin_Access
         '
         'btnLogin
         '
-        Me.btnLogin.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btnLogin.Anchor = System.Windows.Forms.AnchorStyles.Top
         Me.btnLogin.BackColor = System.Drawing.Color.FromArgb(CType(CType(5, Byte), Integer), CType(CType(4, Byte), Integer), CType(CType(81, Byte), Integer))
         Me.btnLogin.Font = New System.Drawing.Font("Arial", 20.25!, System.Drawing.FontStyle.Bold)
         Me.btnLogin.ForeColor = System.Drawing.SystemColors.InactiveBorder
-        Me.btnLogin.Location = New System.Drawing.Point(97, 390)
+        Me.btnLogin.Location = New System.Drawing.Point(316, 458)
         Me.btnLogin.Name = "btnLogin"
-        Me.btnLogin.Size = New System.Drawing.Size(350, 54)
+        Me.btnLogin.Size = New System.Drawing.Size(380, 54)
         Me.btnLogin.TabIndex = 5
         Me.btnLogin.Text = "Log In"
         Me.btnLogin.UseVisualStyleBackColor = False
@@ -114,15 +102,17 @@ Partial Class Admin_Access
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(592, 483)
+        Me.ClientSize = New System.Drawing.Size(1043, 665)
         Me.Controls.Add(Me.btnLogin)
         Me.Controls.Add(Me.txtPassword)
         Me.Controls.Add(Me.txtUsername)
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.pbLogo)
+        Me.MinimizeBox = False
         Me.Name = "Admin_Access"
         Me.Text = "Sign_In"
+        Me.WindowState = System.Windows.Forms.FormWindowState.Maximized
         CType(Me.pbLogo, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
