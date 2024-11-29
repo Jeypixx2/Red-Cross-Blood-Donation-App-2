@@ -504,6 +504,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\images-removebg-preview.png" />
+    <Content Include="config\config.txt" />
     <Content Include="ILLink\ILLink.Descriptors.LibraryBuild.xml" />
     <Content Include="Resources\png-clipart-printing-press-heat-press-computer-icons-logo-printer-angle-electronics.png" />
     <Content Include="Resources\pngtree-red-arrow-sign-clipart-png-image_6520593.png" />

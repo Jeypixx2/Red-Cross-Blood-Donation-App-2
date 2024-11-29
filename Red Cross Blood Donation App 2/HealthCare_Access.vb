@@ -6,7 +6,7 @@ Public Class HealthCare_Access
     Private personnelName As String
 
     Private Sub HealthCare_Access_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        Connect() ' Calls Connect() from MySQLModule to establish a connection to the database
+        UpdateConnectionString()
     End Sub
 
     Private Sub btnLogin_Click(sender As Object, e As EventArgs) Handles btnLogin.Click

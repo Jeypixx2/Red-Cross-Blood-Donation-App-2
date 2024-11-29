@@ -10,7 +10,12 @@ Public Class Donation_History_Report
 
     End Sub
 
-    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+    Private Sub btnBack_Click(sender As Object, e As EventArgs) Handles btnBack.Click
+        Me.Close()
+        Admin_Dashboard.Show()
+    End Sub
+
+    Private Sub Button1_Click_1(sender As Object, e As EventArgs) Handles Button1.Click
         Try
             Dim connection As MySqlConnection = modDB.conn
 
@@ -47,10 +52,5 @@ JOIN
             MsgBox("Error: " & ex.Message, MsgBoxStyle.Critical)
         Finally
         End Try
-    End Sub
-
-    Private Sub btnBack_Click(sender As Object, e As EventArgs) Handles btnBack.Click
-        Me.Close()
-        Admin_Dashboard.Show()
     End Sub
 End Class

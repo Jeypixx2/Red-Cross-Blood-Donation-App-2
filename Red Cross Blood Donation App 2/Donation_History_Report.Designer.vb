@@ -23,8 +23,8 @@ Partial Class Donation_History_Report
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.ReportViewer1 = New Microsoft.Reporting.WinForms.ReportViewer()
-        Me.Button1 = New System.Windows.Forms.Button()
         Me.btnBack = New System.Windows.Forms.Button()
+        Me.Button1 = New System.Windows.Forms.Button()
         Me.SuspendLayout()
         '
         'ReportViewer1
@@ -32,26 +32,11 @@ Partial Class Donation_History_Report
         Me.ReportViewer1.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.ReportViewer1.Location = New System.Drawing.Point(348, 74)
+        Me.ReportViewer1.Location = New System.Drawing.Point(312, 53)
         Me.ReportViewer1.Name = "ReportViewer1"
         Me.ReportViewer1.ServerReport.BearerToken = Nothing
         Me.ReportViewer1.Size = New System.Drawing.Size(707, 663)
         Me.ReportViewer1.TabIndex = 1
-        '
-        'Button1
-        '
-        Me.Button1.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Button1.BackColor = System.Drawing.Color.IndianRed
-        Me.Button1.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Button1.ForeColor = System.Drawing.SystemColors.ControlLightLight
-        Me.Button1.Location = New System.Drawing.Point(623, 34)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(125, 34)
-        Me.Button1.TabIndex = 2
-        Me.Button1.Text = "Load Report"
-        Me.Button1.UseVisualStyleBackColor = False
         '
         'btnBack
         '
@@ -65,13 +50,25 @@ Partial Class Donation_History_Report
         Me.btnBack.Text = "Back"
         Me.btnBack.UseVisualStyleBackColor = False
         '
+        'Button1
+        '
+        Me.Button1.BackColor = System.Drawing.Color.IndianRed
+        Me.Button1.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Button1.ForeColor = System.Drawing.SystemColors.ControlLightLight
+        Me.Button1.Location = New System.Drawing.Point(605, 13)
+        Me.Button1.Name = "Button1"
+        Me.Button1.Size = New System.Drawing.Size(125, 34)
+        Me.Button1.TabIndex = 7
+        Me.Button1.Text = "Load Report"
+        Me.Button1.UseVisualStyleBackColor = False
+        '
         'Donation_History_Report
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1364, 749)
-        Me.Controls.Add(Me.btnBack)
         Me.Controls.Add(Me.Button1)
+        Me.Controls.Add(Me.btnBack)
         Me.Controls.Add(Me.ReportViewer1)
         Me.Name = "Donation_History_Report"
         Me.Text = "Donation_History_Report"
@@ -81,6 +78,6 @@ Partial Class Donation_History_Report
     End Sub
 
     Friend WithEvents ReportViewer1 As Microsoft.Reporting.WinForms.ReportViewer
-    Friend WithEvents Button1 As Button
     Friend WithEvents btnBack As Button
+    Friend WithEvents Button1 As Button
 End Class

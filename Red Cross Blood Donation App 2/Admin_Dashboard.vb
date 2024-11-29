@@ -87,7 +87,7 @@ Public Class Admin_Dashboard
         Try
             ' Ensure the connection is open
             If modDB.conn.State = ConnectionState.Closed Then
-                modDB.Connect()
+                modDB.UpdateConnectionString()
             End If
 
             ' Use the shared connection
