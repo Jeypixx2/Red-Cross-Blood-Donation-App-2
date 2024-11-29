@@ -20,7 +20,7 @@ Public Class Donor_Management_New
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
         ' Use the existing connection from MySQLModule (no need to call Connect again)
-        Dim connection As MySqlConnection = MySQLModule.conn
+        Dim connection As MySqlConnection = modDB.conn
 
         If connection IsNot Nothing AndAlso connection.State = ConnectionState.Open Then
             Try

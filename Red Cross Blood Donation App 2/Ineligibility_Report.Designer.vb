@@ -24,6 +24,7 @@ Partial Class Ineligibility_Report
     Private Sub InitializeComponent()
         Me.Button1 = New System.Windows.Forms.Button()
         Me.ReportViewer1 = New Microsoft.Reporting.WinForms.ReportViewer()
+        Me.btnBack = New System.Windows.Forms.Button()
         Me.SuspendLayout()
         '
         'Button1
@@ -46,17 +47,30 @@ Partial Class Ineligibility_Report
         Me.ReportViewer1.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.ReportViewer1.Location = New System.Drawing.Point(348, 74)
+        Me.ReportViewer1.Location = New System.Drawing.Point(363, 74)
         Me.ReportViewer1.Name = "ReportViewer1"
         Me.ReportViewer1.ServerReport.BearerToken = Nothing
-        Me.ReportViewer1.Size = New System.Drawing.Size(707, 684)
+        Me.ReportViewer1.Size = New System.Drawing.Size(692, 663)
         Me.ReportViewer1.TabIndex = 4
+        '
+        'btnBack
+        '
+        Me.btnBack.BackColor = System.Drawing.SystemColors.HotTrack
+        Me.btnBack.Font = New System.Drawing.Font("Mongolian Baiti", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnBack.ForeColor = System.Drawing.SystemColors.ControlLightLight
+        Me.btnBack.Location = New System.Drawing.Point(121, 607)
+        Me.btnBack.Name = "btnBack"
+        Me.btnBack.Size = New System.Drawing.Size(129, 52)
+        Me.btnBack.TabIndex = 7
+        Me.btnBack.Text = "Back"
+        Me.btnBack.UseVisualStyleBackColor = False
         '
         'Ineligibility_Report
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1364, 749)
+        Me.Controls.Add(Me.btnBack)
         Me.Controls.Add(Me.ReportViewer1)
         Me.Controls.Add(Me.Button1)
         Me.Name = "Ineligibility_Report"
@@ -67,4 +81,5 @@ Partial Class Ineligibility_Report
 
     Friend WithEvents Button1 As Button
     Friend WithEvents ReportViewer1 As Microsoft.Reporting.WinForms.ReportViewer
+    Friend WithEvents btnBack As Button
 End Class

@@ -8,7 +8,7 @@ Public Class Ineligibility_Report
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
         Try
-            Dim connection As MySqlConnection = MySQLModule.conn
+            Dim connection As MySqlConnection = modDB.conn
             If connection IsNot Nothing AndAlso connection.State = ConnectionState.Open Then
 
                 Dim query As String = "
@@ -57,5 +57,10 @@ Public Class Ineligibility_Report
 
     Private Sub ReportViewer1_Load(sender As Object, e As EventArgs) Handles ReportViewer1.Load
         Me.ReportViewer1.RefreshReport()
+    End Sub
+
+    Private Sub btnBack_Click(sender As Object, e As EventArgs) Handles btnBack.Click
+        Me.Close()
+        Admin_Dashboard.Show()
     End Sub
 End Class

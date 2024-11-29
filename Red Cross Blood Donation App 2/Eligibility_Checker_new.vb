@@ -51,35 +51,32 @@ Public Class Eligibility_Checker_new
 
     ' Save eligibility data to the database
     Private Function SaveEligibilityData() As Boolean
-        Dim connectionString As String = "Server=localhost;Database=redcrossdb;Uid=root;Pwd=;"
-        Using connection As New MySqlConnection(connectionString)
-            Try
-                connection.Open()
+        Dim connection As MySqlConnection = modDB.conn
+        Try
 
-                ' Fetch donor full name and birthdate (we need birthdate for age calculation)
-                DonorName = GetDonorFullName(connection)
-                Dim birthdate As DateTime = GetDonorBirthdate(connection)  ' Assuming GetDonorBirthdate function is added
+            ' Fetch donor full name and birthdate (we need birthdate for age calculation)
+            DonorName = GetDonorFullName(connection)
+            Dim birthdate As DateTime = GetDonorBirthdate(connection)  ' Assuming GetDonorBirthdate function is added
 
-                ' Insert eligibility data and flag permanent ineligibility if needed
-                If InsertEligibilityData(connection) Then
-                    ' Calculate and update donor age
-                    Dim age As Integer = CalculateAge(birthdate)
-                    If UpdateDonorAge(connection, age) Then
-                        MessageBox.Show("Data saved successfully!")
-                    Else
-                        MessageBox.Show("Error updating age.")
-                    End If
-
-                    Return True
+            ' Insert eligibility data and flag permanent ineligibility if needed
+            If InsertEligibilityData(connection) Then
+                ' Calculate and update donor age
+                Dim age As Integer = CalculateAge(birthdate)
+                If UpdateDonorAge(connection, age) Then
+                    MessageBox.Show("Data saved successfully!")
                 Else
-                    MessageBox.Show("Error saving data.")
-                    Return False
+                    MessageBox.Show("Error updating age.")
                 End If
-            Catch ex As MySqlException
-                MessageBox.Show($"An error occurred: {ex.Message}")
+
+                Return True
+            Else
+                MessageBox.Show("Error saving data.")
                 Return False
-            End Try
-        End Using
+            End If
+        Catch ex As MySqlException
+            MessageBox.Show($"An error occurred: {ex.Message}")
+            Return False
+        End Try
     End Function
 
     Private Function GetDonorBirthdate(connection As MySqlConnection) As DateTime

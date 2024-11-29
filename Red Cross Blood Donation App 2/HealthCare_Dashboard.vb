@@ -3,7 +3,6 @@
 Public Class HealthCare_Dashboard
     Private sampleData As DataTable
     Private isDailyView As Boolean ' Flag to determine the current view
-    Private connectionString As String = "Server=localhost;Database=redcrossdb;Uid=root;Pwd=;"
     Public Doublebuffer As New DoubleBuffering
     Private WithEvents searchTimer As New Timer()
     Private hospitalName As String
@@ -116,21 +115,19 @@ Public Class HealthCare_Dashboard
     ' Filter data based on SQL query and parameters
     Private Function FilterData(query As String, ParamArray parameters As Object()) As DataTable
         Dim table As New DataTable()
-        Using connection As New MySqlConnection(connectionString)
-            Try
-                connection.Open()
-                Using cmd As New MySqlCommand(query, connection)
-                    For i As Integer = 0 To parameters.Length - 1
-                        cmd.Parameters.AddWithValue($"@param{i}", parameters(i))
-                    Next
-                    Using reader As MySqlDataReader = cmd.ExecuteReader()
-                        table.Load(reader)
-                    End Using
+        Dim connection As MySqlConnection = modDB.conn
+        Try
+            Using cmd As New MySqlCommand(query, connection)
+                For i As Integer = 0 To parameters.Length - 1
+                    cmd.Parameters.AddWithValue($"@param{i}", parameters(i))
+                Next
+                Using reader As MySqlDataReader = cmd.ExecuteReader()
+                    table.Load(reader)
                 End Using
-            Catch ex As MySqlException
-                MessageBox.Show($"An error occurred: {ex.Message}", "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            End Try
-        End Using
+            End Using
+        Catch ex As MySqlException
+            MessageBox.Show($"An error occurred: {ex.Message}", "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
         Return table
     End Function
 
@@ -231,45 +228,41 @@ Public Class HealthCare_Dashboard
     ' Filter data based on the search text
     Private Function FilterDataBySearch(query As String, searchText As String) As DataTable
         Dim table As New DataTable()
-        Using connection As New MySqlConnection(connectionString)
-            Try
-                connection.Open()
-                Using cmd As New MySqlCommand(query, connection)
-                    cmd.Parameters.AddWithValue("@searchText", "%" & searchText & "%")
-                    Using reader As MySqlDataReader = cmd.ExecuteReader()
-                        table.Load(reader)
-                    End Using
+        Dim connection As MySqlConnection = modDB.conn
+        Try
+            Using cmd As New MySqlCommand(query, connection)
+                cmd.Parameters.AddWithValue("@searchText", "%" & searchText & "%")
+                Using reader As MySqlDataReader = cmd.ExecuteReader()
+                    table.Load(reader)
                 End Using
-            Catch ex As MySqlException
-                MessageBox.Show($"An error occurred: {ex.Message}", "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            End Try
-        End Using
+            End Using
+        Catch ex As MySqlException
+            MessageBox.Show($"An error occurred: {ex.Message}", "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
         Return table
     End Function
 
 
     Private Sub FetchIDs()
-        Using connection As New MySqlConnection(connectionString)
-            Try
-                connection.Open()
+        Dim connection As MySqlConnection = modDB.conn
+        Try
 
-                ' Fetch HealthProviderID based on hospitalName
-                Dim healthProviderQuery As String = "SELECT HealthProviderID FROM healthprovider WHERE CompanyHospitalName = @hospitalName"
-                Using cmd As New MySqlCommand(healthProviderQuery, connection)
-                    cmd.Parameters.AddWithValue("@hospitalName", hospitalName)
-                    HealthProviderID = Convert.ToInt32(cmd.ExecuteScalar())
-                End Using
+            ' Fetch HealthProviderID based on hospitalName
+            Dim healthProviderQuery As String = "SELECT HealthProviderID FROM healthprovider WHERE CompanyHospitalName = @hospitalName"
+            Using cmd As New MySqlCommand(healthProviderQuery, connection)
+                cmd.Parameters.AddWithValue("@hospitalName", hospitalName)
+                HealthProviderID = Convert.ToInt32(cmd.ExecuteScalar())
+            End Using
 
-                ' Fetch PersonnelID based on personnelName
-                Dim personnelQuery As String = "SELECT PersonnelID FROM healthprovider WHERE PersonnelName = @personnelName"
-                Using cmd As New MySqlCommand(personnelQuery, connection)
-                    cmd.Parameters.AddWithValue("@personnelName", personnelName)
-                    PersonnelID = Convert.ToInt32(cmd.ExecuteScalar())
-                End Using
-            Catch ex As MySqlException
-                MessageBox.Show($"An error occurred: {ex.Message}", "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            End Try
-        End Using
+            ' Fetch PersonnelID based on personnelName
+            Dim personnelQuery As String = "SELECT PersonnelID FROM healthprovider WHERE PersonnelName = @personnelName"
+            Using cmd As New MySqlCommand(personnelQuery, connection)
+                cmd.Parameters.AddWithValue("@personnelName", personnelName)
+                PersonnelID = Convert.ToInt32(cmd.ExecuteScalar())
+            End Using
+        Catch ex As MySqlException
+            MessageBox.Show($"An error occurred: {ex.Message}", "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
     End Sub
 
     ' Retrieve data when the button is clicked
@@ -314,57 +307,54 @@ Public Class HealthCare_Dashboard
                     Dim healthProviderID As Integer = ids.Item1
                     Dim personnelID As Integer = ids.Item2
 
-                    ' Create a MySQL connection and start a transaction
-                    Using conn As New MySqlConnection(connectionString)
-                        conn.Open()
+                    Dim connection As MySqlConnection = modDB.conn
 
-                        ' Start a transaction to ensure both insert and delete are atomic
-                        Using transaction As MySqlTransaction = conn.BeginTransaction()
-                            Try
-                                ' SQL command to insert the data into the HealthProvider table
-                                Dim insertQuery As String = "INSERT INTO HealthProvider (HealthProviderID, CompanyHospitalName, PersonnelID, PersonnelName, BloodID, LastName, FirstName, MiddleName, BloodType, RhesusFactor, DonationType, BloodVolume, RetrieveDate) " &
+                    ' Start a transaction to ensure both insert and delete are atomic
+                    Using transaction As MySqlTransaction = conn.BeginTransaction()
+                        Try
+                            ' SQL command to insert the data into the HealthProvider table
+                            Dim insertQuery As String = "INSERT INTO HealthProvider (HealthProviderID, CompanyHospitalName, PersonnelID, PersonnelName, BloodID, LastName, FirstName, MiddleName, BloodType, RhesusFactor, DonationType, BloodVolume, RetrieveDate) " &
                                                         "VALUES (@HealthProviderID, @HospitalName, @PersonnelID, @PersonnelName, @BloodID, @LastName, @FirstName, @MiddleName, @BloodType, @RhesusFactor, @DonationType, @BloodVolume, @RetrieveDate)"
 
-                                Using cmd As New MySqlCommand(insertQuery, conn, transaction)
-                                    cmd.Parameters.AddWithValue("@HealthProviderID", healthProviderID)
-                                    cmd.Parameters.AddWithValue("@HospitalName", hospitalName)
-                                    cmd.Parameters.AddWithValue("@PersonnelID", personnelID)
-                                    cmd.Parameters.AddWithValue("@PersonnelName", personnelName)
-                                    cmd.Parameters.AddWithValue("@BloodID", bloodID)
-                                    cmd.Parameters.AddWithValue("@LastName", lastName)
-                                    cmd.Parameters.AddWithValue("@FirstName", firstName)
-                                    cmd.Parameters.AddWithValue("@MiddleName", middleName)
-                                    cmd.Parameters.AddWithValue("@BloodType", bloodType)
-                                    cmd.Parameters.AddWithValue("@RhesusFactor", rhesusFactor)
-                                    cmd.Parameters.AddWithValue("@DonationType", donationType)
-                                    cmd.Parameters.AddWithValue("@BloodVolume", bloodVolume)
-                                    cmd.Parameters.AddWithValue("@RetrieveDate", retrieveDate)
+                            Using cmd As New MySqlCommand(insertQuery, conn, transaction)
+                                cmd.Parameters.AddWithValue("@HealthProviderID", healthProviderID)
+                                cmd.Parameters.AddWithValue("@HospitalName", hospitalName)
+                                cmd.Parameters.AddWithValue("@PersonnelID", personnelID)
+                                cmd.Parameters.AddWithValue("@PersonnelName", personnelName)
+                                cmd.Parameters.AddWithValue("@BloodID", bloodID)
+                                cmd.Parameters.AddWithValue("@LastName", lastName)
+                                cmd.Parameters.AddWithValue("@FirstName", firstName)
+                                cmd.Parameters.AddWithValue("@MiddleName", middleName)
+                                cmd.Parameters.AddWithValue("@BloodType", bloodType)
+                                cmd.Parameters.AddWithValue("@RhesusFactor", rhesusFactor)
+                                cmd.Parameters.AddWithValue("@DonationType", donationType)
+                                cmd.Parameters.AddWithValue("@BloodVolume", bloodVolume)
+                                cmd.Parameters.AddWithValue("@RetrieveDate", retrieveDate)
 
-                                    ' Execute the insert command
-                                    cmd.ExecuteNonQuery()
-                                End Using
+                                ' Execute the insert command
+                                cmd.ExecuteNonQuery()
+                            End Using
 
-                                ' SQL command to delete the selected row from the donation table
-                                Dim deleteQuery As String = "DELETE FROM donation WHERE BloodID = @BloodID"
-                                Using cmd As New MySqlCommand(deleteQuery, conn, transaction)
-                                    cmd.Parameters.AddWithValue("@BloodID", bloodID)
+                            ' SQL command to delete the selected row from the donation table
+                            Dim deleteQuery As String = "DELETE FROM donation WHERE BloodID = @BloodID"
+                            Using cmd As New MySqlCommand(deleteQuery, conn, transaction)
+                                cmd.Parameters.AddWithValue("@BloodID", bloodID)
 
-                                    ' Execute the delete command
-                                    cmd.ExecuteNonQuery()
-                                End Using
+                                ' Execute the delete command
+                                cmd.ExecuteNonQuery()
+                            End Using
 
-                                ' Commit the transaction if both operations are successful
-                                transaction.Commit()
+                            ' Commit the transaction if both operations are successful
+                            transaction.Commit()
 
-                                ' Refresh the DataGridView to reflect the changes
-                                RefreshDataGridView()
+                            ' Refresh the DataGridView to reflect the changes
+                            RefreshDataGridView()
 
-                            Catch ex As Exception
-                                ' If an error occurs, roll back the transaction
-                                transaction.Rollback()
-                                MessageBox.Show("Error: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                            End Try
-                        End Using
+                        Catch ex As Exception
+                            ' If an error occurs, roll back the transaction
+                            transaction.Rollback()
+                            MessageBox.Show("Error: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                        End Try
                     End Using
                 Catch ex As Exception
                     MessageBox.Show("An unexpected error occurred: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -385,19 +375,18 @@ Public Class HealthCare_Dashboard
                       "p.Baranggay, p.City, p.Province, p.Sex, p.Age " &
                       "FROM donation d " &
                       "JOIN donors p ON d.DonorID = p.DonorID "
-        Using conn As New MySqlConnection(connectionString)
-            Using cmd As New MySqlCommand(query, conn)
-                ' Open the connection
-                conn.Open()
-                Dim da As New MySqlDataAdapter(cmd)
-                Dim dt As New DataTable()
+        Dim connection As MySqlConnection = modDB.conn
+        Using cmd As New MySqlCommand(query, conn)
+            ' Open the connection
+            conn.Open()
+            Dim da As New MySqlDataAdapter(cmd)
+            Dim dt As New DataTable()
 
-                ' Fill the DataTable with the updated data
-                da.Fill(dt)
+            ' Fill the DataTable with the updated data
+            da.Fill(dt)
 
-                ' Bind the DataGridView to the updated data source
-                DataGridView1.DataSource = dt
-            End Using
+            ' Bind the DataGridView to the updated data source
+            DataGridView1.DataSource = dt
         End Using
     End Sub
 End Class

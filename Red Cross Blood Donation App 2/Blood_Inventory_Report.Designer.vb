@@ -24,6 +24,7 @@ Partial Class Blood_Inventory_Report
     Private Sub InitializeComponent()
         Me.Button1 = New System.Windows.Forms.Button()
         Me.ReportViewer1 = New Microsoft.Reporting.WinForms.ReportViewer()
+        Me.btnBack = New System.Windows.Forms.Button()
         Me.SuspendLayout()
         '
         'Button1
@@ -46,14 +47,27 @@ Partial Class Blood_Inventory_Report
         Me.ReportViewer1.Location = New System.Drawing.Point(348, 74)
         Me.ReportViewer1.Name = "ReportViewer1"
         Me.ReportViewer1.ServerReport.BearerToken = Nothing
-        Me.ReportViewer1.Size = New System.Drawing.Size(707, 684)
+        Me.ReportViewer1.Size = New System.Drawing.Size(707, 663)
         Me.ReportViewer1.TabIndex = 4
+        '
+        'btnBack
+        '
+        Me.btnBack.BackColor = System.Drawing.SystemColors.HotTrack
+        Me.btnBack.Font = New System.Drawing.Font("Mongolian Baiti", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnBack.ForeColor = System.Drawing.SystemColors.ControlLightLight
+        Me.btnBack.Location = New System.Drawing.Point(114, 620)
+        Me.btnBack.Name = "btnBack"
+        Me.btnBack.Size = New System.Drawing.Size(129, 52)
+        Me.btnBack.TabIndex = 5
+        Me.btnBack.Text = "Back"
+        Me.btnBack.UseVisualStyleBackColor = False
         '
         'Blood_Inventory_Report
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1364, 749)
+        Me.Controls.Add(Me.btnBack)
         Me.Controls.Add(Me.ReportViewer1)
         Me.Controls.Add(Me.Button1)
         Me.Name = "Blood_Inventory_Report"
@@ -64,4 +78,5 @@ Partial Class Blood_Inventory_Report
 
     Friend WithEvents Button1 As Button
     Friend WithEvents ReportViewer1 As Microsoft.Reporting.WinForms.ReportViewer
+    Friend WithEvents btnBack As Button
 End Class

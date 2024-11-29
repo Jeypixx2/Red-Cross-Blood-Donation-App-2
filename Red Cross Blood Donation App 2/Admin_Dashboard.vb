@@ -86,12 +86,12 @@ Public Class Admin_Dashboard
 
         Try
             ' Ensure the connection is open
-            If MySQLModule.conn.State = ConnectionState.Closed Then
-                MySQLModule.Connect()
+            If modDB.conn.State = ConnectionState.Closed Then
+                modDB.Connect()
             End If
 
             ' Use the shared connection
-            Using cmd As New MySqlCommand(query, MySQLModule.conn)
+            Using cmd As New MySqlCommand(query, modDB.conn)
                 ' Add parameters to the SQL command
                 For i As Integer = 0 To parameters.Length - 1
                     cmd.Parameters.AddWithValue($"@param{i}", parameters(i))

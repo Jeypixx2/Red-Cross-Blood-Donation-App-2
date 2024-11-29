@@ -24,6 +24,7 @@ Partial Class Donor_Registration_Report
     Private Sub InitializeComponent()
         Me.ReportViewer1 = New Microsoft.Reporting.WinForms.ReportViewer()
         Me.Button1 = New System.Windows.Forms.Button()
+        Me.btnBack = New System.Windows.Forms.Button()
         Me.SuspendLayout()
         '
         'ReportViewer1
@@ -46,11 +47,24 @@ Partial Class Donor_Registration_Report
         Me.Button1.Text = "Load Report"
         Me.Button1.UseVisualStyleBackColor = False
         '
+        'btnBack
+        '
+        Me.btnBack.BackColor = System.Drawing.SystemColors.HotTrack
+        Me.btnBack.Font = New System.Drawing.Font("Mongolian Baiti", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnBack.ForeColor = System.Drawing.SystemColors.ControlLightLight
+        Me.btnBack.Location = New System.Drawing.Point(111, 623)
+        Me.btnBack.Name = "btnBack"
+        Me.btnBack.Size = New System.Drawing.Size(129, 52)
+        Me.btnBack.TabIndex = 7
+        Me.btnBack.Text = "Back"
+        Me.btnBack.UseVisualStyleBackColor = False
+        '
         'Donor_Registration_Report
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1364, 749)
+        Me.Controls.Add(Me.btnBack)
         Me.Controls.Add(Me.Button1)
         Me.Controls.Add(Me.ReportViewer1)
         Me.Name = "Donor_Registration_Report"
@@ -62,4 +76,5 @@ Partial Class Donor_Registration_Report
 
     Friend WithEvents ReportViewer1 As Microsoft.Reporting.WinForms.ReportViewer
     Friend WithEvents Button1 As Button
+    Friend WithEvents btnBack As Button
 End Class

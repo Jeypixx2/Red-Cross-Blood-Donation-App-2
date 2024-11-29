@@ -13,7 +13,7 @@ Public Class Donor_Registration_Report
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
         Try
             ' Use the existing connection from MySQLModule
-            Dim connection As MySqlConnection = MySQLModule.conn
+            Dim connection As MySqlConnection = modDB.conn
 
             If connection IsNot Nothing AndAlso connection.State = ConnectionState.Open Then
                 Dim query As String = "SELECT donors.DonorID, donors.FirstName, donors.MiddleName, donors.LastName, donors.BloodType, donors.RegDate, " &
@@ -44,5 +44,10 @@ Public Class Donor_Registration_Report
         Finally
             ' No need to close the connection here since it's managed by MySQLModule
         End Try
+    End Sub
+
+    Private Sub btnBack_Click(sender As Object, e As EventArgs) Handles btnBack.Click
+        Me.Close()
+        Admin_Dashboard.Show()
     End Sub
 End Class

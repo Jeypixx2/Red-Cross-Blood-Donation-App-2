@@ -27,7 +27,7 @@ Public Class Donation_Management_new
     ' Method to insert donation data into the database
     Private Sub InsertDonationData()
         ' Use the existing connection from MySQLModule (no need to call Connect again)
-        Dim connection As MySqlConnection = MySQLModule.conn
+        Dim connection As MySqlConnection = modDB.conn
 
         If connection IsNot Nothing AndAlso connection.State = ConnectionState.Open Then
             Try
