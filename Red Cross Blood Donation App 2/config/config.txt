@@ -1,4 +1,0 @@
-server=localhost
-uid=root
-password=
-database=redcrossdb

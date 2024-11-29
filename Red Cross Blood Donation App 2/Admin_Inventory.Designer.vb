@@ -35,7 +35,6 @@ Partial Class Admin_Inventory
         Me.HistoryRecord = New System.Windows.Forms.Button()
         Me.Home_Button = New System.Windows.Forms.Button()
         Me.Panel1 = New System.Windows.Forms.Panel()
-        Me.Button10 = New System.Windows.Forms.Button()
         Me.Button9 = New System.Windows.Forms.Button()
         Me.Button8 = New System.Windows.Forms.Button()
         Me.Button7 = New System.Windows.Forms.Button()
@@ -173,7 +172,6 @@ Partial Class Admin_Inventory
         'Panel1
         '
         Me.Panel1.BackColor = System.Drawing.Color.Firebrick
-        Me.Panel1.Controls.Add(Me.Button10)
         Me.Panel1.Controls.Add(Me.Button9)
         Me.Panel1.Controls.Add(Me.Button8)
         Me.Panel1.Controls.Add(Me.Button7)
@@ -188,17 +186,6 @@ Partial Class Admin_Inventory
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Size = New System.Drawing.Size(180, 463)
         Me.Panel1.TabIndex = 23
-        '
-        'Button10
-        '
-        Me.Button10.BackColor = System.Drawing.SystemColors.ControlDarkDark
-        Me.Button10.ForeColor = System.Drawing.SystemColors.Control
-        Me.Button10.Location = New System.Drawing.Point(22, 425)
-        Me.Button10.Name = "Button10"
-        Me.Button10.Size = New System.Drawing.Size(145, 35)
-        Me.Button10.TabIndex = 27
-        Me.Button10.Text = "Blood Supply Summary Report"
-        Me.Button10.UseVisualStyleBackColor = False
         '
         'Button9
         '
@@ -374,6 +361,5 @@ Partial Class Admin_Inventory
     Friend WithEvents Button8 As Button
     Friend WithEvents Button7 As Button
     Friend WithEvents Button9 As Button
-    Friend WithEvents Button10 As Button
     Friend WithEvents txtSearch As TextBox
 End Class
