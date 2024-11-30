@@ -81,7 +81,7 @@ Partial Class Admin_Dashboard
         'User
         '
         Me.User.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold)
-        Me.User.Location = New System.Drawing.Point(25, 504)
+        Me.User.Location = New System.Drawing.Point(25, 424)
         Me.User.Name = "User"
         Me.User.Size = New System.Drawing.Size(125, 55)
         Me.User.TabIndex = 5
@@ -91,7 +91,7 @@ Partial Class Admin_Dashboard
         'Donor
         '
         Me.Donor.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold)
-        Me.Donor.Location = New System.Drawing.Point(25, 247)
+        Me.Donor.Location = New System.Drawing.Point(25, 149)
         Me.Donor.Name = "Donor"
         Me.Donor.Size = New System.Drawing.Size(125, 50)
         Me.Donor.TabIndex = 6
@@ -101,7 +101,7 @@ Partial Class Admin_Dashboard
         'Inventory
         '
         Me.Inventory.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold)
-        Me.Inventory.Location = New System.Drawing.Point(25, 374)
+        Me.Inventory.Location = New System.Drawing.Point(25, 282)
         Me.Inventory.Name = "Inventory"
         Me.Inventory.Size = New System.Drawing.Size(125, 55)
         Me.Inventory.TabIndex = 7
@@ -111,15 +111,15 @@ Partial Class Admin_Dashboard
         'DataGridView1
         '
         Me.DataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.DataGridView1.Location = New System.Drawing.Point(197, 122)
+        Me.DataGridView1.Location = New System.Drawing.Point(166, 122)
         Me.DataGridView1.Name = "DataGridView1"
-        Me.DataGridView1.Size = New System.Drawing.Size(1071, 527)
+        Me.DataGridView1.Size = New System.Drawing.Size(996, 527)
         Me.DataGridView1.TabIndex = 8
         '
         'MonthCalendar1
         '
         Me.MonthCalendar1.Anchor = System.Windows.Forms.AnchorStyles.Top
-        Me.MonthCalendar1.Location = New System.Drawing.Point(1041, 86)
+        Me.MonthCalendar1.Location = New System.Drawing.Point(534, 83)
         Me.MonthCalendar1.Name = "MonthCalendar1"
         Me.MonthCalendar1.TabIndex = 14
         Me.MonthCalendar1.Visible = False
@@ -127,7 +127,7 @@ Partial Class Admin_Dashboard
         'ComboBox1
         '
         Me.ComboBox1.FormattingEnabled = True
-        Me.ComboBox1.Location = New System.Drawing.Point(1041, 86)
+        Me.ComboBox1.Location = New System.Drawing.Point(594, 83)
         Me.ComboBox1.Name = "ComboBox1"
         Me.ComboBox1.Size = New System.Drawing.Size(121, 21)
         Me.ComboBox1.TabIndex = 11
@@ -146,16 +146,16 @@ Partial Class Admin_Dashboard
         Me.Panel1.Controls.Add(Me.Button1)
         Me.Panel1.Controls.Add(Me.Label1)
         Me.Panel1.Dock = System.Windows.Forms.DockStyle.Right
-        Me.Panel1.Location = New System.Drawing.Point(1304, 0)
+        Me.Panel1.Location = New System.Drawing.Point(1184, 0)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(180, 661)
+        Me.Panel1.Size = New System.Drawing.Size(180, 749)
         Me.Panel1.TabIndex = 24
         '
         'Button9
         '
         Me.Button9.BackColor = System.Drawing.SystemColors.ControlDarkDark
         Me.Button9.ForeColor = System.Drawing.SystemColors.Control
-        Me.Button9.Location = New System.Drawing.Point(23, 590)
+        Me.Button9.Location = New System.Drawing.Point(23, 643)
         Me.Button9.Name = "Button9"
         Me.Button9.Size = New System.Drawing.Size(145, 30)
         Me.Button9.TabIndex = 26
@@ -166,7 +166,7 @@ Partial Class Admin_Dashboard
         '
         Me.Button8.BackColor = System.Drawing.SystemColors.ControlDarkDark
         Me.Button8.ForeColor = System.Drawing.SystemColors.Control
-        Me.Button8.Location = New System.Drawing.Point(23, 520)
+        Me.Button8.Location = New System.Drawing.Point(23, 573)
         Me.Button8.Name = "Button8"
         Me.Button8.Size = New System.Drawing.Size(145, 39)
         Me.Button8.TabIndex = 25
@@ -177,7 +177,7 @@ Partial Class Admin_Dashboard
         '
         Me.Button7.BackColor = System.Drawing.SystemColors.ControlDarkDark
         Me.Button7.ForeColor = System.Drawing.SystemColors.Control
-        Me.Button7.Location = New System.Drawing.Point(23, 449)
+        Me.Button7.Location = New System.Drawing.Point(23, 502)
         Me.Button7.Name = "Button7"
         Me.Button7.Size = New System.Drawing.Size(145, 40)
         Me.Button7.TabIndex = 24
@@ -188,7 +188,7 @@ Partial Class Admin_Dashboard
         '
         Me.Button6.BackColor = System.Drawing.SystemColors.ControlDarkDark
         Me.Button6.ForeColor = System.Drawing.SystemColors.Control
-        Me.Button6.Location = New System.Drawing.Point(23, 388)
+        Me.Button6.Location = New System.Drawing.Point(23, 441)
         Me.Button6.Name = "Button6"
         Me.Button6.Size = New System.Drawing.Size(145, 30)
         Me.Button6.TabIndex = 6
@@ -199,7 +199,7 @@ Partial Class Admin_Dashboard
         '
         Me.Button5.BackColor = System.Drawing.SystemColors.ControlDarkDark
         Me.Button5.ForeColor = System.Drawing.SystemColors.Control
-        Me.Button5.Location = New System.Drawing.Point(22, 320)
+        Me.Button5.Location = New System.Drawing.Point(22, 373)
         Me.Button5.Name = "Button5"
         Me.Button5.Size = New System.Drawing.Size(145, 37)
         Me.Button5.TabIndex = 5
@@ -210,7 +210,7 @@ Partial Class Admin_Dashboard
         '
         Me.Button4.BackColor = System.Drawing.SystemColors.ControlDarkDark
         Me.Button4.ForeColor = System.Drawing.SystemColors.Control
-        Me.Button4.Location = New System.Drawing.Point(22, 259)
+        Me.Button4.Location = New System.Drawing.Point(22, 312)
         Me.Button4.Name = "Button4"
         Me.Button4.Size = New System.Drawing.Size(145, 30)
         Me.Button4.TabIndex = 4
@@ -221,7 +221,7 @@ Partial Class Admin_Dashboard
         '
         Me.Button3.BackColor = System.Drawing.SystemColors.ControlDarkDark
         Me.Button3.ForeColor = System.Drawing.SystemColors.Control
-        Me.Button3.Location = New System.Drawing.Point(22, 196)
+        Me.Button3.Location = New System.Drawing.Point(22, 249)
         Me.Button3.Name = "Button3"
         Me.Button3.Size = New System.Drawing.Size(145, 30)
         Me.Button3.TabIndex = 3
@@ -232,7 +232,7 @@ Partial Class Admin_Dashboard
         '
         Me.Button2.BackColor = System.Drawing.SystemColors.ControlDarkDark
         Me.Button2.ForeColor = System.Drawing.SystemColors.Control
-        Me.Button2.Location = New System.Drawing.Point(22, 136)
+        Me.Button2.Location = New System.Drawing.Point(22, 189)
         Me.Button2.Name = "Button2"
         Me.Button2.Size = New System.Drawing.Size(145, 30)
         Me.Button2.TabIndex = 2
@@ -243,7 +243,7 @@ Partial Class Admin_Dashboard
         '
         Me.Button1.BackColor = System.Drawing.SystemColors.ControlDarkDark
         Me.Button1.ForeColor = System.Drawing.SystemColors.Control
-        Me.Button1.Location = New System.Drawing.Point(22, 74)
+        Me.Button1.Location = New System.Drawing.Point(22, 127)
         Me.Button1.Name = "Button1"
         Me.Button1.Size = New System.Drawing.Size(145, 30)
         Me.Button1.TabIndex = 1
@@ -255,7 +255,7 @@ Partial Class Admin_Dashboard
         Me.Label1.AutoSize = True
         Me.Label1.Font = New System.Drawing.Font("Times New Roman", 20.25!, System.Drawing.FontStyle.Bold)
         Me.Label1.ForeColor = System.Drawing.SystemColors.ButtonHighlight
-        Me.Label1.Location = New System.Drawing.Point(32, 5)
+        Me.Label1.Location = New System.Drawing.Point(39, 42)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(128, 62)
         Me.Label1.TabIndex = 0
@@ -275,7 +275,7 @@ Partial Class Admin_Dashboard
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1484, 661)
+        Me.ClientSize = New System.Drawing.Size(1364, 749)
         Me.Controls.Add(Me.Panel1)
         Me.Controls.Add(Me.ComboBox1)
         Me.Controls.Add(Me.MonthCalendar1)

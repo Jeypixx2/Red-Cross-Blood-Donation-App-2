@@ -73,7 +73,7 @@ Public Class HealthCare_Dashboard
 
     ' Get filtered data for the selected date
     Private Function GetFilteredDataForDate(selectedDate As Date) As DataTable
-        Dim query As String = "SELECT donation.BloodID, donation.DonationDate, donation.BloodType, donation.RhesusFactor, " &
+        Dim query As String = "SELECT donation.BloodID, donation.DonationDate, donors.BloodType, donation.RhesusFactor, " &
                           "donation.DonationType, donation.BloodVolume, donation.CollectionMethod, donors.LastName, donors.MiddleName, donors.FirstName, " &
                           "donors.Baranggay, donors.City, donors.Province, donors.Sex, donors.Age " &
                           "FROM donation " &
@@ -85,7 +85,7 @@ Public Class HealthCare_Dashboard
     ' Get filtered data for the selected week
     Private Function GetFilteredDataForWeek(selectedDate As Date) As DataTable
         Dim endOfWeek As Date = selectedDate.AddDays(DayOfWeek.Saturday - selectedDate.DayOfWeek)
-        Dim query As String = "SELECT donation.BloodID, donation.DonationDate, donation.BloodType, donation.RhesusFactor, " &
+        Dim query As String = "SELECT donation.BloodID, donation.DonationDate, donors.BloodType, donation.RhesusFactor, " &
                           "donation.DonationType, donation.BloodVolume, donation.CollectionMethod, donors.LastName, donors.MiddleName, donors.FirstName, " &
                           "donors.Baranggay, donors.City, donors.Province, donors.Sex, donors.Age " &
                           "FROM donation " &
@@ -96,7 +96,7 @@ Public Class HealthCare_Dashboard
 
     ' Show data for the selected month
     Private Sub ShowDataForMonth(selectedMonth As Integer)
-        Dim query As String = "SELECT donation.BloodID, donation.DonationDate, donation.BloodType, donation.RhesusFactor, " &
+        Dim query As String = "SELECT donation.BloodID, donation.DonationDate, donors.BloodType, donation.RhesusFactor, " &
                           "donation.DonationType, donation.BloodVolume, donation.CollectionMethod, donors.LastName, donors.MiddleName, donors.FirstName, " &
                           "donors.Baranggay, donors.City, donors.Province, donors.Sex, donors.Age " &
                           "FROM donation " &
@@ -141,7 +141,7 @@ Public Class HealthCare_Dashboard
 
         ' If searchText is provided, apply the search filter
         If Not String.IsNullOrEmpty(searchText) Then
-            filteredData = FilterDataBySearch("SELECT donation.BloodID, donation.DonationDate, donation.BloodType, donation.RhesusFactor, " &
+            filteredData = FilterDataBySearch("SELECT donation.BloodID, donation.DonationDate, donors.BloodType, donation.RhesusFactor, " &
                                             "donation.DonationType, donation.BloodVolume, donation.CollectionMethod, donors.LastName, " &
                                             "donors.FirstName, donors.MiddleName, donors.Baranggay, donors.City, donors.Province, " &
                                             "donors.Sex, donors.Age " &
@@ -152,7 +152,7 @@ Public Class HealthCare_Dashboard
                                             "donors.City LIKE @searchText OR donors.Province LIKE @searchText OR " &
                                             "donors.Sex LIKE @searchText OR donors.Age LIKE @searchText OR " &
                                             "donation.BloodID LIKE @searchText OR donation.DonationDate LIKE @searchText OR " &
-                                            "donation.BloodType LIKE @searchText OR donation.RhesusFactor LIKE @searchText OR " &
+                                            "donors.BloodType LIKE @searchText OR donation.RhesusFactor LIKE @searchText OR " &
                                             "donation.DonationType LIKE @searchText OR donation.BloodVolume LIKE @searchText OR " &
                                             "donation.CollectionMethod LIKE @searchText)", searchText)
 
@@ -197,7 +197,7 @@ Public Class HealthCare_Dashboard
 
         ' Apply search-based filtering with the selected date filter
         If Not String.IsNullOrEmpty(searchText) Then
-            Dim searchQuery As String = "SELECT donation.BloodID, donation.DonationDate, donation.BloodType, donation.RhesusFactor, " &
+            Dim searchQuery As String = "SELECT donation.BloodID, donation.DonationDate, donors.BloodType, donation.RhesusFactor, " &
                                             "donation.DonationType, donation.BloodVolume, donation.CollectionMethod, donors.LastName, " &
                                             "donors.FirstName, donors.MiddleName, donors.Baranggay, donors.City, donors.Province, " &
                                             "donors.Sex, donors.Age " &
@@ -208,7 +208,7 @@ Public Class HealthCare_Dashboard
                                             "donors.City LIKE @searchText OR donors.Province LIKE @searchText OR " &
                                             "donors.Sex LIKE @searchText OR donors.Age LIKE @searchText OR " &
                                             "donation.BloodID LIKE @searchText OR donation.DonationDate LIKE @searchText OR " &
-                                            "donation.BloodType LIKE @searchText OR donation.RhesusFactor LIKE @searchText OR " &
+                                            "donors.BloodType LIKE @searchText OR donation.RhesusFactor LIKE @searchText OR " &
                                             "donation.DonationType LIKE @searchText OR donation.BloodVolume LIKE @searchText OR " &
                                             "donation.CollectionMethod LIKE @searchText)"
             filteredData = FilterDataBySearch(searchQuery, searchText)
@@ -272,7 +272,7 @@ Public Class HealthCare_Dashboard
             ' Get the selected row
             Dim selectedRow As DataGridViewRow = DataGridView1.SelectedRows(0)
 
-            ' Retrieve the necessary data from the selected row in DataGridView
+            ' Retrieve data from the selected row
             Dim bloodID As Integer = selectedRow.Cells("BloodID").Value
             Dim lastName As String = selectedRow.Cells("LastName").Value.ToString()
             Dim firstName As String = selectedRow.Cells("FirstName").Value.ToString()
@@ -283,79 +283,77 @@ Public Class HealthCare_Dashboard
             Dim donationType As String = selectedRow.Cells("DonationType").Value.ToString()
             Dim bloodVolume As String = selectedRow.Cells("BloodVolume").Value.ToString()
 
-            ' Create a confirmation message displaying the data
+            ' Create a confirmation message
             Dim confirmationMessage As String = $"You are about to retrieve the following data:" & vbCrLf &
-                                            $"Blood ID: {bloodID}" & vbCrLf &
-                                            $"Name: {lastName}, {firstName} {middleName}" & vbCrLf &
-                                            $"Blood Type: {bloodType} {rhesusFactor}" & vbCrLf &
-                                            $"Donation Type: {donationType}" & vbCrLf &
-                                            $"Blood Volume: {bloodVolume}" & vbCrLf &
-                                            $"Donation Date: {donationDate}" & vbCrLf &
-                                            "Do you want to continue?"
+                                                 $"Blood ID: {bloodID}" & vbCrLf &
+                                                 $"Name: {lastName}, {firstName} {middleName}" & vbCrLf &
+                                                 $"Blood Type: {bloodType} {rhesusFactor}" & vbCrLf &
+                                                 $"Donation Type: {donationType}" & vbCrLf &
+                                                 $"Blood Volume: {bloodVolume}" & vbCrLf &
+                                                 $"Donation Date: {donationDate}" & vbCrLf &
+                                                 "Do you want to continue?"
 
-            ' Display the confirmation dialog
+            ' Display confirmation dialog
             Dim result As DialogResult = MessageBox.Show(confirmationMessage, "Confirm Retrieval", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
 
-            ' If the user confirms, proceed with the retrieval
             If result = DialogResult.Yes Then
                 Try
-                    ' Set RetrieveDate to the current date and time
+                    ' Set the RetrieveDate to the current date and time
                     Dim retrieveDate As Date = DateTime.Now
 
                     ' Get or auto-increment HealthProviderID and PersonnelID
+                    Dim hospitalName As String = "YourHospitalName" ' Replace with actual value
+                    Dim personnelName As String = "YourPersonnelName" ' Replace with actual value
                     Dim ids = HealthCare_Access.GetHealthProviderAndPersonnelID(hospitalName, personnelName)
                     Dim healthProviderID As Integer = ids.Item1
                     Dim personnelID As Integer = ids.Item2
 
-                    Dim connection As MySqlConnection = modDB.conn
+                    ' Start a transaction
+                    Using connection As New MySqlConnection(strConnection)
+                        connection.Open()
+                        Using transaction As MySqlTransaction = connection.BeginTransaction()
+                            Try
+                                ' Insert into HealthProvider table
+                                Dim insertQuery As String = "INSERT INTO HealthProvider (HealthProviderID, CompanyHospitalName, PersonnelID, PersonnelName, BloodID, LastName, FirstName, MiddleName, BloodType, RhesusFactor, DonationType, BloodVolume, RetrieveDate) " &
+                                                            "VALUES (@HealthProviderID, @HospitalName, @PersonnelID, @PersonnelName, @BloodID, @LastName, @FirstName, @MiddleName, @BloodType, @RhesusFactor, @DonationType, @BloodVolume, @RetrieveDate)"
 
-                    ' Start a transaction to ensure both insert and delete are atomic
-                    Using transaction As MySqlTransaction = conn.BeginTransaction()
-                        Try
-                            ' SQL command to insert the data into the HealthProvider table
-                            Dim insertQuery As String = "INSERT INTO HealthProvider (HealthProviderID, CompanyHospitalName, PersonnelID, PersonnelName, BloodID, LastName, FirstName, MiddleName, BloodType, RhesusFactor, DonationType, BloodVolume, RetrieveDate) " &
-                                                        "VALUES (@HealthProviderID, @HospitalName, @PersonnelID, @PersonnelName, @BloodID, @LastName, @FirstName, @MiddleName, @BloodType, @RhesusFactor, @DonationType, @BloodVolume, @RetrieveDate)"
+                                Using cmd As New MySqlCommand(insertQuery, connection, transaction)
+                                    cmd.Parameters.AddWithValue("@HealthProviderID", healthProviderID)
+                                    cmd.Parameters.AddWithValue("@HospitalName", hospitalName)
+                                    cmd.Parameters.AddWithValue("@PersonnelID", personnelID)
+                                    cmd.Parameters.AddWithValue("@PersonnelName", personnelName)
+                                    cmd.Parameters.AddWithValue("@BloodID", bloodID)
+                                    cmd.Parameters.AddWithValue("@LastName", lastName)
+                                    cmd.Parameters.AddWithValue("@FirstName", firstName)
+                                    cmd.Parameters.AddWithValue("@MiddleName", middleName)
+                                    cmd.Parameters.AddWithValue("@BloodType", bloodType)
+                                    cmd.Parameters.AddWithValue("@RhesusFactor", rhesusFactor)
+                                    cmd.Parameters.AddWithValue("@DonationType", donationType)
+                                    cmd.Parameters.AddWithValue("@BloodVolume", bloodVolume)
+                                    cmd.Parameters.AddWithValue("@RetrieveDate", retrieveDate)
+                                    cmd.ExecuteNonQuery()
+                                End Using
 
-                            Using cmd As New MySqlCommand(insertQuery, conn, transaction)
-                                cmd.Parameters.AddWithValue("@HealthProviderID", healthProviderID)
-                                cmd.Parameters.AddWithValue("@HospitalName", hospitalName)
-                                cmd.Parameters.AddWithValue("@PersonnelID", personnelID)
-                                cmd.Parameters.AddWithValue("@PersonnelName", personnelName)
-                                cmd.Parameters.AddWithValue("@BloodID", bloodID)
-                                cmd.Parameters.AddWithValue("@LastName", lastName)
-                                cmd.Parameters.AddWithValue("@FirstName", firstName)
-                                cmd.Parameters.AddWithValue("@MiddleName", middleName)
-                                cmd.Parameters.AddWithValue("@BloodType", bloodType)
-                                cmd.Parameters.AddWithValue("@RhesusFactor", rhesusFactor)
-                                cmd.Parameters.AddWithValue("@DonationType", donationType)
-                                cmd.Parameters.AddWithValue("@BloodVolume", bloodVolume)
-                                cmd.Parameters.AddWithValue("@RetrieveDate", retrieveDate)
+                                ' Delete the selected row from the donation table
+                                Dim deleteQuery As String = "DELETE FROM donation WHERE BloodID = @BloodID"
+                                Using cmd As New MySqlCommand(deleteQuery, connection, transaction)
+                                    cmd.Parameters.AddWithValue("@BloodID", bloodID)
+                                    cmd.ExecuteNonQuery()
+                                End Using
 
-                                ' Execute the insert command
-                                cmd.ExecuteNonQuery()
-                            End Using
-
-                            ' SQL command to delete the selected row from the donation table
-                            Dim deleteQuery As String = "DELETE FROM donation WHERE BloodID = @BloodID"
-                            Using cmd As New MySqlCommand(deleteQuery, conn, transaction)
-                                cmd.Parameters.AddWithValue("@BloodID", bloodID)
-
-                                ' Execute the delete command
-                                cmd.ExecuteNonQuery()
-                            End Using
-
-                            ' Commit the transaction if both operations are successful
-                            transaction.Commit()
-
-                            ' Refresh the DataGridView to reflect the changes
-                            RefreshDataGridView()
-
-                        Catch ex As Exception
-                            ' If an error occurs, roll back the transaction
-                            transaction.Rollback()
-                            MessageBox.Show("Error: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                        End Try
+                                ' Commit the transaction
+                                transaction.Commit()
+                                MessageBox.Show("Data retrieved successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                            Catch ex As Exception
+                                ' Rollback on error
+                                transaction.Rollback()
+                                MessageBox.Show("Error: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                            End Try
+                        End Using
                     End Using
+
+                    ' Refresh the DataGridView to reflect the changes
+                    RefreshDataGridView()
                 Catch ex As Exception
                     MessageBox.Show("An unexpected error occurred: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                 End Try
@@ -365,28 +363,28 @@ Public Class HealthCare_Dashboard
         End If
     End Sub
 
-
-
-    ' This method will reload the data and update the DataGridView
     Private Sub RefreshDataGridView()
-        ' Create a connection and fetch the latest data
-        Dim query As String = "SELECT d.BloodID, d.DonationDate, d.BloodType, d.RhesusFactor, " &
-                      "d.DonationType, d.BloodVolume, d.CollectionMethod, p.LastName, p.FirstName, p.MiddleName, " &
-                      "p.Baranggay, p.City, p.Province, p.Sex, p.Age " &
-                      "FROM donation d " &
-                      "JOIN donors p ON d.DonorID = p.DonorID "
-        Dim connection As MySqlConnection = modDB.conn
-        Using cmd As New MySqlCommand(query, conn)
-            ' Open the connection
-            conn.Open()
-            Dim da As New MySqlDataAdapter(cmd)
-            Dim dt As New DataTable()
+        ' Refresh data in the DataGridView
+        Dim query As String = "SELECT d.BloodID, d.DonationDate, p.BloodType, d.RhesusFactor, " &
+                              "d.DonationType, d.BloodVolume, d.CollectionMethod, p.LastName, p.FirstName, p.MiddleName " &
+                              "FROM donation d JOIN donors p ON d.DonorID = p.DonorID"
 
-            ' Fill the DataTable with the updated data
-            da.Fill(dt)
+        Dim dt As New DataTable()
 
-            ' Bind the DataGridView to the updated data source
+        Try
+            Using connection As New MySqlConnection(strConnection)
+                connection.Open()
+                Using cmd As New MySqlCommand(query, connection)
+                    Using da As New MySqlDataAdapter(cmd)
+                        da.Fill(dt)
+                    End Using
+                End Using
+            End Using
+
             DataGridView1.DataSource = dt
-        End Using
+        Catch ex As Exception
+            MessageBox.Show("Error refreshing data: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
     End Sub
+
 End Class

@@ -39,7 +39,7 @@ Partial Class User_Status_Old
         Me.Back.BackColor = System.Drawing.Color.Red
         Me.Back.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold)
         Me.Back.ForeColor = System.Drawing.SystemColors.Control
-        Me.Back.Location = New System.Drawing.Point(888, 582)
+        Me.Back.Location = New System.Drawing.Point(608, 582)
         Me.Back.Name = "Back"
         Me.Back.Size = New System.Drawing.Size(173, 57)
         Me.Back.TabIndex = 7
@@ -51,7 +51,7 @@ Partial Class User_Status_Old
         Me.Panel1.Controls.Add(Me.LastNameTextBox)
         Me.Panel1.Controls.Add(Me.MiddleNameTextBox)
         Me.Panel1.Controls.Add(Me.FirstNameTextBox)
-        Me.Panel1.Location = New System.Drawing.Point(862, 313)
+        Me.Panel1.Location = New System.Drawing.Point(582, 268)
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Size = New System.Drawing.Size(236, 158)
         Me.Panel1.TabIndex = 6
@@ -97,7 +97,7 @@ Partial Class User_Status_Old
         '
         Me.pbLogo.Anchor = System.Windows.Forms.AnchorStyles.Top
         Me.pbLogo.Image = Global.Red_Cross_Blood_Donation_App_2.My.Resources.Resources.Red_Cross_logo
-        Me.pbLogo.Location = New System.Drawing.Point(876, 71)
+        Me.pbLogo.Location = New System.Drawing.Point(596, 71)
         Me.pbLogo.Name = "pbLogo"
         Me.pbLogo.Size = New System.Drawing.Size(207, 161)
         Me.pbLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
@@ -110,7 +110,7 @@ Partial Class User_Status_Old
         Me.Search.BackColor = System.Drawing.Color.MediumBlue
         Me.Search.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold)
         Me.Search.ForeColor = System.Drawing.Color.White
-        Me.Search.Location = New System.Drawing.Point(862, 488)
+        Me.Search.Location = New System.Drawing.Point(582, 488)
         Me.Search.Name = "Search"
         Me.Search.Size = New System.Drawing.Size(233, 75)
         Me.Search.TabIndex = 8
@@ -121,7 +121,7 @@ Partial Class User_Status_Old
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1924, 708)
+        Me.ClientSize = New System.Drawing.Size(1364, 708)
         Me.Controls.Add(Me.Search)
         Me.Controls.Add(Me.Back)
         Me.Controls.Add(Me.Panel1)

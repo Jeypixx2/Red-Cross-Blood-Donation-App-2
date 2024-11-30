@@ -35,7 +35,7 @@ Partial Class User_Status
         '
         Me.pbLogo.Anchor = System.Windows.Forms.AnchorStyles.Top
         Me.pbLogo.Image = Global.Red_Cross_Blood_Donation_App_2.My.Resources.Resources.Red_Cross_logo
-        Me.pbLogo.Location = New System.Drawing.Point(803, 77)
+        Me.pbLogo.Location = New System.Drawing.Point(523, 77)
         Me.pbLogo.Name = "pbLogo"
         Me.pbLogo.Size = New System.Drawing.Size(400, 154)
         Me.pbLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
@@ -46,7 +46,7 @@ Partial Class User_Status
         '
         Me.Panel1.Controls.Add(Me.Old_Donor)
         Me.Panel1.Controls.Add(Me.New_Donor)
-        Me.Panel1.Location = New System.Drawing.Point(868, 372)
+        Me.Panel1.Location = New System.Drawing.Point(584, 283)
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Size = New System.Drawing.Size(266, 204)
         Me.Panel1.TabIndex = 3
@@ -81,7 +81,7 @@ Partial Class User_Status
         Me.Back.BackColor = System.Drawing.Color.Red
         Me.Back.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold)
         Me.Back.ForeColor = System.Drawing.SystemColors.Control
-        Me.Back.Location = New System.Drawing.Point(956, 685)
+        Me.Back.Location = New System.Drawing.Point(676, 560)
         Me.Back.Name = "Back"
         Me.Back.Size = New System.Drawing.Size(87, 39)
         Me.Back.TabIndex = 4
@@ -92,7 +92,7 @@ Partial Class User_Status
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1924, 874)
+        Me.ClientSize = New System.Drawing.Size(1364, 749)
         Me.Controls.Add(Me.Back)
         Me.Controls.Add(Me.Panel1)
         Me.Controls.Add(Me.pbLogo)
