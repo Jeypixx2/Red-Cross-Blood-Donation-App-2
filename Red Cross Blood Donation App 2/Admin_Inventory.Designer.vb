@@ -199,7 +199,7 @@ Partial Class Admin_Inventory
         '
         Me.Button9.BackColor = System.Drawing.SystemColors.ControlDarkDark
         Me.Button9.ForeColor = System.Drawing.SystemColors.Control
-        Me.Button9.Location = New System.Drawing.Point(22, 389)
+        Me.Button9.Location = New System.Drawing.Point(23, 457)
         Me.Button9.Name = "Button9"
         Me.Button9.Size = New System.Drawing.Size(145, 30)
         Me.Button9.TabIndex = 26
@@ -210,7 +210,7 @@ Partial Class Admin_Inventory
         '
         Me.Button8.BackColor = System.Drawing.SystemColors.ControlDarkDark
         Me.Button8.ForeColor = System.Drawing.SystemColors.Control
-        Me.Button8.Location = New System.Drawing.Point(22, 344)
+        Me.Button8.Location = New System.Drawing.Point(23, 412)
         Me.Button8.Name = "Button8"
         Me.Button8.Size = New System.Drawing.Size(145, 39)
         Me.Button8.TabIndex = 25
@@ -221,7 +221,7 @@ Partial Class Admin_Inventory
         '
         Me.Button7.BackColor = System.Drawing.SystemColors.ControlDarkDark
         Me.Button7.ForeColor = System.Drawing.SystemColors.Control
-        Me.Button7.Location = New System.Drawing.Point(22, 298)
+        Me.Button7.Location = New System.Drawing.Point(23, 366)
         Me.Button7.Name = "Button7"
         Me.Button7.Size = New System.Drawing.Size(145, 40)
         Me.Button7.TabIndex = 24
@@ -232,7 +232,7 @@ Partial Class Admin_Inventory
         '
         Me.Button6.BackColor = System.Drawing.SystemColors.ControlDarkDark
         Me.Button6.ForeColor = System.Drawing.SystemColors.Control
-        Me.Button6.Location = New System.Drawing.Point(22, 262)
+        Me.Button6.Location = New System.Drawing.Point(23, 330)
         Me.Button6.Name = "Button6"
         Me.Button6.Size = New System.Drawing.Size(145, 30)
         Me.Button6.TabIndex = 6
@@ -243,7 +243,7 @@ Partial Class Admin_Inventory
         '
         Me.Button5.BackColor = System.Drawing.SystemColors.ControlDarkDark
         Me.Button5.ForeColor = System.Drawing.SystemColors.Control
-        Me.Button5.Location = New System.Drawing.Point(22, 218)
+        Me.Button5.Location = New System.Drawing.Point(23, 286)
         Me.Button5.Name = "Button5"
         Me.Button5.Size = New System.Drawing.Size(145, 37)
         Me.Button5.TabIndex = 5
@@ -254,7 +254,7 @@ Partial Class Admin_Inventory
         '
         Me.Button4.BackColor = System.Drawing.SystemColors.ControlDarkDark
         Me.Button4.ForeColor = System.Drawing.SystemColors.Control
-        Me.Button4.Location = New System.Drawing.Point(22, 182)
+        Me.Button4.Location = New System.Drawing.Point(23, 250)
         Me.Button4.Name = "Button4"
         Me.Button4.Size = New System.Drawing.Size(145, 30)
         Me.Button4.TabIndex = 4
@@ -265,7 +265,7 @@ Partial Class Admin_Inventory
         '
         Me.Button3.BackColor = System.Drawing.SystemColors.ControlDarkDark
         Me.Button3.ForeColor = System.Drawing.SystemColors.Control
-        Me.Button3.Location = New System.Drawing.Point(22, 146)
+        Me.Button3.Location = New System.Drawing.Point(23, 214)
         Me.Button3.Name = "Button3"
         Me.Button3.Size = New System.Drawing.Size(145, 30)
         Me.Button3.TabIndex = 3
@@ -276,7 +276,7 @@ Partial Class Admin_Inventory
         '
         Me.Button2.BackColor = System.Drawing.SystemColors.ControlDarkDark
         Me.Button2.ForeColor = System.Drawing.SystemColors.Control
-        Me.Button2.Location = New System.Drawing.Point(22, 110)
+        Me.Button2.Location = New System.Drawing.Point(23, 178)
         Me.Button2.Name = "Button2"
         Me.Button2.Size = New System.Drawing.Size(145, 30)
         Me.Button2.TabIndex = 2
@@ -287,7 +287,7 @@ Partial Class Admin_Inventory
         '
         Me.Button1.BackColor = System.Drawing.SystemColors.ControlDarkDark
         Me.Button1.ForeColor = System.Drawing.SystemColors.Control
-        Me.Button1.Location = New System.Drawing.Point(22, 74)
+        Me.Button1.Location = New System.Drawing.Point(23, 142)
         Me.Button1.Name = "Button1"
         Me.Button1.Size = New System.Drawing.Size(145, 30)
         Me.Button1.TabIndex = 1
@@ -299,7 +299,7 @@ Partial Class Admin_Inventory
         Me.Label1.AutoSize = True
         Me.Label1.Font = New System.Drawing.Font("Times New Roman", 20.25!, System.Drawing.FontStyle.Bold)
         Me.Label1.ForeColor = System.Drawing.SystemColors.ButtonHighlight
-        Me.Label1.Location = New System.Drawing.Point(32, 5)
+        Me.Label1.Location = New System.Drawing.Point(40, 60)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(128, 62)
         Me.Label1.TabIndex = 0
