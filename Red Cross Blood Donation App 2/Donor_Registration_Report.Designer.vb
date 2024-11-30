@@ -67,6 +67,7 @@ Partial Class Donor_Registration_Report
         Me.Controls.Add(Me.btnBack)
         Me.Controls.Add(Me.Button1)
         Me.Controls.Add(Me.ReportViewer1)
+        Me.MinimizeBox = False
         Me.Name = "Donor_Registration_Report"
         Me.Text = "Donor Registration Report"
         Me.WindowState = System.Windows.Forms.FormWindowState.Maximized

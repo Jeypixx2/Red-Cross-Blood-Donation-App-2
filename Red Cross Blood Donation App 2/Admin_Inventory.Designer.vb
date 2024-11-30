@@ -53,44 +53,45 @@ Partial Class Admin_Inventory
         '
         'pbLogo
         '
-        Me.pbLogo.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.pbLogo.Image = Global.Red_Cross_Blood_Donation_App_2.My.Resources.Resources.Red_Cross_logo
-        Me.pbLogo.Location = New System.Drawing.Point(12, 12)
+        Me.pbLogo.Location = New System.Drawing.Point(169, 23)
         Me.pbLogo.Name = "pbLogo"
-        Me.pbLogo.Size = New System.Drawing.Size(75, 67)
+        Me.pbLogo.Size = New System.Drawing.Size(99, 130)
         Me.pbLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
         Me.pbLogo.TabIndex = 2
         Me.pbLogo.TabStop = False
         '
         'cmbMonths
         '
+        Me.cmbMonths.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.cmbMonths.FormattingEnabled = True
-        Me.cmbMonths.Location = New System.Drawing.Point(423, 71)
+        Me.cmbMonths.Location = New System.Drawing.Point(778, 62)
         Me.cmbMonths.Name = "cmbMonths"
         Me.cmbMonths.Size = New System.Drawing.Size(121, 21)
         Me.cmbMonths.TabIndex = 20
         '
         'dtpCalendar
         '
-        Me.dtpCalendar.Location = New System.Drawing.Point(423, 62)
+        Me.dtpCalendar.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.dtpCalendar.Location = New System.Drawing.Point(778, 60)
         Me.dtpCalendar.Name = "dtpCalendar"
         Me.dtpCalendar.TabIndex = 19
         Me.dtpCalendar.Visible = False
         '
         'dgvInventory
         '
+        Me.dgvInventory.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom), System.Windows.Forms.AnchorStyles)
         Me.dgvInventory.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvInventory.Location = New System.Drawing.Point(130, 100)
+        Me.dgvInventory.Location = New System.Drawing.Point(282, 121)
         Me.dgvInventory.Name = "dgvInventory"
-        Me.dgvInventory.Size = New System.Drawing.Size(642, 331)
+        Me.dgvInventory.Size = New System.Drawing.Size(871, 551)
         Me.dgvInventory.TabIndex = 18
         '
         'EligibilityRecord
         '
+        Me.EligibilityRecord.Anchor = System.Windows.Forms.AnchorStyles.Left
         Me.EligibilityRecord.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold)
-        Me.EligibilityRecord.Location = New System.Drawing.Point(7, 215)
+        Me.EligibilityRecord.Location = New System.Drawing.Point(159, 375)
         Me.EligibilityRecord.Name = "EligibilityRecord"
         Me.EligibilityRecord.Size = New System.Drawing.Size(117, 55)
         Me.EligibilityRecord.TabIndex = 17
@@ -99,8 +100,9 @@ Partial Class Admin_Inventory
         '
         'DonationRecord
         '
+        Me.DonationRecord.Anchor = System.Windows.Forms.AnchorStyles.Left
         Me.DonationRecord.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold)
-        Me.DonationRecord.Location = New System.Drawing.Point(7, 159)
+        Me.DonationRecord.Location = New System.Drawing.Point(159, 277)
         Me.DonationRecord.Name = "DonationRecord"
         Me.DonationRecord.Size = New System.Drawing.Size(117, 50)
         Me.DonationRecord.TabIndex = 16
@@ -110,7 +112,7 @@ Partial Class Admin_Inventory
         'DonorRecord
         '
         Me.DonorRecord.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold)
-        Me.DonorRecord.Location = New System.Drawing.Point(7, 98)
+        Me.DonorRecord.Location = New System.Drawing.Point(159, 182)
         Me.DonorRecord.Name = "DonorRecord"
         Me.DonorRecord.Size = New System.Drawing.Size(117, 55)
         Me.DonorRecord.TabIndex = 15
@@ -119,8 +121,9 @@ Partial Class Admin_Inventory
         '
         'Monthly
         '
+        Me.Monthly.Anchor = System.Windows.Forms.AnchorStyles.Top
         Me.Monthly.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold)
-        Me.Monthly.Location = New System.Drawing.Point(312, 62)
+        Me.Monthly.Location = New System.Drawing.Point(550, 62)
         Me.Monthly.Name = "Monthly"
         Me.Monthly.Size = New System.Drawing.Size(86, 32)
         Me.Monthly.TabIndex = 14
@@ -129,8 +132,9 @@ Partial Class Admin_Inventory
         '
         'Weekly
         '
+        Me.Weekly.Anchor = System.Windows.Forms.AnchorStyles.Top
         Me.Weekly.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold)
-        Me.Weekly.Location = New System.Drawing.Point(221, 62)
+        Me.Weekly.Location = New System.Drawing.Point(409, 62)
         Me.Weekly.Name = "Weekly"
         Me.Weekly.Size = New System.Drawing.Size(85, 32)
         Me.Weekly.TabIndex = 13
@@ -139,8 +143,9 @@ Partial Class Admin_Inventory
         '
         'Daily
         '
+        Me.Daily.Anchor = System.Windows.Forms.AnchorStyles.Top
         Me.Daily.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold)
-        Me.Daily.Location = New System.Drawing.Point(130, 62)
+        Me.Daily.Location = New System.Drawing.Point(280, 62)
         Me.Daily.Name = "Daily"
         Me.Daily.Size = New System.Drawing.Size(85, 32)
         Me.Daily.TabIndex = 12
@@ -149,8 +154,9 @@ Partial Class Admin_Inventory
         '
         'HistoryRecord
         '
+        Me.HistoryRecord.Anchor = System.Windows.Forms.AnchorStyles.Left
         Me.HistoryRecord.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold)
-        Me.HistoryRecord.Location = New System.Drawing.Point(7, 276)
+        Me.HistoryRecord.Location = New System.Drawing.Point(159, 472)
         Me.HistoryRecord.Name = "HistoryRecord"
         Me.HistoryRecord.Size = New System.Drawing.Size(117, 55)
         Me.HistoryRecord.TabIndex = 21
@@ -159,10 +165,11 @@ Partial Class Admin_Inventory
         '
         'Home_Button
         '
+        Me.Home_Button.Anchor = System.Windows.Forms.AnchorStyles.Left
         Me.Home_Button.BackColor = System.Drawing.Color.DarkBlue
         Me.Home_Button.Font = New System.Drawing.Font("Segoe UI", 9.0!)
         Me.Home_Button.ForeColor = System.Drawing.SystemColors.Control
-        Me.Home_Button.Location = New System.Drawing.Point(7, 350)
+        Me.Home_Button.Location = New System.Drawing.Point(159, 563)
         Me.Home_Button.Name = "Home_Button"
         Me.Home_Button.Size = New System.Drawing.Size(117, 37)
         Me.Home_Button.TabIndex = 22
@@ -182,9 +189,10 @@ Partial Class Admin_Inventory
         Me.Panel1.Controls.Add(Me.Button2)
         Me.Panel1.Controls.Add(Me.Button1)
         Me.Panel1.Controls.Add(Me.Label1)
-        Me.Panel1.Location = New System.Drawing.Point(792, 12)
+        Me.Panel1.Dock = System.Windows.Forms.DockStyle.Right
+        Me.Panel1.Location = New System.Drawing.Point(1169, 0)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(180, 463)
+        Me.Panel1.Size = New System.Drawing.Size(180, 693)
         Me.Panel1.TabIndex = 23
         '
         'Button9
@@ -299,10 +307,11 @@ Partial Class Admin_Inventory
         '
         'txtSearch
         '
+        Me.txtSearch.Anchor = System.Windows.Forms.AnchorStyles.Top
         Me.txtSearch.BackColor = System.Drawing.SystemColors.ScrollBar
         Me.txtSearch.Cursor = System.Windows.Forms.Cursors.Default
         Me.txtSearch.Font = New System.Drawing.Font("Segoe UI", 9.0!)
-        Me.txtSearch.Location = New System.Drawing.Point(130, 27)
+        Me.txtSearch.Location = New System.Drawing.Point(280, 23)
         Me.txtSearch.Name = "txtSearch"
         Me.txtSearch.Size = New System.Drawing.Size(305, 23)
         Me.txtSearch.TabIndex = 24
@@ -312,7 +321,7 @@ Partial Class Admin_Inventory
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(984, 491)
+        Me.ClientSize = New System.Drawing.Size(1349, 693)
         Me.Controls.Add(Me.txtSearch)
         Me.Controls.Add(Me.Panel1)
         Me.Controls.Add(Me.Home_Button)
@@ -329,6 +338,7 @@ Partial Class Admin_Inventory
         Me.Controls.Add(Me.pbLogo)
         Me.Name = "Admin_Inventory"
         Me.Text = "Admin_Inventory"
+        Me.WindowState = System.Windows.Forms.FormWindowState.Maximized
         CType(Me.pbLogo, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.dgvInventory, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel1.ResumeLayout(False)

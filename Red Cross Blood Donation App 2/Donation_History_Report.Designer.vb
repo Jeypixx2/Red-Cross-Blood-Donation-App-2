@@ -32,7 +32,7 @@ Partial Class Donation_History_Report
         Me.ReportViewer1.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.ReportViewer1.Location = New System.Drawing.Point(312, 53)
+        Me.ReportViewer1.Location = New System.Drawing.Point(424, 53)
         Me.ReportViewer1.Name = "ReportViewer1"
         Me.ReportViewer1.ServerReport.BearerToken = Nothing
         Me.ReportViewer1.Size = New System.Drawing.Size(707, 663)
@@ -55,7 +55,7 @@ Partial Class Donation_History_Report
         Me.Button1.BackColor = System.Drawing.Color.IndianRed
         Me.Button1.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Button1.ForeColor = System.Drawing.SystemColors.ControlLightLight
-        Me.Button1.Location = New System.Drawing.Point(605, 13)
+        Me.Button1.Location = New System.Drawing.Point(734, 13)
         Me.Button1.Name = "Button1"
         Me.Button1.Size = New System.Drawing.Size(125, 34)
         Me.Button1.TabIndex = 7
