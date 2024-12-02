@@ -31,7 +31,10 @@ Public Class Blood_Inventory_Report
 
                 With Me.ReportViewer1.LocalReport
                     .DataSources.Clear()
-                    .ReportPath = "C:\Users\WINDOWS\source\repos\Red Cross Blood Donation App 2\Red Cross Blood Donation App 2\Blood_Inven_Report.rdlc"
+
+                    ' Build the dynamic path to the .rdlc file
+                    Dim reportPath As String = IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Reports", "Blood_Inven_Report.rdlc")
+                    .ReportPath = reportPath
                     .DataSources.Add(New ReportDataSource("DataSet3", dt))
                 End With
 
