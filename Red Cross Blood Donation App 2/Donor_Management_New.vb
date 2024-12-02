@@ -18,13 +18,12 @@ Public Class Donor_Management_New
         Return age
     End Function
 
-
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
-        Dim connectionString As String = "Server=localhost;Database=redcrossdb;Uid=root;Pwd=;"
-        Using connection As New MySqlConnection(connectionString)
-            Try
-                connection.Open()
+        ' Use the existing connection from MySQLModule (no need to call Connect again)
+        Dim connection As MySqlConnection = modDB.conn
 
+        If connection IsNot Nothing AndAlso connection.State = ConnectionState.Open Then
+            Try
                 ' Log the input values for debugging purposes
                 MessageBox.Show("First Name: " & txtFirstName.Text)
                 MessageBox.Show("Last Name: " & txtlastname.Text)
@@ -78,7 +77,6 @@ Public Class Donor_Management_New
                     cmd.ExecuteNonQuery()
                 End Using
 
-
                 ' Retrieve DonorID, BloodType, and Age
                 RetrieveDonorData(connection)
 
@@ -89,15 +87,14 @@ Public Class Donor_Management_New
                 Eligibility_Checker_new.Show()
                 Me.Hide()
 
-
             Catch ex As MySqlException
                 MessageBox.Show("MySQL Error: " & ex.Message)
             Catch ex As Exception
                 MessageBox.Show("General Error: " & ex.Message)
-            Finally
-                connection.Close()
             End Try
-        End Using
+        Else
+            MessageBox.Show("Database connection is not open.")
+        End If
     End Sub
 
     Private Sub RetrieveDonorData(connection As MySqlConnection)
@@ -116,7 +113,6 @@ Public Class Donor_Management_New
             End Using
         End Using
     End Sub
-
 
     Private Sub Donor_Management_New_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         ' Initialize form if needed

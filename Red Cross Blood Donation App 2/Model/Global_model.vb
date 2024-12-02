@@ -111,7 +111,7 @@ Public Class Global_model
         Try
             ' Open the connection if not already open
             If conn.State = ConnectionState.Closed Then
-                Connect()  ' Assuming Connect establishes the DB connection
+                UpdateConnectionString()
             End If
 
             ' Retrieve all data from the selected table

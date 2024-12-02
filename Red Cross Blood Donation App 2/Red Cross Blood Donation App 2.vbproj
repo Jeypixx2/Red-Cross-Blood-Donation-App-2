@@ -332,7 +332,7 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Model\Global_model.vb" />
-    <Compile Include="MySQLModule.vb" />
+    <Compile Include="modDB.vb" />
     <Compile Include="FormHelper.vb" />
     <Compile Include="DoubleBuffering.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
@@ -509,6 +509,5 @@
     <Content Include="Resources\pngtree-red-arrow-sign-clipart-png-image_6520593.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
-
   <Import Project="..\..\Red Cross Blood Donation App 2\Red Cross Blood Donation App 2\packages\Microsoft.Data.SqlClient.SNI.5.2.0\build\net462\Microsoft.Data.SqlClient.SNI.targets" Condition="Exists('..\..\Red Cross Blood Donation App 2\Red Cross Blood Donation App 2\packages\Microsoft.Data.SqlClient.SNI.5.2.0\build\net462\Microsoft.Data.SqlClient.SNI.targets')" />
 </Project>

@@ -9,7 +9,7 @@
     Public Calendar As Integer
 
     Private Sub Admin_Inventory_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        Connect()
+        UpdateConnectionString()
         DoubleBuffering.EnableDoubleBuffering(dgvInventory)
         currentTable = "donors"
         dbDateColumn = "RegDate"
@@ -152,7 +152,7 @@
     End Sub
 
     Private Sub HistoryRecord_Click(sender As Object, e As EventArgs) Handles HistoryRecord.Click
-        Connect()
+        UpdateConnectionString()
         DoubleBuffering.EnableDoubleBuffering(dgvInventory)
         currentTable = "healthprovider"
         dbDateColumn = "RetrieveDate"

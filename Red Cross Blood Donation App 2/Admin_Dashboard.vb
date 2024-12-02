@@ -3,7 +3,6 @@ Public Class Admin_Dashboard
     ' Instance of SampleDataGenerator (for possible future use)
     Private sampleData As DataTable
     Private isDailyView As Boolean ' Flag to determine the current view
-    Private connectionString As String = "Server=localhost;Database=redcrossdb;Uid=root;Pwd=;"
     Public Doublebuffer As New DoubleBuffering
 
     ' Load event handler for the dashboard
@@ -85,24 +84,26 @@ Public Class Admin_Dashboard
     Private Function FilterData(query As String, ParamArray parameters As Object()) As DataTable
         Dim table As New DataTable()
 
-        Using connection As New MySqlConnection(connectionString)
-            Try
-                connection.Open()
+        Try
+            ' Ensure the connection is open
+            If modDB.conn.State = ConnectionState.Closed Then
+                modDB.UpdateConnectionString()
+            End If
 
-                Using cmd As New MySqlCommand(query, connection)
-                    ' Add parameters to the SQL command
-                    For i As Integer = 0 To parameters.Length - 1
-                        cmd.Parameters.AddWithValue($"@param{i}", parameters(i))
-                    Next
+            ' Use the shared connection
+            Using cmd As New MySqlCommand(query, modDB.conn)
+                ' Add parameters to the SQL command
+                For i As Integer = 0 To parameters.Length - 1
+                    cmd.Parameters.AddWithValue($"@param{i}", parameters(i))
+                Next
 
-                    Using reader As MySqlDataReader = cmd.ExecuteReader()
-                        table.Load(reader)
-                    End Using
+                Using reader As MySqlDataReader = cmd.ExecuteReader()
+                    table.Load(reader)
                 End Using
-            Catch ex As MySqlException
-                MessageBox.Show($"An error occurred: {ex.Message}", "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            End Try
-        End Using
+            End Using
+        Catch ex As MySqlException
+            MessageBox.Show($"An error occurred: {ex.Message}", "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
 
         Return table
     End Function

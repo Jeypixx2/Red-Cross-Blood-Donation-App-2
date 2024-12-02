@@ -8,9 +8,10 @@ Public Class Blood_Inventory_Report
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
         Try
-            Connect()
+            Dim connection As MySqlConnection = modDB.conn
+            If connection IsNot Nothing AndAlso connection.State = ConnectionState.Open Then
 
-            Dim query As String = "SELECT 
+                Dim query As String = "SELECT 
                     donors.BloodType,
                     donation.Blood_Group,
                     donation.RhesusFactor,
@@ -23,24 +24,33 @@ Public Class Blood_Inventory_Report
                 ON 
                     donors.DonorID = donation.DonorID;"
 
-            Dim cmd As New MySqlCommand(query, conn)
-            Dim da As New MySqlDataAdapter(cmd)
-            Dim dt As New DataTable
-            da.Fill(dt)
+                Dim cmd As New MySqlCommand(query, conn)
+                Dim da As New MySqlDataAdapter(cmd)
+                Dim dt As New DataTable
+                da.Fill(dt)
 
-            With Me.ReportViewer1.LocalReport
-                .DataSources.Clear()
-                .ReportPath = "C:\Users\WINDOWS\source\repos\Red Cross Blood Donation App 2\Red Cross Blood Donation App 2\Blood_Inven_Report.rdlc"
-                .DataSources.Add(New ReportDataSource("DataSet3", dt))
-            End With
+                With Me.ReportViewer1.LocalReport
+                    .DataSources.Clear()
+                    .ReportPath = "C:\Users\WINDOWS\source\repos\Red Cross Blood Donation App 2\Red Cross Blood Donation App 2\Blood_Inven_Report.rdlc"
+                    .DataSources.Add(New ReportDataSource("DataSet3", dt))
+                End With
 
-            Me.ReportViewer1.RefreshReport()
+                Me.ReportViewer1.RefreshReport()
+            Else
+                MessageBox.Show("Database connection is not open.")
+            End If
         Catch ex As Exception
             MsgBox("Error: " & ex.Message, MsgBoxStyle.Critical)
         Finally
-            If conn.State = ConnectionState.Open Then
-                conn.Close()
-            End If
         End Try
+    End Sub
+
+    Private Sub Blood_Inventory_Report_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+
+    End Sub
+
+    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles btnBack.Click
+        Me.Close()
+        Admin_Dashboard.Show()
     End Sub
 End Class

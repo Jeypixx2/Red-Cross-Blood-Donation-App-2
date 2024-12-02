@@ -8,9 +8,10 @@ Public Class Ineligibility_Report
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
         Try
-            Connect()
+            Dim connection As MySqlConnection = modDB.conn
+            If connection IsNot Nothing AndAlso connection.State = ConnectionState.Open Then
 
-            Dim query As String = "
+                Dim query As String = "
             SELECT 
                 donors.DonorID, 
                 donors.FirstName, 
@@ -29,32 +30,37 @@ Public Class Ineligibility_Report
                 eligibility.EligibilityStatus = 0;
         "
 
-            Dim cmd As New MySqlCommand(query, conn)
-            Dim da As New MySqlDataAdapter(cmd)
-            Dim dt As New DataTable
-            da.Fill(dt)
+                Dim cmd As New MySqlCommand(query, conn)
+                Dim da As New MySqlDataAdapter(cmd)
+                Dim dt As New DataTable
+                da.Fill(dt)
 
-            If dt.Rows.Count = 0 Then
-                MsgBox("No data found for this report.", MsgBoxStyle.Information)
+                If dt.Rows.Count = 0 Then
+                    MsgBox("No data found for this report.", MsgBoxStyle.Information)
+                End If
+
+                With Me.ReportViewer1.LocalReport
+                    .DataSources.Clear()
+                    .ReportPath = "C:\Users\WINDOWS\source\repos\Red Cross Blood Donation App 2\Red Cross Blood Donation App 2\Ineligibility_Rep.rdlc"
+                    .DataSources.Add(New ReportDataSource("DataSet4", dt))
+                End With
+
+                Me.ReportViewer1.RefreshReport()
+            Else
+                MessageBox.Show("Database connection is not open.")
             End If
-
-            With Me.ReportViewer1.LocalReport
-                .DataSources.Clear()
-                .ReportPath = "C:\Users\WINDOWS\source\repos\Red Cross Blood Donation App 2\Red Cross Blood Donation App 2\Ineligibility_Rep.rdlc"
-                .DataSources.Add(New ReportDataSource("DataSet4", dt))
-            End With
-
-            Me.ReportViewer1.RefreshReport()
         Catch ex As Exception
             MsgBox("Error: " & ex.Message, MsgBoxStyle.Critical)
         Finally
-            If conn.State = ConnectionState.Open Then
-                conn.Close()
-            End If
         End Try
     End Sub
 
     Private Sub ReportViewer1_Load(sender As Object, e As EventArgs) Handles ReportViewer1.Load
         Me.ReportViewer1.RefreshReport()
+    End Sub
+
+    Private Sub btnBack_Click(sender As Object, e As EventArgs) Handles btnBack.Click
+        Me.Close()
+        Admin_Dashboard.Show()
     End Sub
 End Class

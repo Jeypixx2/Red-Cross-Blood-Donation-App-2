@@ -6,13 +6,22 @@ Public Class HealthCare_Access
     Private personnelName As String
 
     Private Sub HealthCare_Access_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        Connect() ' Calls Connect() from MySQLModule to establish a connection to the database
+        UpdateConnectionString()
     End Sub
 
     Private Sub btnLogin_Click(sender As Object, e As EventArgs) Handles btnLogin.Click
         ' Store the input data in variables
-        hospitalName = txtHospitalName.Text
-        personnelName = txtNameAquirer.Text
+        hospitalName = txtHospitalName.Text.Trim() ' Trim input to avoid leading/trailing spaces
+        personnelName = txtNameAquirer.Text.Trim()
+
+        ' Ensure that both fields are filled before proceeding
+        If String.IsNullOrEmpty(hospitalName) OrElse String.IsNullOrEmpty(personnelName) Then
+            MessageBox.Show("Please enter both Hospital Name and Personnel Name.", "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Return
+        End If
+
+        ' Debugging: Show the captured values in a message box
+        MessageBox.Show($"Hospital Name: {hospitalName}, Personnel Name: {personnelName}", "Debugging", MessageBoxButtons.OK, MessageBoxIcon.Information)
 
         ' Check if the Hospital and Personnel already exist
         Dim existingIDs = GetHealthProviderAndPersonnelID(hospitalName, personnelName)
@@ -42,7 +51,7 @@ Public Class HealthCare_Access
                 cmd.Parameters.AddWithValue("@CompanyHospitalName", hospitalName)
                 Using dr As MySqlDataReader = cmd.ExecuteReader()
                     If dr.Read() Then
-                        healthProviderID = dr.GetInt32("HealthProviderID") ' Existing ID or 1 if not found
+                        healthProviderID = dr.GetInt32("HealthProviderID") ' Get the existing HealthProviderID
                     End If
                 End Using
             End Using
@@ -54,23 +63,19 @@ Public Class HealthCare_Access
                 cmd.Parameters.AddWithValue("@PersonnelName", personnelName)
                 Using dr As MySqlDataReader = cmd.ExecuteReader()
                     If dr.Read() Then
-                        personnelID = dr.GetInt32("PersonnelID") ' Existing ID or 1 if not found
+                        personnelID = dr.GetInt32("PersonnelID")
                     End If
                 End Using
             End Using
 
-            ' If IDs are not found, you can let MySQL auto-increment when inserting new records.
             If healthProviderID = -1 Then
-                healthProviderID = 1 ' Start with 1 if not found (you can let MySQL handle this when inserting)
-            Else
-                healthProviderID = +1
+                healthProviderID = -1
             End If
 
             If personnelID = -1 Then
-                personnelID = 1 ' Start with 1 if not found (you can let MySQL handle this when inserting)
-            Else
-                personnelID = +1
+                personnelID = -1
             End If
+
         Catch ex As Exception
             MessageBox.Show("An error occurred while checking IDs: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
@@ -78,5 +83,11 @@ Public Class HealthCare_Access
         Return Tuple.Create(healthProviderID, personnelID)
     End Function
 
+    Private Sub txtHospitalName_TextChanged(sender As Object, e As EventArgs) Handles txtHospitalName.TextChanged
 
+    End Sub
+
+    Private Sub txtNameAquirer_TextChanged(sender As Object, e As EventArgs) Handles txtNameAquirer.TextChanged
+
+    End Sub
 End Class

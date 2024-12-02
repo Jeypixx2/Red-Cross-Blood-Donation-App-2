@@ -33,8 +33,9 @@ Partial Class HealthCare_Access
         '
         'pbLogo
         '
+        Me.pbLogo.Anchor = System.Windows.Forms.AnchorStyles.Top
         Me.pbLogo.Image = Global.Red_Cross_Blood_Donation_App_2.My.Resources.Resources.Red_Cross_logo
-        Me.pbLogo.Location = New System.Drawing.Point(149, 12)
+        Me.pbLogo.Location = New System.Drawing.Point(602, 78)
         Me.pbLogo.Name = "pbLogo"
         Me.pbLogo.Size = New System.Drawing.Size(211, 217)
         Me.pbLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
@@ -45,7 +46,7 @@ Partial Class HealthCare_Access
         '
         Me.Label1.AutoSize = True
         Me.Label1.Font = New System.Drawing.Font("Arial", 14.25!)
-        Me.Label1.Location = New System.Drawing.Point(7, 259)
+        Me.Label1.Location = New System.Drawing.Point(471, 363)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(241, 22)
         Me.Label1.TabIndex = 2
@@ -54,7 +55,7 @@ Partial Class HealthCare_Access
         'txtHospitalName
         '
         Me.txtHospitalName.Font = New System.Drawing.Font("Segoe UI", 9.0!)
-        Me.txtHospitalName.Location = New System.Drawing.Point(11, 284)
+        Me.txtHospitalName.Location = New System.Drawing.Point(475, 388)
         Me.txtHospitalName.Name = "txtHospitalName"
         Me.txtHospitalName.Size = New System.Drawing.Size(489, 35)
         Me.txtHospitalName.TabIndex = 3
@@ -64,7 +65,7 @@ Partial Class HealthCare_Access
         '
         Me.Label2.AutoSize = True
         Me.Label2.Font = New System.Drawing.Font("Arial", 14.25!)
-        Me.Label2.Location = New System.Drawing.Point(7, 331)
+        Me.Label2.Location = New System.Drawing.Point(471, 452)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(151, 22)
         Me.Label2.TabIndex = 4
@@ -73,7 +74,7 @@ Partial Class HealthCare_Access
         'txtNameAquirer
         '
         Me.txtNameAquirer.Font = New System.Drawing.Font("Segoe UI", 9.0!)
-        Me.txtNameAquirer.Location = New System.Drawing.Point(11, 356)
+        Me.txtNameAquirer.Location = New System.Drawing.Point(475, 477)
         Me.txtNameAquirer.Name = "txtNameAquirer"
         Me.txtNameAquirer.Size = New System.Drawing.Size(489, 35)
         Me.txtNameAquirer.TabIndex = 5
@@ -84,7 +85,7 @@ Partial Class HealthCare_Access
         Me.btnLogin.BackColor = System.Drawing.Color.FromArgb(CType(CType(3, Byte), Integer), CType(CType(1, Byte), Integer), CType(CType(84, Byte), Integer))
         Me.btnLogin.Font = New System.Drawing.Font("Arial", 24.0!, System.Drawing.FontStyle.Bold)
         Me.btnLogin.ForeColor = System.Drawing.SystemColors.InactiveBorder
-        Me.btnLogin.Location = New System.Drawing.Point(12, 411)
+        Me.btnLogin.Location = New System.Drawing.Point(476, 532)
         Me.btnLogin.Name = "btnLogin"
         Me.btnLogin.Size = New System.Drawing.Size(489, 68)
         Me.btnLogin.TabIndex = 6
@@ -95,7 +96,7 @@ Partial Class HealthCare_Access
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(513, 511)
+        Me.ClientSize = New System.Drawing.Size(1364, 749)
         Me.Controls.Add(Me.btnLogin)
         Me.Controls.Add(Me.txtNameAquirer)
         Me.Controls.Add(Me.Label2)
@@ -104,6 +105,7 @@ Partial Class HealthCare_Access
         Me.Controls.Add(Me.pbLogo)
         Me.Name = "HealthCare_Access"
         Me.Text = "HealthCare_Access"
+        Me.WindowState = System.Windows.Forms.FormWindowState.Maximized
         CType(Me.pbLogo, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()

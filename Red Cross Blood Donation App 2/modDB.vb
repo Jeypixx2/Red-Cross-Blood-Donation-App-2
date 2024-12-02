@@ -1,6 +1,6 @@
 ﻿Imports MySql.Data.MySqlClient
 
-Module MySQLModule
+Module modDB
     Public myadocon, conn As New MySqlConnection
     Public cmd As New MySqlCommand
     Public cmdRead As MySqlDataReader
