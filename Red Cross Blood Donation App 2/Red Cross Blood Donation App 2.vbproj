@@ -363,6 +363,12 @@
     <Compile Include="Start.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Test.Designer.vb">
+      <DependentUpon>Test.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Test.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="User_Status.Designer.vb">
       <DependentUpon>User_Status.vb</DependentUpon>
     </Compile>
@@ -446,6 +452,9 @@
     </Content>
     <EmbeddedResource Include="Start.resx">
       <DependentUpon>Start.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Test.resx">
+      <DependentUpon>Test.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="User_Status.resx">
       <DependentUpon>User_Status.vb</DependentUpon>
