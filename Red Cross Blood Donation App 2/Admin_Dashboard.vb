@@ -228,7 +228,6 @@ Public Class Admin_Dashboard
         modDB.LoadToDGV(query, DataGridView1)
     End Sub
 
-
     ' Filter data based on SQL query and parameters
     Private Function FilterData(query As String, ParamArray parameters As Object()) As DataTable
         Dim table As New DataTable()
