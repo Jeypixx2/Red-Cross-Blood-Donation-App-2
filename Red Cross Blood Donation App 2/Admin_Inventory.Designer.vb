@@ -315,7 +315,6 @@ Partial Class Admin_Inventory
         Me.txtSearch.Name = "txtSearch"
         Me.txtSearch.Size = New System.Drawing.Size(305, 23)
         Me.txtSearch.TabIndex = 24
-        Me.txtSearch.Text = "Search"
         '
         'Admin_Inventory
         '

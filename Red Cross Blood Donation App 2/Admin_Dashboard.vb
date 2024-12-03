@@ -9,6 +9,11 @@ Public Class Admin_Dashboard
 
     ' Load event handler for the dashboard
     Private Sub Admin_Dashboard_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        Dim screenWidth As Integer = Screen.PrimaryScreen.Bounds.Width
+        Dim screenHeight As Integer = Screen.PrimaryScreen.Bounds.Height
+        Me.Width = screenWidth * 0.8 ' 80% of screen width
+        Me.Height = screenHeight * 0.8 ' 80% of screen height
+
         Try
             ' Ensure the connection is open using the modDB method
             modDB.openConn("redcrossdb")

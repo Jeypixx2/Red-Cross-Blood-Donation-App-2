@@ -11,24 +11,48 @@ Public Class Admin_Inventory
     Public Calendar As Integer
 
     Private Sub Admin_Inventory_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        UpdateConnectionString() ' Optionally use this, or directly set the connection string in modDB
-        DoubleBuffering.EnableDoubleBuffering(dgvInventory)
-        currentTable = "donors"
-        dbDateColumn = "RegDate"
-        Calendar = 1
-        SelectedDate = dtpCalendar.SelectionStart.ToString("yyyy-MM-dd")
+        Try
+            Dim screenWidth As Integer = Screen.PrimaryScreen.Bounds.Width
+            Dim screenHeight As Integer = Screen.PrimaryScreen.Bounds.Height
+            Me.Width = screenWidth * 0.8 ' 80% of screen width
+            Me.Height = screenHeight * 0.8 ' 80% of screen height
+            UpdateConnectionString() ' Optionally use this, or directly set the connection string in modDB
+            DoubleBuffering.EnableDoubleBuffering(dgvInventory)
+            currentTable = "donors"
+            dbDateColumn = "RegDate"
+            Calendar = 1
 
-        ' Modify this code to use modDB to fetch data
-        Dim query As String = $"SELECT * FROM {currentTable} WHERE {dbDateColumn} = '{SelectedDate}'"
-        modDB.readQuery(query)
+            ' Initialize SelectedDate to today if it is not set
+            If String.IsNullOrEmpty(SelectedDate) OrElse SelectedDate = Date.MinValue.ToString("yyyy-MM-dd") Then
+                SelectedDate = DateTime.Now.ToString("yyyy-MM-dd")
+            End If
 
-        ' Assuming you can directly use the data from modDB:
-        If modDB.cmdRead.HasRows Then
-            Dim dt As DataTable = New DataTable
-            dt.Load(modDB.cmdRead)
-            dgvInventory.DataSource = dt
-            dgvInventory.Refresh()
-        End If
+            ' Debugging: Log the value of SelectedDate
+            Debug.WriteLine("SelectedDate: " & SelectedDate)
+
+            ' Use SelectedDate to fetch data
+            Dim query As String = $"SELECT * FROM {currentTable} WHERE CONVERT(DATE, {dbDateColumn}) = '{SelectedDate}'"
+
+            ' Debugging: Log the query being executed
+            Debug.WriteLine("Query: " & query)
+
+            ' Ensure the query execution works as expected
+            modDB.readQuery(query)
+
+            ' Check if cmdRead is properly initialized and has rows
+            If modDB.cmdRead IsNot Nothing AndAlso modDB.cmdRead.HasRows Then
+                Dim dt As DataTable = New DataTable
+                dt.Load(modDB.cmdRead)
+                dgvInventory.DataSource = dt
+                dgvInventory.Refresh()
+            Else
+                MessageBox.Show("No records found for the selected date.", "No Data", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            End If
+        Catch ex As Exception
+            ' Log any exceptions for debugging
+            MessageBox.Show("Error occurred: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Debug.WriteLine("Error: " & ex.Message)
+        End Try
     End Sub
 
     Private Sub HomeButton_Click(sender As Object, e As EventArgs) Handles Home_Button.Click
@@ -178,41 +202,39 @@ Public Class Admin_Inventory
         Try
             ' Perform the search operation after delay
             Dim searchText As String = txtSearch.Text
-            Dim results As DataTable = GlobalModel.Search(searchText, currentTable)
 
-            ' Check if results were found
-            If results IsNot Nothing AndAlso results.Rows.Count > 0 Then
-                ' Update the DataGridView with the results
-                GlobalModel.UpdateDataGridView(results, dgvInventory)
+            ' Only perform the search if the search text is not empty
+            If Not String.IsNullOrWhiteSpace(searchText) Then
+                Dim results As DataTable = GlobalModel.Search(searchText, currentTable)
+
+                ' Check if results were found
+                If results IsNot Nothing AndAlso results.Rows.Count > 0 Then
+                    ' Update the DataGridView with the results
+                    GlobalModel.UpdateDataGridView(results, dgvInventory)
+                Else
+                    ' If no results found, inform the user (without clearing the textbox)
+                    MessageBox.Show("No results found. Please try a different search term.", "No Results", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                End If
             Else
-                ' If no results found, clear the textbox
-                txtSearch.Clear()
-
-                ' Optionally, show a message informing the user
-                MessageBox.Show("No results found. Please try a different search term.", "No Results", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                ' Optionally clear the DataGridView if the search text is empty
+                dgvInventory.DataSource = Nothing
             End If
-
-            ' Re-enable the buttons after search is complete
-            Daily.Enabled = True
-            Weekly.Enabled = True
-            Monthly.Enabled = True
 
         Catch ex As Exception
             ' Show error message and clear the search textbox
             MessageBox.Show("Error occurred while performing the search: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
 
-            ' Clear the textbox after the error
-            txtSearch.Clear()
-
-            ' Re-enable the buttons in case of an error
+        Finally
+            ' Re-enable the buttons after search is complete
             Daily.Enabled = True
             Weekly.Enabled = True
             Monthly.Enabled = True
-        Finally
+
             ' Stop the timer to prevent further ticks
             searchTimer.Stop()
         End Try
     End Sub
+
 
     Private Sub HistoryRecord_Click(sender As Object, e As EventArgs) Handles HistoryRecord.Click
         UpdateConnectionString()
