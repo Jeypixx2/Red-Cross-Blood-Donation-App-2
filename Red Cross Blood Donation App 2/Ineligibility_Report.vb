@@ -41,7 +41,8 @@ Public Class Ineligibility_Report
 
                 With Me.ReportViewer1.LocalReport
                     .DataSources.Clear()
-                    .ReportPath = "C:\Users\WINDOWS\source\repos\Red Cross Blood Donation App 2\Red Cross Blood Donation App 2\Ineligibility_Rep.rdlc"
+                    Dim reportPath As String = IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Reports", "Ineligibility_Rep.rdlc")
+                    .ReportPath = reportPath
                     .DataSources.Add(New ReportDataSource("DataSet4", dt))
                 End With
 

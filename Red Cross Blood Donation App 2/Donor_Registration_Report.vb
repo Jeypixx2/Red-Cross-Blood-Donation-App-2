@@ -31,7 +31,8 @@ Public Class Donor_Registration_Report
                 ' Set up the report data source and path
                 With Me.ReportViewer1.LocalReport
                     .DataSources.Clear()
-                    .ReportPath = "C:\Users\WINDOWS\source\repos\Red Cross Blood Donation App 2\Red Cross Blood Donation App 2\Donor_Reg_Report.rdlc" ' Adjust path if needed
+                    Dim reportPath As String = IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Reports", "Donor_Reg_Report.rdlc")
+                    .ReportPath = reportPath
                     .DataSources.Add(New ReportDataSource("DataSet1", dt))
                 End With
 

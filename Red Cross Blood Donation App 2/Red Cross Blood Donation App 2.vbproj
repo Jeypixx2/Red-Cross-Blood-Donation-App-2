@@ -363,6 +363,12 @@
     <Compile Include="Start.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Test.Designer.vb">
+      <DependentUpon>Test.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Test.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="User_Status.Designer.vb">
       <DependentUpon>User_Status.vb</DependentUpon>
     </Compile>
@@ -432,8 +438,23 @@
     <EmbeddedResource Include="Process_Success.resx">
       <DependentUpon>Process_Success.vb</DependentUpon>
     </EmbeddedResource>
+    <Content Include="Reports\Blood_Inven_Report.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Reports\Donation_Hist_Report.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Reports\Donor_Reg_Report.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Reports\Ineligibility_Rep.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <EmbeddedResource Include="Start.resx">
       <DependentUpon>Start.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Test.resx">
+      <DependentUpon>Test.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="User_Status.resx">
       <DependentUpon>User_Status.vb</DependentUpon>
