@@ -4,53 +4,47 @@ Imports Mysqlx.XDevAPI.Relational
 Public Class Global_model
 
     Public Function GetAll(ByVal database As String, ByVal Calendar As Integer, ByVal DbDateColumn As String, ParamArray parameters As Object()) As DataTable
-        ' Validate inputs
-        If String.IsNullOrEmpty(database) OrElse String.IsNullOrEmpty(DbDateColumn) Then
-            MessageBox.Show("Database or Date Column is empty.")
-            Return Nothing
-        End If
-
-        ' Construct the query
         Dim query As String = "SELECT * FROM `" & database & "`"
+        Dim table As New DataTable()
 
         Select Case Calendar
-            Case 1 ' Daily view
+            Case 1
                 query &= " WHERE DATE(`" & DbDateColumn & "`) = @param0"
-            Case 2 ' Weekly view
+            Case 2
                 query &= " WHERE DATE(`" & DbDateColumn & "`) BETWEEN @param0 AND @param1"
-            Case 3 ' Monthly view
+            Case 3
                 query &= " WHERE MONTH(`" & DbDateColumn & "`) = @param0 AND YEAR(`" & DbDateColumn & "`) = @param1"
         End Select
 
-        Dim table As New DataTable()
-        Using cmd As New MySqlCommand(query, conn)
-            ' Add parameters dynamically
-            If parameters IsNot Nothing AndAlso parameters.Length > 0 Then
-                For i As Integer = 0 To parameters.Length - 1
-                    cmd.Parameters.AddWithValue($"@param{i}", parameters(i))
-                Next
-            End If
+        Try
+            ' Open connection
+            openConn(database)
 
-            ' Debugging: Show the generated query for verification
-            Dim debugQuery As String = query
-            For i As Integer = 0 To parameters.Length - 1
-                debugQuery = debugQuery.Replace($"@param{i}", parameters(i).ToString())
-            Next
-            MessageBox.Show($"Executing Query: {debugQuery}")
+            ' Execute query
+            Using cmd As New MySqlCommand(query, conn)
+                If parameters IsNot Nothing Then
+                    For i As Integer = 0 To parameters.Length - 1
+                        cmd.Parameters.AddWithValue($"@param{i}", parameters(i))
+                    Next
+                End If
 
-            Try
-                ' Execute and load data into DataTable
-                Using reader As MySqlDataReader = cmd.ExecuteReader()
-                    table.Load(reader)
+                Using adapter As New MySqlDataAdapter(cmd)
+                    adapter.Fill(table)
                 End Using
-            Catch ex As MySqlException
-                MessageBox.Show("Error: " & ex.Message)
-                Return Nothing
-            End Try
-        End Using
+            End Using
+        Catch ex As MySqlException
+            MsgBox("Error: " & ex.Message, MsgBoxStyle.Critical)
+            Return Nothing
+        Finally
+            ' Close connection
+            If conn.State = ConnectionState.Open Then
+                conn.Close()
+            End If
+        End Try
 
         Return table
     End Function
+
 
 
     Sub UpdateDataGridView(filteredData As DataTable, ByVal DataGridView As DataGridView)
