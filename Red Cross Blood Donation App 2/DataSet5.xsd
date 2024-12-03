@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="DataSet5" targetNamespace="http://tempuri.org/DataSet5.xsd" xmlns:mstns="http://tempuri.org/DataSet5.xsd" xmlns="http://tempuri.org/DataSet5.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="DataSet5" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:Generator_UserDSName="DataSet5" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="DataSet5">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="Provider" msprop:Generator_RowClassName="ProviderRow" msprop:Generator_RowEvHandlerName="ProviderRowChangeEventHandler" msprop:Generator_RowDeletedName="ProviderRowDeleted" msprop:Generator_RowDeletingName="ProviderRowDeleting" msprop:Generator_RowEvArgName="ProviderRowChangeEvent" msprop:Generator_TablePropName="Provider" msprop:Generator_RowChangedName="ProviderRowChanged" msprop:Generator_UserTableName="Provider" msprop:Generator_RowChangingName="ProviderRowChanging" msprop:Generator_TableClassName="ProviderDataTable" msprop:Generator_TableVarName="tableProvider">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="RetrieveID" msprop:Generator_UserColumnName="RetrieveID" msprop:Generator_ColumnPropNameInTable="RetrieveIDColumn" msprop:Generator_ColumnPropNameInRow="RetrieveID" msprop:Generator_ColumnVarNameInTable="columnRetrieveID" type="xs:string" minOccurs="0" />
+              <xs:element name="HealthProviderID" msprop:Generator_UserColumnName="HealthProviderID" msprop:Generator_ColumnPropNameInTable="HealthProviderIDColumn" msprop:Generator_ColumnPropNameInRow="HealthProviderID" msprop:Generator_ColumnVarNameInTable="columnHealthProviderID" type="xs:string" minOccurs="0" />
+              <xs:element name="CompanyHospitalName" msprop:Generator_UserColumnName="CompanyHospitalName" msprop:Generator_ColumnPropNameInTable="CompanyHospitalNameColumn" msprop:Generator_ColumnPropNameInRow="CompanyHospitalName" msprop:Generator_ColumnVarNameInTable="columnCompanyHospitalName" type="xs:string" minOccurs="0" />
+              <xs:element name="PersonnelID" msprop:Generator_UserColumnName="PersonnelID" msprop:Generator_ColumnPropNameInTable="PersonnelIDColumn" msprop:Generator_ColumnPropNameInRow="PersonnelID" msprop:Generator_ColumnVarNameInTable="columnPersonnelID" type="xs:string" minOccurs="0" />
+              <xs:element name="PersonnelName" msprop:Generator_UserColumnName="PersonnelName" msprop:Generator_ColumnPropNameInTable="PersonnelNameColumn" msprop:Generator_ColumnPropNameInRow="PersonnelName" msprop:Generator_ColumnVarNameInTable="columnPersonnelName" type="xs:string" minOccurs="0" />
+              <xs:element name="BloodID" msprop:Generator_UserColumnName="BloodID" msprop:Generator_ColumnPropNameInTable="BloodIDColumn" msprop:Generator_ColumnPropNameInRow="BloodID" msprop:Generator_ColumnVarNameInTable="columnBloodID" type="xs:string" minOccurs="0" />
+              <xs:element name="RetrieveDate" msprop:Generator_UserColumnName="RetrieveDate" msprop:Generator_ColumnPropNameInTable="RetrieveDateColumn" msprop:Generator_ColumnPropNameInRow="RetrieveDate" msprop:Generator_ColumnVarNameInTable="columnRetrieveDate" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

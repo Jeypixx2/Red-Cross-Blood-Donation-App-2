@@ -12,34 +12,28 @@ Public Class Donor_Registration_Report
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
         Try
-            ' Use the existing connection from MySQLModule
-            Dim connection As MySqlConnection = modDB.conn
-
-            If connection IsNot Nothing AndAlso connection.State = ConnectionState.Open Then
-                Dim query As String = "SELECT donors.DonorID, donors.FirstName, donors.MiddleName, donors.LastName, donors.BloodType, donors.RegDate, " &
+            modDB.openConn(modDB.db_name)
+            Dim query As String = "SELECT donors.DonorID, donors.FirstName, donors.MiddleName, donors.LastName, donors.BloodType, donors.RegDate, " &
                                       "CASE " &
                                       "    WHEN eligibility.EligibilityStatus = 1 THEN 'Eligible' " &
                                       "    WHEN eligibility.EligibilityStatus = 0 THEN 'Not Eligible' " &
                                       "END AS EligibilityStatus " &
                                       "FROM donors " &
                                       "JOIN eligibility ON donors.DonorID = eligibility.DonorID"
-                Dim cmd As New MySqlCommand(query, connection)
-                Dim da As New MySqlDataAdapter(cmd)
-                Dim dt As New DataTable
-                da.Fill(dt)
+            Dim cmd As New MySqlCommand(query, conn)
+            Dim da As New MySqlDataAdapter(cmd)
+            Dim dt As New DataTable
+            da.Fill(dt)
 
-                ' Set up the report data source and path
-                With Me.ReportViewer1.LocalReport
+            ' Set up the report data source and path
+            With Me.ReportViewer1.LocalReport
                     .DataSources.Clear()
                     Dim reportPath As String = IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Reports", "Donor_Reg_Report.rdlc")
                     .ReportPath = reportPath
                     .DataSources.Add(New ReportDataSource("DataSet1", dt))
                 End With
 
-                Me.ReportViewer1.RefreshReport()
-            Else
-                MessageBox.Show("Database connection is not open.")
-            End If
+            Me.ReportViewer1.RefreshReport()
         Catch ex As Exception
             MsgBox("Error: " & ex.Message, MsgBoxStyle.Critical)
         Finally

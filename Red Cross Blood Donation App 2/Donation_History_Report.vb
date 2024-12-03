@@ -17,11 +17,9 @@ Public Class Donation_History_Report
 
     Private Sub Button1_Click_1(sender As Object, e As EventArgs) Handles Button1.Click
         Try
-            Dim connection As MySqlConnection = modDB.conn
+            modDB.openConn(modDB.db_name)
 
-            If connection IsNot Nothing AndAlso connection.State = ConnectionState.Open Then
-
-                Dim query As String = "SELECT  
+            Dim query As String = "SELECT  
     donation.DonorID, 
     donors.FirstName, 
     donors.LastName, 
@@ -45,10 +43,7 @@ JOIN
                     .DataSources.Add(New ReportDataSource("DataSet2", dt))
                 End With
 
-                Me.ReportViewer1.RefreshReport()
-            Else
-                MessageBox.Show("Database connection is not open.")
-            End If
+            Me.ReportViewer1.RefreshReport()
         Catch ex As Exception
             MsgBox("Error: " & ex.Message, MsgBoxStyle.Critical)
         Finally

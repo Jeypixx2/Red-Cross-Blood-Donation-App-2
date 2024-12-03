@@ -166,7 +166,7 @@ Partial Class Admin_Dashboard
         '
         Me.Button8.BackColor = System.Drawing.SystemColors.ControlDarkDark
         Me.Button8.ForeColor = System.Drawing.SystemColors.Control
-        Me.Button8.Location = New System.Drawing.Point(23, 573)
+        Me.Button8.Location = New System.Drawing.Point(22, 371)
         Me.Button8.Name = "Button8"
         Me.Button8.Size = New System.Drawing.Size(145, 39)
         Me.Button8.TabIndex = 25
@@ -199,7 +199,7 @@ Partial Class Admin_Dashboard
         '
         Me.Button5.BackColor = System.Drawing.SystemColors.ControlDarkDark
         Me.Button5.ForeColor = System.Drawing.SystemColors.Control
-        Me.Button5.Location = New System.Drawing.Point(22, 373)
+        Me.Button5.Location = New System.Drawing.Point(22, 576)
         Me.Button5.Name = "Button5"
         Me.Button5.Size = New System.Drawing.Size(145, 37)
         Me.Button5.TabIndex = 5

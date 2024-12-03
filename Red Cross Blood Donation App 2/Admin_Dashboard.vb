@@ -171,4 +171,9 @@ Public Class Admin_Dashboard
         Ineligibility_Report.Show()
         Me.Hide()
     End Sub
+
+    Private Sub Button8_Click(sender As Object, e As EventArgs) Handles Button8.Click
+        Health_Provider_Report.Show()
+        Me.Hide()
+    End Sub
 End Class

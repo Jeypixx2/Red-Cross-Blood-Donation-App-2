@@ -277,6 +277,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DataSet4.xsd</DependentUpon>
     </Compile>
+    <Compile Include="DataSet5.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DataSet5.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Donation_History_Report.Designer.vb">
       <DependentUpon>Donation_History_Report.vb</DependentUpon>
     </Compile>
@@ -329,6 +334,12 @@
       <DependentUpon>HealthCare_Dashboard.vb</DependentUpon>
     </Compile>
     <Compile Include="HealthCare_Dashboard.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Health_Provider_Report.Designer.vb">
+      <DependentUpon>Health_Provider_Report.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Health_Provider_Report.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Ineligibility_Report.Designer.vb">
@@ -434,6 +445,10 @@
     <EmbeddedResource Include="HealthCare_Dashboard.resx">
       <DependentUpon>HealthCare_Dashboard.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Health_Provider_Report.rdlc" />
+    <EmbeddedResource Include="Health_Provider_Report.resx">
+      <DependentUpon>Health_Provider_Report.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Ineligibility_Rep.rdlc" />
     <EmbeddedResource Include="Ineligibility_Report.resx">
       <DependentUpon>Ineligibility_Report.vb</DependentUpon>
@@ -457,6 +472,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Reports\Ineligibility_Rep.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Reports\Health_Provider_Report.rdlc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <EmbeddedResource Include="Start.resx">
@@ -516,6 +534,17 @@
     </None>
     <None Include="DataSet4.xss">
       <DependentUpon>DataSet4.xsd</DependentUpon>
+    </None>
+    <None Include="DataSet5.xsc">
+      <DependentUpon>DataSet5.xsd</DependentUpon>
+    </None>
+    <None Include="DataSet5.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DataSet5.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="DataSet5.xss">
+      <DependentUpon>DataSet5.xsd</DependentUpon>
     </None>
     <None Include="My Project\Application.myapp">
       <Generator>MyApplicationCodeGenerator</Generator>

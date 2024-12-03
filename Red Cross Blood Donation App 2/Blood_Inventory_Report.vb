@@ -8,10 +8,9 @@ Public Class Blood_Inventory_Report
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
         Try
-            Dim connection As MySqlConnection = modDB.conn
-            If connection IsNot Nothing AndAlso connection.State = ConnectionState.Open Then
+            modDB.openConn(modDB.db_name)
 
-                Dim query As String = "SELECT 
+            Dim query As String = "SELECT 
                     donors.BloodType,
                     donation.Blood_Group,
                     donation.RhesusFactor,
@@ -38,10 +37,7 @@ Public Class Blood_Inventory_Report
                     .DataSources.Add(New ReportDataSource("DataSet3", dt))
                 End With
 
-                Me.ReportViewer1.RefreshReport()
-            Else
-                MessageBox.Show("Database connection is not open.")
-            End If
+            Me.ReportViewer1.RefreshReport()
         Catch ex As Exception
             MsgBox("Error: " & ex.Message, MsgBoxStyle.Critical)
         Finally
