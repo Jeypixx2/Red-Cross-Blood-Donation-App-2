@@ -117,15 +117,15 @@ Partial Class Admin_Dashboard
         'DataGridView1
         '
         Me.DataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.DataGridView1.Location = New System.Drawing.Point(21, 122)
+        Me.DataGridView1.Location = New System.Drawing.Point(12, 121)
         Me.DataGridView1.Name = "DataGridView1"
-        Me.DataGridView1.Size = New System.Drawing.Size(1584, 357)
+        Me.DataGridView1.Size = New System.Drawing.Size(1154, 357)
         Me.DataGridView1.TabIndex = 8
         '
         'MonthCalendar1
         '
         Me.MonthCalendar1.Anchor = System.Windows.Forms.AnchorStyles.Top
-        Me.MonthCalendar1.Location = New System.Drawing.Point(451, 83)
+        Me.MonthCalendar1.Location = New System.Drawing.Point(212, 83)
         Me.MonthCalendar1.Name = "MonthCalendar1"
         Me.MonthCalendar1.TabIndex = 14
         Me.MonthCalendar1.Visible = False
@@ -148,9 +148,9 @@ Partial Class Admin_Dashboard
         Me.Panel1.Controls.Add(Me.Button8)
         Me.Panel1.Controls.Add(Me.Button4)
         Me.Panel1.Dock = System.Windows.Forms.DockStyle.Right
-        Me.Panel1.Location = New System.Drawing.Point(1651, 0)
+        Me.Panel1.Location = New System.Drawing.Point(1172, 0)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(192, 995)
+        Me.Panel1.Size = New System.Drawing.Size(192, 749)
         Me.Panel1.TabIndex = 24
         '
         'Button1
@@ -256,13 +256,13 @@ Partial Class Admin_Dashboard
         Me.Line_Chart.ChartAreas.Add(ChartArea2)
         Legend2.Name = "Legend1"
         Me.Line_Chart.Legends.Add(Legend2)
-        Me.Line_Chart.Location = New System.Drawing.Point(21, 485)
+        Me.Line_Chart.Location = New System.Drawing.Point(-3, 485)
         Me.Line_Chart.Name = "Line_Chart"
         Series2.ChartArea = "ChartArea1"
         Series2.Legend = "Legend1"
         Series2.Name = "Series1"
         Me.Line_Chart.Series.Add(Series2)
-        Me.Line_Chart.Size = New System.Drawing.Size(1584, 275)
+        Me.Line_Chart.Size = New System.Drawing.Size(1169, 275)
         Me.Line_Chart.TabIndex = 26
         Me.Line_Chart.Text = "Chart2"
         '
@@ -270,7 +270,7 @@ Partial Class Admin_Dashboard
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1843, 995)
+        Me.ClientSize = New System.Drawing.Size(1364, 749)
         Me.Controls.Add(Me.Line_Chart)
         Me.Controls.Add(Me.Bar_Graph)
         Me.Controls.Add(Me.Panel1)
