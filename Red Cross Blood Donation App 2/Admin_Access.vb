@@ -56,7 +56,6 @@ Public Class Admin_Access
             conn?.Close()
         End Try
     End Sub
-
     Private Sub createAcc_Click(sender As Object, e As EventArgs) Handles createAcc.Click
         Dim createAccountForm As New CreateAccountForm()
         createAccountForm.Show()
