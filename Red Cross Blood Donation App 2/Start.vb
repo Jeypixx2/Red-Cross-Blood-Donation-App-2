@@ -21,4 +21,6 @@
     End Sub
 
     'sample commit
+
+    'sample commit 2
 End Class
