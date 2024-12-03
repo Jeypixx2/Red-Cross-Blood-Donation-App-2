@@ -1,4 +1,5 @@
-﻿Imports MySql.Data.MySqlClient
+﻿Imports System.Windows.Forms.DataVisualization.Charting
+Imports MySql.Data.MySqlClient
 
 Public Class HealthCare_Dashboard
     Private sampleData As DataTable
@@ -9,6 +10,7 @@ Public Class HealthCare_Dashboard
     Private personnelName As String
     Private HealthProviderID As Integer ' To store the fixed HealthProviderID
     Private PersonnelID As Integer ' To store the fixed PersonnelID
+    Dim chartConnection As New MySqlConnection("server=localhost;user id=root;password=;database=redcrossdb")
 
     ' Constructor to receive data from HealthCare_Access form
     Public Sub New(hospitalName As String, personnelName As String)
@@ -19,6 +21,113 @@ Public Class HealthCare_Dashboard
         FetchIDs()
     End Sub
 
+    Private Sub HealthCare_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        Try
+            If chartConnection.State = ConnectionState.Closed Then
+                chartConnection.Open()
+            End If
+
+            LoadChart1()
+            LoadChart2()
+
+        Catch ex As MySqlException
+            MessageBox.Show($"Connection failed: {ex.Message}", "Connection Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+    End Sub
+
+    Private Sub LoadChart1()
+        Try
+            Chart1.Series.Clear()
+            Chart1.ChartAreas.Clear()
+
+            Dim chartArea As New ChartArea("BloodTypesArea")
+            Chart1.ChartAreas.Add(chartArea)
+
+            Dim query As String = "SELECT bloodtype, COUNT(*) AS donors_count FROM donors GROUP BY bloodtype"
+            Dim da As New MySqlDataAdapter(query, chartConnection)
+            Dim ds As New DataSet
+            da.Fill(ds, "Blood Type")
+
+            If ds.Tables("Blood Type").Rows.Count = 0 Then
+                MessageBox.Show("No data available for Chart1.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                Return
+            End If
+
+            Dim series As New Series("Blood Type")
+            series.ChartType = SeriesChartType.Bar
+            series.XValueMember = "bloodtype"
+            series.YValueMembers = "donors_count"
+            series.IsValueShownAsLabel = True
+            Chart1.DataSource = ds.Tables("Blood Type")
+            Chart1.Series.Add(series)
+
+        Catch ex As Exception
+            MessageBox.Show($"Error loading Chart1: {ex.Message}", "Chart Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+    End Sub
+
+    Private Sub LoadChart2()
+        Try
+            Chart2.Series.Clear()
+            Chart2.ChartAreas.Clear()
+            Chart2.Legends.Clear()
+
+            Dim chartArea As New ChartArea("DonationsArea")
+            With chartArea
+                .AxisX.Title = "Month"
+                .AxisX.Interval = 1
+                .AxisX.LabelStyle.Angle = 45
+                .AxisY.Title = "Total Donations"
+                .AxisY.MajorGrid.LineColor = Color.LightGray
+            End With
+            Chart2.ChartAreas.Add(chartArea)
+
+            Dim query As String = "
+                SELECT 
+                    YEAR(DonationDate) AS DonationYear, 
+                    MONTHNAME(DonationDate) AS DonationMonth, 
+                    COUNT(*) AS TotalDonations
+                FROM Donation
+                GROUP BY YEAR(DonationDate), MONTH(DonationDate)
+                ORDER BY YEAR(DonationDate), MONTH(DonationDate);"
+
+            Dim da As New MySqlDataAdapter(query, chartConnection)
+            Dim ds As New DataSet()
+            da.Fill(ds, "Monthly Donations")
+
+            If ds.Tables("Monthly Donations").Rows.Count = 0 Then
+                MessageBox.Show("No data available for Chart2.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                Return
+            End If
+
+            Dim series As New Series("Monthly Donations")
+            With series
+                .ChartType = SeriesChartType.Line
+                .XValueMember = "DonationMonth"
+                .YValueMembers = "TotalDonations"
+                .IsValueShownAsLabel = True
+                .LabelForeColor = Color.Black
+                .BorderWidth = 2
+                .Color = Color.DarkGreen
+            End With
+            Chart2.DataSource = ds.Tables("Monthly Donations")
+            Chart2.Series.Add(series)
+
+            Dim legend As New Legend("Monthly Donations Legend")
+            legend.Docking = Docking.Top
+            legend.Alignment = StringAlignment.Center
+            Chart2.Legends.Add(legend)
+
+        Catch ex As Exception
+            MessageBox.Show($"Error loading Chart2: {ex.Message}", "Chart Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+    End Sub
+
+    Private Sub Admin_Dashboard_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
+        If chartConnection.State = ConnectionState.Open Then
+            chartConnection.Close()
+        End If
+    End Sub
     ' Load event handler for the dashboard
     Private Sub Admin_HealthCare_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Doublebuffer.EnableDoubleBuffering(DataGridView1)
