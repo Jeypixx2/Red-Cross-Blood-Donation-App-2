@@ -212,8 +212,12 @@ Public Class Admin_Inventory
                     ' Update the DataGridView with the results
                     GlobalModel.UpdateDataGridView(results, dgvInventory)
                 Else
-                    ' If no results found, inform the user (without clearing the textbox)
-                    MessageBox.Show("No results found. Please try a different search term.", "No Results", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                    ' If no results found, inform the user and clear the textbox
+                    If Not txtSearch.Tag IsNot Nothing AndAlso txtSearch.Tag.ToString() = "No Results" Then
+                        MessageBox.Show("No results found. Please try a different search term.", "No Results", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                        txtSearch.Clear() ' Clear the search textbox
+                        txtSearch.Tag = "No Results" ' Mark that message has been shown
+                    End If
                 End If
             Else
                 ' Optionally clear the DataGridView if the search text is empty
@@ -221,7 +225,7 @@ Public Class Admin_Inventory
             End If
 
         Catch ex As Exception
-            ' Show error message and clear the search textbox
+            ' Show error message
             MessageBox.Show("Error occurred while performing the search: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
 
         Finally
@@ -232,9 +236,11 @@ Public Class Admin_Inventory
 
             ' Stop the timer to prevent further ticks
             searchTimer.Stop()
+
+            ' Reset the Tag for the next search
+            txtSearch.Tag = Nothing
         End Try
     End Sub
-
 
     Private Sub HistoryRecord_Click(sender As Object, e As EventArgs) Handles HistoryRecord.Click
         UpdateConnectionString()
