@@ -183,51 +183,6 @@ Public Class Admin_Dashboard
         isDailyView = False ' Set flag for Weekly view
     End Sub
 
-    ' Load data based on selected date from the MonthCalendar
-    Private Sub MonthCalendar1_DateChanged(sender As Object, e As DateRangeEventArgs) Handles MonthCalendar1.DateChanged
-        ' Populate ComboBox with month names
-        PopulateMonths()
-        If MonthCalendar1.SelectionStart = DateTime.MinValue Then
-            MessageBox.Show("Please select a valid date.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            Return
-        End If
-
-        Dim selectedDate As Date = MonthCalendar1.SelectionStart
-
-        If isDailyView Then
-            ShowDataForDate(selectedDate)  ' Show data only for the selected date
-        Else
-            ShowDataForWeek(selectedDate)   ' Show data for the selected week
-        End If
-
-        MonthCalendar1.Visible = False ' Hide calendar after selection
-    End Sub
-
-    ' Show data for the selected date (only date part, no time)
-    Private Sub ShowDataForDate(selectedDate As Date)
-        ' Query to show data for the selected date (ignoring time)
-        Dim query As String = "SELECT * FROM Donors WHERE DATE(RegDate) = @param0"
-        ' Use the function from the modDB module
-        modDB.LoadToDGV(query, DataGridView1)
-    End Sub
-
-    Private Sub ShowDataForWeek(selectedDate As Date)
-        ' Calculate the start and end of the week
-        Dim startOfWeek As Date = selectedDate.AddDays(-CInt(selectedDate.DayOfWeek))
-        Dim endOfWeek As Date = startOfWeek.AddDays(6)
-        ' Query to show data for the week
-        Dim query As String = "SELECT * FROM Donors WHERE DATE(RegDate) BETWEEN @param0 AND @param1"
-        ' Call the function to load data into DataGridView
-        modDB.LoadToDGV(query, DataGridView1)
-    End Sub
-
-    Private Sub ShowDataForMonth(selectedMonth As Integer)
-        ' Query to show data for the selected month
-        Dim query As String = "SELECT * FROM Donors WHERE MONTH(RegDate) = @param0"
-        ' Use the LoadToDGV function to display data
-        modDB.LoadToDGV(query, DataGridView1)
-    End Sub
-
     ' Filter data based on SQL query and parameters
     Private Function FilterData(query As String, ParamArray parameters As Object()) As DataTable
         Dim table As New DataTable()
@@ -256,6 +211,68 @@ Public Class Admin_Dashboard
         Return table
     End Function
 
+    Private Sub MonthCalendar1_DateChanged(sender As Object, e As DateRangeEventArgs) Handles MonthCalendar1.DateChanged
+        ' Populate ComboBox with month names
+        PopulateMonths()
+
+        If MonthCalendar1.SelectionStart = DateTime.MinValue Then
+            MessageBox.Show("Please select a valid date.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Return
+        End If
+
+        Dim selectedDate As Date = MonthCalendar1.SelectionStart
+
+        If isDailyView Then
+            ShowDataForDate(selectedDate)  ' Show data only for the selected date
+        Else
+            ShowDataForWeek(selectedDate)   ' Show data for the selected week
+        End If
+
+        MonthCalendar1.Visible = False ' Hide calendar after selection
+    End Sub
+
+    ' Show data for the selected date (only date part, no time)
+    Private Sub ShowDataForDate(selectedDate As Date)
+        ' Create query to show data for the selected date (ignoring time)
+        Dim query As String = "SELECT * FROM Donors WHERE DATE(RegDate) = @param0"
+
+        ' Filter data using the function from modDB
+        Dim parameters As Object() = {selectedDate.ToString("yyyy-MM-dd")}
+        Dim filteredData As DataTable = modDB.FilterData(query, parameters)
+
+        ' Update the DataGridView with the filtered data
+        UpdateDataGridView(filteredData)
+    End Sub
+
+    Private Sub ShowDataForWeek(selectedDate As Date)
+        ' Calculate the start and end of the week
+        Dim startOfWeek As Date = selectedDate.AddDays(-CInt(selectedDate.DayOfWeek))
+        Dim endOfWeek As Date = startOfWeek.AddDays(6)
+
+        ' Create query to show data for the week
+        Dim query As String = "SELECT * FROM Donors WHERE DATE(RegDate) BETWEEN @param0 AND @param1"
+
+        ' Filter data using the function from modDB
+        Dim parameters As Object() = {startOfWeek.ToString("yyyy-MM-dd"), endOfWeek.ToString("yyyy-MM-dd")}
+        Dim filteredData As DataTable = modDB.FilterData(query, parameters)
+
+        ' Update the DataGridView with the filtered data
+        UpdateDataGridView(filteredData)
+    End Sub
+
+    Private Sub ShowDataForMonth(selectedMonth As Integer)
+        ' Create query to show data for the selected month
+        Dim query As String = "SELECT * FROM Donors WHERE MONTH(RegDate) = @param0"
+
+        ' Filter data using the function from modDB
+        Dim parameters As Object() = {selectedMonth}
+        Dim filteredData As DataTable = modDB.FilterData(query, parameters)
+
+        ' Update the DataGridView with the filtered data
+        UpdateDataGridView(filteredData)
+    End Sub
+
+
     ' Update DataGridView and handle no data found
     Private Sub UpdateDataGridView(filteredData As DataTable)
         DataGridView1.DataSource = filteredData
@@ -264,7 +281,6 @@ Public Class Admin_Dashboard
             MessageBox.Show("No data available for the selected date/week/month.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
         End If
     End Sub
-
 
     ' Show the ComboBox for month selection
     Private Sub Button7_Click(sender As Object, e As EventArgs) Handles Monthly.Click
@@ -279,6 +295,7 @@ Public Class Admin_Dashboard
         ShowDataForMonth(selectedMonth)
         ComboBox1.Visible = False
     End Sub
+
 
     ' Button handlers for other actions (Inventory, Donor, User)
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Inventory.Click
