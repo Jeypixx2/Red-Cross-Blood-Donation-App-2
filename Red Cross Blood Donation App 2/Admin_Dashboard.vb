@@ -29,18 +29,29 @@ Public Class Admin_Dashboard
 
     Private Sub LoadChart1()
         Try
-            Chart1.Series.Clear()
-            Chart1.ChartAreas.Clear()
+            Bar_Graph.Series.Clear()
+            Bar_Graph.ChartAreas.Clear()
 
             Dim chartArea As New ChartArea("BloodTypesArea")
-            Chart1.ChartAreas.Add(chartArea)
+            Bar_Graph.ChartAreas.Add(chartArea)
 
+            ' Query to get donor count per blood type
             Dim query As String = "SELECT bloodtype, COUNT(*) AS donors_count FROM donors GROUP BY bloodtype"
-            modDB.readQuery(query) ' Use modDB.readQuery to execute the query
 
-            Dim ds As New DataSet
-            Dim da As New MySqlDataAdapter(query, modDB.conn) ' This is still necessary for DataTable population
+            ' Use MySqlDataAdapter to populate DataSet
+            Dim ds As New DataSet()
+            Dim da As New MySqlDataAdapter(query, modDB.conn)
+
+            ' Open the connection
+            If modDB.conn.State = ConnectionState.Closed Then
+                modDB.conn.Open()
+            End If
+
+            ' Fill the dataset with data
             da.Fill(ds, "Blood Type")
+
+            ' Ensure the connection is closed after use
+            modDB.conn.Close()
 
             If ds.Tables("Blood Type").Rows.Count = 0 Then
                 MessageBox.Show("No data available for Chart1.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
@@ -52,8 +63,8 @@ Public Class Admin_Dashboard
             series.XValueMember = "bloodtype"
             series.YValueMembers = "donors_count"
             series.IsValueShownAsLabel = True
-            Chart1.DataSource = ds.Tables("Blood Type")
-            Chart1.Series.Add(series)
+            Bar_Graph.DataSource = ds.Tables("Blood Type")
+            Bar_Graph.Series.Add(series)
 
         Catch ex As Exception
             MessageBox.Show($"Error loading Chart1: {ex.Message}", "Chart Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -63,9 +74,9 @@ Public Class Admin_Dashboard
     Private Sub LoadChart2()
         Try
             ' Clear existing chart data, chart areas, and legends
-            Chart2.Series.Clear()
-            Chart2.ChartAreas.Clear()
-            Chart2.Legends.Clear()
+            Line_Chart.Series.Clear()
+            Line_Chart.ChartAreas.Clear()
+            Line_Chart.Legends.Clear()
 
             ' Add a new chart area for donations
             Dim chartArea As New ChartArea("DonationsArea")
@@ -76,25 +87,32 @@ Public Class Admin_Dashboard
                 .AxisY.Title = "Total Donations"
                 .AxisY.MajorGrid.LineColor = Color.LightGray
             End With
-            Chart2.ChartAreas.Add(chartArea)
+            Line_Chart.ChartAreas.Add(chartArea)
 
             ' Query to fetch monthly donation data
             Dim query As String = "
-            SELECT 
-                YEAR(DonationDate) AS DonationYear, 
-                MONTHNAME(DonationDate) AS DonationMonth, 
-                COUNT(*) AS TotalDonations
-            FROM Donation
-            GROUP BY YEAR(DonationDate), MONTH(DonationDate)
-            ORDER BY YEAR(DonationDate), MONTH(DonationDate);"
+        SELECT 
+            YEAR(DonationDate) AS DonationYear, 
+            MONTHNAME(DonationDate) AS DonationMonth, 
+            COUNT(*) AS TotalDonations
+        FROM Donation
+        GROUP BY YEAR(DonationDate), MONTH(DonationDate)
+        ORDER BY YEAR(DonationDate), MONTH(DonationDate);"
 
-            ' Use modDB to execute the query and fetch data
+            ' Use MySqlDataAdapter to populate DataSet
             Dim ds As New DataSet()
-            modDB.readQuery(query) ' Execute the query using modDB.readQuery
-
-            ' Populate the dataset using MySQL DataAdapter
             Dim da As New MySqlDataAdapter(query, modDB.conn)
+
+            ' Open the connection
+            If modDB.conn.State = ConnectionState.Closed Then
+                modDB.conn.Open()
+            End If
+
+            ' Fill the dataset with data
             da.Fill(ds, "Monthly Donations")
+
+            ' Ensure the connection is closed after use
+            modDB.conn.Close()
 
             ' Check if any data was retrieved
             If ds.Tables("Monthly Donations").Rows.Count = 0 Then
@@ -115,20 +133,21 @@ Public Class Admin_Dashboard
             End With
 
             ' Set the chart data source and add the series to the chart
-            Chart2.DataSource = ds.Tables("Monthly Donations")
-            Chart2.Series.Add(series)
+            Line_Chart.DataSource = ds.Tables("Monthly Donations")
+            Line_Chart.Series.Add(series)
 
             ' Create and configure the chart legend
             Dim legend As New Legend("Monthly Donations Legend")
             legend.Docking = Docking.Top
             legend.Alignment = StringAlignment.Center
-            Chart2.Legends.Add(legend)
+            Line_Chart.Legends.Add(legend)
 
         Catch ex As Exception
             ' Show an error message if an exception occurs
             MessageBox.Show($"Error loading Chart2: {ex.Message}", "Chart Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
     End Sub
+
 
 
     Private Sub Admin_Dashboard_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing

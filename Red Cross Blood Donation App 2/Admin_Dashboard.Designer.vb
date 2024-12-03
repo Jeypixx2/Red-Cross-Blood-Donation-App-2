@@ -45,13 +45,13 @@ Partial Class Admin_Dashboard
         Me.Button8 = New System.Windows.Forms.Button()
         Me.Button4 = New System.Windows.Forms.Button()
         Me.pbLogo = New System.Windows.Forms.PictureBox()
-        Me.Chart1 = New System.Windows.Forms.DataVisualization.Charting.Chart()
-        Me.Chart2 = New System.Windows.Forms.DataVisualization.Charting.Chart()
+        Me.Bar_Graph = New System.Windows.Forms.DataVisualization.Charting.Chart()
+        Me.Line_Chart = New System.Windows.Forms.DataVisualization.Charting.Chart()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel1.SuspendLayout()
         CType(Me.pbLogo, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.Chart1, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.Chart2, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.Bar_Graph, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.Line_Chart, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'Daily
@@ -234,45 +234,45 @@ Partial Class Admin_Dashboard
         Me.pbLogo.TabIndex = 1
         Me.pbLogo.TabStop = False
         '
-        'Chart1
+        'Bar_Graph
         '
         ChartArea1.Name = "ChartArea1"
-        Me.Chart1.ChartAreas.Add(ChartArea1)
+        Me.Bar_Graph.ChartAreas.Add(ChartArea1)
         Legend1.Name = "Legend1"
-        Me.Chart1.Legends.Add(Legend1)
-        Me.Chart1.Location = New System.Drawing.Point(21, 776)
-        Me.Chart1.Name = "Chart1"
+        Me.Bar_Graph.Legends.Add(Legend1)
+        Me.Bar_Graph.Location = New System.Drawing.Point(21, 776)
+        Me.Bar_Graph.Name = "Bar_Graph"
         Series1.ChartArea = "ChartArea1"
         Series1.Legend = "Legend1"
         Series1.Name = "Series1"
-        Me.Chart1.Series.Add(Series1)
-        Me.Chart1.Size = New System.Drawing.Size(1584, 209)
-        Me.Chart1.TabIndex = 25
-        Me.Chart1.Text = "Chart1"
+        Me.Bar_Graph.Series.Add(Series1)
+        Me.Bar_Graph.Size = New System.Drawing.Size(1584, 209)
+        Me.Bar_Graph.TabIndex = 25
+        Me.Bar_Graph.Text = "Chart1"
         '
-        'Chart2
+        'Line_Chart
         '
         ChartArea2.Name = "ChartArea1"
-        Me.Chart2.ChartAreas.Add(ChartArea2)
+        Me.Line_Chart.ChartAreas.Add(ChartArea2)
         Legend2.Name = "Legend1"
-        Me.Chart2.Legends.Add(Legend2)
-        Me.Chart2.Location = New System.Drawing.Point(21, 485)
-        Me.Chart2.Name = "Chart2"
+        Me.Line_Chart.Legends.Add(Legend2)
+        Me.Line_Chart.Location = New System.Drawing.Point(21, 485)
+        Me.Line_Chart.Name = "Line_Chart"
         Series2.ChartArea = "ChartArea1"
         Series2.Legend = "Legend1"
         Series2.Name = "Series1"
-        Me.Chart2.Series.Add(Series2)
-        Me.Chart2.Size = New System.Drawing.Size(1584, 275)
-        Me.Chart2.TabIndex = 26
-        Me.Chart2.Text = "Chart2"
+        Me.Line_Chart.Series.Add(Series2)
+        Me.Line_Chart.Size = New System.Drawing.Size(1584, 275)
+        Me.Line_Chart.TabIndex = 26
+        Me.Line_Chart.Text = "Chart2"
         '
         'Admin_Dashboard
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1843, 995)
-        Me.Controls.Add(Me.Chart2)
-        Me.Controls.Add(Me.Chart1)
+        Me.Controls.Add(Me.Line_Chart)
+        Me.Controls.Add(Me.Bar_Graph)
         Me.Controls.Add(Me.Panel1)
         Me.Controls.Add(Me.ComboBox1)
         Me.Controls.Add(Me.MonthCalendar1)
@@ -291,8 +291,8 @@ Partial Class Admin_Dashboard
         Me.Panel1.ResumeLayout(False)
         Me.Panel1.PerformLayout()
         CType(Me.pbLogo, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.Chart1, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.Chart2, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.Bar_Graph, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.Line_Chart, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -314,6 +314,6 @@ Partial Class Admin_Dashboard
     Friend WithEvents Button2 As Button
     Friend WithEvents Button1 As Button
     Friend WithEvents Label1 As Label
-    Friend WithEvents Chart1 As DataVisualization.Charting.Chart
-    Friend WithEvents Chart2 As DataVisualization.Charting.Chart
+    Friend WithEvents Bar_Graph As DataVisualization.Charting.Chart
+    Friend WithEvents Line_Chart As DataVisualization.Charting.Chart
 End Class

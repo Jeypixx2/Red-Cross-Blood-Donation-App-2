@@ -11,14 +11,24 @@ Public Class Admin_Inventory
     Public Calendar As Integer
 
     Private Sub Admin_Inventory_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        UpdateConnectionString()
+        UpdateConnectionString() ' Optionally use this, or directly set the connection string in modDB
         DoubleBuffering.EnableDoubleBuffering(dgvInventory)
         currentTable = "donors"
         dbDateColumn = "RegDate"
         Calendar = 1
         SelectedDate = dtpCalendar.SelectionStart.ToString("yyyy-MM-dd")
-        Dim Data = GlobalModel.GetAll(currentTable, Calendar, dbDateColumn, SelectedDate)
-        GlobalModel.UpdateDataGridView(Data, dgvInventory)
+
+        ' Modify this code to use modDB to fetch data
+        Dim query As String = $"SELECT * FROM {currentTable} WHERE {dbDateColumn} = '{SelectedDate}'"
+        modDB.readQuery(query)
+
+        ' Assuming you can directly use the data from modDB:
+        If modDB.cmdRead.HasRows Then
+            Dim dt As DataTable = New DataTable
+            dt.Load(modDB.cmdRead)
+            dgvInventory.DataSource = dt
+            dgvInventory.Refresh()
+        End If
     End Sub
 
     Private Sub HomeButton_Click(sender As Object, e As EventArgs) Handles Home_Button.Click
@@ -79,17 +89,41 @@ Public Class Admin_Inventory
         dbDateColumn = "RegDate"
         Calendar = 1
         SelectedDate = dtpCalendar.SelectionStart.ToString("yyyy-MM-dd")
-        Dim Data = GlobalModel.GetAll(currentTable, Calendar, dbDateColumn, SelectedDate)
-        GlobalModel.UpdateDataGridView(Data, dgvInventory)
+
+        ' Log this action
+        modDB.Logs("Viewed Donor Records")
+
+        ' Fetch the data and update the DataGridView
+        Dim query As String = $"SELECT * FROM {currentTable} WHERE {dbDateColumn} = '{SelectedDate}'"
+        modDB.readQuery(query)
+
+        If modDB.cmdRead.HasRows Then
+            Dim dt As DataTable = New DataTable
+            dt.Load(modDB.cmdRead)
+            dgvInventory.DataSource = dt
+            dgvInventory.Refresh()
+        End If
     End Sub
+
 
     Private Sub DonationRecord_Click(sender As Object, e As EventArgs) Handles DonationRecord.Click
         currentTable = "donation"
         dbDateColumn = "DonationDate"
         Calendar = 1
         SelectedDate = dtpCalendar.SelectionStart.ToString("yyyy-MM-dd")
-        Dim Data = GlobalModel.GetAll(currentTable, Calendar, dbDateColumn, SelectedDate)
-        GlobalModel.UpdateDataGridView(Data, dgvInventory)
+        ' Log this action
+        modDB.Logs("Viewed Donor Records")
+
+        ' Fetch the data and update the DataGridView
+        Dim query As String = $"SELECT * FROM {currentTable} WHERE {dbDateColumn} = '{SelectedDate}'"
+        modDB.readQuery(query)
+
+        If modDB.cmdRead.HasRows Then
+            Dim dt As DataTable = New DataTable
+            dt.Load(modDB.cmdRead)
+            dgvInventory.DataSource = dt
+            dgvInventory.Refresh()
+        End If
     End Sub
 
     Private Sub EligibilityRecord_Click(sender As Object, e As EventArgs) Handles EligibilityRecord.Click
@@ -97,8 +131,19 @@ Public Class Admin_Inventory
         dbDateColumn = "EligibilityDate"
         Calendar = 1
         SelectedDate = dtpCalendar.SelectionStart.ToString("yyyy-MM-dd")
-        Dim Data = GlobalModel.GetAll(currentTable, Calendar, dbDateColumn, SelectedDate)
-        GlobalModel.UpdateDataGridView(Data, dgvInventory)
+        ' Log this action
+        modDB.Logs("Viewed Donor Records")
+
+        ' Fetch the data and update the DataGridView
+        Dim query As String = $"SELECT * FROM {currentTable} WHERE {dbDateColumn} = '{SelectedDate}'"
+        modDB.readQuery(query)
+
+        If modDB.cmdRead.HasRows Then
+            Dim dt As DataTable = New DataTable
+            dt.Load(modDB.cmdRead)
+            dgvInventory.DataSource = dt
+            dgvInventory.Refresh()
+        End If
     End Sub
 
     Private Sub dtpCalendar_DateChanged(sender As Object, e As DateRangeEventArgs) Handles dtpCalendar.DateSelected
