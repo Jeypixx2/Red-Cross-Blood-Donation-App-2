@@ -117,4 +117,76 @@ Public Class Donor_Management_New
     Private Sub Donor_Management_New_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         ' Initialize form if needed
     End Sub
+
+    Private Sub Last_name_Click(sender As Object, e As EventArgs) Handles Last_name.Click
+
+    End Sub
+
+    Private Sub txtlastname_TextChanged(sender As Object, e As EventArgs) Handles txtlastname.TextChanged
+
+    End Sub
+
+    Private Sub Baranggay_Click(sender As Object, e As EventArgs) Handles Baranggay.Click
+
+    End Sub
+
+    Private Sub TxtBaranggay_TextChanged(sender As Object, e As EventArgs) Handles TxtBaranggay.TextChanged
+
+    End Sub
+
+    Private Sub Birth_Click(sender As Object, e As EventArgs) Handles Birth.Click
+
+    End Sub
+
+    Private Sub Province_Click(sender As Object, e As EventArgs) Handles Province.Click
+
+    End Sub
+
+    Private Sub txtsex_TextChanged(sender As Object, e As EventArgs) Handles txtsex.TextChanged
+
+    End Sub
+
+    Private Sub Gender_Click(sender As Object, e As EventArgs) Handles Gender.Click
+
+    End Sub
+
+    Private Sub txtcity_TextChanged(sender As Object, e As EventArgs) Handles txtcity.TextChanged
+
+    End Sub
+
+    Private Sub City_Click(sender As Object, e As EventArgs) Handles City.Click
+
+    End Sub
+
+    Private Sub txtFirstName_TextChanged(sender As Object, e As EventArgs) Handles txtFirstName.TextChanged
+
+    End Sub
+
+    Private Sub First_name_Click(sender As Object, e As EventArgs) Handles First_name.Click
+
+    End Sub
+
+    Private Sub Middle_name_Click(sender As Object, e As EventArgs) Handles Middle_name.Click
+
+    End Sub
+
+    Private Sub txtmiddlename_TextChanged(sender As Object, e As EventArgs) Handles txtmiddlename.TextChanged
+
+    End Sub
+
+    Private Sub MonthCalendar1_DateChanged(sender As Object, e As DateRangeEventArgs) Handles MonthCalendar1.DateChanged
+
+    End Sub
+
+    Private Sub txtprovince_TextChanged(sender As Object, e As EventArgs) Handles txtprovince.TextChanged
+
+    End Sub
+
+    Private Sub Blood_type_Click(sender As Object, e As EventArgs) Handles Blood_type.Click
+
+    End Sub
+
+    Private Sub txtbloodtype_TextChanged(sender As Object, e As EventArgs) Handles txtbloodtype.TextChanged
+
+    End Sub
 End Class

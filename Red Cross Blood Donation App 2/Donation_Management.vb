@@ -64,4 +64,18 @@ Public Class Donation_Management_new
         ' Assuming a 3-month wait period after donation
         Return DateTime.Now.AddMonths(3).ToString("yyyy-MM-dd")
     End Function
+
+    Private Sub Proceed_Click(sender As Object, e As EventArgs) Handles Proceed.Click
+        Process_Success.Show()
+        Me.Hide()
+    End Sub
+
+    Private Sub Back_Click(sender As Object, e As EventArgs) Handles Back.Click
+        Eligibility_Checker_new.Show()
+        Me.Hide()
+    End Sub
+
+    Private Sub Blood_type_Click(sender As Object, e As EventArgs) Handles Blood_type.Click
+
+    End Sub
 End Class

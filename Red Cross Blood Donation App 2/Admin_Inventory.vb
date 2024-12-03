@@ -1,4 +1,6 @@
-﻿Public Class Admin_Inventory
+﻿Imports System.Windows.Forms.VisualStyles.VisualStyleElement
+
+Public Class Admin_Inventory
     Private sampleData As DataTable
     Private isDailyView As Boolean ' Flag to determine the current view
     Public currentTable As String ' Variable to track the active table (donors, donation, eligibility)
@@ -23,6 +25,16 @@
         Admin_Dashboard.Show()
         Me.Hide()
     End Sub
+    Private Sub PopulateMonths()
+        cmbMonths.Items.Clear()
+        For month As Integer = 1 To 12
+            cmbMonths.Items.Add(Globalization.CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(month))
+        Next
+
+        If cmbMonths.Items.Count > 0 Then
+            cmbMonths.SelectedIndex = 0
+        End If
+    End Sub
 
     ' Show MonthCalendar when Daily button is clicked
     Private Sub Button5_Click(sender As Object, e As EventArgs) Handles Daily.Click
@@ -41,7 +53,7 @@
 
     ' Show the ComboBox for month selection
     Private Sub Button7_Click(sender As Object, e As EventArgs) Handles Monthly.Click
-        Calendar = 3
+        PopulateMonths()
         dtpCalendar.Visible = False
         cmbMonths.Visible = True
     End Sub

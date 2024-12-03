@@ -401,5 +401,4 @@ Public Class HealthCare_Dashboard
             MessageBox.Show("Error refreshing data: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
     End Sub
-
 End Class

@@ -46,14 +46,11 @@ Partial Class Donor_Management_New
         '
         'Last_name
         '
-        Me.Last_name.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Last_name.AutoSize = True
         Me.Last_name.BackColor = System.Drawing.SystemColors.InactiveBorder
         Me.Last_name.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
         Me.Last_name.Font = New System.Drawing.Font("Segoe UI", 9.0!)
-        Me.Last_name.Location = New System.Drawing.Point(83, 59)
+        Me.Last_name.Location = New System.Drawing.Point(308, 53)
         Me.Last_name.Name = "Last_name"
         Me.Last_name.Size = New System.Drawing.Size(65, 17)
         Me.Last_name.TabIndex = 25
@@ -61,14 +58,11 @@ Partial Class Donor_Management_New
         '
         'Middle_name
         '
-        Me.Middle_name.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Middle_name.AutoSize = True
         Me.Middle_name.BackColor = System.Drawing.SystemColors.InactiveBorder
         Me.Middle_name.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
         Me.Middle_name.Font = New System.Drawing.Font("Segoe UI", 9.0!)
-        Me.Middle_name.Location = New System.Drawing.Point(681, 59)
+        Me.Middle_name.Location = New System.Drawing.Point(906, 53)
         Me.Middle_name.Name = "Middle_name"
         Me.Middle_name.Size = New System.Drawing.Size(81, 17)
         Me.Middle_name.TabIndex = 26
@@ -76,14 +70,11 @@ Partial Class Donor_Management_New
         '
         'First_name
         '
-        Me.First_name.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.First_name.AutoSize = True
         Me.First_name.BackColor = System.Drawing.SystemColors.InactiveBorder
         Me.First_name.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
         Me.First_name.Font = New System.Drawing.Font("Segoe UI", 9.0!)
-        Me.First_name.Location = New System.Drawing.Point(384, 59)
+        Me.First_name.Location = New System.Drawing.Point(609, 53)
         Me.First_name.Name = "First_name"
         Me.First_name.Size = New System.Drawing.Size(66, 17)
         Me.First_name.TabIndex = 27
@@ -91,14 +82,11 @@ Partial Class Donor_Management_New
         '
         'Baranggay
         '
-        Me.Baranggay.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Baranggay.AutoSize = True
         Me.Baranggay.BackColor = System.Drawing.SystemColors.InactiveBorder
         Me.Baranggay.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
         Me.Baranggay.Font = New System.Drawing.Font("Segoe UI", 9.0!)
-        Me.Baranggay.Location = New System.Drawing.Point(83, 123)
+        Me.Baranggay.Location = New System.Drawing.Point(308, 117)
         Me.Baranggay.Name = "Baranggay"
         Me.Baranggay.Size = New System.Drawing.Size(65, 17)
         Me.Baranggay.TabIndex = 28
@@ -106,14 +94,11 @@ Partial Class Donor_Management_New
         '
         'City
         '
-        Me.City.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.City.AutoSize = True
         Me.City.BackColor = System.Drawing.SystemColors.InactiveBorder
         Me.City.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
         Me.City.Font = New System.Drawing.Font("Segoe UI", 9.0!)
-        Me.City.Location = New System.Drawing.Point(384, 123)
+        Me.City.Location = New System.Drawing.Point(609, 117)
         Me.City.Name = "City"
         Me.City.Size = New System.Drawing.Size(30, 17)
         Me.City.TabIndex = 29
@@ -121,14 +106,11 @@ Partial Class Donor_Management_New
         '
         'Province
         '
-        Me.Province.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Province.AutoSize = True
         Me.Province.BackColor = System.Drawing.SystemColors.InactiveBorder
         Me.Province.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
         Me.Province.Font = New System.Drawing.Font("Segoe UI", 9.0!)
-        Me.Province.Location = New System.Drawing.Point(681, 123)
+        Me.Province.Location = New System.Drawing.Point(906, 117)
         Me.Province.Name = "Province"
         Me.Province.Size = New System.Drawing.Size(55, 17)
         Me.Province.TabIndex = 30
@@ -136,14 +118,11 @@ Partial Class Donor_Management_New
         '
         'Birth
         '
-        Me.Birth.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Birth.AutoSize = True
         Me.Birth.BackColor = System.Drawing.SystemColors.InactiveBorder
         Me.Birth.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
         Me.Birth.Font = New System.Drawing.Font("Segoe UI", 9.0!)
-        Me.Birth.Location = New System.Drawing.Point(83, 185)
+        Me.Birth.Location = New System.Drawing.Point(308, 179)
         Me.Birth.Name = "Birth"
         Me.Birth.Size = New System.Drawing.Size(75, 17)
         Me.Birth.TabIndex = 31
@@ -151,14 +130,11 @@ Partial Class Donor_Management_New
         '
         'Blood_type
         '
-        Me.Blood_type.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Blood_type.AutoSize = True
         Me.Blood_type.BackColor = System.Drawing.SystemColors.InactiveBorder
         Me.Blood_type.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
         Me.Blood_type.Font = New System.Drawing.Font("Segoe UI", 9.0!)
-        Me.Blood_type.Location = New System.Drawing.Point(681, 185)
+        Me.Blood_type.Location = New System.Drawing.Point(906, 179)
         Me.Blood_type.Name = "Blood_type"
         Me.Blood_type.Size = New System.Drawing.Size(67, 17)
         Me.Blood_type.TabIndex = 32
@@ -166,14 +142,11 @@ Partial Class Donor_Management_New
         '
         'Gender
         '
-        Me.Gender.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Gender.AutoSize = True
         Me.Gender.BackColor = System.Drawing.SystemColors.InactiveBorder
         Me.Gender.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
         Me.Gender.Font = New System.Drawing.Font("Segoe UI", 9.0!)
-        Me.Gender.Location = New System.Drawing.Point(384, 185)
+        Me.Gender.Location = New System.Drawing.Point(609, 179)
         Me.Gender.Name = "Gender"
         Me.Gender.Size = New System.Drawing.Size(27, 17)
         Me.Gender.TabIndex = 33
@@ -181,11 +154,8 @@ Partial Class Donor_Management_New
         '
         'txtlastname
         '
-        Me.txtlastname.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.txtlastname.Font = New System.Drawing.Font("Segoe UI", 9.0!)
-        Me.txtlastname.Location = New System.Drawing.Point(83, 79)
+        Me.txtlastname.Location = New System.Drawing.Point(308, 73)
         Me.txtlastname.Name = "txtlastname"
         Me.txtlastname.Size = New System.Drawing.Size(188, 32)
         Me.txtlastname.TabIndex = 34
@@ -193,11 +163,8 @@ Partial Class Donor_Management_New
         '
         'txtFirstName
         '
-        Me.txtFirstName.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.txtFirstName.Font = New System.Drawing.Font("Segoe UI", 9.0!)
-        Me.txtFirstName.Location = New System.Drawing.Point(384, 79)
+        Me.txtFirstName.Location = New System.Drawing.Point(609, 73)
         Me.txtFirstName.Name = "txtFirstName"
         Me.txtFirstName.Size = New System.Drawing.Size(188, 32)
         Me.txtFirstName.TabIndex = 35
@@ -205,11 +172,8 @@ Partial Class Donor_Management_New
         '
         'txtmiddlename
         '
-        Me.txtmiddlename.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.txtmiddlename.Font = New System.Drawing.Font("Segoe UI", 9.0!)
-        Me.txtmiddlename.Location = New System.Drawing.Point(681, 79)
+        Me.txtmiddlename.Location = New System.Drawing.Point(906, 73)
         Me.txtmiddlename.Name = "txtmiddlename"
         Me.txtmiddlename.Size = New System.Drawing.Size(188, 32)
         Me.txtmiddlename.TabIndex = 36
@@ -217,11 +181,8 @@ Partial Class Donor_Management_New
         '
         'TxtBaranggay
         '
-        Me.TxtBaranggay.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.TxtBaranggay.Font = New System.Drawing.Font("Segoe UI", 9.0!)
-        Me.TxtBaranggay.Location = New System.Drawing.Point(83, 143)
+        Me.TxtBaranggay.Location = New System.Drawing.Point(308, 137)
         Me.TxtBaranggay.Name = "TxtBaranggay"
         Me.TxtBaranggay.Size = New System.Drawing.Size(188, 32)
         Me.TxtBaranggay.TabIndex = 37
@@ -229,11 +190,8 @@ Partial Class Donor_Management_New
         '
         'txtcity
         '
-        Me.txtcity.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.txtcity.Font = New System.Drawing.Font("Segoe UI", 9.0!)
-        Me.txtcity.Location = New System.Drawing.Point(384, 143)
+        Me.txtcity.Location = New System.Drawing.Point(609, 137)
         Me.txtcity.Name = "txtcity"
         Me.txtcity.Size = New System.Drawing.Size(188, 32)
         Me.txtcity.TabIndex = 38
@@ -241,11 +199,8 @@ Partial Class Donor_Management_New
         '
         'txtprovince
         '
-        Me.txtprovince.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.txtprovince.Font = New System.Drawing.Font("Segoe UI", 9.0!)
-        Me.txtprovince.Location = New System.Drawing.Point(681, 143)
+        Me.txtprovince.Location = New System.Drawing.Point(906, 137)
         Me.txtprovince.Name = "txtprovince"
         Me.txtprovince.Size = New System.Drawing.Size(188, 32)
         Me.txtprovince.TabIndex = 39
@@ -253,11 +208,8 @@ Partial Class Donor_Management_New
         '
         'txtsex
         '
-        Me.txtsex.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.txtsex.Font = New System.Drawing.Font("Segoe UI", 9.0!)
-        Me.txtsex.Location = New System.Drawing.Point(384, 205)
+        Me.txtsex.Location = New System.Drawing.Point(609, 199)
         Me.txtsex.Name = "txtsex"
         Me.txtsex.Size = New System.Drawing.Size(72, 32)
         Me.txtsex.TabIndex = 41
@@ -265,11 +217,8 @@ Partial Class Donor_Management_New
         '
         'txtbloodtype
         '
-        Me.txtbloodtype.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.txtbloodtype.Font = New System.Drawing.Font("Segoe UI", 9.0!)
-        Me.txtbloodtype.Location = New System.Drawing.Point(681, 205)
+        Me.txtbloodtype.Location = New System.Drawing.Point(906, 199)
         Me.txtbloodtype.Name = "txtbloodtype"
         Me.txtbloodtype.Size = New System.Drawing.Size(188, 32)
         Me.txtbloodtype.TabIndex = 42
@@ -277,7 +226,7 @@ Partial Class Donor_Management_New
         '
         'MonthCalendar1
         '
-        Me.MonthCalendar1.Location = New System.Drawing.Point(83, 206)
+        Me.MonthCalendar1.Location = New System.Drawing.Point(308, 200)
         Me.MonthCalendar1.Name = "MonthCalendar1"
         Me.MonthCalendar1.TabIndex = 43
         '
@@ -286,7 +235,7 @@ Partial Class Donor_Management_New
         Me.Button3.BackColor = System.Drawing.Color.Blue
         Me.Button3.Font = New System.Drawing.Font("Segoe UI", 9.0!)
         Me.Button3.ForeColor = System.Drawing.SystemColors.ControlLightLight
-        Me.Button3.Location = New System.Drawing.Point(26, 400)
+        Me.Button3.Location = New System.Drawing.Point(251, 394)
         Me.Button3.Name = "Button3"
         Me.Button3.Size = New System.Drawing.Size(98, 23)
         Me.Button3.TabIndex = 44
@@ -298,7 +247,7 @@ Partial Class Donor_Management_New
         Me.Button1.BackColor = System.Drawing.Color.Blue
         Me.Button1.Font = New System.Drawing.Font("Segoe UI", 9.0!)
         Me.Button1.ForeColor = System.Drawing.SystemColors.ControlLightLight
-        Me.Button1.Location = New System.Drawing.Point(773, 400)
+        Me.Button1.Location = New System.Drawing.Point(998, 394)
         Me.Button1.Name = "Button1"
         Me.Button1.Size = New System.Drawing.Size(159, 24)
         Me.Button1.TabIndex = 45
@@ -309,7 +258,7 @@ Partial Class Donor_Management_New
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(979, 449)
+        Me.ClientSize = New System.Drawing.Size(1364, 749)
         Me.Controls.Add(Me.Button1)
         Me.Controls.Add(Me.Button3)
         Me.Controls.Add(Me.MonthCalendar1)
@@ -332,6 +281,7 @@ Partial Class Donor_Management_New
         Me.Controls.Add(Me.Last_name)
         Me.Name = "Donor_Management_New"
         Me.Text = "Donor_Management_New"
+        Me.WindowState = System.Windows.Forms.FormWindowState.Maximized
         Me.ResumeLayout(False)
         Me.PerformLayout()
 

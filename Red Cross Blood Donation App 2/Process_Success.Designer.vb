@@ -33,7 +33,7 @@ Partial Class Process_Success
         'PictureBox1
         '
         Me.PictureBox1.Image = Global.Red_Cross_Blood_Donation_App_2.My.Resources.Resources.images_removebg_preview
-        Me.PictureBox1.Location = New System.Drawing.Point(393, 39)
+        Me.PictureBox1.Location = New System.Drawing.Point(569, 67)
         Me.PictureBox1.Name = "PictureBox1"
         Me.PictureBox1.Size = New System.Drawing.Size(204, 209)
         Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
@@ -44,7 +44,7 @@ Partial Class Process_Success
         '
         Me.Label1.AutoSize = True
         Me.Label1.Font = New System.Drawing.Font("Segoe UI", 30.0!, System.Drawing.FontStyle.Bold)
-        Me.Label1.Location = New System.Drawing.Point(395, 251)
+        Me.Label1.Location = New System.Drawing.Point(571, 279)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(215, 54)
         Me.Label1.TabIndex = 1
@@ -54,7 +54,7 @@ Partial Class Process_Success
         '
         Me.Label2.AutoSize = True
         Me.Label2.Font = New System.Drawing.Font("Segoe UI Semibold", 20.0!, System.Drawing.FontStyle.Bold)
-        Me.Label2.Location = New System.Drawing.Point(359, 301)
+        Me.Label2.Location = New System.Drawing.Point(535, 329)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(275, 37)
         Me.Label2.TabIndex = 2
@@ -64,7 +64,7 @@ Partial Class Process_Success
         '
         Me.Label3.AutoSize = True
         Me.Label3.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold)
-        Me.Label3.Location = New System.Drawing.Point(429, 350)
+        Me.Label3.Location = New System.Drawing.Point(605, 378)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(127, 15)
         Me.Label3.TabIndex = 3
@@ -75,7 +75,7 @@ Partial Class Process_Success
         Me.Button5.BackColor = System.Drawing.Color.DarkBlue
         Me.Button5.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold)
         Me.Button5.ForeColor = System.Drawing.SystemColors.ControlLightLight
-        Me.Button5.Location = New System.Drawing.Point(424, 368)
+        Me.Button5.Location = New System.Drawing.Point(600, 396)
         Me.Button5.Name = "Button5"
         Me.Button5.Size = New System.Drawing.Size(140, 43)
         Me.Button5.TabIndex = 4
@@ -86,7 +86,7 @@ Partial Class Process_Success
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(977, 450)
+        Me.ClientSize = New System.Drawing.Size(1364, 749)
         Me.Controls.Add(Me.Button5)
         Me.Controls.Add(Me.Label3)
         Me.Controls.Add(Me.Label2)
