@@ -248,6 +248,12 @@
     <Compile Include="Blood_Inventory_Report.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="CreateAccountForm.Designer.vb">
+      <DependentUpon>CreateAccountForm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="CreateAccountForm.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="DataSet1.Designer.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -396,6 +402,9 @@
       <DependentUpon>Blood_Inventory_Report.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Blood_Inven_Report.rdlc" />
+    <EmbeddedResource Include="CreateAccountForm.resx">
+      <DependentUpon>CreateAccountForm.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Donation_History_Report.resx">
       <DependentUpon>Donation_History_Report.vb</DependentUpon>
     </EmbeddedResource>

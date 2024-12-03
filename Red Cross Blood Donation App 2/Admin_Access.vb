@@ -1,49 +1,65 @@
-﻿Public Class Admin_Access
+﻿Imports MySql.Data.MySqlClient
 
-    ' Login button click event
-    Private Sub btnLogin_Click(sender As Object, e As EventArgs) Handles btnLogin.Click
-
-        ' Check if Username and Password are correct
-        If txtUsername.Text = "admin" And txtPassword.Text = "admin" Then
-            MessageBox.Show("Login successful!", "Welcome", MessageBoxButtons.OK, MessageBoxIcon.Information)
-
-            ' Try to show Form4
-            Try
-                Admin_Dashboard.Show() ' Show Form4
-                Me.Hide() ' Hide Form2
-            Catch ex As Exception
-                MessageBox.Show("Error displaying Form4: " & ex.Message) ' Catch any error in loading Form4
-            End Try
-        Else
-            MessageBox.Show("Invalid username or password.", "Login Failed", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            ' Reset password field
-            txtPassword.Text = "Password"
-            txtPassword.ForeColor = Color.Gray
-            txtPassword.UseSystemPasswordChar = False
-        End If
-    End Sub
-
+Public Class Admin_Access
     Private Sub Admin_Access_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-
+        ' Check if the admin_account table is empty
+        Dim query As String = "SELECT COUNT(*) FROM admin_account"
+        Try
+            readQuery(query)
+            If cmdRead.Read() AndAlso cmdRead.GetInt32(0) = 0 Then
+                createAcc.Visible = True ' Show "Create Account" label if table is empty
+            Else
+                createAcc.Visible = False ' Hide "Create Account" label if table has records
+            End If
+        Catch ex As Exception
+            MessageBox.Show($"Error loading admin_account: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        Finally
+            cmdRead?.Close()
+            conn?.Close()
+        End Try
     End Sub
 
-    Private Sub Label2_Click(sender As Object, e As EventArgs) Handles Label2.Click
+    Private Sub btnLogin_Click(sender As Object, e As EventArgs) Handles btnLogin.Click
+        ' Retrieve username and password from TextBox controls
+        Dim username As String = txtUsername.Text.Trim()
+        Dim password As String = txtPassword.Text.Trim()
 
+        ' Validate username and password
+        If String.IsNullOrEmpty(username) OrElse String.IsNullOrEmpty(password) Then
+            MessageBox.Show("Please enter both username and password.", "Login Failed", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            Exit Sub
+        End If
+
+        ' Query to check if username and password match a record in admin_account
+        Dim query As String = "SELECT COUNT(*) FROM admin_account WHERE username = @username AND password = @password"
+        Try
+            Using cmd As New MySqlCommand(query, conn)
+                cmd.Parameters.AddWithValue("@username", username)
+                cmd.Parameters.AddWithValue("@password", password)
+                openConn(db_name)
+
+                Dim count As Integer = Convert.ToInt32(cmd.ExecuteScalar())
+                If count > 0 Then
+                    ' Login successful
+                    MessageBox.Show("Login successful!", "Welcome", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                    Admin_Dashboard.Show() ' Show Admin Dashboard
+                    Me.Hide() ' Hide Login Form
+                Else
+                    ' Login failed
+                    MessageBox.Show("Invalid username or password.", "Login Failed", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                    txtPassword.Text = String.Empty ' Clear the password field
+                End If
+            End Using
+        Catch ex As Exception
+            MessageBox.Show($"Error during login: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        Finally
+            conn?.Close()
+        End Try
     End Sub
 
-    Private Sub pbLogo_Click(sender As Object, e As EventArgs) Handles pbLogo.Click
-
-    End Sub
-
-    Private Sub Label1_Click(sender As Object, e As EventArgs) Handles Label1.Click
-
-    End Sub
-
-    Private Sub txtUsername_TextChanged(sender As Object, e As EventArgs) Handles txtUsername.TextChanged
-
-    End Sub
-
-    Private Sub txtPassword_TextChanged(sender As Object, e As EventArgs) Handles txtPassword.TextChanged
-
+    Private Sub createAcc_Click(sender As Object, e As EventArgs) Handles createAcc.Click
+        Dim createAccountForm As New CreateAccountForm()
+        createAccountForm.Show()
+        Me.Hide()
     End Sub
 End Class

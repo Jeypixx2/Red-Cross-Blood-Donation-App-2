@@ -254,8 +254,8 @@ Public Class HealthCare_Dashboard
                 If result IsNot Nothing Then
                     HealthProviderID = Convert.ToInt32(result)
                 Else
-                    ' If not found, generate a random ID (or handle as needed)
-                    HealthProviderID = GenerateRandomID()
+                    ' If not found, generate a unique ID
+                    HealthProviderID = GenerateUniqueID()
                 End If
             End Using
 
@@ -267,8 +267,8 @@ Public Class HealthCare_Dashboard
                 If result IsNot Nothing Then
                     PersonnelID = Convert.ToInt32(result)
                 Else
-                    ' If not found, generate a random ID (or handle as needed)
-                    PersonnelID = GenerateRandomID()
+                    ' If not found, generate a unique ID
+                    PersonnelID = GenerateUniqueID()
                 End If
             End Using
         Catch ex As MySqlException
@@ -276,11 +276,22 @@ Public Class HealthCare_Dashboard
         End Try
     End Sub
 
-    Private Function GenerateRandomID() As Integer
-        ' Generates a random ID (you can adjust this as needed)
+    Private Function GenerateUniqueID() As Integer
+        ' Get the current time in milliseconds
+        Dim currentTimeMilliseconds As Long = DateTime.UtcNow.Ticks / TimeSpan.TicksPerMillisecond
+
+        ' Generate a random number between 1000 and 9999
         Dim random As New Random()
-        Return random.Next(1000, 9999) ' Random number between 1000 and 9999
+        Dim randomNumber As Integer = random.Next(1000, 9999)
+
+        ' Combine the current time in milliseconds and the random number to form a unique ID
+        Dim uniqueID As String = currentTimeMilliseconds.ToString() & randomNumber.ToString()
+
+        ' Return the first 8 digits of the combined ID to ensure it's manageable as an Integer
+        ' If you want a longer ID, you can adjust the length or change the data type
+        Return Convert.ToInt32(uniqueID.Substring(0, 8))
     End Function
+
 
 
     ' Retrieve data when the button is clicked
@@ -319,8 +330,8 @@ Public Class HealthCare_Dashboard
                     FetchIDs()
 
                     ' If no valid ID found, generate random ones
-                    If HealthProviderID = 0 Then HealthProviderID = GenerateRandomID()
-                    If PersonnelID = 0 Then PersonnelID = GenerateRandomID()
+                    If HealthProviderID = 0 Then HealthProviderID = GenerateUniqueID()
+                    If PersonnelID = 0 Then PersonnelID = GenerateUniqueID()
 
                     ' Use a new RetrieveID and assign it to both IDs
                     Dim RetrieveID As Integer = HealthProviderID ' You may assign a unique value if required.
