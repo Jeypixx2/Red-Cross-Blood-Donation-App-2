@@ -10,10 +10,10 @@ Public Class Admin_Dashboard
     ' Load event handler for the dashboard
     Private Sub Admin_Dashboard_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Try
-            If chartConnection.State = ConnectionState.Closed Then
-                chartConnection.Open()
-            End If
+            ' Ensure the connection is open using the modDB method
+            modDB.openConn("redcrossdb")
 
+            ' Load charts and data
             LoadChart1()
             LoadChart2()
 
@@ -26,6 +26,7 @@ Public Class Admin_Dashboard
         End Try
     End Sub
 
+
     Private Sub LoadChart1()
         Try
             Chart1.Series.Clear()
@@ -35,8 +36,10 @@ Public Class Admin_Dashboard
             Chart1.ChartAreas.Add(chartArea)
 
             Dim query As String = "SELECT bloodtype, COUNT(*) AS donors_count FROM donors GROUP BY bloodtype"
-            Dim da As New MySqlDataAdapter(query, chartConnection)
+            modDB.readQuery(query) ' Use modDB.readQuery to execute the query
+
             Dim ds As New DataSet
+            Dim da As New MySqlDataAdapter(query, modDB.conn) ' This is still necessary for DataTable population
             da.Fill(ds, "Blood Type")
 
             If ds.Tables("Blood Type").Rows.Count = 0 Then
@@ -52,17 +55,19 @@ Public Class Admin_Dashboard
             Chart1.DataSource = ds.Tables("Blood Type")
             Chart1.Series.Add(series)
 
-           Catch ex As Exception
+        Catch ex As Exception
             MessageBox.Show($"Error loading Chart1: {ex.Message}", "Chart Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
     End Sub
 
     Private Sub LoadChart2()
         Try
+            ' Clear existing chart data, chart areas, and legends
             Chart2.Series.Clear()
             Chart2.ChartAreas.Clear()
             Chart2.Legends.Clear()
 
+            ' Add a new chart area for donations
             Dim chartArea As New ChartArea("DonationsArea")
             With chartArea
                 .AxisX.Title = "Month"
@@ -73,24 +78,31 @@ Public Class Admin_Dashboard
             End With
             Chart2.ChartAreas.Add(chartArea)
 
+            ' Query to fetch monthly donation data
             Dim query As String = "
-                SELECT 
-                    YEAR(DonationDate) AS DonationYear, 
-                    MONTHNAME(DonationDate) AS DonationMonth, 
-                    COUNT(*) AS TotalDonations
-                FROM Donation
-                GROUP BY YEAR(DonationDate), MONTH(DonationDate)
-                ORDER BY YEAR(DonationDate), MONTH(DonationDate);"
+            SELECT 
+                YEAR(DonationDate) AS DonationYear, 
+                MONTHNAME(DonationDate) AS DonationMonth, 
+                COUNT(*) AS TotalDonations
+            FROM Donation
+            GROUP BY YEAR(DonationDate), MONTH(DonationDate)
+            ORDER BY YEAR(DonationDate), MONTH(DonationDate);"
 
-            Dim da As New MySqlDataAdapter(query, chartConnection)
+            ' Use modDB to execute the query and fetch data
             Dim ds As New DataSet()
+            modDB.readQuery(query) ' Execute the query using modDB.readQuery
+
+            ' Populate the dataset using MySQL DataAdapter
+            Dim da As New MySqlDataAdapter(query, modDB.conn)
             da.Fill(ds, "Monthly Donations")
 
+            ' Check if any data was retrieved
             If ds.Tables("Monthly Donations").Rows.Count = 0 Then
                 MessageBox.Show("No data available for Chart2.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
                 Return
             End If
 
+            ' Create and configure the chart series
             Dim series As New Series("Monthly Donations")
             With series
                 .ChartType = SeriesChartType.Line
@@ -101,18 +113,23 @@ Public Class Admin_Dashboard
                 .BorderWidth = 2
                 .Color = Color.DarkGreen
             End With
+
+            ' Set the chart data source and add the series to the chart
             Chart2.DataSource = ds.Tables("Monthly Donations")
             Chart2.Series.Add(series)
 
+            ' Create and configure the chart legend
             Dim legend As New Legend("Monthly Donations Legend")
             legend.Docking = Docking.Top
             legend.Alignment = StringAlignment.Center
             Chart2.Legends.Add(legend)
 
         Catch ex As Exception
+            ' Show an error message if an exception occurs
             MessageBox.Show($"Error loading Chart2: {ex.Message}", "Chart Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
     End Sub
+
 
     Private Sub Admin_Dashboard_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
         If chartConnection.State = ConnectionState.Open Then
@@ -265,10 +282,6 @@ Public Class Admin_Dashboard
         Me.Hide()
     End Sub
 
-    Private Sub DataGridView1_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles DataGridView1.CellContentClick
-
-    End Sub
-
     Private Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click
         Blood_Inventory_Report.Show()
         Me.Hide()
@@ -284,7 +297,4 @@ Public Class Admin_Dashboard
         Me.Hide()
     End Sub
 
-    Private Sub Chart2_Click(sender As Object, e As EventArgs) Handles Chart2.Click
-
-    End Sub
 End Class

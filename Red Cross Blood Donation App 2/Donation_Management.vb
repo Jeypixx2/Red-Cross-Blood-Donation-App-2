@@ -75,7 +75,4 @@ Public Class Donation_Management_new
         Me.Hide()
     End Sub
 
-    Private Sub Blood_type_Click(sender As Object, e As EventArgs) Handles Blood_type.Click
-
-    End Sub
 End Class

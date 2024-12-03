@@ -38,16 +38,12 @@ Partial Class Admin_Dashboard
         Me.MonthCalendar1 = New System.Windows.Forms.MonthCalendar()
         Me.ComboBox1 = New System.Windows.Forms.ComboBox()
         Me.Panel1 = New System.Windows.Forms.Panel()
-        Me.Button9 = New System.Windows.Forms.Button()
-        Me.Button8 = New System.Windows.Forms.Button()
-        Me.Button7 = New System.Windows.Forms.Button()
-        Me.Button6 = New System.Windows.Forms.Button()
-        Me.Button5 = New System.Windows.Forms.Button()
-        Me.Button4 = New System.Windows.Forms.Button()
-        Me.Button3 = New System.Windows.Forms.Button()
-        Me.Button2 = New System.Windows.Forms.Button()
         Me.Button1 = New System.Windows.Forms.Button()
         Me.Label1 = New System.Windows.Forms.Label()
+        Me.Button2 = New System.Windows.Forms.Button()
+        Me.Button3 = New System.Windows.Forms.Button()
+        Me.Button8 = New System.Windows.Forms.Button()
+        Me.Button4 = New System.Windows.Forms.Button()
         Me.pbLogo = New System.Windows.Forms.PictureBox()
         Me.Chart1 = New System.Windows.Forms.DataVisualization.Charting.Chart()
         Me.Chart2 = New System.Windows.Forms.DataVisualization.Charting.Chart()
@@ -61,7 +57,7 @@ Partial Class Admin_Dashboard
         'Daily
         '
         Me.Daily.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold)
-        Me.Daily.Location = New System.Drawing.Point(197, 83)
+        Me.Daily.Location = New System.Drawing.Point(166, 83)
         Me.Daily.Name = "Daily"
         Me.Daily.Size = New System.Drawing.Size(85, 32)
         Me.Daily.TabIndex = 2
@@ -71,7 +67,7 @@ Partial Class Admin_Dashboard
         'Weekly
         '
         Me.Weekly.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold)
-        Me.Weekly.Location = New System.Drawing.Point(288, 83)
+        Me.Weekly.Location = New System.Drawing.Point(257, 83)
         Me.Weekly.Name = "Weekly"
         Me.Weekly.Size = New System.Drawing.Size(85, 32)
         Me.Weekly.TabIndex = 3
@@ -81,7 +77,7 @@ Partial Class Admin_Dashboard
         'Monthly
         '
         Me.Monthly.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold)
-        Me.Monthly.Location = New System.Drawing.Point(379, 83)
+        Me.Monthly.Location = New System.Drawing.Point(348, 83)
         Me.Monthly.Name = "Monthly"
         Me.Monthly.Size = New System.Drawing.Size(84, 32)
         Me.Monthly.TabIndex = 4
@@ -91,9 +87,9 @@ Partial Class Admin_Dashboard
         'User
         '
         Me.User.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold)
-        Me.User.Location = New System.Drawing.Point(25, 424)
+        Me.User.Location = New System.Drawing.Point(447, 6)
         Me.User.Name = "User"
-        Me.User.Size = New System.Drawing.Size(125, 55)
+        Me.User.Size = New System.Drawing.Size(125, 50)
         Me.User.TabIndex = 5
         Me.User.Text = "Donor Management"
         Me.User.UseVisualStyleBackColor = True
@@ -101,7 +97,7 @@ Partial Class Admin_Dashboard
         'Donor
         '
         Me.Donor.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold)
-        Me.Donor.Location = New System.Drawing.Point(25, 149)
+        Me.Donor.Location = New System.Drawing.Point(166, 6)
         Me.Donor.Name = "Donor"
         Me.Donor.Size = New System.Drawing.Size(125, 50)
         Me.Donor.TabIndex = 6
@@ -111,9 +107,9 @@ Partial Class Admin_Dashboard
         'Inventory
         '
         Me.Inventory.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold)
-        Me.Inventory.Location = New System.Drawing.Point(25, 282)
+        Me.Inventory.Location = New System.Drawing.Point(307, 6)
         Me.Inventory.Name = "Inventory"
-        Me.Inventory.Size = New System.Drawing.Size(125, 55)
+        Me.Inventory.Size = New System.Drawing.Size(125, 50)
         Me.Inventory.TabIndex = 7
         Me.Inventory.Text = "Inventory Management"
         Me.Inventory.UseVisualStyleBackColor = True
@@ -121,15 +117,15 @@ Partial Class Admin_Dashboard
         'DataGridView1
         '
         Me.DataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.DataGridView1.Location = New System.Drawing.Point(166, 122)
+        Me.DataGridView1.Location = New System.Drawing.Point(21, 122)
         Me.DataGridView1.Name = "DataGridView1"
-        Me.DataGridView1.Size = New System.Drawing.Size(1439, 357)
+        Me.DataGridView1.Size = New System.Drawing.Size(1584, 357)
         Me.DataGridView1.TabIndex = 8
         '
         'MonthCalendar1
         '
         Me.MonthCalendar1.Anchor = System.Windows.Forms.AnchorStyles.Top
-        Me.MonthCalendar1.Location = New System.Drawing.Point(773, 83)
+        Me.MonthCalendar1.Location = New System.Drawing.Point(451, 83)
         Me.MonthCalendar1.Name = "MonthCalendar1"
         Me.MonthCalendar1.TabIndex = 14
         Me.MonthCalendar1.Visible = False
@@ -137,7 +133,7 @@ Partial Class Admin_Dashboard
         'ComboBox1
         '
         Me.ComboBox1.FormattingEnabled = True
-        Me.ComboBox1.Location = New System.Drawing.Point(594, 83)
+        Me.ComboBox1.Location = New System.Drawing.Point(451, 83)
         Me.ComboBox1.Name = "ComboBox1"
         Me.ComboBox1.Size = New System.Drawing.Size(121, 21)
         Me.ComboBox1.TabIndex = 11
@@ -145,117 +141,26 @@ Partial Class Admin_Dashboard
         'Panel1
         '
         Me.Panel1.BackColor = System.Drawing.Color.Firebrick
-        Me.Panel1.Controls.Add(Me.Button9)
-        Me.Panel1.Controls.Add(Me.Button8)
-        Me.Panel1.Controls.Add(Me.Button7)
-        Me.Panel1.Controls.Add(Me.Button6)
-        Me.Panel1.Controls.Add(Me.Button5)
-        Me.Panel1.Controls.Add(Me.Button4)
-        Me.Panel1.Controls.Add(Me.Button3)
-        Me.Panel1.Controls.Add(Me.Button2)
         Me.Panel1.Controls.Add(Me.Button1)
         Me.Panel1.Controls.Add(Me.Label1)
+        Me.Panel1.Controls.Add(Me.Button2)
+        Me.Panel1.Controls.Add(Me.Button3)
+        Me.Panel1.Controls.Add(Me.Button8)
+        Me.Panel1.Controls.Add(Me.Button4)
         Me.Panel1.Dock = System.Windows.Forms.DockStyle.Right
-        Me.Panel1.Location = New System.Drawing.Point(1663, 0)
+        Me.Panel1.Location = New System.Drawing.Point(1651, 0)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(180, 995)
+        Me.Panel1.Size = New System.Drawing.Size(192, 995)
         Me.Panel1.TabIndex = 24
-        '
-        'Button9
-        '
-        Me.Button9.BackColor = System.Drawing.SystemColors.ControlDarkDark
-        Me.Button9.ForeColor = System.Drawing.SystemColors.Control
-        Me.Button9.Location = New System.Drawing.Point(23, 643)
-        Me.Button9.Name = "Button9"
-        Me.Button9.Size = New System.Drawing.Size(145, 30)
-        Me.Button9.TabIndex = 26
-        Me.Button9.Text = "Donation Trends Report"
-        Me.Button9.UseVisualStyleBackColor = False
-        '
-        'Button8
-        '
-        Me.Button8.BackColor = System.Drawing.SystemColors.ControlDarkDark
-        Me.Button8.ForeColor = System.Drawing.SystemColors.Control
-        Me.Button8.Location = New System.Drawing.Point(22, 371)
-        Me.Button8.Name = "Button8"
-        Me.Button8.Size = New System.Drawing.Size(145, 39)
-        Me.Button8.TabIndex = 25
-        Me.Button8.Text = "Healthcare Provider Access Report"
-        Me.Button8.UseVisualStyleBackColor = False
-        '
-        'Button7
-        '
-        Me.Button7.BackColor = System.Drawing.SystemColors.ControlDarkDark
-        Me.Button7.ForeColor = System.Drawing.SystemColors.Control
-        Me.Button7.Location = New System.Drawing.Point(23, 502)
-        Me.Button7.Name = "Button7"
-        Me.Button7.Size = New System.Drawing.Size(145, 40)
-        Me.Button7.TabIndex = 24
-        Me.Button7.Text = "Donor Demographics Report"
-        Me.Button7.UseVisualStyleBackColor = False
-        '
-        'Button6
-        '
-        Me.Button6.BackColor = System.Drawing.SystemColors.ControlDarkDark
-        Me.Button6.ForeColor = System.Drawing.SystemColors.Control
-        Me.Button6.Location = New System.Drawing.Point(23, 441)
-        Me.Button6.Name = "Button6"
-        Me.Button6.Size = New System.Drawing.Size(145, 30)
-        Me.Button6.TabIndex = 6
-        Me.Button6.Text = "Monthly Donation Statistics"
-        Me.Button6.UseVisualStyleBackColor = False
-        '
-        'Button5
-        '
-        Me.Button5.BackColor = System.Drawing.SystemColors.ControlDarkDark
-        Me.Button5.ForeColor = System.Drawing.SystemColors.Control
-        Me.Button5.Location = New System.Drawing.Point(22, 576)
-        Me.Button5.Name = "Button5"
-        Me.Button5.Size = New System.Drawing.Size(145, 37)
-        Me.Button5.TabIndex = 5
-        Me.Button5.Text = "Blood Type Demand Report"
-        Me.Button5.UseVisualStyleBackColor = False
-        '
-        'Button4
-        '
-        Me.Button4.BackColor = System.Drawing.SystemColors.ControlDarkDark
-        Me.Button4.ForeColor = System.Drawing.SystemColors.Control
-        Me.Button4.Location = New System.Drawing.Point(22, 312)
-        Me.Button4.Name = "Button4"
-        Me.Button4.Size = New System.Drawing.Size(145, 30)
-        Me.Button4.TabIndex = 4
-        Me.Button4.Text = "Inegibility Status Report"
-        Me.Button4.UseVisualStyleBackColor = False
-        '
-        'Button3
-        '
-        Me.Button3.BackColor = System.Drawing.SystemColors.ControlDarkDark
-        Me.Button3.ForeColor = System.Drawing.SystemColors.Control
-        Me.Button3.Location = New System.Drawing.Point(22, 249)
-        Me.Button3.Name = "Button3"
-        Me.Button3.Size = New System.Drawing.Size(145, 30)
-        Me.Button3.TabIndex = 3
-        Me.Button3.Text = "Blood Inventory Report"
-        Me.Button3.UseVisualStyleBackColor = False
-        '
-        'Button2
-        '
-        Me.Button2.BackColor = System.Drawing.SystemColors.ControlDarkDark
-        Me.Button2.ForeColor = System.Drawing.SystemColors.Control
-        Me.Button2.Location = New System.Drawing.Point(22, 189)
-        Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(145, 30)
-        Me.Button2.TabIndex = 2
-        Me.Button2.Text = "Donation History Report"
-        Me.Button2.UseVisualStyleBackColor = False
         '
         'Button1
         '
         Me.Button1.BackColor = System.Drawing.SystemColors.ControlDarkDark
+        Me.Button1.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Button1.ForeColor = System.Drawing.SystemColors.Control
-        Me.Button1.Location = New System.Drawing.Point(22, 127)
+        Me.Button1.Location = New System.Drawing.Point(25, 139)
         Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(145, 30)
+        Me.Button1.Size = New System.Drawing.Size(143, 58)
         Me.Button1.TabIndex = 1
         Me.Button1.Text = "Donor Registration Report"
         Me.Button1.UseVisualStyleBackColor = False
@@ -263,13 +168,61 @@ Partial Class Admin_Dashboard
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Font = New System.Drawing.Font("Times New Roman", 20.25!, System.Drawing.FontStyle.Bold)
+        Me.Label1.Font = New System.Drawing.Font("Times New Roman", 24.0!, System.Drawing.FontStyle.Bold)
         Me.Label1.ForeColor = System.Drawing.SystemColors.ButtonHighlight
-        Me.Label1.Location = New System.Drawing.Point(39, 42)
+        Me.Label1.Location = New System.Drawing.Point(20, 32)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(128, 62)
+        Me.Label1.Size = New System.Drawing.Size(148, 72)
         Me.Label1.TabIndex = 0
         Me.Label1.Text = "Generate " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & " Report"
+        '
+        'Button2
+        '
+        Me.Button2.BackColor = System.Drawing.SystemColors.ControlDarkDark
+        Me.Button2.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Button2.ForeColor = System.Drawing.SystemColors.Control
+        Me.Button2.Location = New System.Drawing.Point(25, 227)
+        Me.Button2.Name = "Button2"
+        Me.Button2.Size = New System.Drawing.Size(143, 58)
+        Me.Button2.TabIndex = 2
+        Me.Button2.Text = "Donation History Report"
+        Me.Button2.UseVisualStyleBackColor = False
+        '
+        'Button3
+        '
+        Me.Button3.BackColor = System.Drawing.SystemColors.ControlDarkDark
+        Me.Button3.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Button3.ForeColor = System.Drawing.SystemColors.Control
+        Me.Button3.Location = New System.Drawing.Point(25, 314)
+        Me.Button3.Name = "Button3"
+        Me.Button3.Size = New System.Drawing.Size(143, 58)
+        Me.Button3.TabIndex = 3
+        Me.Button3.Text = "Blood Inventory Report"
+        Me.Button3.UseVisualStyleBackColor = False
+        '
+        'Button8
+        '
+        Me.Button8.BackColor = System.Drawing.SystemColors.ControlDarkDark
+        Me.Button8.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Button8.ForeColor = System.Drawing.SystemColors.Control
+        Me.Button8.Location = New System.Drawing.Point(25, 494)
+        Me.Button8.Name = "Button8"
+        Me.Button8.Size = New System.Drawing.Size(143, 67)
+        Me.Button8.TabIndex = 25
+        Me.Button8.Text = "Healthcare Provider Access Report"
+        Me.Button8.UseVisualStyleBackColor = False
+        '
+        'Button4
+        '
+        Me.Button4.BackColor = System.Drawing.SystemColors.ControlDarkDark
+        Me.Button4.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Button4.ForeColor = System.Drawing.SystemColors.Control
+        Me.Button4.Location = New System.Drawing.Point(25, 405)
+        Me.Button4.Name = "Button4"
+        Me.Button4.Size = New System.Drawing.Size(143, 58)
+        Me.Button4.TabIndex = 4
+        Me.Button4.Text = "Inegibility Status Report"
+        Me.Button4.UseVisualStyleBackColor = False
         '
         'pbLogo
         '
@@ -287,13 +240,13 @@ Partial Class Admin_Dashboard
         Me.Chart1.ChartAreas.Add(ChartArea1)
         Legend1.Name = "Legend1"
         Me.Chart1.Legends.Add(Legend1)
-        Me.Chart1.Location = New System.Drawing.Point(166, 776)
+        Me.Chart1.Location = New System.Drawing.Point(21, 776)
         Me.Chart1.Name = "Chart1"
         Series1.ChartArea = "ChartArea1"
         Series1.Legend = "Legend1"
         Series1.Name = "Series1"
         Me.Chart1.Series.Add(Series1)
-        Me.Chart1.Size = New System.Drawing.Size(1439, 209)
+        Me.Chart1.Size = New System.Drawing.Size(1584, 209)
         Me.Chart1.TabIndex = 25
         Me.Chart1.Text = "Chart1"
         '
@@ -303,13 +256,13 @@ Partial Class Admin_Dashboard
         Me.Chart2.ChartAreas.Add(ChartArea2)
         Legend2.Name = "Legend1"
         Me.Chart2.Legends.Add(Legend2)
-        Me.Chart2.Location = New System.Drawing.Point(166, 485)
+        Me.Chart2.Location = New System.Drawing.Point(21, 485)
         Me.Chart2.Name = "Chart2"
         Series2.ChartArea = "ChartArea1"
         Series2.Legend = "Legend1"
         Series2.Name = "Series1"
         Me.Chart2.Series.Add(Series2)
-        Me.Chart2.Size = New System.Drawing.Size(1439, 275)
+        Me.Chart2.Size = New System.Drawing.Size(1584, 275)
         Me.Chart2.TabIndex = 26
         Me.Chart2.Text = "Chart2"
         '
@@ -355,11 +308,7 @@ Partial Class Admin_Dashboard
     Friend WithEvents MonthCalendar1 As MonthCalendar
     Friend WithEvents ComboBox1 As ComboBox
     Friend WithEvents Panel1 As Panel
-    Friend WithEvents Button9 As Button
     Friend WithEvents Button8 As Button
-    Friend WithEvents Button7 As Button
-    Friend WithEvents Button6 As Button
-    Friend WithEvents Button5 As Button
     Friend WithEvents Button4 As Button
     Friend WithEvents Button3 As Button
     Friend WithEvents Button2 As Button
