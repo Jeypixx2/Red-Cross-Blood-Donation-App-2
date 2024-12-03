@@ -60,13 +60,19 @@ Public Class Admin_Inventory
 
     ' Load data for the selected month when a month is chosen from the ComboBox
     Private Sub cmbMonths_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbMonths.SelectedIndexChanged
-        Dim selectedMonth As Integer = cmbMonths.SelectedIndex + 1
-        Dim monthNumber As Integer = Convert.ToInt32(selectedMonth)
-        Dim monthName As String = New DateTime(2020, monthNumber, 1).ToString("MMMM")
-        Dim Data = GlobalModel.GetAll(currentTable, Calendar, dbDateColumn, monthName)
+        Dim selectedMonth As Integer = cmbMonths.SelectedIndex + 1 ' Get the numeric month (1-12)
+        Dim currentYear As Integer = DateTime.Now.Year ' Optionally, allow selecting other years if needed
+
+        ' Fetch data for the selected month and year
+        Dim Data = GlobalModel.GetAll(currentTable, 3, dbDateColumn, selectedMonth, currentYear)
+
+        ' Update the DataGridView
         GlobalModel.UpdateDataGridView(Data, dgvInventory)
+
+        ' Hide the ComboBox after selection
         cmbMonths.Visible = False
     End Sub
+
 
     Private Sub DonorRecord_Click(sender As Object, e As EventArgs) Handles DonorRecord.Click
         currentTable = "donors"

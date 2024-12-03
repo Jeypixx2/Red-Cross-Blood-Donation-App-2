@@ -4,43 +4,42 @@ Imports Mysqlx.XDevAPI.Relational
 Public Class Global_model
 
     Public Function GetAll(ByVal database As String, ByVal Calendar As Integer, ByVal DbDateColumn As String, ParamArray parameters As Object()) As DataTable
-        ' Validate database and DbDateColumn
+        ' Validate inputs
         If String.IsNullOrEmpty(database) OrElse String.IsNullOrEmpty(DbDateColumn) Then
             MessageBox.Show("Database or Date Column is empty.")
             Return Nothing
         End If
 
-        ' Construct the query with backticks around database and column names to avoid SQL errors
+        ' Construct the query
         Dim query As String = "SELECT * FROM `" & database & "`"
 
-        If Calendar = 1 Then
-            query &= " WHERE DATE(`" & DbDateColumn & "`) = @param0"
-        ElseIf Calendar = 2 Then
-            query &= " WHERE DATE(`" & DbDateColumn & "`) BETWEEN @param0 AND @param1"
-        ElseIf Calendar = 3 Then
-            query &= " WHERE MONTHNAME(`" & DbDateColumn & "`) = @param0"
-        End If
+        Select Case Calendar
+            Case 1 ' Daily view
+                query &= " WHERE DATE(`" & DbDateColumn & "`) = @param0"
+            Case 2 ' Weekly view
+                query &= " WHERE DATE(`" & DbDateColumn & "`) BETWEEN @param0 AND @param1"
+            Case 3 ' Monthly view
+                query &= " WHERE MONTH(`" & DbDateColumn & "`) = @param0 AND YEAR(`" & DbDateColumn & "`) = @param1"
+        End Select
 
         Dim table As New DataTable()
         Using cmd As New MySqlCommand(query, conn)
-            ' Add parameters if provided
+            ' Add parameters dynamically
             If parameters IsNot Nothing AndAlso parameters.Length > 0 Then
                 For i As Integer = 0 To parameters.Length - 1
                     cmd.Parameters.AddWithValue($"@param{i}", parameters(i))
                 Next
             End If
 
-            ' Debugging: Output the constructed query
+            ' Debugging: Show the generated query for verification
             Dim debugQuery As String = query
             For i As Integer = 0 To parameters.Length - 1
-                Dim paramValue As String = parameters(i).ToString().Replace("'", "''") ' Escape single quotes in strings
-                debugQuery = debugQuery.Replace($"@param{i}", paramValue)
+                debugQuery = debugQuery.Replace($"@param{i}", parameters(i).ToString())
             Next
-
             MessageBox.Show($"Executing Query: {debugQuery}")
 
             Try
-                ' Execute the query and load the results into the DataTable
+                ' Execute and load data into DataTable
                 Using reader As MySqlDataReader = cmd.ExecuteReader()
                     table.Load(reader)
                 End Using
@@ -52,6 +51,7 @@ Public Class Global_model
 
         Return table
     End Function
+
 
     Sub UpdateDataGridView(filteredData As DataTable, ByVal DataGridView As DataGridView)
         RenameColumns(filteredData)
