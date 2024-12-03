@@ -186,23 +186,29 @@ Public Class Admin_Dashboard
 
     ' Show data for the selected date (only date part, no time)
     Private Sub ShowDataForDate(selectedDate As Date)
-        ' Use DATE() to extract only the date part (ignore time)
-        Dim filteredData As DataTable = FilterData("SELECT * FROM Donors WHERE DATE(RegDate) = @param0", selectedDate)
-        UpdateDataGridView(filteredData)
+        ' Query to show data for the selected date (ignoring time)
+        Dim query As String = "SELECT * FROM Donors WHERE DATE(RegDate) = @param0"
+        ' Use the function from the modDB module
+        modDB.LoadToDGV(query, DataGridView1)
     End Sub
 
-    ' Show data from the selected date to the upcoming Saturday (only date part, no time)
     Private Sub ShowDataForWeek(selectedDate As Date)
-        Dim endOfWeek As Date = selectedDate.AddDays(DayOfWeek.Saturday - selectedDate.DayOfWeek)
-        Dim filteredData As DataTable = FilterData("SELECT * FROM Donors WHERE DATE(RegDate) BETWEEN @param0 AND @param1", selectedDate, endOfWeek)
-        UpdateDataGridView(filteredData)
+        ' Calculate the start and end of the week
+        Dim startOfWeek As Date = selectedDate.AddDays(-CInt(selectedDate.DayOfWeek))
+        Dim endOfWeek As Date = startOfWeek.AddDays(6)
+        ' Query to show data for the week
+        Dim query As String = "SELECT * FROM Donors WHERE DATE(RegDate) BETWEEN @param0 AND @param1"
+        ' Call the function to load data into DataGridView
+        modDB.LoadToDGV(query, DataGridView1)
     End Sub
 
-    ' Show data for the selected month (only date part, no time)
     Private Sub ShowDataForMonth(selectedMonth As Integer)
-        Dim filteredData As DataTable = FilterData("SELECT * FROM Donors WHERE MONTH(RegDate) = @param0", selectedMonth)
-        UpdateDataGridView(filteredData)
+        ' Query to show data for the selected month
+        Dim query As String = "SELECT * FROM Donors WHERE MONTH(RegDate) = @param0"
+        ' Use the LoadToDGV function to display data
+        modDB.LoadToDGV(query, DataGridView1)
     End Sub
+
 
     ' Filter data based on SQL query and parameters
     Private Function FilterData(query As String, ParamArray parameters As Object()) As DataTable
