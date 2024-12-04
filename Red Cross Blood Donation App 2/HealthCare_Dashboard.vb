@@ -33,6 +33,7 @@ Public Class HealthCare_Dashboard
         Catch ex As MySqlException
             MessageBox.Show($"Connection failed: {ex.Message}", "Connection Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
+        MonthCalendar1.Visible = False
     End Sub
 
     Private Sub LoadChart1()
@@ -501,7 +502,7 @@ Public Class HealthCare_Dashboard
     Private Sub RefreshDataGridView()
         ' Refresh data in the DataGridView
         Dim query As String = "SELECT d.BloodID, d.DonationDate, p.BloodType, d.RhesusFactor, " &
-                              "d.DonationType, d.BloodVolume, d.CollectionMethod, p.LastName, p.FirstName, p.MiddleName " &
+                              "d.DonationType, d.BloodVolume, d.CollectionMethod, p.LastName, p.FirstName, p.MiddleName, p.Baranggay, p.City, p.Province, p.Sex, p.Age " &
                               "FROM donation d JOIN donors p ON d.DonorID = p.DonorID"
 
         Dim dt As New DataTable()
