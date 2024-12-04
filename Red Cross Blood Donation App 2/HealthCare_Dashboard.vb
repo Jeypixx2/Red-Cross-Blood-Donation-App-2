@@ -502,7 +502,7 @@ Public Class HealthCare_Dashboard
     Private Sub RefreshDataGridView()
         ' Refresh data in the DataGridView
         Dim query As String = "SELECT d.BloodID, d.DonationDate, p.BloodType, d.RhesusFactor, " &
-                              "d.DonationType, d.BloodVolume, d.CollectionMethod, p.LastName, p.FirstName, p.MiddleName, p.Baranggay, p.City, p.Province, p.Sex, p.Age " &
+                              "d.DonationType, d.BloodVolume, d.CollectionMethod, p.LastName, p.FirstName, p.MiddleName, p.Baranggay, p.City, p.Province, p.Age, p.Sex " &
                               "FROM donation d JOIN donors p ON d.DonorID = p.DonorID"
 
         Dim dt As New DataTable()
