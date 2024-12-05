@@ -1,7 +1,4 @@
 ﻿Public Class User_Status
-    Private Sub User_Status_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        ' Code to run when the form loads can go here, such as initializing controls or loading data.
-    End Sub
 
     ' Event handler for the "New Donor" button
     Private Sub btnNewDonor_Click(sender As Object, e As EventArgs) Handles New_Donor.Click

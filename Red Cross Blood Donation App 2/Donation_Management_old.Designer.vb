@@ -222,6 +222,7 @@ Partial Class Donation_Management_old
         Me.Controls.Add(Me.txtBloodType)
         Me.Controls.Add(Me.Blood_type)
         Me.Controls.Add(Me.Proceed)
+        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.Name = "Donation_Management_old"
         Me.Text = "Donation Management Existing Donor"
         Me.ResumeLayout(False)

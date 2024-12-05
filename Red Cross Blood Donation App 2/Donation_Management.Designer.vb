@@ -222,6 +222,7 @@ Partial Class Donation_Management_new
         Me.Controls.Add(Me.Rhesus_Factor)
         Me.Controls.Add(Me.txtBloodType)
         Me.Controls.Add(Me.Blood_type)
+        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.Name = "Donation_Management_new"
         Me.Text = "Donation Management New Donor"
         Me.WindowState = System.Windows.Forms.FormWindowState.Maximized

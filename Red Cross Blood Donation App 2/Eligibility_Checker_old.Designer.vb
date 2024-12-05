@@ -411,6 +411,7 @@ Partial Class Eligibility_Checker_old
         Me.Controls.Add(Me.Blood_pres)
         Me.Controls.Add(Me.Hem_lvl)
         Me.Controls.Add(Me.Weight)
+        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.Name = "Eligibility_Checker_old"

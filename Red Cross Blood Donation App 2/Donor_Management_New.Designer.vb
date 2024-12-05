@@ -355,6 +355,7 @@ Partial Class Donor_Management_New
         Me.Controls.Add(Me.First_name)
         Me.Controls.Add(Me.Middle_name)
         Me.Controls.Add(Me.Last_name)
+        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.Name = "Donor_Management_New"

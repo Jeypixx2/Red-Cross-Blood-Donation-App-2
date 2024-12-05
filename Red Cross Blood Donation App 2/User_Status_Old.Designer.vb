@@ -39,9 +39,9 @@ Partial Class User_Status_Old
         Me.Back.BackColor = System.Drawing.Color.Red
         Me.Back.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold)
         Me.Back.ForeColor = System.Drawing.SystemColors.Control
-        Me.Back.Location = New System.Drawing.Point(608, 582)
+        Me.Back.Location = New System.Drawing.Point(82, 449)
         Me.Back.Name = "Back"
-        Me.Back.Size = New System.Drawing.Size(173, 57)
+        Me.Back.Size = New System.Drawing.Size(140, 33)
         Me.Back.TabIndex = 7
         Me.Back.Text = "Back"
         Me.Back.UseVisualStyleBackColor = False
@@ -51,9 +51,9 @@ Partial Class User_Status_Old
         Me.Panel1.Controls.Add(Me.LastNameTextBox)
         Me.Panel1.Controls.Add(Me.MiddleNameTextBox)
         Me.Panel1.Controls.Add(Me.FirstNameTextBox)
-        Me.Panel1.Location = New System.Drawing.Point(582, 268)
+        Me.Panel1.Location = New System.Drawing.Point(41, 179)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(236, 158)
+        Me.Panel1.Size = New System.Drawing.Size(236, 207)
         Me.Panel1.TabIndex = 6
         '
         'LastNameTextBox
@@ -97,7 +97,7 @@ Partial Class User_Status_Old
         '
         Me.pbLogo.Anchor = System.Windows.Forms.AnchorStyles.Top
         Me.pbLogo.Image = Global.Red_Cross_Blood_Donation_App_2.My.Resources.Resources.Red_Cross_logo
-        Me.pbLogo.Location = New System.Drawing.Point(596, 71)
+        Me.pbLogo.Location = New System.Drawing.Point(50, 12)
         Me.pbLogo.Name = "pbLogo"
         Me.pbLogo.Size = New System.Drawing.Size(207, 161)
         Me.pbLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
@@ -110,9 +110,9 @@ Partial Class User_Status_Old
         Me.Search.BackColor = System.Drawing.Color.MediumBlue
         Me.Search.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold)
         Me.Search.ForeColor = System.Drawing.Color.White
-        Me.Search.Location = New System.Drawing.Point(582, 488)
+        Me.Search.Location = New System.Drawing.Point(82, 392)
         Me.Search.Name = "Search"
-        Me.Search.Size = New System.Drawing.Size(233, 75)
+        Me.Search.Size = New System.Drawing.Size(140, 51)
         Me.Search.TabIndex = 8
         Me.Search.Text = "Proceed"
         Me.Search.UseVisualStyleBackColor = False
@@ -121,14 +121,17 @@ Partial Class User_Status_Old
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1364, 708)
+        Me.AutoSize = True
+        Me.ClientSize = New System.Drawing.Size(319, 493)
         Me.Controls.Add(Me.Search)
         Me.Controls.Add(Me.Back)
         Me.Controls.Add(Me.Panel1)
         Me.Controls.Add(Me.pbLogo)
+        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
+        Me.MaximizeBox = False
+        Me.MinimizeBox = False
         Me.Name = "User_Status_Old"
         Me.Text = "User_Status_Old"
-        Me.WindowState = System.Windows.Forms.FormWindowState.Maximized
         Me.Panel1.ResumeLayout(False)
         Me.Panel1.PerformLayout()
         CType(Me.pbLogo, System.ComponentModel.ISupportInitialize).EndInit()
