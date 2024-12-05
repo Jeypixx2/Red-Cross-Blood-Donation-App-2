@@ -176,32 +176,5 @@ Module modDB
         End Try
     End Sub
 
-    Public Function FilterData(query As String, ParamArray parameters As Object()) As DataTable
-        Dim table As New DataTable()
-
-        Try
-            ' Ensure the connection is open
-            If conn.State = ConnectionState.Closed Then
-                openConn(db_name)
-            End If
-
-            ' Use the shared connection
-            Using cmd As New MySqlCommand(query, conn)
-                ' Add parameters to the SQL command
-                For i As Integer = 0 To parameters.Length - 1
-                    cmd.Parameters.AddWithValue($"@param{i}", parameters(i))
-                Next
-
-                Using reader As MySqlDataReader = cmd.ExecuteReader()
-                    table.Load(reader)
-                End Using
-            End Using
-        Catch ex As MySqlException
-            MessageBox.Show($"An error occurred: {ex.Message}", "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        End Try
-
-        Return table
-    End Function
-
 
 End Module

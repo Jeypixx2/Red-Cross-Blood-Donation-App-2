@@ -32,8 +32,11 @@ Partial Class Donation_Management_new
         Me.txtBloodVolume = New System.Windows.Forms.RichTextBox()
         Me.Don_type = New System.Windows.Forms.Label()
         Me.DonationTypeCheckedlist = New System.Windows.Forms.CheckedListBox()
-        Me.Back = New System.Windows.Forms.Button()
         Me.Proceed = New System.Windows.Forms.Button()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.BagTypeCheckedlist = New System.Windows.Forms.CheckedListBox()
+        Me.txtStorage = New System.Windows.Forms.RichTextBox()
+        Me.Label2 = New System.Windows.Forms.Label()
         Me.SuspendLayout()
         '
         'Blood_type
@@ -41,19 +44,20 @@ Partial Class Donation_Management_new
         Me.Blood_type.AutoSize = True
         Me.Blood_type.BackColor = System.Drawing.SystemColors.InactiveBorder
         Me.Blood_type.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
-        Me.Blood_type.Font = New System.Drawing.Font("Segoe UI", 14.0!)
-        Me.Blood_type.Location = New System.Drawing.Point(77, 47)
+        Me.Blood_type.Font = New System.Drawing.Font("Segoe UI", 9.0!)
+        Me.Blood_type.Location = New System.Drawing.Point(56, 23)
         Me.Blood_type.Name = "Blood_type"
-        Me.Blood_type.Size = New System.Drawing.Size(121, 27)
+        Me.Blood_type.Size = New System.Drawing.Size(76, 17)
         Me.Blood_type.TabIndex = 0
         Me.Blood_type.Text = "Blood Group"
         '
         'txtBloodType
         '
-        Me.txtBloodType.Font = New System.Drawing.Font("Segoe UI", 24.0!)
-        Me.txtBloodType.Location = New System.Drawing.Point(77, 77)
+        Me.txtBloodType.Font = New System.Drawing.Font("Segoe UI", 12.0!)
+        Me.txtBloodType.Location = New System.Drawing.Point(56, 43)
+        Me.txtBloodType.Multiline = False
         Me.txtBloodType.Name = "txtBloodType"
-        Me.txtBloodType.Size = New System.Drawing.Size(422, 41)
+        Me.txtBloodType.Size = New System.Drawing.Size(195, 29)
         Me.txtBloodType.TabIndex = 1
         Me.txtBloodType.Text = ""
         '
@@ -62,19 +66,19 @@ Partial Class Donation_Management_new
         Me.Rhesus_Factor.AutoSize = True
         Me.Rhesus_Factor.BackColor = System.Drawing.SystemColors.InactiveBorder
         Me.Rhesus_Factor.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
-        Me.Rhesus_Factor.Font = New System.Drawing.Font("Segoe UI", 14.0!)
-        Me.Rhesus_Factor.Location = New System.Drawing.Point(652, 47)
+        Me.Rhesus_Factor.Font = New System.Drawing.Font("Segoe UI", 9.0!)
+        Me.Rhesus_Factor.Location = New System.Drawing.Point(391, 23)
         Me.Rhesus_Factor.Name = "Rhesus_Factor"
-        Me.Rhesus_Factor.Size = New System.Drawing.Size(129, 27)
+        Me.Rhesus_Factor.Size = New System.Drawing.Size(82, 17)
         Me.Rhesus_Factor.TabIndex = 2
         Me.Rhesus_Factor.Text = "Rhesus Factor"
         '
         'txtRhesusFactor
         '
-        Me.txtRhesusFactor.Font = New System.Drawing.Font("Segoe UI", 24.0!)
-        Me.txtRhesusFactor.Location = New System.Drawing.Point(652, 80)
+        Me.txtRhesusFactor.Font = New System.Drawing.Font("Segoe UI", 12.0!)
+        Me.txtRhesusFactor.Location = New System.Drawing.Point(391, 43)
         Me.txtRhesusFactor.Name = "txtRhesusFactor"
-        Me.txtRhesusFactor.Size = New System.Drawing.Size(436, 38)
+        Me.txtRhesusFactor.Size = New System.Drawing.Size(211, 29)
         Me.txtRhesusFactor.TabIndex = 3
         Me.txtRhesusFactor.Text = ""
         '
@@ -83,10 +87,10 @@ Partial Class Donation_Management_new
         Me.Collect_method.AutoSize = True
         Me.Collect_method.BackColor = System.Drawing.SystemColors.InactiveBorder
         Me.Collect_method.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
-        Me.Collect_method.Font = New System.Drawing.Font("Segoe UI", 14.0!)
-        Me.Collect_method.Location = New System.Drawing.Point(77, 261)
+        Me.Collect_method.Font = New System.Drawing.Font("Segoe UI", 9.0!)
+        Me.Collect_method.Location = New System.Drawing.Point(56, 83)
         Me.Collect_method.Name = "Collect_method"
-        Me.Collect_method.Size = New System.Drawing.Size(143, 27)
+        Me.Collect_method.Size = New System.Drawing.Size(91, 17)
         Me.Collect_method.TabIndex = 4
         Me.Collect_method.Text = "Collect Method"
         '
@@ -95,29 +99,29 @@ Partial Class Donation_Management_new
         Me.Blood_vol.AutoSize = True
         Me.Blood_vol.BackColor = System.Drawing.SystemColors.InactiveBorder
         Me.Blood_vol.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
-        Me.Blood_vol.Font = New System.Drawing.Font("Segoe UI", 14.0!)
-        Me.Blood_vol.Location = New System.Drawing.Point(652, 145)
+        Me.Blood_vol.Font = New System.Drawing.Font("Segoe UI", 9.0!)
+        Me.Blood_vol.Location = New System.Drawing.Point(391, 83)
         Me.Blood_vol.Name = "Blood_vol"
-        Me.Blood_vol.Size = New System.Drawing.Size(132, 27)
+        Me.Blood_vol.Size = New System.Drawing.Size(83, 17)
         Me.Blood_vol.TabIndex = 5
         Me.Blood_vol.Text = "Blood Volume"
         '
         'CollectionCheckedList
         '
-        Me.CollectionCheckedList.Font = New System.Drawing.Font("Microsoft Sans Serif", 24.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.CollectionCheckedList.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!)
         Me.CollectionCheckedList.FormattingEnabled = True
         Me.CollectionCheckedList.Items.AddRange(New Object() {"Manual Collection", "Automatic Collection"})
-        Me.CollectionCheckedList.Location = New System.Drawing.Point(77, 291)
+        Me.CollectionCheckedList.Location = New System.Drawing.Point(56, 103)
         Me.CollectionCheckedList.Name = "CollectionCheckedList"
-        Me.CollectionCheckedList.Size = New System.Drawing.Size(422, 82)
+        Me.CollectionCheckedList.Size = New System.Drawing.Size(195, 46)
         Me.CollectionCheckedList.TabIndex = 6
         '
         'txtBloodVolume
         '
-        Me.txtBloodVolume.Font = New System.Drawing.Font("Segoe UI", 24.0!)
-        Me.txtBloodVolume.Location = New System.Drawing.Point(652, 175)
+        Me.txtBloodVolume.Font = New System.Drawing.Font("Segoe UI", 12.0!)
+        Me.txtBloodVolume.Location = New System.Drawing.Point(391, 103)
         Me.txtBloodVolume.Name = "txtBloodVolume"
-        Me.txtBloodVolume.Size = New System.Drawing.Size(436, 38)
+        Me.txtBloodVolume.Size = New System.Drawing.Size(211, 29)
         Me.txtBloodVolume.TabIndex = 7
         Me.txtBloodVolume.Text = ""
         '
@@ -126,54 +130,88 @@ Partial Class Donation_Management_new
         Me.Don_type.AutoSize = True
         Me.Don_type.BackColor = System.Drawing.SystemColors.InactiveBorder
         Me.Don_type.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
-        Me.Don_type.Font = New System.Drawing.Font("Segoe UI", 14.0!)
-        Me.Don_type.Location = New System.Drawing.Point(77, 514)
+        Me.Don_type.Font = New System.Drawing.Font("Segoe UI", 9.0!)
+        Me.Don_type.Location = New System.Drawing.Point(56, 163)
         Me.Don_type.Name = "Don_type"
-        Me.Don_type.Size = New System.Drawing.Size(163, 27)
+        Me.Don_type.Size = New System.Drawing.Size(103, 17)
         Me.Don_type.TabIndex = 8
         Me.Don_type.Text = "Donation Method"
         '
         'DonationTypeCheckedlist
         '
-        Me.DonationTypeCheckedlist.Font = New System.Drawing.Font("Microsoft Sans Serif", 18.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.DonationTypeCheckedlist.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!)
         Me.DonationTypeCheckedlist.FormattingEnabled = True
-        Me.DonationTypeCheckedlist.Items.AddRange(New Object() {"Whole Blood Donation", "Plasma Donation (Apheresis)", "Platelet Donation (Apheresis)", "Red Blood Cell Donation (Apheresis)", "Double Red Cell Donation"})
-        Me.DonationTypeCheckedlist.Location = New System.Drawing.Point(77, 544)
+        Me.DonationTypeCheckedlist.Items.AddRange(New Object() {"Whole Blood Donation", "Plasma Donation (Apheresis)", "Platelet Donation (Apheresis)", "Red Blood Cell Donation (Apheresis)", "White Blood Cell Donation (Apheresis)"})
+        Me.DonationTypeCheckedlist.Location = New System.Drawing.Point(56, 183)
         Me.DonationTypeCheckedlist.Name = "DonationTypeCheckedlist"
-        Me.DonationTypeCheckedlist.Size = New System.Drawing.Size(422, 154)
+        Me.DonationTypeCheckedlist.Size = New System.Drawing.Size(289, 109)
         Me.DonationTypeCheckedlist.TabIndex = 9
-        '
-        'Back
-        '
-        Me.Back.BackColor = System.Drawing.Color.Blue
-        Me.Back.Font = New System.Drawing.Font("Segoe UI", 24.0!)
-        Me.Back.ForeColor = System.Drawing.SystemColors.ControlLightLight
-        Me.Back.Location = New System.Drawing.Point(77, 862)
-        Me.Back.Name = "Back"
-        Me.Back.Size = New System.Drawing.Size(121, 57)
-        Me.Back.TabIndex = 10
-        Me.Back.Text = "Back"
-        Me.Back.UseVisualStyleBackColor = False
         '
         'Proceed
         '
         Me.Proceed.BackColor = System.Drawing.Color.Blue
-        Me.Proceed.Font = New System.Drawing.Font("Segoe UI", 24.0!)
+        Me.Proceed.Font = New System.Drawing.Font("Segoe UI", 12.0!)
         Me.Proceed.ForeColor = System.Drawing.SystemColors.ControlLightLight
-        Me.Proceed.Location = New System.Drawing.Point(1583, 861)
+        Me.Proceed.Location = New System.Drawing.Point(308, 379)
         Me.Proceed.Name = "Proceed"
-        Me.Proceed.Size = New System.Drawing.Size(190, 58)
+        Me.Proceed.Size = New System.Drawing.Size(77, 30)
         Me.Proceed.TabIndex = 11
         Me.Proceed.Text = "Proceed"
         Me.Proceed.UseVisualStyleBackColor = False
+        '
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.Label1.BackColor = System.Drawing.SystemColors.InactiveBorder
+        Me.Label1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.Label1.Font = New System.Drawing.Font("Segoe UI", 9.0!)
+        Me.Label1.Location = New System.Drawing.Point(391, 163)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(56, 17)
+        Me.Label1.TabIndex = 12
+        Me.Label1.Text = "Bag Type"
+        '
+        'BagTypeCheckedlist
+        '
+        Me.BagTypeCheckedlist.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!)
+        Me.BagTypeCheckedlist.FormattingEnabled = True
+        Me.BagTypeCheckedlist.Items.AddRange(New Object() {"Single Bag", "Double Bag", "Triple Bag", "Quadruple Bag", "Aphresis"})
+        Me.BagTypeCheckedlist.Location = New System.Drawing.Point(391, 183)
+        Me.BagTypeCheckedlist.Name = "BagTypeCheckedlist"
+        Me.BagTypeCheckedlist.Size = New System.Drawing.Size(289, 109)
+        Me.BagTypeCheckedlist.TabIndex = 13
+        '
+        'txtStorage
+        '
+        Me.txtStorage.Font = New System.Drawing.Font("Segoe UI", 12.0!)
+        Me.txtStorage.Location = New System.Drawing.Point(56, 329)
+        Me.txtStorage.Name = "txtStorage"
+        Me.txtStorage.Size = New System.Drawing.Size(211, 29)
+        Me.txtStorage.TabIndex = 15
+        Me.txtStorage.Text = ""
+        '
+        'Label2
+        '
+        Me.Label2.AutoSize = True
+        Me.Label2.BackColor = System.Drawing.SystemColors.InactiveBorder
+        Me.Label2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.Label2.Font = New System.Drawing.Font("Segoe UI", 9.0!)
+        Me.Label2.Location = New System.Drawing.Point(56, 309)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(98, 17)
+        Me.Label2.TabIndex = 14
+        Me.Label2.Text = "Storage Location"
         '
         'Donation_Management_new
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1843, 995)
+        Me.ClientSize = New System.Drawing.Size(726, 434)
+        Me.Controls.Add(Me.txtStorage)
+        Me.Controls.Add(Me.Label2)
+        Me.Controls.Add(Me.BagTypeCheckedlist)
+        Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.Proceed)
-        Me.Controls.Add(Me.Back)
         Me.Controls.Add(Me.DonationTypeCheckedlist)
         Me.Controls.Add(Me.Don_type)
         Me.Controls.Add(Me.txtBloodVolume)
@@ -202,6 +240,9 @@ Partial Class Donation_Management_new
     Friend WithEvents txtBloodVolume As RichTextBox
     Friend WithEvents Don_type As Label
     Friend WithEvents DonationTypeCheckedlist As CheckedListBox
-    Friend WithEvents Back As Button
     Friend WithEvents Proceed As Button
+    Friend WithEvents Label1 As Label
+    Friend WithEvents BagTypeCheckedlist As CheckedListBox
+    Friend WithEvents txtStorage As RichTextBox
+    Friend WithEvents Label2 As Label
 End Class

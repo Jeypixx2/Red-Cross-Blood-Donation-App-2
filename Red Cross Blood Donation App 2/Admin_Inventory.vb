@@ -253,7 +253,29 @@ Public Class Admin_Inventory
         GlobalModel.UpdateDataGridView(Data, dgvInventory)
     End Sub
 
-    Private Sub dgvInventory_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvInventory.CellContentClick
+    'Reports
+    Private Sub Button1_Click_1(sender As Object, e As EventArgs) Handles Button1.Click
+        Donor_Registration_Report.Show()
+
+    End Sub
+
+    Private Sub Button2_Click_1(sender As Object, e As EventArgs) Handles Button2.Click
+        Donation_History_Report.Show()
+
+    End Sub
+
+    Private Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click
+        Blood_Inventory_Report.Show()
+
+    End Sub
+
+    Private Sub Button4_Click_1(sender As Object, e As EventArgs) Handles Button4.Click
+        Ineligibility_Report.Show()
+
+    End Sub
+
+    Private Sub Button8_Click(sender As Object, e As EventArgs) Handles Button8.Click
+        Health_Provider_Report.Show()
 
     End Sub
 End Class

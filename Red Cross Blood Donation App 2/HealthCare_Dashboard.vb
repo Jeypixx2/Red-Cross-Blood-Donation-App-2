@@ -33,6 +33,7 @@ Public Class HealthCare_Dashboard
         Catch ex As MySqlException
             MessageBox.Show($"Connection failed: {ex.Message}", "Connection Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
+        MonthCalendar1.Visible = False
     End Sub
 
     Private Sub LoadChart1()
@@ -403,7 +404,6 @@ Public Class HealthCare_Dashboard
 
 
 
-    ' Retrieve data when the button is clicked
     Private Sub Retrieve_Data_Click(sender As Object, e As EventArgs) Handles Retrieve_Data.Click
         ' Check if a row is selected
         If DataGridView1.SelectedRows.Count > 0 Then
@@ -420,14 +420,39 @@ Public Class HealthCare_Dashboard
             Dim donationType As String = selectedRow.Cells("DonationType").Value.ToString()
             Dim bloodVolume As String = selectedRow.Cells("BloodVolume").Value.ToString()
 
+            ' Fetch HealthProviderID and PersonnelID based on HospitalName and PersonnelName
+            FetchIDs()
+
+            ' If no valid IDs found, generate new ones
+            If HealthProviderID = 0 Then
+                HealthProviderID = GenerateUniqueID()
+            End If
+            If PersonnelID = 0 Then
+                PersonnelID = GenerateUniqueID()
+            End If
+
+            ' Use the new IDs
+            Dim RetrieveID As Integer = HealthProviderID
+            HealthProviderID = RetrieveID
+            PersonnelID = RetrieveID
+
+            ' Prompt user for additional details
+            Dim purposeOfRetrieval As String = InputBox("Enter the Purpose of Retrieval:", "Purpose of Retrieval")
+            Dim contactNo As String = InputBox("Enter the Contact Number:", "Contact Number")
+            Dim emailAdd As String = InputBox("Enter the Email Address:", "Email Address")
+
+            ' Confirm retrieval with the user
             Dim confirmationMessage As String = $"You are about to retrieve the following data:" & vbCrLf &
-                                             $"Blood ID: {bloodID}" & vbCrLf &
-                                             $"Name: {lastName}, {firstName} {middleName}" & vbCrLf &
-                                             $"Blood Type: {bloodType} {rhesusFactor}" & vbCrLf &
-                                             $"Donation Type: {donationType}" & vbCrLf &
-                                             $"Blood Volume: {bloodVolume}" & vbCrLf &
-                                             $"Donation Date: {donationDate}" & vbCrLf &
-                                             "Do you want to continue?"
+                                            $"Blood ID: {bloodID}" & vbCrLf &
+                                            $"Name: {lastName}, {firstName} {middleName}" & vbCrLf &
+                                            $"Blood Type: {bloodType} {rhesusFactor}" & vbCrLf &
+                                            $"Donation Type: {donationType}" & vbCrLf &
+                                            $"Blood Volume: {bloodVolume}" & vbCrLf &
+                                            $"Donation Date: {donationDate}" & vbCrLf &
+                                            $"Purpose of Retrieval: {purposeOfRetrieval}" & vbCrLf &
+                                            $"Contact Number: {contactNo}" & vbCrLf &
+                                            $"Email Address: {emailAdd}" & vbCrLf &
+                                            "Do you want to continue?"
 
             Dim result As DialogResult = MessageBox.Show(confirmationMessage, "Confirm Retrieval", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
 
@@ -435,31 +460,19 @@ Public Class HealthCare_Dashboard
                 Try
                     Dim retrieveDate As Date = DateTime.Now
 
-                    ' Fetch HealthProviderID and PersonnelID (or generate random if not found)
-                    FetchIDs()
-
-                    ' If no valid ID found, generate random ones
-                    If HealthProviderID = 0 Then HealthProviderID = GenerateUniqueID()
-                    If PersonnelID = 0 Then PersonnelID = GenerateUniqueID()
-
-                    ' Use a new RetrieveID and assign it to both IDs
-                    Dim RetrieveID As Integer = HealthProviderID ' You may assign a unique value if required.
-                    HealthProviderID = RetrieveID
-                    PersonnelID = RetrieveID
-
                     ' Insert data into HealthProvider table
                     Using connection As New MySqlConnection(strConnection)
                         connection.Open()
                         Using transaction As MySqlTransaction = connection.BeginTransaction()
                             Try
-                                Dim insertQuery As String = "INSERT INTO HealthProvider (HealthProviderID, CompanyHospitalName, PersonnelID, PersonnelName, BloodID, LastName, FirstName, MiddleName, BloodType, RhesusFactor, DonationType, BloodVolume, RetrieveDate) " &
-                                                        "VALUES (@HealthProviderID, @HospitalName, @PersonnelID, @PersonnelName, @BloodID, @LastName, @FirstName, @MiddleName, @BloodType, @RhesusFactor, @DonationType, @BloodVolume, @RetrieveDate)"
+                                Dim insertQuery As String = "INSERT INTO HealthProvider (HealthProviderID, CompanyHospitalName, PersonnelID, PersonnelName, BloodID, LastName, FirstName, MiddleName, BloodType, RhesusFactor, DonationType, BloodVolume, RetrieveDate, PurposeOfRetrieval, ContactNo, EmailAdd) " &
+                                                        "VALUES (@HealthProviderID, @HospitalName, @PersonnelID, @PersonnelName, @BloodID, @LastName, @FirstName, @MiddleName, @BloodType, @RhesusFactor, @DonationType, @BloodVolume, @RetrieveDate, @PurposeOfRetrieval, @ContactNo, @EmailAdd)"
 
                                 Using cmd As New MySqlCommand(insertQuery, connection, transaction)
                                     cmd.Parameters.AddWithValue("@HealthProviderID", HealthProviderID)
-                                    cmd.Parameters.AddWithValue("@HospitalName", hospitalName)
+                                    cmd.Parameters.AddWithValue("@HospitalName", hospitalName) ' Assuming hospitalName is a variable defined elsewhere
                                     cmd.Parameters.AddWithValue("@PersonnelID", PersonnelID)
-                                    cmd.Parameters.AddWithValue("@PersonnelName", personnelName)
+                                    cmd.Parameters.AddWithValue("@PersonnelName", personnelName) ' Assuming personnelName is defined elsewhere
                                     cmd.Parameters.AddWithValue("@BloodID", bloodID)
                                     cmd.Parameters.AddWithValue("@LastName", lastName)
                                     cmd.Parameters.AddWithValue("@FirstName", firstName)
@@ -469,6 +482,9 @@ Public Class HealthCare_Dashboard
                                     cmd.Parameters.AddWithValue("@DonationType", donationType)
                                     cmd.Parameters.AddWithValue("@BloodVolume", bloodVolume)
                                     cmd.Parameters.AddWithValue("@RetrieveDate", retrieveDate)
+                                    cmd.Parameters.AddWithValue("@PurposeOfRetrieval", purposeOfRetrieval)
+                                    cmd.Parameters.AddWithValue("@ContactNo", contactNo)
+                                    cmd.Parameters.AddWithValue("@EmailAdd", emailAdd)
                                     cmd.ExecuteNonQuery()
                                 End Using
 
@@ -498,6 +514,7 @@ Public Class HealthCare_Dashboard
         End If
     End Sub
 
+
     Private Sub RefreshDataGridView()
         ' Refresh data in the DataGridView
         Dim query As String = "SELECT d.BloodID, d.DonationDate, p.BloodType, d.RhesusFactor, " &
@@ -520,5 +537,9 @@ Public Class HealthCare_Dashboard
         Catch ex As Exception
             MessageBox.Show("Error refreshing data: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
+    End Sub
+
+    Private Sub DataGridView1_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles DataGridView1.CellContentClick
+
     End Sub
 End Class

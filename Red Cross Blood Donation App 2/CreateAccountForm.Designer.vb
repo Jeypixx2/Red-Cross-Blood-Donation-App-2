@@ -35,6 +35,7 @@ Partial Class CreateAccountForm
         '
         'pbLogo
         '
+        Me.pbLogo.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.pbLogo.Image = Global.Red_Cross_Blood_Donation_App_2.My.Resources.Resources.Red_Cross_logo
         Me.pbLogo.Location = New System.Drawing.Point(610, 32)
         Me.pbLogo.Name = "pbLogo"
@@ -45,6 +46,7 @@ Partial Class CreateAccountForm
         '
         'Label1
         '
+        Me.Label1.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.Label1.AutoSize = True
         Me.Label1.Font = New System.Drawing.Font("Arial", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label1.Location = New System.Drawing.Point(600, 199)
@@ -55,6 +57,7 @@ Partial Class CreateAccountForm
         '
         'Label2
         '
+        Me.Label2.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.Label2.AutoSize = True
         Me.Label2.Font = New System.Drawing.Font("Arial", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label2.Location = New System.Drawing.Point(550, 241)
@@ -65,6 +68,7 @@ Partial Class CreateAccountForm
         '
         'txtUsername
         '
+        Me.txtUsername.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.txtUsername.Font = New System.Drawing.Font("Arial", 15.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtUsername.Location = New System.Drawing.Point(554, 268)
         Me.txtUsername.Name = "txtUsername"
@@ -73,6 +77,7 @@ Partial Class CreateAccountForm
         '
         'Label3
         '
+        Me.Label3.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.Label3.AutoSize = True
         Me.Label3.Font = New System.Drawing.Font("Arial", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label3.Location = New System.Drawing.Point(552, 312)
@@ -83,6 +88,7 @@ Partial Class CreateAccountForm
         '
         'txtPassword
         '
+        Me.txtPassword.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.txtPassword.Font = New System.Drawing.Font("Arial", 15.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtPassword.Location = New System.Drawing.Point(554, 339)
         Me.txtPassword.Name = "txtPassword"
@@ -91,6 +97,7 @@ Partial Class CreateAccountForm
         '
         'btnLogin
         '
+        Me.btnLogin.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.btnLogin.BackColor = System.Drawing.Color.FromArgb(CType(CType(5, Byte), Integer), CType(CType(4, Byte), Integer), CType(CType(81, Byte), Integer))
         Me.btnLogin.Font = New System.Drawing.Font("Arial", 20.25!, System.Drawing.FontStyle.Bold)
         Me.btnLogin.ForeColor = System.Drawing.SystemColors.InactiveBorder
@@ -103,6 +110,7 @@ Partial Class CreateAccountForm
         '
         'btnShowPassword
         '
+        Me.btnShowPassword.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.btnShowPassword.Font = New System.Drawing.Font("Arial", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnShowPassword.Location = New System.Drawing.Point(851, 345)
         Me.btnShowPassword.Name = "btnShowPassword"
