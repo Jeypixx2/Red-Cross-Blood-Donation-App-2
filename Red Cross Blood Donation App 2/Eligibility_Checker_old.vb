@@ -18,7 +18,7 @@ Public Class Eligibility_Checker_old
     End Sub
 
     ' Proceed button event handler
-    Private Sub Proceed_Click(sender As Object, e As EventArgs) Handles Proceed.Click
+    Private Sub Proceed_Click(sender As Object, e As EventArgs)
         If Not ValidateDonorID() Then
             MessageBox.Show("Error: DonorID is not set. Please ensure donor information is correctly retrieved.")
             Return
@@ -323,7 +323,7 @@ Public Class Eligibility_Checker_old
         Return If(clb.CheckedItems.Contains("Yes"), 1, 0)
     End Function
 
-    Private Sub Back_Click(sender As Object, e As EventArgs) Handles Back.Click
+    Private Sub Back_Click(sender As Object, e As EventArgs)
 
     End Sub
 End Class

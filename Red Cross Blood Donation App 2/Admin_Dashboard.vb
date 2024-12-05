@@ -200,15 +200,21 @@ Public Class Admin_Dashboard
 
             ' Use the shared connection
             Using cmd As New MySqlCommand(query, modDB.conn)
+                If modDB.conn.State = ConnectionState.Closed Then
+                    modDB.conn.Open()
+                End If
+
                 ' Add parameters to the SQL command
                 For i As Integer = 0 To parameters.Length - 1
                     cmd.Parameters.AddWithValue($"@param{i}", parameters(i))
                 Next
 
+                ' Execute the command
                 Using reader As MySqlDataReader = cmd.ExecuteReader()
                     table.Load(reader)
                 End Using
             End Using
+
         Catch ex As MySqlException
             MessageBox.Show($"An error occurred: {ex.Message}", "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
@@ -309,37 +315,37 @@ Public Class Admin_Dashboard
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Donor.Click
         User_Status.Show()
-        Me.Hide()
+
     End Sub
 
     Private Sub Button4_Click(sender As Object, e As EventArgs) Handles User.Click
         User_Status.Show()
-        Me.Hide()
+
     End Sub
 
     Private Sub Button1_Click_1(sender As Object, e As EventArgs) Handles Button1.Click
         Donor_Registration_Report.Show()
-        Me.Hide()
+
     End Sub
 
     Private Sub Button2_Click_1(sender As Object, e As EventArgs) Handles Button2.Click
         Donation_History_Report.Show()
-        Me.Hide()
+
     End Sub
 
     Private Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click
         Blood_Inventory_Report.Show()
-        Me.Hide()
+
     End Sub
 
     Private Sub Button4_Click_1(sender As Object, e As EventArgs) Handles Button4.Click
         Ineligibility_Report.Show()
-        Me.Hide()
+
     End Sub
 
     Private Sub Button8_Click(sender As Object, e As EventArgs) Handles Button8.Click
         Health_Provider_Report.Show()
-        Me.Hide()
+
     End Sub
 
 End Class

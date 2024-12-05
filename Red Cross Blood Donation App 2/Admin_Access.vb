@@ -30,12 +30,15 @@ Public Class Admin_Access
             Exit Sub
         End If
 
+        ' Encrypt the entered password
+        Dim encryptedPassword As String = Encrypt(password)
+
         ' Query to check if username and password match a record in admin_account
         Dim query As String = "SELECT COUNT(*) FROM admin_account WHERE username = @username AND password = @password"
         Try
             Using cmd As New MySqlCommand(query, conn)
                 cmd.Parameters.AddWithValue("@username", username)
-                cmd.Parameters.AddWithValue("@password", password)
+                cmd.Parameters.AddWithValue("@password", encryptedPassword) ' Use encrypted password
                 openConn(db_name)
 
                 Dim count As Integer = Convert.ToInt32(cmd.ExecuteScalar())
@@ -56,6 +59,7 @@ Public Class Admin_Access
             conn?.Close()
         End Try
     End Sub
+
     Private Sub createAcc_Click(sender As Object, e As EventArgs) Handles createAcc.Click
         Dim createAccountForm As New CreateAccountForm()
         createAccountForm.Show()

@@ -59,8 +59,8 @@ Public Class Donor_Management_New
 
                 ' Insert new donor record
                 ' Insert the new donor data including calculated age
-                Dim query As String = "INSERT INTO donors (LastName, FirstName, MiddleName, Baranggay, City, Province, DateofBirth, Sex, BloodType, RegDate, Age) " &
-                      "VALUES (@LastName, @FirstName, @MiddleName, @Baranggay, @City, @Province, @DateOfBirth, @Sex, @BloodType, @RegDate, @Age)"
+                Dim query As String = "INSERT INTO donors (LastName, FirstName, MiddleName, Baranggay, City, Province, DateofBirth, Sex, BloodType, RegDate, Age, CivilStatus, Nationality, Occupation) " &
+                      "VALUES (@LastName, @FirstName, @MiddleName, @Baranggay, @City, @Province, @DateOfBirth, @Sex, @BloodType, @RegDate, @Age, @CivilStatus, @Nationality, @Occupation)"
                 Using cmd As New MySqlCommand(query, connection)
                     cmd.Parameters.AddWithValue("@LastName", txtlastname.Text)
                     cmd.Parameters.AddWithValue("@FirstName", txtFirstName.Text)
@@ -73,6 +73,9 @@ Public Class Donor_Management_New
                     cmd.Parameters.AddWithValue("@BloodType", txtbloodtype.Text)
                     cmd.Parameters.AddWithValue("@RegDate", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"))
                     cmd.Parameters.AddWithValue("@Age", CalculateAge(dob)) ' Pass the calculated age here
+                    cmd.Parameters.AddWithValue("@CivilStatus", txtcivilstatus.Text)
+                    cmd.Parameters.AddWithValue("@Nationality", txtnationality.Text)
+                    cmd.Parameters.AddWithValue("@Occupation", txtoccupation.Text)
 
                     cmd.ExecuteNonQuery()
                 End Using
