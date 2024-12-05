@@ -243,7 +243,7 @@ Public Class Admin_Dashboard
 
         ' Filter data using the function from modDB
         Dim parameters As Object() = {selectedDate.ToString("yyyy-MM-dd")}
-        Dim filteredData As DataTable = modDB.FilterData(query, parameters)
+        Dim filteredData As DataTable = FilterData(query, parameters)
 
         ' Update the DataGridView with the filtered data
         UpdateDataGridView(filteredData)
@@ -259,7 +259,7 @@ Public Class Admin_Dashboard
 
         ' Filter data using the function from modDB
         Dim parameters As Object() = {startOfWeek.ToString("yyyy-MM-dd"), endOfWeek.ToString("yyyy-MM-dd")}
-        Dim filteredData As DataTable = modDB.FilterData(query, parameters)
+        Dim filteredData As DataTable = FilterData(query, parameters)
 
         ' Update the DataGridView with the filtered data
         UpdateDataGridView(filteredData)
@@ -271,7 +271,7 @@ Public Class Admin_Dashboard
 
         ' Filter data using the function from modDB
         Dim parameters As Object() = {selectedMonth}
-        Dim filteredData As DataTable = modDB.FilterData(query, parameters)
+        Dim filteredData As DataTable = FilterData(query, parameters)
 
         ' Update the DataGridView with the filtered data
         UpdateDataGridView(filteredData)
@@ -300,7 +300,6 @@ Public Class Admin_Dashboard
         ShowDataForMonth(selectedMonth)
         ComboBox1.Visible = False
     End Sub
-
 
     ' Button handlers for other actions (Inventory, Donor, User)
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Inventory.Click
