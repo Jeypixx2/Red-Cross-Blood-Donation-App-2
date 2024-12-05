@@ -44,6 +44,7 @@ Partial Class HealthCare_Access
         '
         'Label1
         '
+        Me.Label1.Anchor = System.Windows.Forms.AnchorStyles.Top
         Me.Label1.AutoSize = True
         Me.Label1.Font = New System.Drawing.Font("Arial", 14.25!)
         Me.Label1.Location = New System.Drawing.Point(471, 363)
@@ -54,6 +55,7 @@ Partial Class HealthCare_Access
         '
         'txtHospitalName
         '
+        Me.txtHospitalName.Anchor = System.Windows.Forms.AnchorStyles.Top
         Me.txtHospitalName.Font = New System.Drawing.Font("Segoe UI", 9.0!)
         Me.txtHospitalName.Location = New System.Drawing.Point(475, 388)
         Me.txtHospitalName.Name = "txtHospitalName"
@@ -63,6 +65,7 @@ Partial Class HealthCare_Access
         '
         'Label2
         '
+        Me.Label2.Anchor = System.Windows.Forms.AnchorStyles.Top
         Me.Label2.AutoSize = True
         Me.Label2.Font = New System.Drawing.Font("Arial", 14.25!)
         Me.Label2.Location = New System.Drawing.Point(471, 452)
@@ -73,6 +76,7 @@ Partial Class HealthCare_Access
         '
         'txtNameAquirer
         '
+        Me.txtNameAquirer.Anchor = System.Windows.Forms.AnchorStyles.Top
         Me.txtNameAquirer.Font = New System.Drawing.Font("Segoe UI", 9.0!)
         Me.txtNameAquirer.Location = New System.Drawing.Point(475, 477)
         Me.txtNameAquirer.Name = "txtNameAquirer"
@@ -82,6 +86,7 @@ Partial Class HealthCare_Access
         '
         'btnLogin
         '
+        Me.btnLogin.Anchor = System.Windows.Forms.AnchorStyles.Top
         Me.btnLogin.BackColor = System.Drawing.Color.FromArgb(CType(CType(3, Byte), Integer), CType(CType(1, Byte), Integer), CType(CType(84, Byte), Integer))
         Me.btnLogin.Font = New System.Drawing.Font("Arial", 24.0!, System.Drawing.FontStyle.Bold)
         Me.btnLogin.ForeColor = System.Drawing.SystemColors.InactiveBorder
