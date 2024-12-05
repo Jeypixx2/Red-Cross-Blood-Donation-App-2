@@ -78,12 +78,10 @@ Partial Class HealthCare_Dashboard
         '
         'DataGridView1
         '
-        Me.DataGridView1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.DataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.DataGridView1.Location = New System.Drawing.Point(166, 122)
         Me.DataGridView1.Name = "DataGridView1"
-        Me.DataGridView1.Size = New System.Drawing.Size(1439, 316)
+        Me.DataGridView1.Size = New System.Drawing.Size(1169, 316)
         Me.DataGridView1.TabIndex = 6
         '
         'ComboBox1
@@ -102,6 +100,8 @@ Partial Class HealthCare_Dashboard
         '
         'Monthly
         '
+        Me.Monthly.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Monthly.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold)
         Me.Monthly.Location = New System.Drawing.Point(680, 68)
         Me.Monthly.Name = "Monthly"
@@ -144,14 +144,12 @@ Partial Class HealthCare_Dashboard
         Series1.Legend = "Legend1"
         Series1.Name = "Series1"
         Me.Chart2.Series.Add(Series1)
-        Me.Chart2.Size = New System.Drawing.Size(1439, 275)
+        Me.Chart2.Size = New System.Drawing.Size(1169, 275)
         Me.Chart2.TabIndex = 27
         Me.Chart2.Text = "Chart2"
         '
         'Chart1
         '
-        Me.Chart1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         ChartArea2.Name = "ChartArea1"
         Me.Chart1.ChartAreas.Add(ChartArea2)
         Legend2.Name = "Legend1"
@@ -170,7 +168,7 @@ Partial Class HealthCare_Dashboard
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1637, 963)
+        Me.ClientSize = New System.Drawing.Size(1364, 749)
         Me.Controls.Add(Me.Chart1)
         Me.Controls.Add(Me.Chart2)
         Me.Controls.Add(Me.ComboBox1)
@@ -182,11 +180,8 @@ Partial Class HealthCare_Dashboard
         Me.Controls.Add(Me.Retrieve_Data)
         Me.Controls.Add(Me.SearchTextBox)
         Me.Controls.Add(Me.pbLogo)
-        Me.MaximizeBox = False
-        Me.MinimizeBox = False
         Me.Name = "HealthCare_Dashboard"
         Me.Text = "HealthCare_Dashboard"
-        Me.WindowState = System.Windows.Forms.FormWindowState.Maximized
         CType(Me.pbLogo, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.Chart2, System.ComponentModel.ISupportInitialize).EndInit()
