@@ -22,6 +22,7 @@ Public Class HealthCare_Dashboard
     End Sub
 
     Private Sub HealthCare_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+
         Try
             If chartConnection.State = ConnectionState.Closed Then
                 chartConnection.Open()
