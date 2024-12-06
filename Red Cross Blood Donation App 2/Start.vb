@@ -82,47 +82,46 @@ Public Class DonorSummary
                                 Dim lastEligibilityCheckDate = reader("LastEligibilityCheckDate")
                                 Dim latestDonationDate = reader("LatestDonationDate")
 
-
                                 ' Prepare the SQL INSERT statement for the History table
                                 Dim insertQuery As String = "
-                                INSERT INTO History (
-                                    DonorID,
-                                    TotalEligibilityCheck,
-                                    TotalDonation,
-                                    TotalBloodVolume_Wholeblood,
-                                    TotalBloodVolume_Redblood,
-                                    TotalBloodVolume_Platelets,
-                                    TotalBloodVolume_Plasma,
-                                    TotalBloodVolume_Whiteblood,
-                                    LastName,
-                                    FirstName,
-                                    MiddleName,
-                                    TotalBloodVolume_All,
-                                    DonorRegDate,
-                                    LastEligibilityCheckDate,
-                                    LatestDonationDate
-                                ) VALUES (
-                                    @DonorID,
-                                    @TotalEligibilityCheck,
-                                    @TotalDonation,
-                                    @TotalBloodVolume_Wholeblood,
-                                    @TotalBloodVolume_Redblood,
-                                    @TotalBloodVolume_Platelets,
-                                    @TotalBloodVolume_Plasma,
-                                    @TotalBloodVolume_Whiteblood,
-                                    @LastName,
-                                    @FirstName,
-                                    @MiddleName,
-                                    @TotalBloodVolume_All,
-                                    @DonorRegDate,
-                                    @LastEligibilityCheckDate,
-                                    @LatestDonationDate
-                                )"
+INSERT INTO History (
+    DonorID,
+    TotalEligibilityCheck,
+    TotalDonation,
+    TotalBloodVolume_Wholeblood,
+    TotalBloodVolume_Redblood,
+    TotalBloodVolume_Platelets,
+    TotalBloodVolume_Plasma,
+    TotalBloodVolume_Whiteblood,
+    LastName,
+    FirstName,
+    MiddleName,
+    TotalBloodVolume_All,
+    DonorRegDate,
+    LastEligibilityCheckDate,
+    LatestDonationDate
+) VALUES (
+    @DonorID,
+    @TotalEligibilityCheck,
+    @TotalDonation,
+    @TotalBloodVolume_Wholeblood,
+    @TotalBloodVolume_Redblood,
+    @TotalBloodVolume_Platelets,
+    @TotalBloodVolume_Plasma,
+    @TotalBloodVolume_Whiteblood,
+    @LastName,
+    @FirstName,
+    @MiddleName,
+    @TotalBloodVolume_All,
+    @DonorRegDate,
+    @LastEligibilityCheckDate,
+    @LatestDonationDate
+)"
 
                                 ' Create the insert command
                                 Using insertCmd As New SqlCommand(insertQuery, conn)
                                     ' Add parameters to the insert command
-                                    insertCmd.Parameters.AddWithValue("@DonorID", donorId)
+                                    insertCmd.Parameters.AddWithValue("@DonorID", retrievedDonorId)
                                     insertCmd.Parameters.AddWithValue("@TotalEligibilityCheck", totalEligibilityCheck)
                                     insertCmd.Parameters.AddWithValue("@TotalDonation", totalDonation)
                                     insertCmd.Parameters.AddWithValue("@TotalBloodVolume_Wholeblood", totalBloodVolumeWholeblood)
@@ -138,9 +137,16 @@ Public Class DonorSummary
                                     insertCmd.Parameters.AddWithValue("@LastEligibilityCheckDate", lastEligibilityCheckDate)
                                     insertCmd.Parameters.AddWithValue("@LatestDonationDate", latestDonationDate)
 
-                                    ' Execute the insert command
-                                    insertCmd.ExecuteNonQuery()
+                                    ' Execute the insert command and check for any errors
+                                    Try
+                                        insertCmd.ExecuteNonQuery()
+                                        Console.WriteLine("Data inserted successfully!")
+                                    Catch ex As Exception
+                                        ' Output the error message if something goes wrong
+                                        Console.WriteLine("Error inserting data: " & ex.Message)
+                                    End Try
                                 End Using
+
                             End While
                         Else
                             Console.WriteLine("No data found for the specified DonorID.")
