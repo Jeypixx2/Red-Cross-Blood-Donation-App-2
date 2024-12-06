@@ -5,7 +5,7 @@ Public Class Admin_Dashboard
     Private sampleData As DataTable
     Private isDailyView As Boolean ' Flag to determine the current view
     Public Doublebuffer As New DoubleBuffering
-    Dim chartConnection As New MySqlConnection("server=localhost;user id=root;password=;database=redcrossdb")
+
 
     ' Load event handler for the dashboard
     Private Sub Admin_Dashboard_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -156,8 +156,8 @@ Public Class Admin_Dashboard
 
 
     Private Sub Admin_Dashboard_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
-        If chartConnection.State = ConnectionState.Open Then
-            chartConnection.Close()
+        If conn.State = ConnectionState.Open Then
+            conn.Close()
         End If
     End Sub
     ' Populate the ComboBox with month names
@@ -325,27 +325,30 @@ Public Class Admin_Dashboard
 
     Private Sub Button1_Click_1(sender As Object, e As EventArgs) Handles Button1.Click
         Donor_Registration_Report.Show()
-
+        modDB.Logs("View Donor Registration Report")
     End Sub
 
     Private Sub Button2_Click_1(sender As Object, e As EventArgs) Handles Button2.Click
         Donation_History_Report.Show()
-
+        modDB.Logs("View Donation Donationn Histroy Report")
     End Sub
 
     Private Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click
         Blood_Inventory_Report.Show()
-
+        modDB.Logs("View Blood Inventory Report")
     End Sub
 
     Private Sub Button4_Click_1(sender As Object, e As EventArgs) Handles Button4.Click
         Ineligibility_Report.Show()
-
+        modDB.Logs("View Ineligibility Report")
     End Sub
 
     Private Sub Button8_Click(sender As Object, e As EventArgs) Handles Button8.Click
         Health_Provider_Report.Show()
-
+        modDB.Logs("ViewHealth Provider Report")
     End Sub
 
+    Private Sub Bar_Graph_Click(sender As Object, e As EventArgs) Handles Bar_Graph.Click
+
+    End Sub
 End Class

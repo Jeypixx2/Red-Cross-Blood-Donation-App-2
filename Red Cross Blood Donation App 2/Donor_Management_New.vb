@@ -79,8 +79,13 @@ Public Class Donor_Management_New
 
                     cmd.ExecuteNonQuery()
                 End Using
+                MessageBox.Show("Donor information has been successfully added.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
 
-                ' Retrieve DonorID, BloodType, and Age
+
+                Process_Success.Show()
+                Me.Hide()
+
+
                 RetrieveDonorData(connection)
 
                 ' Pass DonorID, BloodType, and Age to Eligibility_Checker_new form
