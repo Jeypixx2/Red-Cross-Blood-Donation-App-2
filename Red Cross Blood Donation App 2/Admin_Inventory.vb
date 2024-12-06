@@ -109,66 +109,65 @@ Public Class Admin_Inventory
 
 
     Private Sub DonorRecord_Click(sender As Object, e As EventArgs) Handles DonorRecord.Click
+        ' Update connection string and enable double buffering
+        UpdateConnectionString()
+        DoubleBuffering.EnableDoubleBuffering(dgvInventory)
+
+        ' Set parameters for the current table and date column
         currentTable = "donors"
         dbDateColumn = "RegDate"
         Calendar = 1
         SelectedDate = dtpCalendar.SelectionStart.ToString("yyyy-MM-dd")
 
-        ' Log this action
-
-
         ' Fetch the data and update the DataGridView
-        Dim query As String = $"SELECT * FROM {currentTable} WHERE {dbDateColumn} = '{SelectedDate}'"
-        modDB.readQuery(query)
+        Dim Data = GlobalModel.GetAll(currentTable, Calendar, dbDateColumn, SelectedDate)
+        GlobalModel.UpdateDataGridView(Data, dgvInventory)
 
-        If modDB.cmdRead.HasRows Then
-            Dim dt As DataTable = New DataTable
-            dt.Load(modDB.cmdRead)
-            dgvInventory.DataSource = dt
-            dgvInventory.Refresh()
-        End If
+        ' Log the action
+        modDB.Logs("View Donor History")
     End Sub
 
 
+
     Private Sub DonationRecord_Click(sender As Object, e As EventArgs) Handles DonationRecord.Click
+        ' Update connection string and enable double buffering
+        UpdateConnectionString()
+        DoubleBuffering.EnableDoubleBuffering(dgvInventory)
+
+        ' Set parameters for the current table and date column
         currentTable = "donation"
         dbDateColumn = "DonationDate"
         Calendar = 1
         SelectedDate = dtpCalendar.SelectionStart.ToString("yyyy-MM-dd")
-        ' Log this action
-
 
         ' Fetch the data and update the DataGridView
-        Dim query As String = $"SELECT * FROM {currentTable} WHERE {dbDateColumn} = '{SelectedDate}'"
-        modDB.readQuery(query)
+        Dim Data = GlobalModel.GetAll(currentTable, Calendar, dbDateColumn, SelectedDate)
+        GlobalModel.UpdateDataGridView(Data, dgvInventory)
 
-        If modDB.cmdRead.HasRows Then
-            Dim dt As DataTable = New DataTable
-            dt.Load(modDB.cmdRead)
-            dgvInventory.DataSource = dt
-            dgvInventory.Refresh()
-        End If
+        ' Log the action
+        modDB.Logs("View Donation History")
     End Sub
 
+
     Private Sub EligibilityRecord_Click(sender As Object, e As EventArgs) Handles EligibilityRecord.Click
+        ' Update connection string and enable double buffering
+        UpdateConnectionString()
+        DoubleBuffering.EnableDoubleBuffering(dgvInventory)
+
+        ' Set parameters for the current table and date column
         currentTable = "eligibility"
         dbDateColumn = "EligibilityDate"
         Calendar = 1
         SelectedDate = dtpCalendar.SelectionStart.ToString("yyyy-MM-dd")
-        ' Log this action
-
 
         ' Fetch the data and update the DataGridView
-        Dim query As String = $"SELECT * FROM {currentTable} WHERE {dbDateColumn} = '{SelectedDate}'"
-        modDB.readQuery(query)
+        Dim Data = GlobalModel.GetAll(currentTable, Calendar, dbDateColumn, SelectedDate)
+        GlobalModel.UpdateDataGridView(Data, dgvInventory)
 
-        If modDB.cmdRead.HasRows Then
-            Dim dt As DataTable = New DataTable
-            dt.Load(modDB.cmdRead)
-            dgvInventory.DataSource = dt
-            dgvInventory.Refresh()
-        End If
+        ' Log the action
+        modDB.Logs("View Eligibility History")
     End Sub
+
 
     Private Sub dtpCalendar_DateChanged(sender As Object, e As DateRangeEventArgs) Handles dtpCalendar.DateSelected
         SelectedDate = dtpCalendar.SelectionStart.ToString("yyyy-MM-dd")
