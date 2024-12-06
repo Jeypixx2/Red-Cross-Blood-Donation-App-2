@@ -32,7 +32,7 @@ Partial Class Admin_Inventory
         Me.Monthly = New System.Windows.Forms.Button()
         Me.Weekly = New System.Windows.Forms.Button()
         Me.Daily = New System.Windows.Forms.Button()
-        Me.HistoryRecord = New System.Windows.Forms.Button()
+        Me.Health_Provider = New System.Windows.Forms.Button()
         Me.Home_Button = New System.Windows.Forms.Button()
         Me.txtSearch = New System.Windows.Forms.TextBox()
         Me.Label1 = New System.Windows.Forms.Label()
@@ -42,6 +42,7 @@ Partial Class Admin_Inventory
         Me.Button3 = New System.Windows.Forms.Button()
         Me.Button8 = New System.Windows.Forms.Button()
         Me.Button4 = New System.Windows.Forms.Button()
+        Me.History = New System.Windows.Forms.Button()
         CType(Me.pbLogo, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.dgvInventory, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel1.SuspendLayout()
@@ -143,15 +144,15 @@ Partial Class Admin_Inventory
         Me.Daily.Text = "Daily"
         Me.Daily.UseVisualStyleBackColor = True
         '
-        'HistoryRecord
+        'Health_Provider
         '
-        Me.HistoryRecord.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold)
-        Me.HistoryRecord.Location = New System.Drawing.Point(627, 0)
-        Me.HistoryRecord.Name = "HistoryRecord"
-        Me.HistoryRecord.Size = New System.Drawing.Size(117, 50)
-        Me.HistoryRecord.TabIndex = 21
-        Me.HistoryRecord.Text = "History"
-        Me.HistoryRecord.UseVisualStyleBackColor = True
+        Me.Health_Provider.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold)
+        Me.Health_Provider.Location = New System.Drawing.Point(627, 0)
+        Me.Health_Provider.Name = "Health_Provider"
+        Me.Health_Provider.Size = New System.Drawing.Size(117, 50)
+        Me.Health_Provider.TabIndex = 21
+        Me.Health_Provider.Text = "Health Provider"
+        Me.Health_Provider.UseVisualStyleBackColor = True
         '
         'Home_Button
         '
@@ -262,15 +263,26 @@ Partial Class Admin_Inventory
         Me.Button4.Text = "Inegibility Status Report"
         Me.Button4.UseVisualStyleBackColor = False
         '
+        'History
+        '
+        Me.History.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold)
+        Me.History.Location = New System.Drawing.Point(750, 0)
+        Me.History.Name = "History"
+        Me.History.Size = New System.Drawing.Size(117, 50)
+        Me.History.TabIndex = 25
+        Me.History.Text = "History"
+        Me.History.UseVisualStyleBackColor = True
+        '
         'Admin_Inventory
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1364, 749)
+        Me.Controls.Add(Me.History)
         Me.Controls.Add(Me.txtSearch)
         Me.Controls.Add(Me.Panel1)
         Me.Controls.Add(Me.Home_Button)
-        Me.Controls.Add(Me.HistoryRecord)
+        Me.Controls.Add(Me.Health_Provider)
         Me.Controls.Add(Me.cmbMonths)
         Me.Controls.Add(Me.dtpCalendar)
         Me.Controls.Add(Me.dgvInventory)
@@ -303,7 +315,7 @@ Partial Class Admin_Inventory
     Friend WithEvents Monthly As Button
     Friend WithEvents Weekly As Button
     Friend WithEvents Daily As Button
-    Friend WithEvents HistoryRecord As Button
+    Friend WithEvents Health_Provider As Button
     Friend WithEvents Home_Button As Button
     Friend WithEvents txtSearch As TextBox
     Friend WithEvents Label1 As Label
@@ -313,4 +325,5 @@ Partial Class Admin_Inventory
     Friend WithEvents Button3 As Button
     Friend WithEvents Button8 As Button
     Friend WithEvents Button4 As Button
+    Friend WithEvents History As Button
 End Class

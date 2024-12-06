@@ -17,6 +17,8 @@ Public Class User_Status_Old
         End If
 
         Try
+            ' Open the connection using modDB.openConn
+            modDB.openConn("redcrossdb")
             Dim connection As MySqlConnection = modDB.conn
 
             ' Query to retrieve donor details and latest NextEligibilityDate
@@ -76,7 +78,6 @@ Public Class User_Status_Old
         End Try
     End Sub
 
-
     ' Age calculation method
     Private Function CalculateAge(birthdate As DateTime) As Integer
         Dim today As DateTime = DateTime.Now
@@ -96,6 +97,7 @@ Public Class User_Status_Old
     End Sub
 
     Private Sub User_Status_Old_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-
+        ' Ensure the connection is opened when form loads
+        modDB.openConn("redcrossdb")
     End Sub
 End Class

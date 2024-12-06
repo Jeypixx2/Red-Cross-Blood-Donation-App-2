@@ -74,14 +74,14 @@ Public Class Donation_Management_old
         If connection IsNot Nothing AndAlso connection.State = ConnectionState.Open Then
             Try
                 ' SQL query for inserting the donation data into the database
-                Dim query As String = "INSERT INTO donation (DonationDate, DonorID, BloodType, RhesusFactor, BloodVolume, CollectionMethod, DonationTime, DonationType, NextEligibilityDate) " &
-                                      "VALUES (@DonationDate, @DonorID, @BloodType, @RhesusFactor, @BloodVolume, @CollectionMethod, @DonationTime, @DonationType, @NextEligibilityDate)"
+                Dim query As String = "INSERT INTO donation (DonationDate, DonorID, Blood_Group, RhesusFactor, BloodVolume, CollectionMethod, DonationTime, DonationType, NextEligibilityDate) " &
+                                      "VALUES (@DonationDate, @DonorID, @Blood_Group, @RhesusFactor, @BloodVolume, @CollectionMethod, @DonationTime, @DonationType, @NextEligibilityDate)"
                 Using cmd As New MySqlCommand(query, connection)
                     ' Set parameters for the query
                     cmd.Parameters.AddWithValue("@DonationDate", DateTime.Now.ToString("yyyy-MM-dd"))
                     cmd.Parameters.AddWithValue("@DonorID", DonorID)
 
-                    cmd.Parameters.AddWithValue("@BloodType", txtBloodType.Text)
+                    cmd.Parameters.AddWithValue("@Blood_Group", txtBloodType.Text)
                     cmd.Parameters.AddWithValue("@RhesusFactor", txtRhesusFactor.Text)
                     cmd.Parameters.AddWithValue("@BloodVolume", txtBloodVolume.Text)
                     cmd.Parameters.AddWithValue("@CollectionMethod", CollectionCheckedList.Text)

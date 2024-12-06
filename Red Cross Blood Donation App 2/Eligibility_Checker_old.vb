@@ -17,32 +17,6 @@ Public Class Eligibility_Checker_old
         MessageBox.Show($"Donor ID: {DonorID}, Blood Type: {BloodType}")
     End Sub
 
-    ' Proceed button event handler
-    Private Sub Proceed_Click(sender As Object, e As EventArgs)
-        If Not ValidateDonorID() Then
-            MessageBox.Show("Error: DonorID is not set. Please ensure donor information is correctly retrieved.")
-            Return
-        End If
-
-        If SaveEligibilityData() Then
-            If IsEligibleForDonation() Then
-                ' Proceed to Donation_Management_new form
-                Dim donationForm As New Donation_Management_old() With {
-                    .DonorID = Me.DonorID,
-                    .DonorName = Me.DonorName,
-                    .BloodType = Me.BloodType,
-                    .HemoglobinLevel = Me.HemoglobinLevel,
-                    .BloodPressure = Me.BloodPressure
-                }
-                donationForm.Show()
-                Me.Hide()
-            Else
-                MessageBox.Show("Donor is not eligible for blood donation.")
-                Admin_Dashboard.Show()
-                Me.Hide()
-            End If
-        End If
-    End Sub
 
     ' Validate DonorID
     Private Function ValidateDonorID() As Boolean
@@ -325,5 +299,31 @@ Public Class Eligibility_Checker_old
 
     Private Sub Back_Click(sender As Object, e As EventArgs)
 
+    End Sub
+
+    Private Sub Proceed_Click_1(sender As Object, e As EventArgs) Handles Proceed.Click
+        If Not ValidateDonorID() Then
+            MessageBox.Show("Error: DonorID is not set. Please ensure donor information is correctly retrieved.")
+            Return
+        End If
+
+        If SaveEligibilityData() Then
+            If IsEligibleForDonation() Then
+                ' Proceed to Donation_Management_new form
+                Dim donationForm As New Donation_Management_old() With {
+                    .DonorID = Me.DonorID,
+                    .DonorName = Me.DonorName,
+                    .BloodType = Me.BloodType,
+                    .HemoglobinLevel = Me.HemoglobinLevel,
+                    .BloodPressure = Me.BloodPressure
+                }
+                donationForm.Show()
+                Me.Hide()
+            Else
+                MessageBox.Show("Donor is not eligible for blood donation.")
+                Admin_Dashboard.Show()
+                Me.Hide()
+            End If
+        End If
     End Sub
 End Class

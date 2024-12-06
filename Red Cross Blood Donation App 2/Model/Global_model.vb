@@ -17,10 +17,14 @@ Public Class Global_model
         End Select
 
         Try
-            ' Open connection
-            openConn(database)
+            openConn(database) ' Assuming this method opens the database connection
 
-            ' Execute query
+            ' Log the query and parameters for debugging
+            Console.WriteLine("SQL Query: " & query)
+            For i As Integer = 0 To parameters.Length - 1
+                Console.WriteLine($"Parameter {i}: {parameters(i)}")
+            Next
+
             Using cmd As New MySqlCommand(query, conn)
                 If parameters IsNot Nothing Then
                     For i As Integer = 0 To parameters.Length - 1
@@ -33,10 +37,12 @@ Public Class Global_model
                 End Using
             End Using
         Catch ex As MySqlException
+            MsgBox("MySQL Error: " & ex.Message, MsgBoxStyle.Critical)
+            Return Nothing
+        Catch ex As Exception
             MsgBox("Error: " & ex.Message, MsgBoxStyle.Critical)
             Return Nothing
         Finally
-            ' Close connection
             If conn.State = ConnectionState.Open Then
                 conn.Close()
             End If
@@ -44,6 +50,9 @@ Public Class Global_model
 
         Return table
     End Function
+
+
+
 
 
 

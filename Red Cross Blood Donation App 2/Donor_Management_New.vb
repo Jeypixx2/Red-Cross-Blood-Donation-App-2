@@ -19,10 +19,11 @@ Public Class Donor_Management_New
     End Function
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
-        ' Use the existing connection from MySQLModule (no need to call Connect again)
-        Dim connection As MySqlConnection = modDB.conn
+        ' Open connection using modDB.openConn
+        modDB.openConn("redcrossdb")
 
-        If connection IsNot Nothing AndAlso connection.State = ConnectionState.Open Then
+        ' Check if the connection is open
+        If modDB.conn.State = ConnectionState.Open Then
             Try
                 ' Log the input values for debugging purposes
                 MessageBox.Show("First Name: " & txtFirstName.Text)
@@ -44,7 +45,7 @@ Public Class Donor_Management_New
 
                 ' Check for duplicate entries
                 Dim duplicateCheckQuery As String = "SELECT COUNT(*) FROM donors WHERE LastName = @LastName AND FirstName = @FirstName AND DateofBirth = @DateOfBirth AND BloodType = @BloodType"
-                Using duplicateCheckCmd As New MySqlCommand(duplicateCheckQuery, connection)
+                Using duplicateCheckCmd As New MySqlCommand(duplicateCheckQuery, modDB.conn)
                     duplicateCheckCmd.Parameters.AddWithValue("@LastName", txtlastname.Text)
                     duplicateCheckCmd.Parameters.AddWithValue("@FirstName", txtFirstName.Text)
                     duplicateCheckCmd.Parameters.AddWithValue("@DateOfBirth", dob.ToString("yyyy-MM-dd"))
@@ -58,10 +59,9 @@ Public Class Donor_Management_New
                 End Using
 
                 ' Insert new donor record
-                ' Insert the new donor data including calculated age
                 Dim query As String = "INSERT INTO donors (LastName, FirstName, MiddleName, Baranggay, City, Province, DateofBirth, Sex, BloodType, RegDate, Age, CivilStatus, Nationality, Occupation) " &
-                      "VALUES (@LastName, @FirstName, @MiddleName, @Baranggay, @City, @Province, @DateOfBirth, @Sex, @BloodType, @RegDate, @Age, @CivilStatus, @Nationality, @Occupation)"
-                Using cmd As New MySqlCommand(query, connection)
+                                      "VALUES (@LastName, @FirstName, @MiddleName, @Baranggay, @City, @Province, @DateOfBirth, @Sex, @BloodType, @RegDate, @Age, @CivilStatus, @Nationality, @Occupation)"
+                Using cmd As New MySqlCommand(query, modDB.conn)
                     cmd.Parameters.AddWithValue("@LastName", txtlastname.Text)
                     cmd.Parameters.AddWithValue("@FirstName", txtFirstName.Text)
                     cmd.Parameters.AddWithValue("@MiddleName", txtmiddlename.Text)
@@ -79,14 +79,11 @@ Public Class Donor_Management_New
 
                     cmd.ExecuteNonQuery()
                 End Using
+
                 MessageBox.Show("Donor information has been successfully added.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
 
-
-                Process_Success.Show()
-                Me.Hide()
-
-
-                RetrieveDonorData(connection)
+                ' Retrieve Donor Data after insertion
+                RetrieveDonorData()
 
                 ' Pass DonorID, BloodType, and Age to Eligibility_Checker_new form
                 Eligibility_Checker_new.DonorID = Me.DonorID
@@ -105,10 +102,14 @@ Public Class Donor_Management_New
         End If
     End Sub
 
-    Private Sub RetrieveDonorData(connection As MySqlConnection)
+    ' Function to retrieve donor data
+    Private Sub RetrieveDonorData()
+        ' Ensure the connection is open before querying
+        modDB.openConn("redcrossdb")
+
         ' Query to get DonorID and BloodType
         Dim getDonorIdQuery As String = "SELECT DonorID, BloodType FROM donors WHERE LastName = @LastName AND FirstName = @FirstName AND DateofBirth = @DateOfBirth"
-        Using getCmd As New MySqlCommand(getDonorIdQuery, connection)
+        Using getCmd As New MySqlCommand(getDonorIdQuery, modDB.conn)
             getCmd.Parameters.AddWithValue("@LastName", txtlastname.Text)
             getCmd.Parameters.AddWithValue("@FirstName", txtFirstName.Text)
             getCmd.Parameters.AddWithValue("@DateOfBirth", MonthCalendar1.SelectionStart)
@@ -121,5 +122,4 @@ Public Class Donor_Management_New
             End Using
         End Using
     End Sub
-
 End Class

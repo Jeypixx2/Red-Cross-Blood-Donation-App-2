@@ -119,13 +119,21 @@ Public Class Admin_Inventory
         Calendar = 1
         SelectedDate = dtpCalendar.SelectionStart.ToString("yyyy-MM-dd")
 
-        ' Fetch the data and update the DataGridView
-        Dim Data = GlobalModel.GetAll(currentTable, Calendar, dbDateColumn, SelectedDate)
-        GlobalModel.UpdateDataGridView(Data, dgvInventory)
+        ' Construct the query based on selected date
+        Dim query As String = $"SELECT * FROM {currentTable} WHERE DATE({dbDateColumn}) = @SelectedDate"
+
+        ' Call the LoadDGV function from modDB to load the data into the DataGridView
+        Dim rowCount As Integer = modDB.LoadToDGV(query, dgvInventory)
 
         ' Log the action
         modDB.Logs("View Donor History")
+
+        ' Optionally, check row count or provide further feedback
+        If rowCount = 0 Then
+            MessageBox.Show("No donor records found for the selected date.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
+        End If
     End Sub
+
 
 
 
@@ -140,13 +148,22 @@ Public Class Admin_Inventory
         Calendar = 1
         SelectedDate = dtpCalendar.SelectionStart.ToString("yyyy-MM-dd")
 
-        ' Fetch the data and update the DataGridView
-        Dim Data = GlobalModel.GetAll(currentTable, Calendar, dbDateColumn, SelectedDate)
-        GlobalModel.UpdateDataGridView(Data, dgvInventory)
+        ' Construct the query based on selected date
+        Dim query As String = $"SELECT * FROM {currentTable} WHERE DATE({dbDateColumn}) = @SelectedDate"
+
+        ' Call the LoadDGV function from modDB to load the data into the DataGridView
+        Dim rowCount As Integer = modDB.LoadToDGV(query, dgvInventory)
 
         ' Log the action
         modDB.Logs("View Donation History")
+
+        ' Optionally, check row count or provide further feedback
+        If rowCount = 0 Then
+            MessageBox.Show("No donation records found for the selected date.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
+        End If
     End Sub
+
+
 
 
     Private Sub EligibilityRecord_Click(sender As Object, e As EventArgs) Handles EligibilityRecord.Click
@@ -160,13 +177,48 @@ Public Class Admin_Inventory
         Calendar = 1
         SelectedDate = dtpCalendar.SelectionStart.ToString("yyyy-MM-dd")
 
-        ' Fetch the data and update the DataGridView
-        Dim Data = GlobalModel.GetAll(currentTable, Calendar, dbDateColumn, SelectedDate)
-        GlobalModel.UpdateDataGridView(Data, dgvInventory)
+        ' Construct the query based on selected date
+        Dim query As String = $"SELECT * FROM {currentTable} WHERE DATE({dbDateColumn}) = @SelectedDate"
+
+        ' Call the LoadDGV function from modDB to load the data into the DataGridView
+        Dim rowCount As Integer = modDB.LoadToDGV(query, dgvInventory)
 
         ' Log the action
         modDB.Logs("View Eligibility History")
+
+        ' Optionally, check row count or provide further feedback
+        If rowCount = 0 Then
+            MessageBox.Show("No eligibility records found for the selected date.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
+        End If
     End Sub
+
+    Private Sub Health_Provider_Click(sender As Object, e As EventArgs) Handles Health_Provider.Click
+
+
+        UpdateConnectionString()
+        DoubleBuffering.EnableDoubleBuffering(dgvInventory)
+
+
+        currentTable = "healthprovider"
+        dbDateColumn = "RetrieveDate"
+        Calendar = 1
+        SelectedDate = dtpCalendar.SelectionStart.ToString("yyyy-MM-dd")
+
+
+        Dim query As String = $"SELECT * FROM {currentTable} WHERE DATE({dbDateColumn}) = @SelectedDate"
+
+
+        Dim rowCount As Integer = modDB.LoadToDGV(query, dgvInventory)
+
+
+        modDB.Logs("View History")
+
+
+        If rowCount = 0 Then
+            MessageBox.Show("No history records found for the selected date.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
+        End If
+    End Sub
+
 
 
     Private Sub dtpCalendar_DateChanged(sender As Object, e As DateRangeEventArgs) Handles dtpCalendar.DateSelected
@@ -185,41 +237,40 @@ Public Class Admin_Inventory
     Private searchTimer As New Timer()
 
     Private Sub txtSearch_TextChanged(sender As Object, e As EventArgs) Handles txtSearch.TextChanged
-        ' Disable the buttons during search
+
         Daily.Enabled = False
         Weekly.Enabled = False
         Monthly.Enabled = False
 
-        ' Set or reset the timer
+
         searchTimer.Stop()
-        searchTimer.Interval = 500 ' Set delay for 500ms after typing stops
+        searchTimer.Interval = 500
         AddHandler searchTimer.Tick, AddressOf PerformSearch
         searchTimer.Start()
     End Sub
 
     Private Sub PerformSearch(sender As Object, e As EventArgs)
         Try
-            ' Perform the search operation after delay
+
             Dim searchText As String = txtSearch.Text
 
-            ' Only perform the search if the search text is not empty
+
             If Not String.IsNullOrWhiteSpace(searchText) Then
                 Dim results As DataTable = GlobalModel.Search(searchText, currentTable)
 
-                ' Check if results were found
                 If results IsNot Nothing AndAlso results.Rows.Count > 0 Then
-                    ' Update the DataGridView with the results
+
                     GlobalModel.UpdateDataGridView(results, dgvInventory)
                 Else
-                    ' If no results found, inform the user and clear the textbox
+
                     If Not txtSearch.Tag IsNot Nothing AndAlso txtSearch.Tag.ToString() = "No Results" Then
                         MessageBox.Show("No results found. Please try a different search term.", "No Results", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                        txtSearch.Clear() ' Clear the search textbox
-                        txtSearch.Tag = "No Results" ' Mark that message has been shown
+                        txtSearch.Clear()
+                        txtSearch.Tag = "No Results"
                     End If
                 End If
             Else
-                ' Optionally clear the DataGridView if the search text is empty
+
                 dgvInventory.DataSource = Nothing
             End If
 
@@ -233,27 +284,14 @@ Public Class Admin_Inventory
             Weekly.Enabled = True
             Monthly.Enabled = True
 
-            ' Stop the timer to prevent further ticks
+
             searchTimer.Stop()
 
-            ' Reset the Tag for the next search
             txtSearch.Tag = Nothing
         End Try
     End Sub
 
-    Private Sub HistoryRecord_Click(sender As Object, e As EventArgs) Handles HistoryRecord.Click
-        UpdateConnectionString()
-        DoubleBuffering.EnableDoubleBuffering(dgvInventory)
-        currentTable = "healthprovider"
-        dbDateColumn = "RetrieveDate"
-        Calendar = 1
-        SelectedDate = dtpCalendar.SelectionStart.ToString("yyyy-MM-dd")
-        Dim Data = GlobalModel.GetAll(currentTable, Calendar, dbDateColumn, SelectedDate)
-        GlobalModel.UpdateDataGridView(Data, dgvInventory)
-        modDB.Logs("View History")
 
-
-    End Sub
 
     'Reports
     Private Sub Button1_Click_1(sender As Object, e As EventArgs) Handles Button1.Click
@@ -282,4 +320,25 @@ Public Class Admin_Inventory
         Health_Provider_Report.Show()
         modDB.Logs("ViewHealth Provider Report")
     End Sub
+
+    Private Sub History_Click(sender As Object, e As EventArgs) Handles History.Click
+        UpdateConnectionString()
+        DoubleBuffering.EnableDoubleBuffering(dgvInventory)
+
+        ' Set parameters for the current table and date column
+        currentTable = "history"
+        dbDateColumn = "DonorRegDate" ' Change this to the appropriate column for the history table
+        Calendar = 1
+        SelectedDate = dtpCalendar.SelectionStart.ToString("yyyy-MM-dd")
+
+        ' Fetch the data and update the DataGridView
+        Dim Data = GlobalModel.GetAll(currentTable, Calendar, dbDateColumn, SelectedDate)
+        GlobalModel.UpdateDataGridView(Data, dgvInventory)
+
+        ' Log the action
+        modDB.Logs("View History Data")
+
+    End Sub
+
+
 End Class
