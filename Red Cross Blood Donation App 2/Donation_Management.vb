@@ -32,14 +32,14 @@ Public Class Donation_Management_new
         If connection IsNot Nothing AndAlso connection.State = ConnectionState.Open Then
             Try
                 ' SQL query for inserting the donation data into the database
-                Dim query As String = "INSERT INTO donation (DonationDate, DonorID, BloodType, RhesusFactor, BloodVolume, CollectionMethod, DonationTime, DonationType, NextEligibilityDate, BloodComponent, Compatibility, BagType, Expiration_Date, StorageLocation) " &
-                                      "VALUES (@DonationDate, @DonorID, @BloodType, @RhesusFactor, @BloodVolume, @CollectionMethod, @DonationTime, @DonationType, @NextEligibilityDate, @BloodComponent, @Compatibility, @BagType, @Expiration_Date, @StorageLocation)"
+                Dim query As String = "INSERT INTO donation (DonationDate, DonorID, Blood_Group, RhesusFactor, BloodVolume, CollectionMethod, DonationTime, DonationType, NextEligibilityDate, BloodComponent, Compatibility, BagType, Expiration_Date, StorageLocation) " &
+                                      "VALUES (@DonationDate, @DonorID, @Blood_Group, @RhesusFactor, @BloodVolume, @CollectionMethod, @DonationTime, @DonationType, @NextEligibilityDate, @BloodComponent, @Compatibility, @BagType, @Expiration_Date, @StorageLocation)"
                 Using cmd As New MySqlCommand(query, connection)
                     ' Set parameters for the query
                     cmd.Parameters.AddWithValue("@DonationDate", DateTime.Now.ToString("yyyy-MM-dd"))
                     cmd.Parameters.AddWithValue("@DonorID", DonorID)
 
-                    cmd.Parameters.AddWithValue("@BloodType", txtBloodType.Text)
+                    cmd.Parameters.AddWithValue("@Blood_Group", txtBloodType.Text)
                     cmd.Parameters.AddWithValue("@RhesusFactor", txtRhesusFactor.Text)
                     cmd.Parameters.AddWithValue("@BloodVolume", txtBloodVolume.Text)
                     cmd.Parameters.AddWithValue("@CollectionMethod", CollectionCheckedList.Text)
@@ -49,7 +49,7 @@ Public Class Donation_Management_new
                     cmd.Parameters.AddWithValue("@BagType", BagTypeCheckedlist.Text)
                     cmd.Parameters.AddWithValue("@BloodComponent", CheckBloodComponent())
                     cmd.Parameters.AddWithValue("@Compatibility", CheckCompatibility(BloodType))
-                    cmd.Parameters.AddWithValue("@Expriation_Date", CalculateExpirationDate())
+                    cmd.Parameters.AddWithValue("@Expiration_Date", CalculateExpirationDate())
                     cmd.Parameters.AddWithValue("@StorageLocation", txtStorage.Text)
 
 
@@ -140,6 +140,7 @@ Public Class Donation_Management_new
 
 
     Private Sub Proceed_Click(sender As Object, e As EventArgs) Handles Proceed.Click
+        InsertDonationData()
         Process_Success.Show()
         Me.Hide()
     End Sub
