@@ -60,14 +60,21 @@ Public Class Global_model
         RenameColumns(filteredData)
         DataGridView.DataSource = Nothing
         DataGridView.DataSource = filteredData
+
         If Admin_Inventory.currentTable = "healthprovider" Then
-            DataGridView.Columns("RetrieveID").Visible = True
+            If DataGridView.Columns.Contains("RetrieveID") Then
+                DataGridView.Columns("RetrieveID").Visible = True
+            End If
+
             If filteredData.Rows.Count = 0 Then
                 MessageBox.Show("No data available for the selected date/week/month.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
                 Exit Sub
             End If
         Else
-            DataGridView.Columns("DonorID").Visible = True
+            If DataGridView.Columns.Contains("DonorID") Then
+                DataGridView.Columns("DonorID").Visible = True
+            End If
+
             If filteredData.Rows.Count = 0 Then
                 MessageBox.Show("No data available for the selected date/week/month.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
                 Exit Sub
@@ -79,6 +86,7 @@ Public Class Global_model
             .dtpCalendar.Refresh()
         End With
     End Sub
+
 
     ' Function to rename columns in the DataTable
     Private Sub RenameColumns(dataTable As DataTable)

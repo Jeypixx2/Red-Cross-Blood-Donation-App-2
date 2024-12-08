@@ -3,7 +3,7 @@
 Public Class Admin_Access
     Private Sub Admin_Access_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         ' Check if the admin_account table is empty
-        Dim query As String = "SELECT COUNT(*) FROM admin_account"
+        Dim query As String = "SELECT COUNT(*) FROM accounts"
         Try
             readQuery(query)
             If cmdRead.Read() AndAlso cmdRead.GetInt32(0) = 0 Then
@@ -27,6 +27,14 @@ Public Class Admin_Access
         ' Validate username and password
         If String.IsNullOrEmpty(username) OrElse String.IsNullOrEmpty(password) Then
             MessageBox.Show("Please enter both username and password.", "Login Failed", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            Exit Sub
+        End If
+
+        ' Hardcoded check for SuperAdmin
+        If username = "admin" AndAlso password = "admin" Then
+            MessageBox.Show("SuperAdmin login successful!", "Welcome SuperAdmin", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            SuperAdmin.Show() ' Show SuperAdmin Dashboard
+            Me.Hide() ' Hide Login Form
             Exit Sub
         End If
 
@@ -59,6 +67,7 @@ Public Class Admin_Access
             conn?.Close()
         End Try
     End Sub
+
 
     Private Sub createAcc_Click(sender As Object, e As EventArgs) Handles createAcc.Click
         Dim createAccountForm As New CreateAccountForm()

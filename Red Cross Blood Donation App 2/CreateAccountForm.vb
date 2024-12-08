@@ -24,12 +24,13 @@ Public Class CreateAccountForm
         Dim encryptedPassword As String = Encrypt(password)
 
         ' Query to insert data into the admin_account table
-        Dim query As String = "INSERT INTO admin_account (username, password) VALUES (@username, @password)"
+        Dim query As String = "INSERT INTO accounts (username, password, dt_created) VALUES (@username, @password, @dt_created)"
         Try
             Using cmd As New MySqlCommand(query, conn)
                 ' Add parameters to the query
                 cmd.Parameters.AddWithValue("@username", username)
                 cmd.Parameters.AddWithValue("@password", encryptedPassword) ' Store encrypted password
+                cmd.Parameters.AddWithValue("@dt_created", DateTime.Now) ' Use current date and time
 
                 ' Open connection
                 openConn(db_name)
@@ -54,6 +55,7 @@ Public Class CreateAccountForm
             conn?.Close()
         End Try
     End Sub
+
 
 
     ' Event handler for the "Show Password" button

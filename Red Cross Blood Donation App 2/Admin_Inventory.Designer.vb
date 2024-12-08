@@ -22,7 +22,6 @@ Partial Class Admin_Inventory
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.pbLogo = New System.Windows.Forms.PictureBox()
         Me.cmbMonths = New System.Windows.Forms.ComboBox()
         Me.dtpCalendar = New System.Windows.Forms.MonthCalendar()
         Me.dgvInventory = New System.Windows.Forms.DataGridView()
@@ -43,20 +42,11 @@ Partial Class Admin_Inventory
         Me.Button8 = New System.Windows.Forms.Button()
         Me.Button4 = New System.Windows.Forms.Button()
         Me.History = New System.Windows.Forms.Button()
-        CType(Me.pbLogo, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.pbLogo = New System.Windows.Forms.PictureBox()
         CType(Me.dgvInventory, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel1.SuspendLayout()
+        CType(Me.pbLogo, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
-        '
-        'pbLogo
-        '
-        Me.pbLogo.Image = Global.Red_Cross_Blood_Donation_App_2.My.Resources.Resources.Red_Cross_logo
-        Me.pbLogo.Location = New System.Drawing.Point(12, 0)
-        Me.pbLogo.Name = "pbLogo"
-        Me.pbLogo.Size = New System.Drawing.Size(99, 130)
-        Me.pbLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
-        Me.pbLogo.TabIndex = 2
-        Me.pbLogo.TabStop = False
         '
         'cmbMonths
         '
@@ -273,6 +263,16 @@ Partial Class Admin_Inventory
         Me.History.Text = "History"
         Me.History.UseVisualStyleBackColor = True
         '
+        'pbLogo
+        '
+        Me.pbLogo.Image = Global.Red_Cross_Blood_Donation_App_2.My.Resources.Resources.Red_Cross_logo
+        Me.pbLogo.Location = New System.Drawing.Point(12, 0)
+        Me.pbLogo.Name = "pbLogo"
+        Me.pbLogo.Size = New System.Drawing.Size(99, 130)
+        Me.pbLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
+        Me.pbLogo.TabIndex = 2
+        Me.pbLogo.TabStop = False
+        '
         'Admin_Inventory
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -293,13 +293,15 @@ Partial Class Admin_Inventory
         Me.Controls.Add(Me.Weekly)
         Me.Controls.Add(Me.Daily)
         Me.Controls.Add(Me.pbLogo)
+        Me.MaximizeBox = False
+        Me.MinimizeBox = False
         Me.Name = "Admin_Inventory"
         Me.Text = "Admin_Inventory"
         Me.WindowState = System.Windows.Forms.FormWindowState.Maximized
-        CType(Me.pbLogo, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.dgvInventory, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel1.ResumeLayout(False)
         Me.Panel1.PerformLayout()
+        CType(Me.pbLogo, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 

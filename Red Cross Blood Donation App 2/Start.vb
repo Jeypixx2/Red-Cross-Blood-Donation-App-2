@@ -19,6 +19,7 @@ Public Class Start
         Me.Hide()
         HealthCare_Access.Show()
     End Sub
+
 End Class
 
 ' DonorSummary.vb (Separate Class File)

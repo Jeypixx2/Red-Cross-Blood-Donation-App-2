@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class Start
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,24 +20,13 @@ Partial Class Start
     'NOTE: The following procedure is required by the Windows Form Designer
     'It can be modified using the Windows Form Designer.  
     'Do not modify it using the code editor.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Me.pbLogo = New System.Windows.Forms.PictureBox()
         Me.btnAdmin = New System.Windows.Forms.Button()
         Me.btnHealthcareprovider = New System.Windows.Forms.Button()
+        Me.pbLogo = New System.Windows.Forms.PictureBox()
         CType(Me.pbLogo, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
-        '
-        'pbLogo
-        '
-        Me.pbLogo.Anchor = System.Windows.Forms.AnchorStyles.Top
-        Me.pbLogo.Image = Global.Red_Cross_Blood_Donation_App_2.My.Resources.Resources.Red_Cross_logo
-        Me.pbLogo.Location = New System.Drawing.Point(383, 106)
-        Me.pbLogo.Name = "pbLogo"
-        Me.pbLogo.Size = New System.Drawing.Size(376, 156)
-        Me.pbLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
-        Me.pbLogo.TabIndex = 1
-        Me.pbLogo.TabStop = False
         '
         'btnAdmin
         '
@@ -45,7 +34,7 @@ Partial Class Start
         Me.btnAdmin.BackColor = System.Drawing.Color.FromArgb(CType(CType(207, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(6, Byte), Integer))
         Me.btnAdmin.Font = New System.Drawing.Font("Arial", 15.75!)
         Me.btnAdmin.ForeColor = System.Drawing.SystemColors.ButtonHighlight
-        Me.btnAdmin.Location = New System.Drawing.Point(434, 376)
+        Me.btnAdmin.Location = New System.Drawing.Point(434, 447)
         Me.btnAdmin.Name = "btnAdmin"
         Me.btnAdmin.Size = New System.Drawing.Size(279, 53)
         Me.btnAdmin.TabIndex = 2
@@ -64,6 +53,17 @@ Partial Class Start
         Me.btnHealthcareprovider.TabIndex = 3
         Me.btnHealthcareprovider.Text = "Healthcare Provider"
         Me.btnHealthcareprovider.UseVisualStyleBackColor = False
+        '
+        'pbLogo
+        '
+        Me.pbLogo.Anchor = System.Windows.Forms.AnchorStyles.Top
+        Me.pbLogo.Image = Global.Red_Cross_Blood_Donation_App_2.My.Resources.Resources.Red_Cross_logo
+        Me.pbLogo.Location = New System.Drawing.Point(383, 106)
+        Me.pbLogo.Name = "pbLogo"
+        Me.pbLogo.Size = New System.Drawing.Size(376, 156)
+        Me.pbLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
+        Me.pbLogo.TabIndex = 1
+        Me.pbLogo.TabStop = False
         '
         'Start
         '
