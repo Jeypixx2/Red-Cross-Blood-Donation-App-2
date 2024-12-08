@@ -1,4 +1,5 @@
 ﻿Imports System.Windows.Forms.VisualStyles.VisualStyleElement
+Imports MySql.Data.MySqlClient
 
 Public Class SuperAdmin
     Private sampleData As DataTable
@@ -11,6 +12,7 @@ Public Class SuperAdmin
     Public Calendar As Integer
 
     Private Sub SuperAdmin_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        EnableEditingAndDeleting()
         Try
             Dim screenWidth As Integer = Screen.PrimaryScreen.Bounds.Width
             Dim screenHeight As Integer = Screen.PrimaryScreen.Bounds.Height
@@ -371,4 +373,67 @@ Public Class SuperAdmin
         ' Log the action
         modDB.Logs("View History Data")
     End Sub
+
+    Private Sub EnableEditingAndDeleting()
+        dgvInventory.ReadOnly = False ' Allow editing
+        dgvInventory.AllowUserToDeleteRows = True ' Allow row deletion
+    End Sub
+
+    ' Define a mapping of table names to their primary key column names
+    Dim tablePrimaryKeys As New Dictionary(Of String, String) From {
+    {"donors", "donorID"},
+    {"eligibility", "eligibilityID"},
+    {"donation", "bloodID"},
+    {"healthprovider", "RetrieveID"},
+    {"history", "HistoryID"},
+    {"logs", "user_accounts_id"},
+    {"accounts", "adminID"}}
+    ' Add more table-to-ID mappings as needed
+
+
+    Private Sub dgvInventory_CellValueChanged(sender As Object, e As DataGridViewCellEventArgs) Handles dgvInventory.CellValueChanged
+        Try
+            If e.RowIndex >= 0 AndAlso e.ColumnIndex >= 0 Then
+                ' Get the edited cell's value, column name, and table's primary key column name
+                Dim editedCell = dgvInventory.Rows(e.RowIndex).Cells(e.ColumnIndex)
+                Dim columnName = dgvInventory.Columns(e.ColumnIndex).Name
+                Dim newValue = editedCell.Value
+
+                ' Determine the primary key column for the current table
+                Dim primaryKeyColumn As String
+                If tablePrimaryKeys.TryGetValue(currentTable, primaryKeyColumn) Then
+                    Dim rowID = dgvInventory.Rows(e.RowIndex).Cells(primaryKeyColumn).Value ' Get the primary key value
+
+                    ' Construct the UPDATE query
+                    Dim query As String = $"UPDATE {currentTable} SET {columnName} = @newValue WHERE {primaryKeyColumn} = @rowID"
+
+                    ' Update the database
+                    Using conn As New MySqlConnection(modDB.strConnection)
+                        Using cmd As New MySqlCommand(query, conn)
+                            ' Add parameters to avoid SQL injection
+                            cmd.Parameters.AddWithValue("@newValue", newValue)
+                            cmd.Parameters.AddWithValue("@rowID", rowID)
+
+                            ' Open connection and execute query
+                            conn.Open()
+                            Dim rowsAffected As Integer = cmd.ExecuteNonQuery()
+
+                            ' Optionally, log the update
+                            modDB.Logs($"Updated {columnName} in {currentTable} for ID {rowID}. Rows affected: {rowsAffected}.")
+                        End Using
+                    End Using
+
+                    ' Notify success
+                    MessageBox.Show("Record updated successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                Else
+                    Throw New Exception($"Primary key column not defined for table: {currentTable}")
+                End If
+            End If
+        Catch ex As Exception
+            ' Handle exceptions
+            MessageBox.Show($"Error updating record: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+    End Sub
+
+
 End Class
