@@ -6,37 +6,24 @@ Public Class Admin_Inventory
     Public currentTable As String ' Variable to track the active table (donors, donation, eligibility)
     Public GlobalModel As New Global_model
     Public DoubleBuffering As New DoubleBuffering
-    Public SelectedDate As Date
+    Public SelectedDate As DateTime
     Public dbDateColumn As String
     Public Calendar As Integer
 
     Private Sub Admin_Inventory_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Try
-            Dim screenWidth As Integer = Screen.PrimaryScreen.Bounds.Width
-            Dim screenHeight As Integer = Screen.PrimaryScreen.Bounds.Height
-            Me.Width = screenWidth * 0.8 ' 80% of screen width
-            Me.Height = screenHeight * 0.8 ' 80% of screen height
-            UpdateConnectionString() ' Optionally use this, or directly set the connection string in modDB
-            DoubleBuffering.EnableDoubleBuffering(dgvInventory)
-            currentTable = "donors"
-            dbDateColumn = "RegDate"
-            Calendar = 1
-
             ' Initialize SelectedDate to today if it is not set
-            If String.IsNullOrEmpty(SelectedDate) OrElse SelectedDate = Date.MinValue.ToString("yyyy-MM-dd") Then
-                SelectedDate = DateTime.Now.ToString("yyyy-MM-dd")
+            If SelectedDate = DateTime.MinValue Then
+                SelectedDate = DateTime.Now
             End If
 
             ' Debugging: Log the value of SelectedDate
-            Debug.WriteLine("SelectedDate: " & SelectedDate)
+            Debug.WriteLine("SelectedDate: " & SelectedDate.ToString("yyyy-MM-dd"))
 
-            ' Use SelectedDate to fetch data
-            Dim query As String = $"SELECT * FROM {currentTable} WHERE CONVERT(DATE, {dbDateColumn}) = '{SelectedDate}'"
+            ' Construct the query based on selected date
+            Dim query As String = $"SELECT * FROM {currentTable} WHERE DATE({dbDateColumn}) = '{SelectedDate.ToString("yyyy-MM-dd")}'"
 
-            ' Debugging: Log the query being executed
-            Debug.WriteLine("Query: " & query)
-
-            ' Ensure the query execution works as expected
+            ' Execute the query using modDB's readQuery method (No change to modDB needed)
             modDB.readQuery(query)
 
             ' Check if cmdRead is properly initialized and has rows
@@ -54,6 +41,7 @@ Public Class Admin_Inventory
             Debug.WriteLine("Error: " & ex.Message)
         End Try
     End Sub
+
 
     Private Sub HomeButton_Click(sender As Object, e As EventArgs) Handles Home_Button.Click
         Admin_Dashboard.Show()

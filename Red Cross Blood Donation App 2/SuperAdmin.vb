@@ -32,8 +32,8 @@ Public Class SuperAdmin
             ' Debugging: Log the value of SelectedDate
             Debug.WriteLine("SelectedDate: " & SelectedDate)
 
-            ' Use SelectedDate to fetch data
-            Dim query As String = $"SELECT * FROM {currentTable} WHERE CONVERT(DATE, {dbDateColumn}) = '{SelectedDate}'"
+            Dim query As String = $"SELECT * FROM {currentTable} WHERE DATE({dbDateColumn}) = '{SelectedDate}'"
+
 
             ' Debugging: Log the query being executed
             Debug.WriteLine("Query: " & query)
@@ -117,8 +117,8 @@ Public Class SuperAdmin
         Calendar = 1
         SelectedDate = dtpCalendar.SelectionStart.ToString("yyyy-MM-dd")
 
-        ' Construct the query based on selected date
-        Dim query As String = $"SELECT * FROM {currentTable} WHERE DATE({dbDateColumn}) = @SelectedDate"
+        Dim query As String = $"SELECT * FROM {currentTable} WHERE DATE({dbDateColumn}) = '{SelectedDate}'"
+
 
         ' Call the LoadDGV function from modDB to load the data into the DataGridView
         Dim rowCount As Integer = modDB.LoadToDGV(query, dgvInventory)
@@ -146,8 +146,8 @@ Public Class SuperAdmin
         Calendar = 1
         SelectedDate = dtpCalendar.SelectionStart.ToString("yyyy-MM-dd")
 
-        ' Construct the query based on selected date
-        Dim query As String = $"SELECT * FROM {currentTable} WHERE DATE({dbDateColumn}) = @SelectedDate"
+        Dim query As String = $"SELECT * FROM {currentTable} WHERE DATE({dbDateColumn}) = '{SelectedDate}'"
+
 
         ' Call the LoadDGV function from modDB to load the data into the DataGridView
         Dim rowCount As Integer = modDB.LoadToDGV(query, dgvInventory)
@@ -175,8 +175,8 @@ Public Class SuperAdmin
         Calendar = 1
         SelectedDate = dtpCalendar.SelectionStart.ToString("yyyy-MM-dd")
 
-        ' Construct the query based on selected date
-        Dim query As String = $"SELECT * FROM {currentTable} WHERE DATE({dbDateColumn}) = @SelectedDate"
+        Dim query As String = $"SELECT * FROM {currentTable} WHERE DATE({dbDateColumn}) = '{SelectedDate}'"
+
 
         ' Call the LoadDGV function from modDB to load the data into the DataGridView
         Dim rowCount As Integer = modDB.LoadToDGV(query, dgvInventory)
@@ -202,8 +202,8 @@ Public Class SuperAdmin
         Calendar = 1
         SelectedDate = dtpCalendar.SelectionStart.ToString("yyyy-MM-dd")
 
+        Dim query As String = $"SELECT * FROM {currentTable} WHERE DATE({dbDateColumn}) = '{SelectedDate}'"
 
-        Dim query As String = $"SELECT * FROM {currentTable} WHERE DATE({dbDateColumn}) = @SelectedDate"
 
 
         Dim rowCount As Integer = modDB.LoadToDGV(query, dgvInventory)
@@ -381,8 +381,8 @@ Public Class SuperAdmin
 
     ' Define a mapping of table names to their primary key column names
     Dim tablePrimaryKeys As New Dictionary(Of String, String) From {
-    {"donors", "donorID"},
-    {"eligibility", "eligibilityID"},
+    {"donors", "DonorID"},
+    {"eligibility", "EligibilityID"},
     {"donation", "bloodID"},
     {"healthprovider", "RetrieveID"},
     {"history", "HistoryID"},
@@ -397,17 +397,20 @@ Public Class SuperAdmin
                 ' Get the edited cell's value, column name, and table's primary key column name
                 Dim editedCell = dgvInventory.Rows(e.RowIndex).Cells(e.ColumnIndex)
                 Dim columnName = dgvInventory.Columns(e.ColumnIndex).Name
-                Dim newValue = editedCell.Value
+                Dim newValue As Object = If(editedCell.Value IsNot Nothing, editedCell.Value, DBNull.Value)
 
                 ' Determine the primary key column for the current table
                 Dim primaryKeyColumn As String
                 If tablePrimaryKeys.TryGetValue(currentTable, primaryKeyColumn) Then
                     Dim rowID = dgvInventory.Rows(e.RowIndex).Cells(primaryKeyColumn).Value ' Get the primary key value
 
+                    If rowID Is Nothing OrElse IsDBNull(rowID) Then
+                        Throw New Exception("Primary key value is missing or invalid.")
+                    End If
+
                     ' Construct the UPDATE query
                     Dim query As String = $"UPDATE {currentTable} SET {columnName} = @newValue WHERE {primaryKeyColumn} = @rowID"
 
-                    ' Update the database
                     Using conn As New MySqlConnection(modDB.strConnection)
                         Using cmd As New MySqlCommand(query, conn)
                             ' Add parameters to avoid SQL injection
@@ -418,7 +421,7 @@ Public Class SuperAdmin
                             conn.Open()
                             Dim rowsAffected As Integer = cmd.ExecuteNonQuery()
 
-                            ' Optionally, log the update
+                            ' Log the update
                             modDB.Logs($"Updated {columnName} in {currentTable} for ID {rowID}. Rows affected: {rowsAffected}.")
                         End Using
                     End Using
@@ -434,6 +437,5 @@ Public Class SuperAdmin
             MessageBox.Show($"Error updating record: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
     End Sub
-
 
 End Class

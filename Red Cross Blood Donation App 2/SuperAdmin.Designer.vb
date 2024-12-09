@@ -187,9 +187,9 @@ Partial Class SuperAdmin
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.dgvInventory.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvInventory.Location = New System.Drawing.Point(6, 130)
+        Me.dgvInventory.Location = New System.Drawing.Point(111, 130)
         Me.dgvInventory.Name = "dgvInventory"
-        Me.dgvInventory.Size = New System.Drawing.Size(1147, 586)
+        Me.dgvInventory.Size = New System.Drawing.Size(1024, 586)
         Me.dgvInventory.TabIndex = 33
         '
         'EligibilityRecord

@@ -41,8 +41,7 @@ Public Class Admin_Access
         ' Encrypt the entered password
         Dim encryptedPassword As String = Encrypt(password)
 
-        ' Query to check if username and password match a record in admin_account
-        Dim query As String = "SELECT COUNT(*) FROM admin_account WHERE username = @username AND password = @password"
+        Dim query As String = "SELECT COUNT(*) FROM accounts WHERE username = @username AND password = @password"
         Try
             Using cmd As New MySqlCommand(query, conn)
                 cmd.Parameters.AddWithValue("@username", username)
