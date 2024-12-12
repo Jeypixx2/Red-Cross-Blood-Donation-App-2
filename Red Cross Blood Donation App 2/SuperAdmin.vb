@@ -390,10 +390,12 @@ Public Class SuperAdmin
     {"accounts", "adminID"}}
     ' Add more table-to-ID mappings as needed
 
-
     Private Sub dgvInventory_CellValueChanged(sender As Object, e As DataGridViewCellEventArgs) Handles dgvInventory.CellValueChanged
         Try
             If e.RowIndex >= 0 AndAlso e.ColumnIndex >= 0 Then
+                ' Skip new rows
+                If dgvInventory.Rows(e.RowIndex).IsNewRow Then Exit Sub
+
                 ' Get the edited cell's value, column name, and table's primary key column name
                 Dim editedCell = dgvInventory.Rows(e.RowIndex).Cells(e.ColumnIndex)
                 Dim columnName = dgvInventory.Columns(e.ColumnIndex).Name
