@@ -19,34 +19,56 @@ Public Class Donation_History_Report
         Try
             modDB.openConn(modDB.db_name)
 
-            Dim query As String = "SELECT  
-    donation.DonorID, 
-    donors.FirstName, 
-    donors.LastName, 
-    donation.DonationDate, 
-    donors.BloodType,  -- BloodType is in the donors table
-    donation.BloodVolume  -- BloodVolume is in the donation table
-FROM 
-    donation
-JOIN 
-    donors ON donation.DonorID = donors.DonorID;"
+            ' Get the selected date range from the DateTimePicker controls
+            Dim fromDate As String = dtpFrom.Value.ToString("yyyy-MM-dd")
+            Dim toDate As String = dtpTo.Value.ToString("yyyy-MM-dd")
 
-                Dim cmd As New MySqlCommand(query, conn)
-                Dim da As New MySqlDataAdapter(cmd)
-                Dim dt As New DataTable
-                da.Fill(dt)
+            ' Update the query to filter by the date range
+            Dim query As String = "
+            SELECT  
+                donation.DonorID, 
+                donors.FirstName, 
+                donors.LastName, 
+                donation.DonationDate, 
+                donors.BloodType,  -- BloodType is in the donors table
+                donation.BloodVolume  -- BloodVolume is in the donation table
+            FROM 
+                donation
+            JOIN 
+                donors ON donation.DonorID = donors.DonorID
+            WHERE 
+                donation.DonationDate BETWEEN @FromDate AND @ToDate;"
 
-                With Me.ReportViewer1.LocalReport
-                    .DataSources.Clear()
-                    Dim reportPath As String = IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Reports", "Donation_Hist_Report.rdlc")
-                    .ReportPath = reportPath
-                    .DataSources.Add(New ReportDataSource("DataSet2", dt))
-                End With
+            ' Prepare the command with parameters
+            Dim cmd As New MySqlCommand(query, conn)
+            cmd.Parameters.AddWithValue("@FromDate", fromDate)
+            cmd.Parameters.AddWithValue("@ToDate", toDate)
+
+            Dim da As New MySqlDataAdapter(cmd)
+            Dim dt As New DataTable
+            da.Fill(dt)
+
+            ' Check if data exists
+            If dt.Rows.Count = 0 Then
+                MsgBox("No donation history found within the selected date range.", MsgBoxStyle.Information)
+                Return
+            End If
+
+            With Me.ReportViewer1.LocalReport
+                .DataSources.Clear()
+                Dim reportPath As String = IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Reports", "Donation_Hist_Report.rdlc")
+                .ReportPath = reportPath
+                .DataSources.Add(New ReportDataSource("DataSet2", dt))
+            End With
 
             Me.ReportViewer1.RefreshReport()
         Catch ex As Exception
             MsgBox("Error: " & ex.Message, MsgBoxStyle.Critical)
-        Finally
         End Try
+    End Sub
+
+
+    Private Sub Label1_Click(sender As Object, e As EventArgs) Handles Label1.Click
+
     End Sub
 End Class

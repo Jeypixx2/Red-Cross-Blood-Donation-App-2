@@ -25,6 +25,10 @@ Partial Class Donor_Registration_Report
         Me.ReportViewer1 = New Microsoft.Reporting.WinForms.ReportViewer()
         Me.Button1 = New System.Windows.Forms.Button()
         Me.btnBack = New System.Windows.Forms.Button()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.dtpTo = New System.Windows.Forms.DateTimePicker()
+        Me.dtpFrom = New System.Windows.Forms.DateTimePicker()
         Me.SuspendLayout()
         '
         'ReportViewer1
@@ -59,11 +63,49 @@ Partial Class Donor_Registration_Report
         Me.btnBack.Text = "Back"
         Me.btnBack.UseVisualStyleBackColor = False
         '
+        'Label2
+        '
+        Me.Label2.AutoSize = True
+        Me.Label2.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label2.Location = New System.Drawing.Point(984, 6)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(28, 18)
+        Me.Label2.TabIndex = 16
+        Me.Label2.Text = "To"
+        '
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.Label1.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label1.Location = New System.Drawing.Point(757, 6)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(48, 18)
+        Me.Label1.TabIndex = 15
+        Me.Label1.Text = "From"
+        '
+        'dtpTo
+        '
+        Me.dtpTo.Location = New System.Drawing.Point(987, 27)
+        Me.dtpTo.Name = "dtpTo"
+        Me.dtpTo.Size = New System.Drawing.Size(200, 20)
+        Me.dtpTo.TabIndex = 14
+        '
+        'dtpFrom
+        '
+        Me.dtpFrom.Location = New System.Drawing.Point(760, 27)
+        Me.dtpFrom.Name = "dtpFrom"
+        Me.dtpFrom.Size = New System.Drawing.Size(200, 20)
+        Me.dtpFrom.TabIndex = 13
+        '
         'Donor_Registration_Report
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1364, 749)
+        Me.Controls.Add(Me.Label2)
+        Me.Controls.Add(Me.Label1)
+        Me.Controls.Add(Me.dtpTo)
+        Me.Controls.Add(Me.dtpFrom)
         Me.Controls.Add(Me.btnBack)
         Me.Controls.Add(Me.Button1)
         Me.Controls.Add(Me.ReportViewer1)
@@ -72,10 +114,15 @@ Partial Class Donor_Registration_Report
         Me.Text = "Donor Registration Report"
         Me.WindowState = System.Windows.Forms.FormWindowState.Maximized
         Me.ResumeLayout(False)
+        Me.PerformLayout()
 
     End Sub
 
     Friend WithEvents ReportViewer1 As Microsoft.Reporting.WinForms.ReportViewer
     Friend WithEvents Button1 As Button
     Friend WithEvents btnBack As Button
+    Friend WithEvents Label2 As Label
+    Friend WithEvents Label1 As Label
+    Friend WithEvents dtpTo As DateTimePicker
+    Friend WithEvents dtpFrom As DateTimePicker
 End Class

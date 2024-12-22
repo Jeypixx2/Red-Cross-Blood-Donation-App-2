@@ -10,19 +10,30 @@ Public Class Blood_Inventory_Report
         Try
             modDB.openConn(modDB.db_name)
 
-            Dim query As String = "SELECT 
-                    donors.BloodType,
-                    donation.Blood_Group,
-                    donation.RhesusFactor,
-                    COALESCE(donation.Expiration_Date, '1900-01-01') AS Expiration_Date
-                FROM 
-                    donors
-                JOIN 
-                    donation
-                ON 
-                    donors.DonorID = donation.DonorID;"
+            ' Get the selected date range from the DateTimePicker controls
+            Dim fromDate As String = dtpFrom.Value.ToString("yyyy-MM-dd")
+            Dim toDate As String = dtpTo.Value.ToString("yyyy-MM-dd")
 
+            ' Update the query to filter by the date range
+            Dim query As String = "SELECT 
+                donors.BloodType,
+                donation.Blood_Group,
+                donation.RhesusFactor,
+                COALESCE(donation.Expiration_Date, '1900-01-01') AS Expiration_Date
+            FROM 
+                donors
+            JOIN 
+                donation
+            ON 
+                donors.DonorID = donation.DonorID
+            WHERE 
+                donation.Expiration_Date BETWEEN @FromDate AND @ToDate;"
+
+            ' Prepare the command with parameters
             Dim cmd As New MySqlCommand(query, conn)
+            cmd.Parameters.AddWithValue("@FromDate", fromDate)
+            cmd.Parameters.AddWithValue("@ToDate", toDate)
+
             Dim da As New MySqlDataAdapter(cmd)
             Dim dt As New DataTable
             da.Fill(dt)
@@ -39,7 +50,6 @@ Public Class Blood_Inventory_Report
             Me.ReportViewer1.RefreshReport()
         Catch ex As Exception
             MsgBox("Error: " & ex.Message, MsgBoxStyle.Critical)
-        Finally
         End Try
     End Sub
 
@@ -49,6 +59,14 @@ Public Class Blood_Inventory_Report
     End Sub
 
     Private Sub Blood_Inventory_Report_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+
+    End Sub
+
+    Private Sub dtpFrom_ValueChanged(sender As Object, e As EventArgs) Handles dtpFrom.ValueChanged
+
+    End Sub
+
+    Private Sub dtpTo_ValueChanged(sender As Object, e As EventArgs) Handles dtpTo.ValueChanged
 
     End Sub
 End Class

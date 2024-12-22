@@ -6,7 +6,7 @@
         <TablixBody>
           <TablixColumns>
             <TablixColumn>
-              <Width>2.5cm</Width>
+              <Width>2.15604cm</Width>
             </TablixColumn>
             <TablixColumn>
               <Width>2.5cm</Width>
@@ -18,7 +18,7 @@
               <Width>2.5cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>2.5cm</Width>
+              <Width>2.10313cm</Width>
             </TablixColumn>
             <TablixColumn>
               <Width>2.5cm</Width>
@@ -522,7 +522,7 @@
         <DataSetName>DataSet1</DataSetName>
         <Top>0.44097cm</Top>
         <Height>1.2cm</Height>
-        <Width>17.5cm</Width>
+        <Width>16.75917cm</Width>
         <Style>
           <Border>
             <Style>None</Style>
@@ -533,10 +533,10 @@
     <Height>2in</Height>
     <Style />
   </Body>
-  <Width>6.95958in</Width>
+  <Width>6.88976in</Width>
   <Page>
     <PageHeader>
-      <Height>0.96875in</Height>
+      <Height>0.95833in</Height>
       <PrintOnFirstPage>true</PrintOnFirstPage>
       <PrintOnLastPage>true</PrintOnLastPage>
       <ReportItems>
@@ -610,9 +610,8 @@
             </Textbox>
           </ReportItems>
           <KeepTogether>true</KeepTogether>
-          <Left>0cm</Left>
           <Height>0.94098in</Height>
-          <Width>6.95958in</Width>
+          <Width>6.88976in</Width>
           <Style>
             <Border>
               <Style>None</Style>
@@ -628,9 +627,42 @@
       </Style>
     </PageHeader>
     <PageFooter>
-      <Height>0.5in</Height>
+      <Height>0.41542in</Height>
       <PrintOnFirstPage>true</PrintOnFirstPage>
       <PrintOnLastPage>true</PrintOnLastPage>
+      <ReportItems>
+        <Textbox Name="Textbox2">
+          <CanGrow>true</CanGrow>
+          <KeepTogether>true</KeepTogether>
+          <Paragraphs>
+            <Paragraph>
+              <TextRuns>
+                <TextRun>
+                  <Value>=Globals!PageNumber &amp; " of " &amp; Globals!TotalPages</Value>
+                  <Style>
+                    <FontSize>12pt</FontSize>
+                  </Style>
+                </TextRun>
+              </TextRuns>
+              <Style />
+            </Paragraph>
+          </Paragraphs>
+          <rd:DefaultName>Textbox2</rd:DefaultName>
+          <Top>0.06944in</Top>
+          <Left>5.20708in</Left>
+          <Height>0.25in</Height>
+          <Width>1in</Width>
+          <Style>
+            <Border>
+              <Style>None</Style>
+            </Border>
+            <PaddingLeft>2pt</PaddingLeft>
+            <PaddingRight>2pt</PaddingRight>
+            <PaddingTop>2pt</PaddingTop>
+            <PaddingBottom>2pt</PaddingBottom>
+          </Style>
+        </Textbox>
+      </ReportItems>
       <Style>
         <Border>
           <Style>None</Style>

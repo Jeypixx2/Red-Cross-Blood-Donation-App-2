@@ -11,35 +11,43 @@ Public Class Ineligibility_Report
             Using connection As New MySqlConnection(modDB.conn.ConnectionString)
                 connection.Open() ' Open connection
 
-                ' SQL query
+                ' Get the selected date range from the DateTimePicker controls
+                Dim fromDate As String = dtpFrom.Value.ToString("yyyy-MM-dd")
+                Dim toDate As String = dtpTo.Value.ToString("yyyy-MM-dd")
+
+                ' SQL query with date filtering
                 Dim query As String = "
-                    SELECT 
-                        donors.DonorID, 
-                        donors.FirstName, 
-                        donors.LastName, 
-                        CASE 
-                            WHEN eligibility.EligibilityStatus = 0 THEN 'Ineligible' 
-                        END AS EligibilityStatus, 
-                        donation.NextEligibilityDate
-                    FROM 
-                        donors
-                    JOIN 
-                        eligibility ON donors.DonorID = eligibility.DonorID
-                    JOIN 
-                        donation ON donors.DonorID = donation.DonorID
-                    WHERE 
-                        eligibility.EligibilityStatus = 0;
-                "
+                SELECT 
+                    donors.DonorID, 
+                    donors.FirstName, 
+                    donors.LastName, 
+                    CASE 
+                        WHEN eligibility.EligibilityStatus = 0 THEN 'Ineligible' 
+                    END AS EligibilityStatus, 
+                    donation.NextEligibilityDate
+                FROM 
+                    donors
+                JOIN 
+                    eligibility ON donors.DonorID = eligibility.DonorID
+                JOIN 
+                    donation ON donors.DonorID = donation.DonorID
+                WHERE 
+                    eligibility.EligibilityStatus = 0
+                    AND donation.NextEligibilityDate BETWEEN @FromDate AND @ToDate;
+            "
 
                 ' Use MySqlDataAdapter to fill DataTable
                 Dim cmd As New MySqlCommand(query, connection)
+                cmd.Parameters.AddWithValue("@FromDate", fromDate)
+                cmd.Parameters.AddWithValue("@ToDate", toDate)
+
                 Dim da As New MySqlDataAdapter(cmd)
                 Dim dt As New DataTable()
                 da.Fill(dt)
 
                 ' Check if data exists
                 If dt.Rows.Count = 0 Then
-                    MsgBox("No data found for this report.", MsgBoxStyle.Information)
+                    MsgBox("No data found for this report within the selected date range.", MsgBoxStyle.Information)
                     Return
                 End If
 
@@ -60,6 +68,7 @@ Public Class Ineligibility_Report
             MsgBox("Error: " & ex.Message, MsgBoxStyle.Critical)
         End Try
     End Sub
+
 
     Private Sub ReportViewer1_Load(sender As Object, e As EventArgs) Handles ReportViewer1.Load
         Me.ReportViewer1.RefreshReport()
