@@ -1,4 +1,5 @@
 ﻿Imports System.Windows.Forms.VisualStyles.VisualStyleElement
+Imports MySql.Data.MySqlClient
 
 Public Class Admin_Inventory
     Private sampleData As DataTable
@@ -20,27 +21,33 @@ Public Class Admin_Inventory
             ' Debugging: Log the value of SelectedDate
             Debug.WriteLine("SelectedDate: " & SelectedDate.ToString("yyyy-MM-dd"))
 
-            ' Construct the query based on selected date
-            Dim query As String = $"SELECT * FROM {currentTable} WHERE DATE({dbDateColumn}) = '{SelectedDate.ToString("yyyy-MM-dd")}'"
+            ' Use parameterized query to avoid SQL injection and ensure compatibility
+            Dim query As String = $"SELECT * FROM {currentTable} WHERE CAST({dbDateColumn} AS DATE) = @SelectedDate"
 
-            ' Execute the query using modDB's readQuery method (No change to modDB needed)
-            modDB.readQuery(query)
+            ' Create the database command
+            Using cmd As New MySqlCommand(query, modDB.conn)
+                ' Add parameter for the selected date
+                cmd.Parameters.AddWithValue("@SelectedDate", SelectedDate.ToString("yyyy-MM-dd"))
 
-            ' Check if cmdRead is properly initialized and has rows
-            If modDB.cmdRead IsNot Nothing AndAlso modDB.cmdRead.HasRows Then
-                Dim dt As DataTable = New DataTable
-                dt.Load(modDB.cmdRead)
-                dgvInventory.DataSource = dt
-                dgvInventory.Refresh()
-            Else
-                MessageBox.Show("No records found for the selected date.", "No Data", MessageBoxButtons.OK, MessageBoxIcon.Information)
-            End If
+                ' Execute the query
+                Using reader As MySqlDataReader = cmd.ExecuteReader()
+                    If reader.HasRows Then
+                        Dim dt As New DataTable()
+                        dt.Load(reader)
+                        dgvInventory.DataSource = dt
+                        dgvInventory.Refresh()
+                    Else
+                        MessageBox.Show("No records found for the selected date.", "No Data", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                    End If
+                End Using
+            End Using
         Catch ex As Exception
             ' Log any exceptions for debugging
             MessageBox.Show("Error occurred: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             Debug.WriteLine("Error: " & ex.Message)
         End Try
     End Sub
+
 
 
     Private Sub HomeButton_Click(sender As Object, e As EventArgs) Handles Home_Button.Click
