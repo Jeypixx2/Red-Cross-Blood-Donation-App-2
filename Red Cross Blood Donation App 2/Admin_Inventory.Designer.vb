@@ -71,7 +71,7 @@ Partial Class Admin_Inventory
         Me.dgvInventory.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvInventory.Location = New System.Drawing.Point(12, 130)
         Me.dgvInventory.Name = "dgvInventory"
-        Me.dgvInventory.Size = New System.Drawing.Size(1147, 586)
+        Me.dgvInventory.Size = New System.Drawing.Size(1227, 718)
         Me.dgvInventory.TabIndex = 18
         '
         'EligibilityRecord
@@ -195,9 +195,9 @@ Partial Class Admin_Inventory
         Me.Panel1.Controls.Add(Me.Button8)
         Me.Panel1.Controls.Add(Me.Button4)
         Me.Panel1.Controls.Add(Me.Label1)
-        Me.Panel1.Location = New System.Drawing.Point(1184, 0)
+        Me.Panel1.Location = New System.Drawing.Point(1264, 0)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(180, 749)
+        Me.Panel1.Size = New System.Drawing.Size(180, 881)
         Me.Panel1.TabIndex = 23
         '
         'Button1
@@ -286,7 +286,7 @@ Partial Class Admin_Inventory
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.SystemColors.ControlLightLight
-        Me.ClientSize = New System.Drawing.Size(1364, 749)
+        Me.ClientSize = New System.Drawing.Size(1444, 881)
         Me.Controls.Add(Me.History)
         Me.Controls.Add(Me.txtSearch)
         Me.Controls.Add(Me.Panel1)

@@ -127,13 +127,13 @@ Partial Class Admin_Dashboard
         Me.DataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.DataGridView1.Location = New System.Drawing.Point(12, 121)
         Me.DataGridView1.Name = "DataGridView1"
-        Me.DataGridView1.Size = New System.Drawing.Size(1005, 357)
+        Me.DataGridView1.Size = New System.Drawing.Size(1174, 357)
         Me.DataGridView1.TabIndex = 8
         '
         'MonthCalendar1
         '
         Me.MonthCalendar1.Anchor = System.Windows.Forms.AnchorStyles.Top
-        Me.MonthCalendar1.Location = New System.Drawing.Point(451, 83)
+        Me.MonthCalendar1.Location = New System.Drawing.Point(536, 83)
         Me.MonthCalendar1.Name = "MonthCalendar1"
         Me.MonthCalendar1.TabIndex = 14
         Me.MonthCalendar1.Visible = False
@@ -157,9 +157,9 @@ Partial Class Admin_Dashboard
         Me.Panel1.Controls.Add(Me.Button3)
         Me.Panel1.Controls.Add(Me.Button8)
         Me.Panel1.Controls.Add(Me.Button4)
-        Me.Panel1.Location = New System.Drawing.Point(1083, 0)
+        Me.Panel1.Location = New System.Drawing.Point(1252, 0)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(192, 749)
+        Me.Panel1.Size = New System.Drawing.Size(192, 881)
         Me.Panel1.TabIndex = 24
         '
         'Button1
@@ -251,13 +251,13 @@ Partial Class Admin_Dashboard
         Me.Bar_Graph.ChartAreas.Add(ChartArea1)
         Legend1.Name = "Legend1"
         Me.Bar_Graph.Legends.Add(Legend1)
-        Me.Bar_Graph.Location = New System.Drawing.Point(2, 630)
+        Me.Bar_Graph.Location = New System.Drawing.Point(2, 705)
         Me.Bar_Graph.Name = "Bar_Graph"
         Series1.ChartArea = "ChartArea1"
         Series1.Legend = "Legend1"
         Series1.Name = "Series1"
         Me.Bar_Graph.Series.Add(Series1)
-        Me.Bar_Graph.Size = New System.Drawing.Size(1065, 107)
+        Me.Bar_Graph.Size = New System.Drawing.Size(1234, 176)
         Me.Bar_Graph.TabIndex = 25
         Me.Bar_Graph.Text = "Chart1"
         '
@@ -275,7 +275,7 @@ Partial Class Admin_Dashboard
         Series2.Legend = "Legend1"
         Series2.Name = "Series1"
         Me.Line_Chart.Series.Add(Series2)
-        Me.Line_Chart.Size = New System.Drawing.Size(1065, 140)
+        Me.Line_Chart.Size = New System.Drawing.Size(1234, 206)
         Me.Line_Chart.TabIndex = 26
         Me.Line_Chart.Text = "Chart2"
         '
@@ -284,7 +284,7 @@ Partial Class Admin_Dashboard
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.SystemColors.ButtonHighlight
-        Me.ClientSize = New System.Drawing.Size(1275, 749)
+        Me.ClientSize = New System.Drawing.Size(1444, 881)
         Me.Controls.Add(Me.Line_Chart)
         Me.Controls.Add(Me.Bar_Graph)
         Me.Controls.Add(Me.Panel1)
