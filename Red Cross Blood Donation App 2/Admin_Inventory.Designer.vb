@@ -76,73 +76,80 @@ Partial Class Admin_Inventory
         '
         'EligibilityRecord
         '
+        Me.EligibilityRecord.BackColor = System.Drawing.SystemColors.ControlLight
         Me.EligibilityRecord.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold)
         Me.EligibilityRecord.Location = New System.Drawing.Point(502, 0)
         Me.EligibilityRecord.Name = "EligibilityRecord"
         Me.EligibilityRecord.Size = New System.Drawing.Size(119, 50)
         Me.EligibilityRecord.TabIndex = 17
         Me.EligibilityRecord.Text = "Eligibility"
-        Me.EligibilityRecord.UseVisualStyleBackColor = True
+        Me.EligibilityRecord.UseVisualStyleBackColor = False
         '
         'DonationRecord
         '
+        Me.DonationRecord.BackColor = System.Drawing.SystemColors.ControlLight
         Me.DonationRecord.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold)
         Me.DonationRecord.Location = New System.Drawing.Point(379, 0)
         Me.DonationRecord.Name = "DonationRecord"
         Me.DonationRecord.Size = New System.Drawing.Size(117, 50)
         Me.DonationRecord.TabIndex = 16
         Me.DonationRecord.Text = "Donation"
-        Me.DonationRecord.UseVisualStyleBackColor = True
+        Me.DonationRecord.UseVisualStyleBackColor = False
         '
         'DonorRecord
         '
+        Me.DonorRecord.BackColor = System.Drawing.SystemColors.ControlLight
         Me.DonorRecord.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold)
         Me.DonorRecord.Location = New System.Drawing.Point(256, 0)
         Me.DonorRecord.Name = "DonorRecord"
         Me.DonorRecord.Size = New System.Drawing.Size(117, 48)
         Me.DonorRecord.TabIndex = 15
         Me.DonorRecord.Text = "Donor"
-        Me.DonorRecord.UseVisualStyleBackColor = True
+        Me.DonorRecord.UseVisualStyleBackColor = False
         '
         'Monthly
         '
+        Me.Monthly.BackColor = System.Drawing.SystemColors.ControlLight
         Me.Monthly.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold)
         Me.Monthly.Location = New System.Drawing.Point(306, 90)
         Me.Monthly.Name = "Monthly"
         Me.Monthly.Size = New System.Drawing.Size(86, 32)
         Me.Monthly.TabIndex = 14
         Me.Monthly.Text = "Monthly"
-        Me.Monthly.UseVisualStyleBackColor = True
+        Me.Monthly.UseVisualStyleBackColor = False
         '
         'Weekly
         '
+        Me.Weekly.BackColor = System.Drawing.SystemColors.ControlLight
         Me.Weekly.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold)
         Me.Weekly.Location = New System.Drawing.Point(215, 90)
         Me.Weekly.Name = "Weekly"
         Me.Weekly.Size = New System.Drawing.Size(85, 32)
         Me.Weekly.TabIndex = 13
         Me.Weekly.Text = "Weekly"
-        Me.Weekly.UseVisualStyleBackColor = True
+        Me.Weekly.UseVisualStyleBackColor = False
         '
         'Daily
         '
+        Me.Daily.BackColor = System.Drawing.SystemColors.ControlLight
         Me.Daily.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold)
         Me.Daily.Location = New System.Drawing.Point(124, 90)
         Me.Daily.Name = "Daily"
         Me.Daily.Size = New System.Drawing.Size(85, 32)
         Me.Daily.TabIndex = 12
         Me.Daily.Text = "Daily"
-        Me.Daily.UseVisualStyleBackColor = True
+        Me.Daily.UseVisualStyleBackColor = False
         '
         'Health_Provider
         '
+        Me.Health_Provider.BackColor = System.Drawing.SystemColors.ControlLight
         Me.Health_Provider.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold)
         Me.Health_Provider.Location = New System.Drawing.Point(627, 0)
         Me.Health_Provider.Name = "Health_Provider"
         Me.Health_Provider.Size = New System.Drawing.Size(117, 50)
         Me.Health_Provider.TabIndex = 21
         Me.Health_Provider.Text = "Health Provider"
-        Me.Health_Provider.UseVisualStyleBackColor = True
+        Me.Health_Provider.UseVisualStyleBackColor = False
         '
         'Home_Button
         '
@@ -255,13 +262,14 @@ Partial Class Admin_Inventory
         '
         'History
         '
+        Me.History.BackColor = System.Drawing.SystemColors.ControlLight
         Me.History.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold)
         Me.History.Location = New System.Drawing.Point(750, 0)
         Me.History.Name = "History"
         Me.History.Size = New System.Drawing.Size(117, 50)
         Me.History.TabIndex = 25
         Me.History.Text = "History"
-        Me.History.UseVisualStyleBackColor = True
+        Me.History.UseVisualStyleBackColor = False
         '
         'pbLogo
         '
@@ -277,6 +285,7 @@ Partial Class Admin_Inventory
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.BackColor = System.Drawing.SystemColors.ControlLightLight
         Me.ClientSize = New System.Drawing.Size(1364, 749)
         Me.Controls.Add(Me.History)
         Me.Controls.Add(Me.txtSearch)

@@ -100,4 +100,8 @@ Public Class User_Status_Old
         ' Ensure the connection is opened when form loads
         modDB.openConn("redcrossdb")
     End Sub
+
+    Private Sub Panel1_Paint(sender As Object, e As PaintEventArgs) Handles Panel1.Paint
+
+    End Sub
 End Class

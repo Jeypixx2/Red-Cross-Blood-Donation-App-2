@@ -53,6 +53,7 @@ Partial Class Donation_Management_old
         '
         'CheckedListBox1
         '
+        Me.CheckedListBox1.BackColor = System.Drawing.SystemColors.Menu
         Me.CheckedListBox1.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!)
         Me.CheckedListBox1.FormattingEnabled = True
         Me.CheckedListBox1.Items.AddRange(New Object() {"Singe Bag", "Double Bag", "Triple Bag", "Quadruple Bag", "Aphresis"})
@@ -75,6 +76,7 @@ Partial Class Donation_Management_old
         '
         'DonationTypeCheckedlist
         '
+        Me.DonationTypeCheckedlist.BackColor = System.Drawing.SystemColors.Menu
         Me.DonationTypeCheckedlist.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!)
         Me.DonationTypeCheckedlist.FormattingEnabled = True
         Me.DonationTypeCheckedlist.Items.AddRange(New Object() {"Whole Blood Donation", "Plasma Donation (Apheresis)", "Platelet Donation (Apheresis)", "Red Blood Cell Donation (Apheresis)", "White Blood Cell Donation (Apheresis)"})
@@ -97,6 +99,7 @@ Partial Class Donation_Management_old
         '
         'txtBloodVolume
         '
+        Me.txtBloodVolume.BackColor = System.Drawing.SystemColors.Menu
         Me.txtBloodVolume.Font = New System.Drawing.Font("Segoe UI", 12.0!)
         Me.txtBloodVolume.Location = New System.Drawing.Point(391, 103)
         Me.txtBloodVolume.Name = "txtBloodVolume"
@@ -106,6 +109,7 @@ Partial Class Donation_Management_old
         '
         'CollectionCheckedList
         '
+        Me.CollectionCheckedList.BackColor = System.Drawing.SystemColors.Menu
         Me.CollectionCheckedList.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!)
         Me.CollectionCheckedList.FormattingEnabled = True
         Me.CollectionCheckedList.Items.AddRange(New Object() {"Manual Collection", "Automatic Collection"})
@@ -140,6 +144,7 @@ Partial Class Donation_Management_old
         '
         'txtRhesusFactor
         '
+        Me.txtRhesusFactor.BackColor = System.Drawing.SystemColors.Menu
         Me.txtRhesusFactor.Font = New System.Drawing.Font("Segoe UI", 12.0!)
         Me.txtRhesusFactor.Location = New System.Drawing.Point(391, 43)
         Me.txtRhesusFactor.Name = "txtRhesusFactor"
@@ -161,6 +166,7 @@ Partial Class Donation_Management_old
         '
         'txtBloodType
         '
+        Me.txtBloodType.BackColor = System.Drawing.SystemColors.Menu
         Me.txtBloodType.Font = New System.Drawing.Font("Segoe UI", 12.0!)
         Me.txtBloodType.Location = New System.Drawing.Point(56, 43)
         Me.txtBloodType.Multiline = False
@@ -183,6 +189,7 @@ Partial Class Donation_Management_old
         '
         'txtStorage
         '
+        Me.txtStorage.BackColor = System.Drawing.SystemColors.Menu
         Me.txtStorage.Font = New System.Drawing.Font("Segoe UI", 12.0!)
         Me.txtStorage.Location = New System.Drawing.Point(56, 327)
         Me.txtStorage.Name = "txtStorage"
@@ -206,6 +213,7 @@ Partial Class Donation_Management_old
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.BackColor = System.Drawing.SystemColors.ButtonHighlight
         Me.ClientSize = New System.Drawing.Size(726, 434)
         Me.Controls.Add(Me.txtStorage)
         Me.Controls.Add(Me.Label2)

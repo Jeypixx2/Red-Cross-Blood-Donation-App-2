@@ -51,13 +51,14 @@ Partial Class SuperAdmin
         '
         'History
         '
+        Me.History.BackColor = System.Drawing.SystemColors.ButtonFace
         Me.History.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold)
         Me.History.Location = New System.Drawing.Point(612, 0)
         Me.History.Name = "History"
         Me.History.Size = New System.Drawing.Size(117, 50)
         Me.History.TabIndex = 40
         Me.History.Text = "History"
-        Me.History.UseVisualStyleBackColor = True
+        Me.History.UseVisualStyleBackColor = False
         '
         'txtSearch
         '
@@ -158,13 +159,14 @@ Partial Class SuperAdmin
         '
         'Health_Provider
         '
+        Me.Health_Provider.BackColor = System.Drawing.SystemColors.ButtonFace
         Me.Health_Provider.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold)
         Me.Health_Provider.Location = New System.Drawing.Point(489, 0)
         Me.Health_Provider.Name = "Health_Provider"
         Me.Health_Provider.Size = New System.Drawing.Size(117, 50)
         Me.Health_Provider.TabIndex = 36
         Me.Health_Provider.Text = "Health Provider"
-        Me.Health_Provider.UseVisualStyleBackColor = True
+        Me.Health_Provider.UseVisualStyleBackColor = False
         '
         'cmbMonths
         '
@@ -194,63 +196,69 @@ Partial Class SuperAdmin
         '
         'EligibilityRecord
         '
+        Me.EligibilityRecord.BackColor = System.Drawing.SystemColors.ButtonFace
         Me.EligibilityRecord.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold)
         Me.EligibilityRecord.Location = New System.Drawing.Point(364, 0)
         Me.EligibilityRecord.Name = "EligibilityRecord"
         Me.EligibilityRecord.Size = New System.Drawing.Size(119, 50)
         Me.EligibilityRecord.TabIndex = 32
         Me.EligibilityRecord.Text = "Eligibility"
-        Me.EligibilityRecord.UseVisualStyleBackColor = True
+        Me.EligibilityRecord.UseVisualStyleBackColor = False
         '
         'DonationRecord
         '
+        Me.DonationRecord.BackColor = System.Drawing.SystemColors.ButtonFace
         Me.DonationRecord.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold)
         Me.DonationRecord.Location = New System.Drawing.Point(241, 0)
         Me.DonationRecord.Name = "DonationRecord"
         Me.DonationRecord.Size = New System.Drawing.Size(117, 50)
         Me.DonationRecord.TabIndex = 31
         Me.DonationRecord.Text = "Donation"
-        Me.DonationRecord.UseVisualStyleBackColor = True
+        Me.DonationRecord.UseVisualStyleBackColor = False
         '
         'DonorRecord
         '
+        Me.DonorRecord.BackColor = System.Drawing.SystemColors.ButtonFace
         Me.DonorRecord.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold)
         Me.DonorRecord.Location = New System.Drawing.Point(118, 0)
         Me.DonorRecord.Name = "DonorRecord"
         Me.DonorRecord.Size = New System.Drawing.Size(117, 48)
         Me.DonorRecord.TabIndex = 30
         Me.DonorRecord.Text = "Donor"
-        Me.DonorRecord.UseVisualStyleBackColor = True
+        Me.DonorRecord.UseVisualStyleBackColor = False
         '
         'Monthly
         '
+        Me.Monthly.BackColor = System.Drawing.SystemColors.ButtonFace
         Me.Monthly.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold)
         Me.Monthly.Location = New System.Drawing.Point(300, 90)
         Me.Monthly.Name = "Monthly"
         Me.Monthly.Size = New System.Drawing.Size(86, 32)
         Me.Monthly.TabIndex = 29
         Me.Monthly.Text = "Monthly"
-        Me.Monthly.UseVisualStyleBackColor = True
+        Me.Monthly.UseVisualStyleBackColor = False
         '
         'Weekly
         '
+        Me.Weekly.BackColor = System.Drawing.SystemColors.ButtonFace
         Me.Weekly.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold)
         Me.Weekly.Location = New System.Drawing.Point(209, 90)
         Me.Weekly.Name = "Weekly"
         Me.Weekly.Size = New System.Drawing.Size(85, 32)
         Me.Weekly.TabIndex = 28
         Me.Weekly.Text = "Weekly"
-        Me.Weekly.UseVisualStyleBackColor = True
+        Me.Weekly.UseVisualStyleBackColor = False
         '
         'Daily
         '
+        Me.Daily.BackColor = System.Drawing.SystemColors.ButtonFace
         Me.Daily.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold)
         Me.Daily.Location = New System.Drawing.Point(118, 90)
         Me.Daily.Name = "Daily"
         Me.Daily.Size = New System.Drawing.Size(85, 32)
         Me.Daily.TabIndex = 27
         Me.Daily.Text = "Daily"
-        Me.Daily.UseVisualStyleBackColor = True
+        Me.Daily.UseVisualStyleBackColor = False
         '
         'pbLogo
         '
@@ -264,28 +272,31 @@ Partial Class SuperAdmin
         '
         'Logs
         '
+        Me.Logs.BackColor = System.Drawing.SystemColors.ButtonFace
         Me.Logs.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold)
         Me.Logs.Location = New System.Drawing.Point(735, 0)
         Me.Logs.Name = "Logs"
         Me.Logs.Size = New System.Drawing.Size(117, 50)
         Me.Logs.TabIndex = 41
         Me.Logs.Text = "Logs"
-        Me.Logs.UseVisualStyleBackColor = True
+        Me.Logs.UseVisualStyleBackColor = False
         '
         'Accounts
         '
+        Me.Accounts.BackColor = System.Drawing.SystemColors.ButtonFace
         Me.Accounts.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold)
         Me.Accounts.Location = New System.Drawing.Point(858, 0)
         Me.Accounts.Name = "Accounts"
         Me.Accounts.Size = New System.Drawing.Size(117, 50)
         Me.Accounts.TabIndex = 42
         Me.Accounts.Text = "Accounts"
-        Me.Accounts.UseVisualStyleBackColor = True
+        Me.Accounts.UseVisualStyleBackColor = False
         '
         'SuperAdmin
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.BackColor = System.Drawing.SystemColors.ButtonHighlight
         Me.ClientSize = New System.Drawing.Size(1364, 749)
         Me.Controls.Add(Me.Accounts)
         Me.Controls.Add(Me.Logs)

@@ -56,63 +56,69 @@ Partial Class Admin_Dashboard
         '
         'Daily
         '
+        Me.Daily.BackColor = System.Drawing.SystemColors.ButtonFace
         Me.Daily.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold)
         Me.Daily.Location = New System.Drawing.Point(166, 83)
         Me.Daily.Name = "Daily"
         Me.Daily.Size = New System.Drawing.Size(85, 32)
         Me.Daily.TabIndex = 2
         Me.Daily.Text = "Daily"
-        Me.Daily.UseVisualStyleBackColor = True
+        Me.Daily.UseVisualStyleBackColor = False
         '
         'Weekly
         '
+        Me.Weekly.BackColor = System.Drawing.SystemColors.ButtonFace
         Me.Weekly.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold)
         Me.Weekly.Location = New System.Drawing.Point(257, 83)
         Me.Weekly.Name = "Weekly"
         Me.Weekly.Size = New System.Drawing.Size(85, 32)
         Me.Weekly.TabIndex = 3
         Me.Weekly.Text = "Weekly"
-        Me.Weekly.UseVisualStyleBackColor = True
+        Me.Weekly.UseVisualStyleBackColor = False
         '
         'Monthly
         '
+        Me.Monthly.BackColor = System.Drawing.SystemColors.ButtonFace
         Me.Monthly.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold)
         Me.Monthly.Location = New System.Drawing.Point(348, 83)
         Me.Monthly.Name = "Monthly"
         Me.Monthly.Size = New System.Drawing.Size(84, 32)
         Me.Monthly.TabIndex = 4
         Me.Monthly.Text = "Monthly"
-        Me.Monthly.UseVisualStyleBackColor = True
+        Me.Monthly.UseVisualStyleBackColor = False
         '
         'User
         '
+        Me.User.BackColor = System.Drawing.SystemColors.ButtonFace
         Me.User.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold)
         Me.User.Location = New System.Drawing.Point(447, 6)
         Me.User.Name = "User"
         Me.User.Size = New System.Drawing.Size(125, 50)
         Me.User.TabIndex = 5
         Me.User.Text = "Donor Management"
-        Me.User.UseVisualStyleBackColor = True
+        Me.User.UseVisualStyleBackColor = False
         '
         'Donor
         '
+        Me.Donor.BackColor = System.Drawing.SystemColors.ButtonFace
         Me.Donor.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold)
         Me.Donor.Location = New System.Drawing.Point(166, 6)
         Me.Donor.Name = "Donor"
         Me.Donor.Size = New System.Drawing.Size(125, 50)
         Me.Donor.TabIndex = 6
         Me.Donor.Text = "Donation Management"
-        Me.Donor.UseVisualStyleBackColor = True
+        Me.Donor.UseVisualStyleBackColor = False
         '
         'Inventory
         '
+        Me.Inventory.BackColor = System.Drawing.SystemColors.ButtonFace
         Me.Inventory.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold)
         Me.Inventory.Location = New System.Drawing.Point(307, 6)
         Me.Inventory.Name = "Inventory"
         Me.Inventory.Size = New System.Drawing.Size(125, 50)
         Me.Inventory.TabIndex = 7
         Me.Inventory.Text = "Inventory Management"
-        Me.Inventory.UseVisualStyleBackColor = True
+        Me.Inventory.UseVisualStyleBackColor = False
         '
         'DataGridView1
         '
@@ -127,7 +133,7 @@ Partial Class Admin_Dashboard
         'MonthCalendar1
         '
         Me.MonthCalendar1.Anchor = System.Windows.Forms.AnchorStyles.Top
-        Me.MonthCalendar1.Location = New System.Drawing.Point(167, 83)
+        Me.MonthCalendar1.Location = New System.Drawing.Point(451, 83)
         Me.MonthCalendar1.Name = "MonthCalendar1"
         Me.MonthCalendar1.TabIndex = 14
         Me.MonthCalendar1.Visible = False
@@ -277,6 +283,7 @@ Partial Class Admin_Dashboard
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.BackColor = System.Drawing.SystemColors.ButtonHighlight
         Me.ClientSize = New System.Drawing.Size(1275, 749)
         Me.Controls.Add(Me.Line_Chart)
         Me.Controls.Add(Me.Bar_Graph)

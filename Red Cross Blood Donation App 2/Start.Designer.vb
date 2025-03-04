@@ -24,6 +24,7 @@ Partial Class Start
     Private Sub InitializeComponent()
         Me.btnAdmin = New System.Windows.Forms.Button()
         Me.btnHealthcareprovider = New System.Windows.Forms.Button()
+        Me.Button1 = New System.Windows.Forms.Button()
         Me.pbLogo = New System.Windows.Forms.PictureBox()
         CType(Me.pbLogo, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -34,7 +35,7 @@ Partial Class Start
         Me.btnAdmin.BackColor = System.Drawing.Color.FromArgb(CType(CType(207, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(6, Byte), Integer))
         Me.btnAdmin.Font = New System.Drawing.Font("Arial", 15.75!)
         Me.btnAdmin.ForeColor = System.Drawing.SystemColors.ButtonHighlight
-        Me.btnAdmin.Location = New System.Drawing.Point(434, 447)
+        Me.btnAdmin.Location = New System.Drawing.Point(544, 447)
         Me.btnAdmin.Name = "btnAdmin"
         Me.btnAdmin.Size = New System.Drawing.Size(279, 53)
         Me.btnAdmin.TabIndex = 2
@@ -47,22 +48,36 @@ Partial Class Start
         Me.btnHealthcareprovider.BackColor = System.Drawing.Color.FromArgb(CType(CType(207, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(6, Byte), Integer))
         Me.btnHealthcareprovider.Font = New System.Drawing.Font("Arial", 15.75!)
         Me.btnHealthcareprovider.ForeColor = System.Drawing.SystemColors.ButtonHighlight
-        Me.btnHealthcareprovider.Location = New System.Drawing.Point(434, 523)
+        Me.btnHealthcareprovider.Location = New System.Drawing.Point(544, 523)
         Me.btnHealthcareprovider.Name = "btnHealthcareprovider"
         Me.btnHealthcareprovider.Size = New System.Drawing.Size(279, 53)
         Me.btnHealthcareprovider.TabIndex = 3
         Me.btnHealthcareprovider.Text = "Healthcare Provider"
         Me.btnHealthcareprovider.UseVisualStyleBackColor = False
         '
+        'Button1
+        '
+        Me.Button1.Anchor = System.Windows.Forms.AnchorStyles.Top
+        Me.Button1.BackColor = System.Drawing.Color.FromArgb(CType(CType(207, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(6, Byte), Integer))
+        Me.Button1.Font = New System.Drawing.Font("Arial", 15.75!)
+        Me.Button1.ForeColor = System.Drawing.SystemColors.ButtonHighlight
+        Me.Button1.Location = New System.Drawing.Point(544, 368)
+        Me.Button1.Name = "Button1"
+        Me.Button1.Size = New System.Drawing.Size(279, 53)
+        Me.Button1.TabIndex = 4
+        Me.Button1.Text = "Super Admin"
+        Me.Button1.UseVisualStyleBackColor = False
+        '
         'pbLogo
         '
-        Me.pbLogo.Anchor = System.Windows.Forms.AnchorStyles.Top
+        Me.pbLogo.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.pbLogo.Image = Global.Red_Cross_Blood_Donation_App_2.My.Resources.Resources.Red_Cross_logo
-        Me.pbLogo.Location = New System.Drawing.Point(383, 106)
+        Me.pbLogo.Location = New System.Drawing.Point(270, 29)
         Me.pbLogo.Name = "pbLogo"
-        Me.pbLogo.Size = New System.Drawing.Size(376, 156)
+        Me.pbLogo.Size = New System.Drawing.Size(813, 194)
         Me.pbLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
-        Me.pbLogo.TabIndex = 1
+        Me.pbLogo.TabIndex = 8
         Me.pbLogo.TabStop = False
         '
         'Start
@@ -70,10 +85,12 @@ Partial Class Start
         Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
         Me.AutoSize = True
-        Me.ClientSize = New System.Drawing.Size(1146, 652)
+        Me.BackColor = System.Drawing.SystemColors.ButtonHighlight
+        Me.ClientSize = New System.Drawing.Size(1367, 652)
+        Me.Controls.Add(Me.pbLogo)
+        Me.Controls.Add(Me.Button1)
         Me.Controls.Add(Me.btnHealthcareprovider)
         Me.Controls.Add(Me.btnAdmin)
-        Me.Controls.Add(Me.pbLogo)
         Me.MinimizeBox = False
         Me.Name = "Start"
         Me.Text = "Start"
@@ -82,8 +99,8 @@ Partial Class Start
         Me.ResumeLayout(False)
 
     End Sub
-
-    Friend WithEvents pbLogo As PictureBox
     Friend WithEvents btnAdmin As Button
     Friend WithEvents btnHealthcareprovider As Button
+    Friend WithEvents Button1 As Button
+    Friend WithEvents pbLogo As PictureBox
 End Class

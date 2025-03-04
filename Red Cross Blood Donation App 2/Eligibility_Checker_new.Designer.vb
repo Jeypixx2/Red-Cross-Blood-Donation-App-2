@@ -55,6 +55,7 @@ Partial Class Eligibility_Checker_new
         Me.conditiontypetextbox.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.conditiontypetextbox.BackColor = System.Drawing.SystemColors.Menu
         Me.conditiontypetextbox.Font = New System.Drawing.Font("Segoe UI", 9.0!)
         Me.conditiontypetextbox.Location = New System.Drawing.Point(193, 116)
         Me.conditiontypetextbox.Name = "conditiontypetextbox"
@@ -67,6 +68,7 @@ Partial Class Eligibility_Checker_new
         Me.hemoglobinleveltextbox.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.hemoglobinleveltextbox.BackColor = System.Drawing.SystemColors.Menu
         Me.hemoglobinleveltextbox.Font = New System.Drawing.Font("Segoe UI", 9.0!)
         Me.hemoglobinleveltextbox.Location = New System.Drawing.Point(426, 48)
         Me.hemoglobinleveltextbox.Name = "hemoglobinleveltextbox"
@@ -79,6 +81,7 @@ Partial Class Eligibility_Checker_new
         Me.bloodpressuretextbox1.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.bloodpressuretextbox1.BackColor = System.Drawing.SystemColors.Menu
         Me.bloodpressuretextbox1.Font = New System.Drawing.Font("Segoe UI", 9.0!)
         Me.bloodpressuretextbox1.Location = New System.Drawing.Point(193, 48)
         Me.bloodpressuretextbox1.Name = "bloodpressuretextbox1"
@@ -91,6 +94,7 @@ Partial Class Eligibility_Checker_new
         Me.weighttextbox.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.weighttextbox.BackColor = System.Drawing.SystemColors.Menu
         Me.weighttextbox.Font = New System.Drawing.Font("Segoe UI", 9.0!)
         Me.weighttextbox.Location = New System.Drawing.Point(40, 48)
         Me.weighttextbox.Name = "weighttextbox"
@@ -247,6 +251,7 @@ Partial Class Eligibility_Checker_new
         Me.bloodpressuretextbox2.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.bloodpressuretextbox2.BackColor = System.Drawing.SystemColors.Menu
         Me.bloodpressuretextbox2.Font = New System.Drawing.Font("Segoe UI", 9.0!)
         Me.bloodpressuretextbox2.Location = New System.Drawing.Point(304, 48)
         Me.bloodpressuretextbox2.Name = "bloodpressuretextbox2"
@@ -384,6 +389,7 @@ Partial Class Eligibility_Checker_new
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.BackColor = System.Drawing.SystemColors.ButtonHighlight
         Me.ClientSize = New System.Drawing.Size(621, 450)
         Me.Controls.Add(Me.Proceed)
         Me.Controls.Add(Me.Back)
@@ -412,7 +418,6 @@ Partial Class Eligibility_Checker_new
         Me.Controls.Add(Me.Hem_lvl)
         Me.Controls.Add(Me.Weight)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
-        Me.ImeMode = System.Windows.Forms.ImeMode.NoControl
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.Name = "Eligibility_Checker_new"

@@ -1,6 +1,6 @@
 ﻿Imports MySql.Data.MySqlClient
 
-Public Class Admin_Access
+Public Class SuperAdmin_Access
     Private Sub Admin_Access_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         ' Check if the admin_account table is empty
         Dim query As String = "SELECT COUNT(*) FROM accounts"

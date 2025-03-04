@@ -160,6 +160,7 @@ Partial Class Donor_Management_New
         '
         'txtlastname
         '
+        Me.txtlastname.BackColor = System.Drawing.SystemColors.Menu
         Me.txtlastname.Font = New System.Drawing.Font("Segoe UI", 12.0!)
         Me.txtlastname.Location = New System.Drawing.Point(51, 65)
         Me.txtlastname.Name = "txtlastname"
@@ -169,6 +170,7 @@ Partial Class Donor_Management_New
         '
         'txtFirstName
         '
+        Me.txtFirstName.BackColor = System.Drawing.SystemColors.Menu
         Me.txtFirstName.Font = New System.Drawing.Font("Segoe UI", 12.0!)
         Me.txtFirstName.Location = New System.Drawing.Point(290, 65)
         Me.txtFirstName.Name = "txtFirstName"
@@ -178,6 +180,7 @@ Partial Class Donor_Management_New
         '
         'txtmiddlename
         '
+        Me.txtmiddlename.BackColor = System.Drawing.SystemColors.Menu
         Me.txtmiddlename.Font = New System.Drawing.Font("Segoe UI", 12.0!)
         Me.txtmiddlename.Location = New System.Drawing.Point(530, 65)
         Me.txtmiddlename.Name = "txtmiddlename"
@@ -187,6 +190,7 @@ Partial Class Donor_Management_New
         '
         'TxtBaranggay
         '
+        Me.TxtBaranggay.BackColor = System.Drawing.SystemColors.Menu
         Me.TxtBaranggay.Font = New System.Drawing.Font("Segoe UI", 12.0!)
         Me.TxtBaranggay.Location = New System.Drawing.Point(51, 128)
         Me.TxtBaranggay.Name = "TxtBaranggay"
@@ -196,6 +200,7 @@ Partial Class Donor_Management_New
         '
         'txtcity
         '
+        Me.txtcity.BackColor = System.Drawing.SystemColors.Menu
         Me.txtcity.Font = New System.Drawing.Font("Segoe UI", 9.0!)
         Me.txtcity.Location = New System.Drawing.Point(290, 128)
         Me.txtcity.Name = "txtcity"
@@ -205,6 +210,7 @@ Partial Class Donor_Management_New
         '
         'txtprovince
         '
+        Me.txtprovince.BackColor = System.Drawing.SystemColors.Menu
         Me.txtprovince.Font = New System.Drawing.Font("Segoe UI", 9.0!)
         Me.txtprovince.Location = New System.Drawing.Point(530, 127)
         Me.txtprovince.Name = "txtprovince"
@@ -214,6 +220,7 @@ Partial Class Donor_Management_New
         '
         'txtsex
         '
+        Me.txtsex.BackColor = System.Drawing.SystemColors.Menu
         Me.txtsex.Font = New System.Drawing.Font("Segoe UI", 12.0!)
         Me.txtsex.Location = New System.Drawing.Point(290, 195)
         Me.txtsex.Name = "txtsex"
@@ -223,6 +230,7 @@ Partial Class Donor_Management_New
         '
         'txtbloodtype
         '
+        Me.txtbloodtype.BackColor = System.Drawing.SystemColors.Menu
         Me.txtbloodtype.Font = New System.Drawing.Font("Segoe UI", 9.0!)
         Me.txtbloodtype.Location = New System.Drawing.Point(530, 195)
         Me.txtbloodtype.Name = "txtbloodtype"
@@ -232,6 +240,7 @@ Partial Class Donor_Management_New
         '
         'MonthCalendar1
         '
+        Me.MonthCalendar1.BackColor = System.Drawing.SystemColors.ScrollBar
         Me.MonthCalendar1.Location = New System.Drawing.Point(51, 195)
         Me.MonthCalendar1.Name = "MonthCalendar1"
         Me.MonthCalendar1.TabIndex = 43
@@ -274,6 +283,7 @@ Partial Class Donor_Management_New
         '
         'txtcivilstatus
         '
+        Me.txtcivilstatus.BackColor = System.Drawing.SystemColors.Menu
         Me.txtcivilstatus.Font = New System.Drawing.Font("Segoe UI", 12.0!)
         Me.txtcivilstatus.Location = New System.Drawing.Point(290, 261)
         Me.txtcivilstatus.Name = "txtcivilstatus"
@@ -295,6 +305,7 @@ Partial Class Donor_Management_New
         '
         'txtnationality
         '
+        Me.txtnationality.BackColor = System.Drawing.SystemColors.Menu
         Me.txtnationality.Font = New System.Drawing.Font("Segoe UI", 9.0!)
         Me.txtnationality.Location = New System.Drawing.Point(530, 261)
         Me.txtnationality.Name = "txtnationality"
@@ -316,6 +327,7 @@ Partial Class Donor_Management_New
         '
         'txtoccupation
         '
+        Me.txtoccupation.BackColor = System.Drawing.SystemColors.Menu
         Me.txtoccupation.Font = New System.Drawing.Font("Segoe UI", 9.0!)
         Me.txtoccupation.Location = New System.Drawing.Point(290, 328)
         Me.txtoccupation.Name = "txtoccupation"
@@ -328,6 +340,7 @@ Partial Class Donor_Management_New
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.AutoSize = True
+        Me.BackColor = System.Drawing.SystemColors.ButtonHighlight
         Me.ClientSize = New System.Drawing.Size(785, 501)
         Me.Controls.Add(Me.txtoccupation)
         Me.Controls.Add(Me.Label3)

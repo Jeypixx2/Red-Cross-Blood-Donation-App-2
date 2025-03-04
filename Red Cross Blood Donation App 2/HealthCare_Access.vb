@@ -83,11 +83,8 @@ Public Class HealthCare_Access
         Return Tuple.Create(healthProviderID, personnelID)
     End Function
 
-    Private Sub txtHospitalName_TextChanged(sender As Object, e As EventArgs) Handles txtHospitalName.TextChanged
-
-    End Sub
-
-    Private Sub txtNameAquirer_TextChanged(sender As Object, e As EventArgs) Handles txtNameAquirer.TextChanged
-
+    Private Sub btnAdmin_Click(sender As Object, e As EventArgs) Handles btnAdmin.Click
+        Me.Hide()
+        Start.Show()
     End Sub
 End Class

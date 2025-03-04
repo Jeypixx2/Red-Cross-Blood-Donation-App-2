@@ -69,6 +69,8 @@ Partial Class CreateAccountForm
         'txtUsername
         '
         Me.txtUsername.Anchor = System.Windows.Forms.AnchorStyles.None
+        Me.txtUsername.BackColor = System.Drawing.SystemColors.Menu
+        Me.txtUsername.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.txtUsername.Font = New System.Drawing.Font("Arial", 15.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtUsername.Location = New System.Drawing.Point(554, 268)
         Me.txtUsername.Name = "txtUsername"
@@ -89,6 +91,8 @@ Partial Class CreateAccountForm
         'txtPassword
         '
         Me.txtPassword.Anchor = System.Windows.Forms.AnchorStyles.None
+        Me.txtPassword.BackColor = System.Drawing.SystemColors.Menu
+        Me.txtPassword.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.txtPassword.Font = New System.Drawing.Font("Arial", 15.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtPassword.Location = New System.Drawing.Point(554, 339)
         Me.txtPassword.Name = "txtPassword"
@@ -111,6 +115,7 @@ Partial Class CreateAccountForm
         'btnShowPassword
         '
         Me.btnShowPassword.Anchor = System.Windows.Forms.AnchorStyles.None
+        Me.btnShowPassword.FlatStyle = System.Windows.Forms.FlatStyle.System
         Me.btnShowPassword.Font = New System.Drawing.Font("Arial", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnShowPassword.Location = New System.Drawing.Point(851, 345)
         Me.btnShowPassword.Name = "btnShowPassword"
@@ -123,6 +128,7 @@ Partial Class CreateAccountForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.BackColor = System.Drawing.SystemColors.ButtonHighlight
         Me.ClientSize = New System.Drawing.Size(1364, 749)
         Me.Controls.Add(Me.btnShowPassword)
         Me.Controls.Add(Me.btnLogin)

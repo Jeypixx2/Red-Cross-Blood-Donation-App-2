@@ -29,12 +29,14 @@ Partial Class Admin_Access
         Me.btnLogin = New System.Windows.Forms.Button()
         Me.createAcc = New System.Windows.Forms.Label()
         Me.pbLogo = New System.Windows.Forms.PictureBox()
+        Me.btnAdmin = New System.Windows.Forms.Button()
         CType(Me.pbLogo, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'Label1
         '
-        Me.Label1.Anchor = System.Windows.Forms.AnchorStyles.Top
+        Me.Label1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label1.AutoSize = True
         Me.Label1.Font = New System.Drawing.Font("Arial", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label1.Location = New System.Drawing.Point(442, 264)
@@ -45,7 +47,8 @@ Partial Class Admin_Access
         '
         'Label2
         '
-        Me.Label2.Anchor = System.Windows.Forms.AnchorStyles.Top
+        Me.Label2.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label2.AutoSize = True
         Me.Label2.Font = New System.Drawing.Font("Arial", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label2.Location = New System.Drawing.Point(442, 332)
@@ -56,7 +59,10 @@ Partial Class Admin_Access
         '
         'txtUsername
         '
-        Me.txtUsername.Anchor = System.Windows.Forms.AnchorStyles.Top
+        Me.txtUsername.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.txtUsername.BackColor = System.Drawing.SystemColors.Menu
+        Me.txtUsername.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.txtUsername.Font = New System.Drawing.Font("Arial", 15.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtUsername.Location = New System.Drawing.Point(446, 291)
         Me.txtUsername.Name = "txtUsername"
@@ -65,7 +71,10 @@ Partial Class Admin_Access
         '
         'txtPassword
         '
-        Me.txtPassword.Anchor = System.Windows.Forms.AnchorStyles.Top
+        Me.txtPassword.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.txtPassword.BackColor = System.Drawing.SystemColors.Menu
+        Me.txtPassword.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.txtPassword.Font = New System.Drawing.Font("Arial", 15.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtPassword.Location = New System.Drawing.Point(446, 359)
         Me.txtPassword.Name = "txtPassword"
@@ -75,7 +84,8 @@ Partial Class Admin_Access
         '
         'btnLogin
         '
-        Me.btnLogin.Anchor = System.Windows.Forms.AnchorStyles.Top
+        Me.btnLogin.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnLogin.BackColor = System.Drawing.Color.FromArgb(CType(CType(5, Byte), Integer), CType(CType(4, Byte), Integer), CType(CType(81, Byte), Integer))
         Me.btnLogin.Font = New System.Drawing.Font("Arial", 20.25!, System.Drawing.FontStyle.Bold)
         Me.btnLogin.ForeColor = System.Drawing.SystemColors.InactiveBorder
@@ -88,6 +98,7 @@ Partial Class Admin_Access
         '
         'createAcc
         '
+        Me.createAcc.Anchor = System.Windows.Forms.AnchorStyles.Top
         Me.createAcc.AutoSize = True
         Me.createAcc.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.createAcc.Location = New System.Drawing.Point(609, 499)
@@ -107,11 +118,26 @@ Partial Class Admin_Access
         Me.pbLogo.TabIndex = 0
         Me.pbLogo.TabStop = False
         '
+        'btnAdmin
+        '
+        Me.btnAdmin.Anchor = System.Windows.Forms.AnchorStyles.Top
+        Me.btnAdmin.BackColor = System.Drawing.Color.FromArgb(CType(CType(207, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(6, Byte), Integer))
+        Me.btnAdmin.Font = New System.Drawing.Font("Arial", 15.75!)
+        Me.btnAdmin.ForeColor = System.Drawing.SystemColors.ButtonHighlight
+        Me.btnAdmin.Location = New System.Drawing.Point(625, 539)
+        Me.btnAdmin.Name = "btnAdmin"
+        Me.btnAdmin.Size = New System.Drawing.Size(96, 39)
+        Me.btnAdmin.TabIndex = 15
+        Me.btnAdmin.Text = "Back"
+        Me.btnAdmin.UseVisualStyleBackColor = False
+        '
         'Admin_Access
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.BackColor = System.Drawing.SystemColors.ButtonHighlight
         Me.ClientSize = New System.Drawing.Size(1364, 749)
+        Me.Controls.Add(Me.btnAdmin)
         Me.Controls.Add(Me.createAcc)
         Me.Controls.Add(Me.btnLogin)
         Me.Controls.Add(Me.txtPassword)
@@ -121,7 +147,7 @@ Partial Class Admin_Access
         Me.Controls.Add(Me.pbLogo)
         Me.MinimizeBox = False
         Me.Name = "Admin_Access"
-        Me.Text = "Sign_In"
+        Me.Text = "Sign In"
         Me.WindowState = System.Windows.Forms.FormWindowState.Maximized
         CType(Me.pbLogo, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
@@ -136,4 +162,5 @@ Partial Class Admin_Access
     Friend WithEvents txtPassword As TextBox
     Friend WithEvents btnLogin As Button
     Friend WithEvents createAcc As Label
+    Friend WithEvents btnAdmin As Button
 End Class

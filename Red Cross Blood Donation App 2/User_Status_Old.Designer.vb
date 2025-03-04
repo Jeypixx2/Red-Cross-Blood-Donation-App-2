@@ -48,6 +48,7 @@ Partial Class User_Status_Old
         '
         'Panel1
         '
+        Me.Panel1.BackColor = System.Drawing.SystemColors.Control
         Me.Panel1.Controls.Add(Me.LastNameTextBox)
         Me.Panel1.Controls.Add(Me.MiddleNameTextBox)
         Me.Panel1.Controls.Add(Me.FirstNameTextBox)
@@ -122,6 +123,7 @@ Partial Class User_Status_Old
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.AutoSize = True
+        Me.BackColor = System.Drawing.SystemColors.ButtonHighlight
         Me.ClientSize = New System.Drawing.Size(319, 493)
         Me.Controls.Add(Me.Search)
         Me.Controls.Add(Me.Back)
