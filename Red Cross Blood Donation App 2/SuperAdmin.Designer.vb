@@ -81,9 +81,9 @@ Partial Class SuperAdmin
         Me.Panel1.Controls.Add(Me.Button8)
         Me.Panel1.Controls.Add(Me.Button4)
         Me.Panel1.Controls.Add(Me.Label1)
-        Me.Panel1.Location = New System.Drawing.Point(1178, 0)
+        Me.Panel1.Location = New System.Drawing.Point(1258, 0)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(180, 749)
+        Me.Panel1.Size = New System.Drawing.Size(180, 881)
         Me.Panel1.TabIndex = 38
         '
         'Button1
@@ -191,7 +191,7 @@ Partial Class SuperAdmin
         Me.dgvInventory.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvInventory.Location = New System.Drawing.Point(111, 130)
         Me.dgvInventory.Name = "dgvInventory"
-        Me.dgvInventory.Size = New System.Drawing.Size(1024, 586)
+        Me.dgvInventory.Size = New System.Drawing.Size(1104, 718)
         Me.dgvInventory.TabIndex = 33
         '
         'EligibilityRecord
@@ -297,7 +297,7 @@ Partial Class SuperAdmin
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.SystemColors.ButtonHighlight
-        Me.ClientSize = New System.Drawing.Size(1364, 749)
+        Me.ClientSize = New System.Drawing.Size(1444, 881)
         Me.Controls.Add(Me.Accounts)
         Me.Controls.Add(Me.Logs)
         Me.Controls.Add(Me.History)
