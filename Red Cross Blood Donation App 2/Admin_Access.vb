@@ -30,14 +30,6 @@ Public Class Admin_Access
             Exit Sub
         End If
 
-        ' Hardcoded check for SuperAdmin
-        If username = "admin" AndAlso password = "admin" Then
-            MessageBox.Show("SuperAdmin login successful!", "Welcome SuperAdmin", MessageBoxButtons.OK, MessageBoxIcon.Information)
-            SuperAdmin.Show() ' Show SuperAdmin Dashboard
-            Me.Hide() ' Hide Login Form
-            Exit Sub
-        End If
-
         ' Encrypt the entered password
         Dim encryptedPassword As String = Encrypt(password)
 
@@ -69,8 +61,7 @@ Public Class Admin_Access
 
 
     Private Sub createAcc_Click(sender As Object, e As EventArgs) Handles createAcc.Click
-        Dim createAccountForm As New CreateAccountForm()
-        createAccountForm.Show()
+        CreateAdminAccount.Show()
         Me.Hide()
     End Sub
 

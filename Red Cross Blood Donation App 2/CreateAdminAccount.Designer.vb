@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class CreateAccountForm
+Partial Class CreateAdminAccount
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
@@ -124,7 +124,7 @@ Partial Class CreateAccountForm
         Me.btnShowPassword.Text = "Show"
         Me.btnShowPassword.UseVisualStyleBackColor = True
         '
-        'CreateAccountForm
+        'CreateAdminAccount
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
@@ -138,8 +138,8 @@ Partial Class CreateAccountForm
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.pbLogo)
-        Me.Name = "CreateAccountForm"
-        Me.Text = "CreateAccountForm"
+        Me.Name = "CreateAdminAccount"
+        Me.Text = "CreateAdminAccoun"
         Me.WindowState = System.Windows.Forms.FormWindowState.Maximized
         CType(Me.pbLogo, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
