@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class SuperAdmin
+Partial Class SuperAdmin_Dashboard
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
@@ -45,6 +45,9 @@ Partial Class SuperAdmin
         Me.Logs = New System.Windows.Forms.Button()
         Me.Accounts = New System.Windows.Forms.Button()
         Me.Config = New System.Windows.Forms.Button()
+        Me.New_Donor = New System.Windows.Forms.Button()
+        Me.New_Donation = New System.Windows.Forms.Button()
+        Me.back = New System.Windows.Forms.Button()
         Me.Panel1.SuspendLayout()
         CType(Me.dgvInventory, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.pbLogo, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -190,9 +193,9 @@ Partial Class SuperAdmin
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.dgvInventory.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvInventory.Location = New System.Drawing.Point(111, 130)
+        Me.dgvInventory.Location = New System.Drawing.Point(118, 130)
         Me.dgvInventory.Name = "dgvInventory"
-        Me.dgvInventory.Size = New System.Drawing.Size(1104, 718)
+        Me.dgvInventory.Size = New System.Drawing.Size(1097, 718)
         Me.dgvInventory.TabIndex = 33
         '
         'EligibilityRecord
@@ -304,12 +307,51 @@ Partial Class SuperAdmin
         Me.Config.Text = "Config"
         Me.Config.UseVisualStyleBackColor = False
         '
-        'SuperAdmin
+        'New_Donor
+        '
+        Me.New_Donor.BackColor = System.Drawing.Color.Red
+        Me.New_Donor.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.New_Donor.ForeColor = System.Drawing.SystemColors.Control
+        Me.New_Donor.Location = New System.Drawing.Point(6, 148)
+        Me.New_Donor.Name = "New_Donor"
+        Me.New_Donor.Size = New System.Drawing.Size(106, 51)
+        Me.New_Donor.TabIndex = 44
+        Me.New_Donor.Text = "Donor Management"
+        Me.New_Donor.UseVisualStyleBackColor = False
+        '
+        'New_Donation
+        '
+        Me.New_Donation.BackColor = System.Drawing.Color.Red
+        Me.New_Donation.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.New_Donation.ForeColor = System.Drawing.SystemColors.Control
+        Me.New_Donation.Location = New System.Drawing.Point(6, 208)
+        Me.New_Donation.Name = "New_Donation"
+        Me.New_Donation.Size = New System.Drawing.Size(106, 51)
+        Me.New_Donation.TabIndex = 45
+        Me.New_Donation.Text = "Donation Management"
+        Me.New_Donation.UseVisualStyleBackColor = False
+        '
+        'back
+        '
+        Me.back.BackColor = System.Drawing.Color.Red
+        Me.back.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.back.ForeColor = System.Drawing.SystemColors.Control
+        Me.back.Location = New System.Drawing.Point(6, 797)
+        Me.back.Name = "back"
+        Me.back.Size = New System.Drawing.Size(106, 51)
+        Me.back.TabIndex = 46
+        Me.back.Text = "Back"
+        Me.back.UseVisualStyleBackColor = False
+        '
+        'SuperAdmin_Dashboard
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.SystemColors.ButtonHighlight
         Me.ClientSize = New System.Drawing.Size(1444, 881)
+        Me.Controls.Add(Me.back)
+        Me.Controls.Add(Me.New_Donation)
+        Me.Controls.Add(Me.New_Donor)
         Me.Controls.Add(Me.Config)
         Me.Controls.Add(Me.Accounts)
         Me.Controls.Add(Me.Logs)
@@ -329,7 +371,7 @@ Partial Class SuperAdmin
         Me.Controls.Add(Me.pbLogo)
         Me.MaximizeBox = False
         Me.MinimizeBox = False
-        Me.Name = "SuperAdmin"
+        Me.Name = "SuperAdmin_Dashboard"
         Me.Text = "SuperAdmin"
         Me.WindowState = System.Windows.Forms.FormWindowState.Maximized
         Me.Panel1.ResumeLayout(False)
@@ -364,4 +406,7 @@ Partial Class SuperAdmin
     Friend WithEvents Logs As Button
     Friend WithEvents Accounts As Button
     Friend WithEvents Config As Button
+    Friend WithEvents New_Donor As Button
+    Friend WithEvents New_Donation As Button
+    Friend WithEvents back As Button
 End Class

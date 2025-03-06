@@ -249,7 +249,7 @@
     <Compile Include="Blood_Inventory_Report.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="CongifReader.vb" />
+    <Compile Include="ConfigReader.vb" />
     <Compile Include="CreateAdminAccount.Designer.vb">
       <DependentUpon>CreateAdminAccount.vb</DependentUpon>
     </Compile>
@@ -332,16 +332,17 @@
     <Compile Include="Donor_Registration_Report.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="NavigationHelper.vb" />
     <Compile Include="SetConfig.Designer.vb">
       <DependentUpon>SetConfig.vb</DependentUpon>
     </Compile>
     <Compile Include="SetConfig.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="SuperAdmin.Designer.vb">
-      <DependentUpon>SuperAdmin.vb</DependentUpon>
+    <Compile Include="SuperAdmin_Dashboard.Designer.vb">
+      <DependentUpon>SuperAdmin_Dashboard.vb</DependentUpon>
     </Compile>
-    <Compile Include="SuperAdmin.vb">
+    <Compile Include="SuperAdmin_Dashboard.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="HealthCare_Access.Designer.vb">
@@ -465,8 +466,8 @@
     <EmbeddedResource Include="SetConfig.resx">
       <DependentUpon>SetConfig.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SuperAdmin.resx">
-      <DependentUpon>SuperAdmin.vb</DependentUpon>
+    <EmbeddedResource Include="SuperAdmin_Dashboard.resx">
+      <DependentUpon>SuperAdmin_Dashboard.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="HealthCare_Access.resx">
       <DependentUpon>HealthCare_Access.vb</DependentUpon>

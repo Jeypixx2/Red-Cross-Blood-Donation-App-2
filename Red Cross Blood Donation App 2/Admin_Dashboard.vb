@@ -9,11 +9,6 @@ Public Class Admin_Dashboard
 
     ' Load event handler for the dashboard
     Private Sub Admin_Dashboard_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        Dim screenWidth As Integer = Screen.PrimaryScreen.Bounds.Width
-        Dim screenHeight As Integer = Screen.PrimaryScreen.Bounds.Height
-        Me.Width = screenWidth * 0.8
-        Me.Height = screenHeight * 0.8
-
         Try
             modDB.openConn("redcrossdb")
 
@@ -330,6 +325,9 @@ Public Class Admin_Dashboard
         modDB.Logs("ViewHealth Provider Report")
     End Sub
 
+    Private Sub back_Click(sender As Object, e As EventArgs) Handles back.Click
+        Start.Show()
+        Me.Hide()
     Private Sub Bar_Graph_Click(sender As Object, e As EventArgs) Handles Bar_Graph.Click
 
     End Sub

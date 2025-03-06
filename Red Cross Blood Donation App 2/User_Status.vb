@@ -13,7 +13,7 @@
     End Sub
 
     Private Sub Back_Click(sender As Object, e As EventArgs) Handles Back.Click
-        Admin_Dashboard.Show()
+        GoBack(Me)
         Me.Hide()
     End Sub
 End Class
