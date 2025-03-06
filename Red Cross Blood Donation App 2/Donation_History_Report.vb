@@ -12,18 +12,18 @@ Public Class Donation_History_Report
 
     Private Sub btnBack_Click(sender As Object, e As EventArgs) Handles btnBack.Click
         Me.Close()
-        Admin_Dashboard.Show()
+
     End Sub
 
     Private Sub Button1_Click_1(sender As Object, e As EventArgs) Handles Button1.Click
         Try
             modDB.openConn(modDB.db_name)
 
-            ' Get the selected date range from the DateTimePicker controls
+
             Dim fromDate As String = dtpFrom.Value.ToString("yyyy-MM-dd")
             Dim toDate As String = dtpTo.Value.ToString("yyyy-MM-dd")
 
-            ' Update the query to filter by the date range
+
             Dim query As String = "
             SELECT  
                 donation.DonorID, 

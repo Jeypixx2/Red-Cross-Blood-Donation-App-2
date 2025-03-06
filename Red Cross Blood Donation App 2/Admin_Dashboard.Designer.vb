@@ -247,6 +247,7 @@ Partial Class Admin_Dashboard
         '
         Me.Bar_Graph.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Bar_Graph.BackColor = System.Drawing.Color.MistyRose
         ChartArea1.Name = "ChartArea1"
         Me.Bar_Graph.ChartAreas.Add(ChartArea1)
         Legend1.Name = "Legend1"
@@ -265,6 +266,7 @@ Partial Class Admin_Dashboard
         '
         Me.Line_Chart.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Line_Chart.BackColor = System.Drawing.Color.MistyRose
         ChartArea2.Name = "ChartArea1"
         Me.Line_Chart.ChartAreas.Add(ChartArea2)
         Legend2.Name = "Legend1"

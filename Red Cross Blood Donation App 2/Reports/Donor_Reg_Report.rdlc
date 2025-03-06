@@ -616,7 +616,7 @@
             <Border>
               <Style>None</Style>
             </Border>
-            <BackgroundColor>Red</BackgroundColor>
+            <BackgroundColor>Firebrick</BackgroundColor>
           </Style>
         </Rectangle>
       </ReportItems>

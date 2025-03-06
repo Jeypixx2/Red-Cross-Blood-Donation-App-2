@@ -15,26 +15,25 @@ Public Class Ineligibility_Report
                 Dim fromDate As String = dtpFrom.Value.ToString("yyyy-MM-dd")
                 Dim toDate As String = dtpTo.Value.ToString("yyyy-MM-dd")
 
-                ' SQL query with date filtering
-                Dim query As String = "
-                SELECT 
-                    donors.DonorID, 
-                    donors.FirstName, 
-                    donors.LastName, 
-                    CASE 
-                        WHEN eligibility.EligibilityStatus = 0 THEN 'Ineligible' 
-                    END AS EligibilityStatus, 
-                    donation.NextEligibilityDate
-                FROM 
-                    donors
-                JOIN 
-                    eligibility ON donors.DonorID = eligibility.DonorID
-                JOIN 
-                    donation ON donors.DonorID = donation.DonorID
-                WHERE 
-                    eligibility.EligibilityStatus = 0
-                    AND donation.NextEligibilityDate BETWEEN @FromDate AND @ToDate;
-            "
+                Dim query As String =
+                    "SELECT 
+    donors.DonorID, 
+    donors.FirstName, 
+    donors.LastName, 
+    'Ineligible' AS EligibilityStatus, 
+    eligibility.EligibilityDate, 
+    IFNULL(donation.NextEligibilityDate, DATE_ADD(eligibility.EligibilityDate, INTERVAL 90 DAY)) AS NextEligibilityDate
+FROM 
+    donors
+JOIN 
+    eligibility ON donors.DonorID = eligibility.DonorID
+LEFT JOIN 
+    donation ON donors.DonorID = donation.DonorID
+WHERE 
+    eligibility.EligibilityStatus = 0
+    AND eligibility.EligibilityDate BETWEEN @FromDate AND @ToDate;
+
+"
 
                 ' Use MySqlDataAdapter to fill DataTable
                 Dim cmd As New MySqlCommand(query, connection)
@@ -45,7 +44,10 @@ Public Class Ineligibility_Report
                 Dim dt As New DataTable()
                 da.Fill(dt)
 
-                ' Check if data exists
+                For Each row As DataRow In dt.Rows
+                    Console.WriteLine("DonorID: " & row("DonorID") & ", NextEligibilityDate: " & row("NextEligibilityDate").ToString())
+                Next
+
                 If dt.Rows.Count = 0 Then
                     MsgBox("No data found for this report within the selected date range.", MsgBoxStyle.Information)
                     Return
@@ -76,6 +78,5 @@ Public Class Ineligibility_Report
 
     Private Sub btnBack_Click(sender As Object, e As EventArgs) Handles btnBack.Click
         Me.Close()
-        Admin_Dashboard.Show()
     End Sub
 End Class

@@ -33,10 +33,12 @@ Partial Class Donor_Registration_Report
         '
         'ReportViewer1
         '
-        Me.ReportViewer1.Location = New System.Drawing.Point(328, 53)
+        Me.ReportViewer1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.ReportViewer1.Location = New System.Drawing.Point(427, 53)
         Me.ReportViewer1.Name = "ReportViewer1"
         Me.ReportViewer1.ServerReport.BearerToken = Nothing
-        Me.ReportViewer1.Size = New System.Drawing.Size(706, 684)
+        Me.ReportViewer1.Size = New System.Drawing.Size(680, 663)
         Me.ReportViewer1.TabIndex = 0
         '
         'Button1

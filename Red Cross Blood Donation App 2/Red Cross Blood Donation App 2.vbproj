@@ -458,6 +458,7 @@
     <EmbeddedResource Include="Health_Provider_Report.rdlc" />
     <EmbeddedResource Include="Health_Provider_Report.resx">
       <DependentUpon>Health_Provider_Report.vb</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Ineligibility_Rep.rdlc" />
     <EmbeddedResource Include="Ineligibility_Report.resx">
