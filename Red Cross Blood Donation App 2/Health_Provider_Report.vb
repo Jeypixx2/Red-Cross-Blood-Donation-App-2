@@ -15,24 +15,19 @@ Public Class Health_Provider_Report
             Dim toDate As String = dtpTo.Value.ToString("yyyy-MM-dd")
 
             ' Update the query to include a date filter for registration dates
-            Dim query As String = "
-            SELECT 
-                donors.DonorID, 
-                donors.FirstName, 
-                donors.MiddleName, 
-                donors.LastName, 
-                donors.BloodType, 
-                donors.RegDate, 
-                CASE 
-                    WHEN eligibility.EligibilityStatus = 1 THEN 'Eligible' 
-                    WHEN eligibility.EligibilityStatus = 0 THEN 'Not Eligible' 
-                END AS EligibilityStatus 
-            FROM 
-                donors 
-            JOIN 
-                eligibility ON donors.DonorID = eligibility.DonorID
-            WHERE 
-                donors.RegDate BETWEEN @FromDate AND @ToDate;"
+            Dim query As String = "SELECT 
+    RetrieveID, 
+    HealthProviderID, 
+    CompanyHospitalName, 
+    PersonnelID, 
+    PersonnelName, 
+    BloodID, 
+    RetrieveDate
+FROM healthprovider
+WHERE RetrieveDate BETWEEN @FromDate AND @ToDate;
+
+
+"
 
             ' Prepare the command with parameters
             Dim cmd As New MySqlCommand(query, conn)
@@ -52,9 +47,9 @@ Public Class Health_Provider_Report
             ' Set up the report data source and path
             With Me.ReportViewer1.LocalReport
                 .DataSources.Clear()
-                Dim reportPath As String = IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Reports", "Donor_Reg_Report.rdlc")
+                Dim reportPath As String = IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Reports", "Health_Provider_Report.rdlc")
                 .ReportPath = reportPath
-                .DataSources.Add(New ReportDataSource("DataSet1", dt))
+                .DataSources.Add(New ReportDataSource("DataSet5", dt))
             End With
 
             Me.ReportViewer1.RefreshReport()

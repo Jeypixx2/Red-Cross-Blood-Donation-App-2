@@ -172,7 +172,7 @@ Partial Class HealthCare_Dashboard
         Series2.Legend = "Legend1"
         Series2.Name = "Series1"
         Me.Chart1.Series.Add(Series2)
-        Me.Chart1.Size = New System.Drawing.Size(1394, 189)
+        Me.Chart1.Size = New System.Drawing.Size(1394, 179)
         Me.Chart1.TabIndex = 28
         Me.Chart1.Text = "Chart1"
         '
