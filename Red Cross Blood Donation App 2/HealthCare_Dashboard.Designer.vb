@@ -39,6 +39,7 @@ Partial Class HealthCare_Dashboard
         Me.Daily = New System.Windows.Forms.Button()
         Me.Chart2 = New System.Windows.Forms.DataVisualization.Charting.Chart()
         Me.Chart1 = New System.Windows.Forms.DataVisualization.Charting.Chart()
+        Me.Back = New System.Windows.Forms.Button()
         CType(Me.pbLogo, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.Chart2, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -176,12 +177,25 @@ Partial Class HealthCare_Dashboard
         Me.Chart1.TabIndex = 28
         Me.Chart1.Text = "Chart1"
         '
+        'Back
+        '
+        Me.Back.BackColor = System.Drawing.Color.FromArgb(CType(CType(207, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(6, Byte), Integer))
+        Me.Back.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold)
+        Me.Back.ForeColor = System.Drawing.SystemColors.ControlLight
+        Me.Back.Location = New System.Drawing.Point(1229, 109)
+        Me.Back.Name = "Back"
+        Me.Back.Size = New System.Drawing.Size(129, 54)
+        Me.Back.TabIndex = 29
+        Me.Back.Text = "Back"
+        Me.Back.UseVisualStyleBackColor = False
+        '
         'HealthCare_Dashboard
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.SystemColors.ButtonHighlight
         Me.ClientSize = New System.Drawing.Size(1444, 881)
+        Me.Controls.Add(Me.Back)
         Me.Controls.Add(Me.Chart1)
         Me.Controls.Add(Me.Chart2)
         Me.Controls.Add(Me.ComboBox1)
@@ -217,4 +231,5 @@ Partial Class HealthCare_Dashboard
     Friend WithEvents Daily As Button
     Friend WithEvents Chart2 As DataVisualization.Charting.Chart
     Friend WithEvents Chart1 As DataVisualization.Charting.Chart
+    Friend WithEvents Back As Button
 End Class

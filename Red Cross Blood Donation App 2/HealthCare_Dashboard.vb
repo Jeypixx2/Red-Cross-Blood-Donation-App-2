@@ -540,7 +540,8 @@ Public Class HealthCare_Dashboard
         End Try
     End Sub
 
-    Private Sub DataGridView1_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles DataGridView1.CellContentClick
-
+    Private Sub Back_Click(sender As Object, e As EventArgs) Handles Back.Click
+        Me.Hide()
+        Start.Show()
     End Sub
 End Class
