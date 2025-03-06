@@ -47,6 +47,7 @@ Partial Class Admin_Dashboard
         Me.pbLogo = New System.Windows.Forms.PictureBox()
         Me.Bar_Graph = New System.Windows.Forms.DataVisualization.Charting.Chart()
         Me.Line_Chart = New System.Windows.Forms.DataVisualization.Charting.Chart()
+        Me.back = New System.Windows.Forms.Button()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel1.SuspendLayout()
         CType(Me.pbLogo, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -281,12 +282,25 @@ Partial Class Admin_Dashboard
         Me.Line_Chart.TabIndex = 26
         Me.Line_Chart.Text = "Chart2"
         '
+        'back
+        '
+        Me.back.BackColor = System.Drawing.Color.Red
+        Me.back.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.back.ForeColor = System.Drawing.SystemColors.Control
+        Me.back.Location = New System.Drawing.Point(589, 6)
+        Me.back.Name = "back"
+        Me.back.Size = New System.Drawing.Size(106, 51)
+        Me.back.TabIndex = 47
+        Me.back.Text = "Back"
+        Me.back.UseVisualStyleBackColor = False
+        '
         'Admin_Dashboard
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.SystemColors.ButtonHighlight
         Me.ClientSize = New System.Drawing.Size(1444, 881)
+        Me.Controls.Add(Me.back)
         Me.Controls.Add(Me.Line_Chart)
         Me.Controls.Add(Me.Bar_Graph)
         Me.Controls.Add(Me.Panel1)
@@ -332,4 +346,5 @@ Partial Class Admin_Dashboard
     Friend WithEvents Label1 As Label
     Friend WithEvents Bar_Graph As DataVisualization.Charting.Chart
     Friend WithEvents Line_Chart As DataVisualization.Charting.Chart
+    Friend WithEvents back As Button
 End Class

@@ -343,7 +343,8 @@ Public Class Admin_Dashboard
         modDB.Logs("ViewHealth Provider Report")
     End Sub
 
-    Private Sub Bar_Graph_Click(sender As Object, e As EventArgs) Handles Bar_Graph.Click
-
+    Private Sub back_Click(sender As Object, e As EventArgs) Handles back.Click
+        Start.Show()
+        Me.Hide()
     End Sub
 End Class

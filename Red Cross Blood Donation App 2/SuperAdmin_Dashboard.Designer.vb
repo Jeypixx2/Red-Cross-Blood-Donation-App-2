@@ -47,6 +47,7 @@ Partial Class SuperAdmin_Dashboard
         Me.Config = New System.Windows.Forms.Button()
         Me.New_Donor = New System.Windows.Forms.Button()
         Me.New_Donation = New System.Windows.Forms.Button()
+        Me.back = New System.Windows.Forms.Button()
         Me.Panel1.SuspendLayout()
         CType(Me.dgvInventory, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.pbLogo, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -330,12 +331,25 @@ Partial Class SuperAdmin_Dashboard
         Me.New_Donation.Text = "Donation Management"
         Me.New_Donation.UseVisualStyleBackColor = False
         '
+        'back
+        '
+        Me.back.BackColor = System.Drawing.Color.Red
+        Me.back.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.back.ForeColor = System.Drawing.SystemColors.Control
+        Me.back.Location = New System.Drawing.Point(6, 797)
+        Me.back.Name = "back"
+        Me.back.Size = New System.Drawing.Size(106, 51)
+        Me.back.TabIndex = 46
+        Me.back.Text = "Back"
+        Me.back.UseVisualStyleBackColor = False
+        '
         'SuperAdmin_Dashboard
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.SystemColors.ButtonHighlight
         Me.ClientSize = New System.Drawing.Size(1444, 881)
+        Me.Controls.Add(Me.back)
         Me.Controls.Add(Me.New_Donation)
         Me.Controls.Add(Me.New_Donor)
         Me.Controls.Add(Me.Config)
@@ -394,4 +408,5 @@ Partial Class SuperAdmin_Dashboard
     Friend WithEvents Config As Button
     Friend WithEvents New_Donor As Button
     Friend WithEvents New_Donation As Button
+    Friend WithEvents back As Button
 End Class

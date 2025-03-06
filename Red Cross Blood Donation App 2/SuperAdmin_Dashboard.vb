@@ -453,4 +453,9 @@ Public Class SuperAdmin_Dashboard
     Private Sub New_Donation_Click(sender As Object, e As EventArgs) Handles New_Donation.Click
         User_Status.Show()
     End Sub
+
+    Private Sub back_Click(sender As Object, e As EventArgs) Handles back.Click
+        Start.Show()
+        Me.Hide()
+    End Sub
 End Class
