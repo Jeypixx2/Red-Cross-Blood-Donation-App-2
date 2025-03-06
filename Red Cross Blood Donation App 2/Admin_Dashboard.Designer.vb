@@ -22,12 +22,12 @@ Partial Class Admin_Dashboard
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Dim ChartArea5 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
-        Dim Legend5 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
-        Dim Series5 As System.Windows.Forms.DataVisualization.Charting.Series = New System.Windows.Forms.DataVisualization.Charting.Series()
-        Dim ChartArea6 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
-        Dim Legend6 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
-        Dim Series6 As System.Windows.Forms.DataVisualization.Charting.Series = New System.Windows.Forms.DataVisualization.Charting.Series()
+        Dim ChartArea1 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
+        Dim Legend1 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
+        Dim Series1 As System.Windows.Forms.DataVisualization.Charting.Series = New System.Windows.Forms.DataVisualization.Charting.Series()
+        Dim ChartArea2 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
+        Dim Legend2 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
+        Dim Series2 As System.Windows.Forms.DataVisualization.Charting.Series = New System.Windows.Forms.DataVisualization.Charting.Series()
         Me.Daily = New System.Windows.Forms.Button()
         Me.Weekly = New System.Windows.Forms.Button()
         Me.Monthly = New System.Windows.Forms.Button()
@@ -52,6 +52,7 @@ Partial Class Admin_Dashboard
         Me.btnFilterCharts = New System.Windows.Forms.Button()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Label3 = New System.Windows.Forms.Label()
+        Me.back = New System.Windows.Forms.Button()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel1.SuspendLayout()
         CType(Me.pbLogo, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -253,16 +254,16 @@ Partial Class Admin_Dashboard
         Me.Bar_Graph.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Bar_Graph.BackColor = System.Drawing.Color.MistyRose
-        ChartArea5.Name = "ChartArea1"
-        Me.Bar_Graph.ChartAreas.Add(ChartArea5)
-        Legend5.Name = "Legend1"
-        Me.Bar_Graph.Legends.Add(Legend5)
+        ChartArea1.Name = "ChartArea1"
+        Me.Bar_Graph.ChartAreas.Add(ChartArea1)
+        Legend1.Name = "Legend1"
+        Me.Bar_Graph.Legends.Add(Legend1)
         Me.Bar_Graph.Location = New System.Drawing.Point(2, 705)
         Me.Bar_Graph.Name = "Bar_Graph"
-        Series5.ChartArea = "ChartArea1"
-        Series5.Legend = "Legend1"
-        Series5.Name = "Series1"
-        Me.Bar_Graph.Series.Add(Series5)
+        Series1.ChartArea = "ChartArea1"
+        Series1.Legend = "Legend1"
+        Series1.Name = "Series1"
+        Me.Bar_Graph.Series.Add(Series1)
         Me.Bar_Graph.Size = New System.Drawing.Size(1234, 176)
         Me.Bar_Graph.TabIndex = 25
         Me.Bar_Graph.Text = "Chart1"
@@ -272,16 +273,16 @@ Partial Class Admin_Dashboard
         Me.Line_Chart.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Line_Chart.BackColor = System.Drawing.Color.MistyRose
-        ChartArea6.Name = "ChartArea1"
-        Me.Line_Chart.ChartAreas.Add(ChartArea6)
-        Legend6.Name = "Legend1"
-        Me.Line_Chart.Legends.Add(Legend6)
+        ChartArea2.Name = "ChartArea1"
+        Me.Line_Chart.ChartAreas.Add(ChartArea2)
+        Legend2.Name = "Legend1"
+        Me.Line_Chart.Legends.Add(Legend2)
         Me.Line_Chart.Location = New System.Drawing.Point(2, 484)
         Me.Line_Chart.Name = "Line_Chart"
-        Series6.ChartArea = "ChartArea1"
-        Series6.Legend = "Legend1"
-        Series6.Name = "Series1"
-        Me.Line_Chart.Series.Add(Series6)
+        Series2.ChartArea = "ChartArea1"
+        Series2.Legend = "Legend1"
+        Series2.Name = "Series1"
+        Me.Line_Chart.Series.Add(Series2)
         Me.Line_Chart.Size = New System.Drawing.Size(1234, 206)
         Me.Line_Chart.TabIndex = 26
         Me.Line_Chart.Text = "Chart2"
@@ -330,12 +331,25 @@ Partial Class Admin_Dashboard
         Me.Label3.TabIndex = 31
         Me.Label3.Text = "To"
         '
+        'back
+        '
+        Me.back.BackColor = System.Drawing.Color.Red
+        Me.back.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.back.ForeColor = System.Drawing.SystemColors.Control
+        Me.back.Location = New System.Drawing.Point(588, 7)
+        Me.back.Name = "back"
+        Me.back.Size = New System.Drawing.Size(106, 51)
+        Me.back.TabIndex = 47
+        Me.back.Text = "Back"
+        Me.back.UseVisualStyleBackColor = False
+        '
         'Admin_Dashboard
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.SystemColors.ButtonHighlight
         Me.ClientSize = New System.Drawing.Size(1444, 881)
+        Me.Controls.Add(Me.back)
         Me.Controls.Add(Me.Label3)
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.btnFilterCharts)
@@ -392,4 +406,5 @@ Partial Class Admin_Dashboard
     Friend WithEvents btnFilterCharts As Button
     Friend WithEvents Label2 As Label
     Friend WithEvents Label3 As Label
+    Friend WithEvents back As Button
 End Class
