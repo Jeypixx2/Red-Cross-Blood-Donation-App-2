@@ -225,6 +225,18 @@ Partial Class HealthCare_Dashboard
         Me.btnFilterCharts.Text = "Filter"
         Me.btnFilterCharts.UseVisualStyleBackColor = True
         '
+        'Back
+        '
+        Me.Back.BackColor = System.Drawing.Color.FromArgb(CType(CType(207, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(6, Byte), Integer))
+        Me.Back.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold)
+        Me.Back.ForeColor = System.Drawing.SystemColors.ControlLight
+        Me.Back.Location = New System.Drawing.Point(1229, 109)
+        Me.Back.Name = "Back"
+        Me.Back.Size = New System.Drawing.Size(129, 54)
+        Me.Back.TabIndex = 29
+        Me.Back.Text = "Back"
+        Me.Back.UseVisualStyleBackColor = False
+        '
         'HealthCare_Dashboard
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)

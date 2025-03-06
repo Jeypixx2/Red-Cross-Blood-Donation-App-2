@@ -443,15 +443,15 @@ Public Class SuperAdmin_Dashboard
 
     ' Set config
     Private Sub Config_Click_1(sender As Object, e As EventArgs) Handles Config.Click
-        SetConfig.Show()
+        OpenNewForm(Me, New SetConfig())
     End Sub
 
     Private Sub New_Donor_Click(sender As Object, e As EventArgs) Handles New_Donor.Click
-        User_Status.Show()
+        OpenNewForm(Me, New User_Status())
     End Sub
 
     Private Sub New_Donation_Click(sender As Object, e As EventArgs) Handles New_Donation.Click
-        User_Status.Show()
+        OpenNewForm(Me, New User_Status())
     End Sub
 
     Private Sub back_Click(sender As Object, e As EventArgs) Handles back.Click

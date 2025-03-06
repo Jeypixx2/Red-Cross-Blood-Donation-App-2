@@ -6,7 +6,7 @@
         If FormHistory.Count > 0 Then
             Dim previousForm As Form = FormHistory.Pop()
             previousForm.Show()
-            currentForm.Close() ' Close the current form instead of hiding it
+            'currentForm.Close() ' Close the current form instead of hiding it
         Else
             MessageBox.Show("No previous form found!", "Navigation", MessageBoxButtons.OK, MessageBoxIcon.Information)
         End If
@@ -16,6 +16,6 @@
     Public Sub OpenNewForm(currentForm As Form, newForm As Form)
         FormHistory.Push(currentForm) ' Store the current form before navigating
         newForm.Show()
-        currentForm.Hide()
+        'currentForm.Hide()
     End Sub
 End Module
