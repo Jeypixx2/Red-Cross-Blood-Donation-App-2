@@ -249,6 +249,7 @@
     <Compile Include="Blood_Inventory_Report.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="CongifReader.vb" />
     <Compile Include="CreateAdminAccount.Designer.vb">
       <DependentUpon>CreateAdminAccount.vb</DependentUpon>
     </Compile>
@@ -329,6 +330,12 @@
       <DependentUpon>Donor_Registration_Report.vb</DependentUpon>
     </Compile>
     <Compile Include="Donor_Registration_Report.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SetConfig.Designer.vb">
+      <DependentUpon>SetConfig.vb</DependentUpon>
+    </Compile>
+    <Compile Include="SetConfig.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="SuperAdmin.Designer.vb">
@@ -454,6 +461,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Eligibility_Checker_old.resx">
       <DependentUpon>Eligibility_Checker_old.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SetConfig.resx">
+      <DependentUpon>SetConfig.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SuperAdmin.resx">
       <DependentUpon>SuperAdmin.vb</DependentUpon>

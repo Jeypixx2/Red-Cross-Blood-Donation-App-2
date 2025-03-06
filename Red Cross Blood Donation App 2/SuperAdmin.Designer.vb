@@ -44,6 +44,7 @@ Partial Class SuperAdmin
         Me.pbLogo = New System.Windows.Forms.PictureBox()
         Me.Logs = New System.Windows.Forms.Button()
         Me.Accounts = New System.Windows.Forms.Button()
+        Me.Config = New System.Windows.Forms.Button()
         Me.Panel1.SuspendLayout()
         CType(Me.dgvInventory, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.pbLogo, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -292,12 +293,24 @@ Partial Class SuperAdmin
         Me.Accounts.Text = "Accounts"
         Me.Accounts.UseVisualStyleBackColor = False
         '
+        'Config
+        '
+        Me.Config.BackColor = System.Drawing.SystemColors.ButtonFace
+        Me.Config.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold)
+        Me.Config.Location = New System.Drawing.Point(981, 0)
+        Me.Config.Name = "Config"
+        Me.Config.Size = New System.Drawing.Size(117, 50)
+        Me.Config.TabIndex = 43
+        Me.Config.Text = "Config"
+        Me.Config.UseVisualStyleBackColor = False
+        '
         'SuperAdmin
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.SystemColors.ButtonHighlight
         Me.ClientSize = New System.Drawing.Size(1444, 881)
+        Me.Controls.Add(Me.Config)
         Me.Controls.Add(Me.Accounts)
         Me.Controls.Add(Me.Logs)
         Me.Controls.Add(Me.History)
@@ -350,4 +363,5 @@ Partial Class SuperAdmin
     Friend WithEvents pbLogo As PictureBox
     Friend WithEvents Logs As Button
     Friend WithEvents Accounts As Button
+    Friend WithEvents Config As Button
 End Class

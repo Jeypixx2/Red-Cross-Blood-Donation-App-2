@@ -44,7 +44,7 @@ Public Class SuperAdmin_Access
                 If count > 0 Then
                     ' Login successful
                     MessageBox.Show("Login successful!", "Welcome", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                    Admin_Dashboard.Show() ' Show Admin Dashboard
+                    SuperAdmin.Show() ' Show Admin Dashboard
                     Me.Hide() ' Hide Login Form
                 Else
                     ' Login failed
