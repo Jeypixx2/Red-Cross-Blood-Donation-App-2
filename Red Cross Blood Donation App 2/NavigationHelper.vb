@@ -11,4 +11,11 @@
             MessageBox.Show("No previous form found!", "Navigation", MessageBoxButtons.OK, MessageBoxIcon.Information)
         End If
     End Sub
+
+    ' Function to open a new form dynamically
+    Public Sub OpenNewForm(currentForm As Form, newForm As Form)
+        FormHistory.Push(currentForm) ' Store the current form before navigating
+        newForm.Show()
+        currentForm.Hide()
+    End Sub
 End Module
