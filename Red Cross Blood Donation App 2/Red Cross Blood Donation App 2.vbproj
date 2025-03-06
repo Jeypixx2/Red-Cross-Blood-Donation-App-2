@@ -249,7 +249,7 @@
     <Compile Include="Blood_Inventory_Report.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="CongifReader.vb" />
+    <Compile Include="ConfigReader.vb" />
     <Compile Include="CreateAdminAccount.Designer.vb">
       <DependentUpon>CreateAdminAccount.vb</DependentUpon>
     </Compile>
