@@ -1,15 +1,15 @@
 ﻿Imports MySql.Data.MySqlClient
 
 Public Class SuperAdmin_Access
-    Private Sub Admin_Access_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Private Sub SuperAdmin_Access_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         ' Check if the admin_account table is empty
-        Dim query As String = "SELECT COUNT(*) FROM accounts"
+        Dim query As String = "SELECT COUNT(*) FROM accountssuperadmin"
         Try
             readQuery(query)
             If cmdRead.Read() AndAlso cmdRead.GetInt32(0) = 0 Then
                 createAcc.Visible = True ' Show "Create Account" label if table is empty
             Else
-                createAcc.Visible = True ' Hide "Create Account" label if table has records
+                createAcc.Visible = False ' Hide "Create Account" label if table has records
             End If
         Catch ex As Exception
             MessageBox.Show($"Error loading admin_account: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -58,7 +58,6 @@ Public Class SuperAdmin_Access
             conn?.Close()
         End Try
     End Sub
-
 
     Private Sub createAcc_Click(sender As Object, e As EventArgs) Handles createAcc.Click
         CreateSuperAdminAccount.Show()
