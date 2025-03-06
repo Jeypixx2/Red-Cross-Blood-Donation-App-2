@@ -1,7 +1,7 @@
 ﻿Imports System.Windows.Forms.VisualStyles.VisualStyleElement
 Imports MySql.Data.MySqlClient
 
-Public Class SuperAdmin
+Public Class SuperAdmin_Dashboard
     Private sampleData As DataTable
     Private isDailyView As Boolean ' Flag to determine the current view
     Public currentTable As String ' Variable to track the active table (donors, donation, eligibility)
@@ -440,9 +440,17 @@ Public Class SuperAdmin
         End Try
     End Sub
 
+
+    ' Set config
     Private Sub Config_Click_1(sender As Object, e As EventArgs) Handles Config.Click
         SetConfig.Show()
     End Sub
 
+    Private Sub New_Donor_Click(sender As Object, e As EventArgs) Handles New_Donor.Click
+        User_Status.Show()
+    End Sub
 
+    Private Sub New_Donation_Click(sender As Object, e As EventArgs) Handles New_Donation.Click
+        User_Status.Show()
+    End Sub
 End Class

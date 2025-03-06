@@ -56,8 +56,6 @@ Public Class CreateAdminAccount
         End Try
     End Sub
 
-
-
     ' Event handler for the "Show Password" button
     Private Sub btnShowPassword_Click(sender As Object, e As EventArgs) Handles btnShowPassword.Click
         ' Toggle password visibility
@@ -67,4 +65,5 @@ Public Class CreateAdminAccount
         ' Update button text or icon based on visibility
         btnShowPassword.Text = If(isPasswordVisible, "Hide", "Show")
     End Sub
+
 End Class
