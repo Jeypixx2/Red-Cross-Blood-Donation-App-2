@@ -324,7 +324,7 @@ Public Class Admin_Dashboard
     End Sub
 
     Private Sub back_Click(sender As Object, e As EventArgs) Handles back.Click
-        OpenNewForm(Me, New User_Status())
+        Start.Show()
         Me.Hide()
     End Sub
 
