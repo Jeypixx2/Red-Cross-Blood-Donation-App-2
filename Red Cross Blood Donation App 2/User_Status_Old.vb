@@ -92,7 +92,7 @@ Public Class User_Status_Old
     End Function
 
     Private Sub Back_Click(sender As Object, e As EventArgs) Handles Back.Click
-        Admin_Dashboard.Show()
+        GoBack(Me)
         Me.Hide()
     End Sub
 
@@ -101,7 +101,4 @@ Public Class User_Status_Old
         modDB.openConn("redcrossdb")
     End Sub
 
-    Private Sub Panel1_Paint(sender As Object, e As PaintEventArgs) Handles Panel1.Paint
-
-    End Sub
 End Class
