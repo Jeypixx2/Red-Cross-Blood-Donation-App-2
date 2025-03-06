@@ -332,6 +332,7 @@
     <Compile Include="Donor_Registration_Report.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="NavigationHelper.vb" />
     <Compile Include="SetConfig.Designer.vb">
       <DependentUpon>SetConfig.vb</DependentUpon>
     </Compile>
