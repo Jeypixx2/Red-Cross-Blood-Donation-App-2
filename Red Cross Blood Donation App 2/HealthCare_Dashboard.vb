@@ -24,101 +24,119 @@ Public Class HealthCare_Dashboard
     Private Sub HealthCare_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         Try
-            If chartConnection.State = ConnectionState.Closed Then
-                chartConnection.Open()
-            End If
+            modDB.openConn("redcrossdb")
 
-            LoadChart1()
-            LoadChart2()
+            ' Set default date range (Last 30 days)
+            dtpFrom.Value = DateTime.Today.AddDays(-30)
+            dtpTo.Value = DateTime.Today
+
+            ' Load charts with the default date range
+            LoadChart1(dtpFrom.Value, dtpTo.Value)
+            LoadChart2(dtpFrom.Value, dtpTo.Value)
+
+            Doublebuffer.EnableDoubleBuffering(DataGridView1)
+            ShowDataForDate(DateTime.Today)
 
         Catch ex As MySqlException
             MessageBox.Show($"Connection failed: {ex.Message}", "Connection Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
         MonthCalendar1.Visible = False
     End Sub
-
-    Private Sub LoadChart1()
+    Private Sub LoadChart1(startDate As Date, endDate As Date)
         Try
-            Chart1.Series.Clear()
-            Chart1.ChartAreas.Clear()
+            Bar_Graph.Series.Clear()
+            Bar_Graph.ChartAreas.Clear()
 
             Dim chartArea As New ChartArea("BloodTypesArea")
-            Chart1.ChartAreas.Add(chartArea)
+            Bar_Graph.ChartAreas.Add(chartArea)
 
-            Dim query As String = "SELECT bloodtype, COUNT(*) AS donors_count FROM donors GROUP BY bloodtype"
-            Dim da As New MySqlDataAdapter(query, chartConnection)
-            Dim ds As New DataSet
-            da.Fill(ds, "Blood Type")
+            ' Query to filter donors within the selected date range
+            Dim query As String = "
+            SELECT bloodtype, COUNT(*) AS donors_count 
+            FROM donors 
+            WHERE RegDate BETWEEN @startDate AND @endDate
+            GROUP BY bloodtype"
 
-            If ds.Tables("Blood Type").Rows.Count = 0 Then
-                MessageBox.Show("No data available for Chart1.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                Return
+            Dim ds As New DataSet()
+            Dim da As New MySqlDataAdapter(query, modDB.conn)
+
+            da.SelectCommand.Parameters.AddWithValue("@startDate", startDate.ToString("yyyy-MM-dd"))
+            da.SelectCommand.Parameters.AddWithValue("@endDate", endDate.ToString("yyyy-MM-dd"))
+
+            If modDB.conn.State = ConnectionState.Closed Then
+                modDB.conn.Open()
             End If
+
+            da.Fill(ds, "Blood Type")
+            modDB.conn.Close()
+
 
             Dim series As New Series("Blood Type")
             series.ChartType = SeriesChartType.Bar
             series.XValueMember = "bloodtype"
             series.YValueMembers = "donors_count"
             series.IsValueShownAsLabel = True
-            Chart1.DataSource = ds.Tables("Blood Type")
-            Chart1.Series.Add(series)
+
+            Bar_Graph.DataSource = ds.Tables("Blood Type")
+            Bar_Graph.Series.Add(series)
 
         Catch ex As Exception
             MessageBox.Show($"Error loading Chart1: {ex.Message}", "Chart Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
     End Sub
 
-    Private Sub LoadChart2()
+    Private Sub LoadChart2(startDate As Date, endDate As Date)
         Try
-            Chart2.Series.Clear()
-            Chart2.ChartAreas.Clear()
-            Chart2.Legends.Clear()
+            Line_Chart.Series.Clear()
+            Line_Chart.ChartAreas.Clear()
+            Line_Chart.Legends.Clear()
 
             Dim chartArea As New ChartArea("DonationsArea")
-            With chartArea
-                .AxisX.Title = "Month"
-                .AxisX.Interval = 1
-                .AxisX.LabelStyle.Angle = 45
-                .AxisY.Title = "Total Donations"
-                .AxisY.MajorGrid.LineColor = Color.LightGray
-            End With
-            Chart2.ChartAreas.Add(chartArea)
+            chartArea.AxisX.Title = "Month"
+            chartArea.AxisX.Interval = 1
+            chartArea.AxisY.Title = "Total Donations"
+            chartArea.AxisY.MajorGrid.LineColor = Color.LightGray
+            Line_Chart.ChartAreas.Add(chartArea)
 
+            ' Query to filter donation data based on date range
             Dim query As String = "
-                SELECT 
-                    YEAR(DonationDate) AS DonationYear, 
-                    MONTHNAME(DonationDate) AS DonationMonth, 
-                    COUNT(*) AS TotalDonations
-                FROM Donation
-                GROUP BY YEAR(DonationDate), MONTH(DonationDate)
-                ORDER BY YEAR(DonationDate), MONTH(DonationDate);"
+            SELECT 
+                YEAR(DonationDate) AS DonationYear, 
+                MONTHNAME(DonationDate) AS DonationMonth, 
+                COUNT(*) AS TotalDonations
+            FROM Donation
+            WHERE DonationDate BETWEEN @startDate AND @endDate
+            GROUP BY YEAR(DonationDate), MONTH(DonationDate)
+            ORDER BY YEAR(DonationDate), MONTH(DonationDate);"
 
-            Dim da As New MySqlDataAdapter(query, chartConnection)
             Dim ds As New DataSet()
-            da.Fill(ds, "Monthly Donations")
+            Dim da As New MySqlDataAdapter(query, modDB.conn)
 
-            If ds.Tables("Monthly Donations").Rows.Count = 0 Then
-                MessageBox.Show("No data available for Chart2.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                Return
+            da.SelectCommand.Parameters.AddWithValue("@startDate", startDate.ToString("yyyy-MM-dd"))
+            da.SelectCommand.Parameters.AddWithValue("@endDate", endDate.ToString("yyyy-MM-dd"))
+
+            If modDB.conn.State = ConnectionState.Closed Then
+                modDB.conn.Open()
             End If
 
+            da.Fill(ds, "Monthly Donations")
+            modDB.conn.Close()
+
+
+
             Dim series As New Series("Monthly Donations")
-            With series
-                .ChartType = SeriesChartType.Line
-                .XValueMember = "DonationMonth"
-                .YValueMembers = "TotalDonations"
-                .IsValueShownAsLabel = True
-                .LabelForeColor = Color.Black
-                .BorderWidth = 2
-                .Color = Color.DarkGreen
-            End With
-            Chart2.DataSource = ds.Tables("Monthly Donations")
-            Chart2.Series.Add(series)
+            series.ChartType = SeriesChartType.Line
+            series.XValueMember = "DonationMonth"
+            series.YValueMembers = "TotalDonations"
+            series.IsValueShownAsLabel = True
+            series.Color = Color.DarkGreen
+
+            Line_Chart.DataSource = ds.Tables("Monthly Donations")
+            Line_Chart.Series.Add(series)
 
             Dim legend As New Legend("Monthly Donations Legend")
             legend.Docking = Docking.Top
-            legend.Alignment = StringAlignment.Center
-            Chart2.Legends.Add(legend)
+            Line_Chart.Legends.Add(legend)
 
         Catch ex As Exception
             MessageBox.Show($"Error loading Chart2: {ex.Message}", "Chart Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -228,10 +246,23 @@ Public Class HealthCare_Dashboard
         Dim table As New DataTable()
         Dim connection As MySqlConnection = modDB.conn
         Try
-            Using cmd As New MySqlCommand(query, connection)
+            ' Ensure the connection is open
+            If modDB.conn.State = ConnectionState.Closed Then
+                modDB.UpdateConnectionString()
+            End If
+
+            ' Use the shared connection
+            Using cmd As New MySqlCommand(query, modDB.conn)
+                If modDB.conn.State = ConnectionState.Closed Then
+                    modDB.conn.Open()
+                End If
+
+                ' Add parameters to the SQL command
                 For i As Integer = 0 To parameters.Length - 1
                     cmd.Parameters.AddWithValue($"@param{i}", parameters(i))
                 Next
+
+                ' Execute the command
                 Using reader As MySqlDataReader = cmd.ExecuteReader()
                     table.Load(reader)
                 End Using
@@ -543,4 +574,26 @@ Public Class HealthCare_Dashboard
     Private Sub DataGridView1_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles DataGridView1.CellContentClick
 
     End Sub
+
+    Private Sub dtpFrom_ValueChanged(sender As Object, e As EventArgs) Handles dtpFrom.ValueChanged
+
+    End Sub
+
+    Private Sub Label2_Click(sender As Object, e As EventArgs) Handles Label2.Click
+
+    End Sub
+
+    Private Sub btnFilterCharts_Click(sender As Object, e As EventArgs) Handles btnFilterCharts.Click
+        Dim startDate As Date = dtpFrom.Value
+        Dim endDate As Date = dtpTo.Value
+
+        If startDate > endDate Then
+            MessageBox.Show("Start date cannot be later than end date.", "Invalid Date Range", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            Return
+        End If
+
+        LoadChart1(startDate, endDate)
+        LoadChart2(startDate, endDate)
+    End Sub
+
 End Class

@@ -11,18 +11,20 @@ Public Class Admin_Dashboard
     Private Sub Admin_Dashboard_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Dim screenWidth As Integer = Screen.PrimaryScreen.Bounds.Width
         Dim screenHeight As Integer = Screen.PrimaryScreen.Bounds.Height
-        Me.Width = screenWidth * 0.8 ' 80% of screen width
-        Me.Height = screenHeight * 0.8 ' 80% of screen height
+        Me.Width = screenWidth * 0.8
+        Me.Height = screenHeight * 0.8
 
         Try
-            ' Ensure the connection is open using the modDB method
             modDB.openConn("redcrossdb")
 
-            ' Load charts and data
-            LoadChart1()
-            LoadChart2()
+            ' Set default date range (Last 30 days)
+            dtpFrom.Value = DateTime.Today.AddDays(-30)
+            dtpTo.Value = DateTime.Today
 
-            ' Show data for the current date (default view)
+            ' Load charts with the default date range
+            LoadChart1(dtpFrom.Value, dtpTo.Value)
+            LoadChart2(dtpFrom.Value, dtpTo.Value)
+
             Doublebuffer.EnableDoubleBuffering(DataGridView1)
             ShowDataForDate(DateTime.Today)
 
@@ -32,7 +34,8 @@ Public Class Admin_Dashboard
     End Sub
 
 
-    Private Sub LoadChart1()
+
+    Private Sub LoadChart1(startDate As Date, endDate As Date)
         Try
             Bar_Graph.Series.Clear()
             Bar_Graph.ChartAreas.Clear()
@@ -40,34 +43,33 @@ Public Class Admin_Dashboard
             Dim chartArea As New ChartArea("BloodTypesArea")
             Bar_Graph.ChartAreas.Add(chartArea)
 
-            ' Query to get donor count per blood type
-            Dim query As String = "SELECT bloodtype, COUNT(*) AS donors_count FROM donors GROUP BY bloodtype"
+            ' Query to filter donors within the selected date range
+            Dim query As String = "
+            SELECT bloodtype, COUNT(*) AS donors_count 
+            FROM donors 
+            WHERE RegDate BETWEEN @startDate AND @endDate
+            GROUP BY bloodtype"
 
-            ' Use MySqlDataAdapter to populate DataSet
             Dim ds As New DataSet()
             Dim da As New MySqlDataAdapter(query, modDB.conn)
 
-            ' Open the connection
+            da.SelectCommand.Parameters.AddWithValue("@startDate", startDate.ToString("yyyy-MM-dd"))
+            da.SelectCommand.Parameters.AddWithValue("@endDate", endDate.ToString("yyyy-MM-dd"))
+
             If modDB.conn.State = ConnectionState.Closed Then
                 modDB.conn.Open()
             End If
 
-            ' Fill the dataset with data
             da.Fill(ds, "Blood Type")
-
-            ' Ensure the connection is closed after use
             modDB.conn.Close()
 
-            If ds.Tables("Blood Type").Rows.Count = 0 Then
-                MessageBox.Show("No data available for Chart1.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                Return
-            End If
 
             Dim series As New Series("Blood Type")
             series.ChartType = SeriesChartType.Bar
             series.XValueMember = "bloodtype"
             series.YValueMembers = "donors_count"
             series.IsValueShownAsLabel = True
+
             Bar_Graph.DataSource = ds.Tables("Blood Type")
             Bar_Graph.Series.Add(series)
 
@@ -76,82 +78,65 @@ Public Class Admin_Dashboard
         End Try
     End Sub
 
-    Private Sub LoadChart2()
+
+    Private Sub LoadChart2(startDate As Date, endDate As Date)
         Try
-            ' Clear existing chart data, chart areas, and legends
             Line_Chart.Series.Clear()
             Line_Chart.ChartAreas.Clear()
             Line_Chart.Legends.Clear()
 
-            ' Add a new chart area for donations
             Dim chartArea As New ChartArea("DonationsArea")
-            With chartArea
-                .AxisX.Title = "Month"
-                .AxisX.Interval = 1
-                .AxisX.LabelStyle.Angle = 45
-                .AxisY.Title = "Total Donations"
-                .AxisY.MajorGrid.LineColor = Color.LightGray
-            End With
+            chartArea.AxisX.Title = "Month"
+            chartArea.AxisX.Interval = 1
+            chartArea.AxisY.Title = "Total Donations"
+            chartArea.AxisY.MajorGrid.LineColor = Color.LightGray
             Line_Chart.ChartAreas.Add(chartArea)
 
-            ' Query to fetch monthly donation data
+            ' Query to filter donation data based on date range
             Dim query As String = "
-        SELECT 
-            YEAR(DonationDate) AS DonationYear, 
-            MONTHNAME(DonationDate) AS DonationMonth, 
-            COUNT(*) AS TotalDonations
-        FROM Donation
-        GROUP BY YEAR(DonationDate), MONTH(DonationDate)
-        ORDER BY YEAR(DonationDate), MONTH(DonationDate);"
+            SELECT 
+                YEAR(DonationDate) AS DonationYear, 
+                MONTHNAME(DonationDate) AS DonationMonth, 
+                COUNT(*) AS TotalDonations
+            FROM Donation
+            WHERE DonationDate BETWEEN @startDate AND @endDate
+            GROUP BY YEAR(DonationDate), MONTH(DonationDate)
+            ORDER BY YEAR(DonationDate), MONTH(DonationDate);"
 
-            ' Use MySqlDataAdapter to populate DataSet
             Dim ds As New DataSet()
             Dim da As New MySqlDataAdapter(query, modDB.conn)
 
-            ' Open the connection
+            da.SelectCommand.Parameters.AddWithValue("@startDate", startDate.ToString("yyyy-MM-dd"))
+            da.SelectCommand.Parameters.AddWithValue("@endDate", endDate.ToString("yyyy-MM-dd"))
+
             If modDB.conn.State = ConnectionState.Closed Then
                 modDB.conn.Open()
             End If
 
-            ' Fill the dataset with data
             da.Fill(ds, "Monthly Donations")
-
-            ' Ensure the connection is closed after use
             modDB.conn.Close()
 
-            ' Check if any data was retrieved
-            If ds.Tables("Monthly Donations").Rows.Count = 0 Then
-                MessageBox.Show("No data available for Chart2.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                Return
-            End If
 
-            ' Create and configure the chart series
+
             Dim series As New Series("Monthly Donations")
-            With series
-                .ChartType = SeriesChartType.Line
-                .XValueMember = "DonationMonth"
-                .YValueMembers = "TotalDonations"
-                .IsValueShownAsLabel = True
-                .LabelForeColor = Color.Black
-                .BorderWidth = 2
-                .Color = Color.DarkGreen
-            End With
+            series.ChartType = SeriesChartType.Line
+            series.XValueMember = "DonationMonth"
+            series.YValueMembers = "TotalDonations"
+            series.IsValueShownAsLabel = True
+            series.Color = Color.DarkGreen
 
-            ' Set the chart data source and add the series to the chart
             Line_Chart.DataSource = ds.Tables("Monthly Donations")
             Line_Chart.Series.Add(series)
 
-            ' Create and configure the chart legend
             Dim legend As New Legend("Monthly Donations Legend")
             legend.Docking = Docking.Top
-            legend.Alignment = StringAlignment.Center
             Line_Chart.Legends.Add(legend)
 
         Catch ex As Exception
-            ' Show an error message if an exception occurs
             MessageBox.Show($"Error loading Chart2: {ex.Message}", "Chart Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
     End Sub
+
 
 
 
@@ -293,21 +278,18 @@ Public Class Admin_Dashboard
         End If
     End Sub
 
-    ' Show the ComboBox for month selection
     Private Sub Button7_Click(sender As Object, e As EventArgs) Handles Monthly.Click
         PopulateMonths()
         MonthCalendar1.Visible = False
         ComboBox1.Visible = True
     End Sub
 
-    ' Load data for the selected month (only date part, no time)
     Private Sub ComboBox1_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ComboBox1.SelectedIndexChanged
         Dim selectedMonth As Integer = ComboBox1.SelectedIndex + 1
         ShowDataForMonth(selectedMonth)
         ComboBox1.Visible = False
     End Sub
 
-    ' Button handlers for other actions (Inventory, Donor, User)
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Inventory.Click
         Admin_Inventory.Show()
         Me.Hide()
@@ -351,4 +333,30 @@ Public Class Admin_Dashboard
     Private Sub Bar_Graph_Click(sender As Object, e As EventArgs) Handles Bar_Graph.Click
 
     End Sub
+
+    Private Sub Line_Chart_Click(sender As Object, e As EventArgs) Handles Line_Chart.Click
+
+    End Sub
+
+    Private Sub dtpFrom_ValueChanged(sender As Object, e As EventArgs) Handles dtpFrom.ValueChanged
+
+    End Sub
+
+    Private Sub Label2_Click(sender As Object, e As EventArgs) Handles Label2.Click
+
+    End Sub
+
+    Private Sub btnFilterCharts_Click(sender As Object, e As EventArgs) Handles btnFilterCharts.Click
+        Dim startDate As Date = dtpFrom.Value
+        Dim endDate As Date = dtpTo.Value
+
+        If startDate > endDate Then
+            MessageBox.Show("Start date cannot be later than end date.", "Invalid Date Range", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            Return
+        End If
+
+        LoadChart1(startDate, endDate)
+        LoadChart2(startDate, endDate)
+    End Sub
+
 End Class

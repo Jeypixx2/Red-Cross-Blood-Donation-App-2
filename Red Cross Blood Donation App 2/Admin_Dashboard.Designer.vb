@@ -22,12 +22,12 @@ Partial Class Admin_Dashboard
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Dim ChartArea1 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
-        Dim Legend1 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
-        Dim Series1 As System.Windows.Forms.DataVisualization.Charting.Series = New System.Windows.Forms.DataVisualization.Charting.Series()
-        Dim ChartArea2 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
-        Dim Legend2 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
-        Dim Series2 As System.Windows.Forms.DataVisualization.Charting.Series = New System.Windows.Forms.DataVisualization.Charting.Series()
+        Dim ChartArea5 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
+        Dim Legend5 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
+        Dim Series5 As System.Windows.Forms.DataVisualization.Charting.Series = New System.Windows.Forms.DataVisualization.Charting.Series()
+        Dim ChartArea6 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
+        Dim Legend6 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
+        Dim Series6 As System.Windows.Forms.DataVisualization.Charting.Series = New System.Windows.Forms.DataVisualization.Charting.Series()
         Me.Daily = New System.Windows.Forms.Button()
         Me.Weekly = New System.Windows.Forms.Button()
         Me.Monthly = New System.Windows.Forms.Button()
@@ -47,6 +47,11 @@ Partial Class Admin_Dashboard
         Me.pbLogo = New System.Windows.Forms.PictureBox()
         Me.Bar_Graph = New System.Windows.Forms.DataVisualization.Charting.Chart()
         Me.Line_Chart = New System.Windows.Forms.DataVisualization.Charting.Chart()
+        Me.dtpFrom = New System.Windows.Forms.DateTimePicker()
+        Me.dtpTo = New System.Windows.Forms.DateTimePicker()
+        Me.btnFilterCharts = New System.Windows.Forms.Button()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.Label3 = New System.Windows.Forms.Label()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel1.SuspendLayout()
         CType(Me.pbLogo, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -127,7 +132,7 @@ Partial Class Admin_Dashboard
         Me.DataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.DataGridView1.Location = New System.Drawing.Point(12, 121)
         Me.DataGridView1.Name = "DataGridView1"
-        Me.DataGridView1.Size = New System.Drawing.Size(1174, 357)
+        Me.DataGridView1.Size = New System.Drawing.Size(1193, 319)
         Me.DataGridView1.TabIndex = 8
         '
         'MonthCalendar1
@@ -248,16 +253,16 @@ Partial Class Admin_Dashboard
         Me.Bar_Graph.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Bar_Graph.BackColor = System.Drawing.Color.MistyRose
-        ChartArea1.Name = "ChartArea1"
-        Me.Bar_Graph.ChartAreas.Add(ChartArea1)
-        Legend1.Name = "Legend1"
-        Me.Bar_Graph.Legends.Add(Legend1)
+        ChartArea5.Name = "ChartArea1"
+        Me.Bar_Graph.ChartAreas.Add(ChartArea5)
+        Legend5.Name = "Legend1"
+        Me.Bar_Graph.Legends.Add(Legend5)
         Me.Bar_Graph.Location = New System.Drawing.Point(2, 705)
         Me.Bar_Graph.Name = "Bar_Graph"
-        Series1.ChartArea = "ChartArea1"
-        Series1.Legend = "Legend1"
-        Series1.Name = "Series1"
-        Me.Bar_Graph.Series.Add(Series1)
+        Series5.ChartArea = "ChartArea1"
+        Series5.Legend = "Legend1"
+        Series5.Name = "Series1"
+        Me.Bar_Graph.Series.Add(Series5)
         Me.Bar_Graph.Size = New System.Drawing.Size(1234, 176)
         Me.Bar_Graph.TabIndex = 25
         Me.Bar_Graph.Text = "Chart1"
@@ -267,19 +272,63 @@ Partial Class Admin_Dashboard
         Me.Line_Chart.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Line_Chart.BackColor = System.Drawing.Color.MistyRose
-        ChartArea2.Name = "ChartArea1"
-        Me.Line_Chart.ChartAreas.Add(ChartArea2)
-        Legend2.Name = "Legend1"
-        Me.Line_Chart.Legends.Add(Legend2)
+        ChartArea6.Name = "ChartArea1"
+        Me.Line_Chart.ChartAreas.Add(ChartArea6)
+        Legend6.Name = "Legend1"
+        Me.Line_Chart.Legends.Add(Legend6)
         Me.Line_Chart.Location = New System.Drawing.Point(2, 484)
         Me.Line_Chart.Name = "Line_Chart"
-        Series2.ChartArea = "ChartArea1"
-        Series2.Legend = "Legend1"
-        Series2.Name = "Series1"
-        Me.Line_Chart.Series.Add(Series2)
+        Series6.ChartArea = "ChartArea1"
+        Series6.Legend = "Legend1"
+        Series6.Name = "Series1"
+        Me.Line_Chart.Series.Add(Series6)
         Me.Line_Chart.Size = New System.Drawing.Size(1234, 206)
         Me.Line_Chart.TabIndex = 26
         Me.Line_Chart.Text = "Chart2"
+        '
+        'dtpFrom
+        '
+        Me.dtpFrom.Location = New System.Drawing.Point(383, 455)
+        Me.dtpFrom.Name = "dtpFrom"
+        Me.dtpFrom.Size = New System.Drawing.Size(108, 20)
+        Me.dtpFrom.TabIndex = 27
+        '
+        'dtpTo
+        '
+        Me.dtpTo.Location = New System.Drawing.Point(606, 456)
+        Me.dtpTo.Name = "dtpTo"
+        Me.dtpTo.Size = New System.Drawing.Size(108, 20)
+        Me.dtpTo.TabIndex = 28
+        '
+        'btnFilterCharts
+        '
+        Me.btnFilterCharts.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnFilterCharts.Location = New System.Drawing.Point(751, 447)
+        Me.btnFilterCharts.Name = "btnFilterCharts"
+        Me.btnFilterCharts.Size = New System.Drawing.Size(97, 35)
+        Me.btnFilterCharts.TabIndex = 29
+        Me.btnFilterCharts.Text = "Filter"
+        Me.btnFilterCharts.UseVisualStyleBackColor = True
+        '
+        'Label2
+        '
+        Me.Label2.AutoSize = True
+        Me.Label2.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label2.Location = New System.Drawing.Point(331, 455)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(46, 20)
+        Me.Label2.TabIndex = 30
+        Me.Label2.Text = "From"
+        '
+        'Label3
+        '
+        Me.Label3.AutoSize = True
+        Me.Label3.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label3.Location = New System.Drawing.Point(573, 456)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(27, 20)
+        Me.Label3.TabIndex = 31
+        Me.Label3.Text = "To"
         '
         'Admin_Dashboard
         '
@@ -287,6 +336,11 @@ Partial Class Admin_Dashboard
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.SystemColors.ButtonHighlight
         Me.ClientSize = New System.Drawing.Size(1444, 881)
+        Me.Controls.Add(Me.Label3)
+        Me.Controls.Add(Me.Label2)
+        Me.Controls.Add(Me.btnFilterCharts)
+        Me.Controls.Add(Me.dtpTo)
+        Me.Controls.Add(Me.dtpFrom)
         Me.Controls.Add(Me.Line_Chart)
         Me.Controls.Add(Me.Bar_Graph)
         Me.Controls.Add(Me.Panel1)
@@ -310,6 +364,7 @@ Partial Class Admin_Dashboard
         CType(Me.Bar_Graph, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.Line_Chart, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
+        Me.PerformLayout()
 
     End Sub
 
@@ -332,4 +387,9 @@ Partial Class Admin_Dashboard
     Friend WithEvents Label1 As Label
     Friend WithEvents Bar_Graph As DataVisualization.Charting.Chart
     Friend WithEvents Line_Chart As DataVisualization.Charting.Chart
+    Friend WithEvents dtpFrom As DateTimePicker
+    Friend WithEvents dtpTo As DateTimePicker
+    Friend WithEvents btnFilterCharts As Button
+    Friend WithEvents Label2 As Label
+    Friend WithEvents Label3 As Label
 End Class
