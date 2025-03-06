@@ -44,6 +44,7 @@ Partial Class HealthCare_Dashboard
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.btnFilterCharts = New System.Windows.Forms.Button()
+        Me.back = New System.Windows.Forms.Button()
         CType(Me.pbLogo, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.Bar_Graph, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -225,17 +226,17 @@ Partial Class HealthCare_Dashboard
         Me.btnFilterCharts.Text = "Filter"
         Me.btnFilterCharts.UseVisualStyleBackColor = True
         '
-        'Back
+        'back
         '
-        Me.Back.BackColor = System.Drawing.Color.FromArgb(CType(CType(207, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(6, Byte), Integer))
-        Me.Back.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold)
-        Me.Back.ForeColor = System.Drawing.SystemColors.ControlLight
-        Me.Back.Location = New System.Drawing.Point(1229, 109)
-        Me.Back.Name = "Back"
-        Me.Back.Size = New System.Drawing.Size(129, 54)
-        Me.Back.TabIndex = 29
-        Me.Back.Text = "Back"
-        Me.Back.UseVisualStyleBackColor = False
+        Me.back.BackColor = System.Drawing.Color.Red
+        Me.back.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.back.ForeColor = System.Drawing.SystemColors.Control
+        Me.back.Location = New System.Drawing.Point(1227, 75)
+        Me.back.Name = "back"
+        Me.back.Size = New System.Drawing.Size(106, 51)
+        Me.back.TabIndex = 47
+        Me.back.Text = "Back"
+        Me.back.UseVisualStyleBackColor = False
         '
         'HealthCare_Dashboard
         '
@@ -243,6 +244,7 @@ Partial Class HealthCare_Dashboard
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.SystemColors.ButtonHighlight
         Me.ClientSize = New System.Drawing.Size(1444, 881)
+        Me.Controls.Add(Me.back)
         Me.Controls.Add(Me.btnFilterCharts)
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.Label1)
@@ -289,4 +291,5 @@ Partial Class HealthCare_Dashboard
     Friend WithEvents Label1 As Label
     Friend WithEvents Label2 As Label
     Friend WithEvents btnFilterCharts As Button
+    Friend WithEvents back As Button
 End Class

@@ -597,4 +597,8 @@ Public Class HealthCare_Dashboard
         LoadChart2(startDate, endDate)
     End Sub
 
+    Private Sub back_Click_1(sender As Object, e As EventArgs) Handles back.Click
+        Start.Show()
+        Me.Hide()
+    End Sub
 End Class
