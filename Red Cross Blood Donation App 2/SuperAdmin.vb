@@ -440,4 +440,7 @@ Public Class SuperAdmin
         End Try
     End Sub
 
+    Private Sub Config_Click_1(sender As Object, e As EventArgs) Handles Config.Click
+        SetConfig.Show()
+    End Sub
 End Class

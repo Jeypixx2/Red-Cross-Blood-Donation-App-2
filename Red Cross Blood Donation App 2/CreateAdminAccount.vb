@@ -1,6 +1,6 @@
 ﻿Imports MySql.Data.MySqlClient
 
-Public Class CreateAccountForm
+Public Class CreateAdminAccount
     ' Variable to track password visibility
     Private isPasswordVisible As Boolean = False
 

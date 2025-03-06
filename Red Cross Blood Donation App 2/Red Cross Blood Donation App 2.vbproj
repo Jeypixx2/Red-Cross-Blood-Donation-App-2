@@ -249,10 +249,17 @@
     <Compile Include="Blood_Inventory_Report.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="CreateAccountForm.Designer.vb">
-      <DependentUpon>CreateAccountForm.vb</DependentUpon>
+    <Compile Include="CongifReader.vb" />
+    <Compile Include="CreateAdminAccount.Designer.vb">
+      <DependentUpon>CreateAdminAccount.vb</DependentUpon>
     </Compile>
-    <Compile Include="CreateAccountForm.vb">
+    <Compile Include="CreateAdminAccount.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CreateSuperAdminAccount.Designer.vb">
+      <DependentUpon>CreateSuperAdminAccount.vb</DependentUpon>
+    </Compile>
+    <Compile Include="CreateSuperAdminAccount.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="DataSet1.Designer.vb">
@@ -323,6 +330,12 @@
       <DependentUpon>Donor_Registration_Report.vb</DependentUpon>
     </Compile>
     <Compile Include="Donor_Registration_Report.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SetConfig.Designer.vb">
+      <DependentUpon>SetConfig.vb</DependentUpon>
+    </Compile>
+    <Compile Include="SetConfig.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="SuperAdmin.Designer.vb">
@@ -420,8 +433,11 @@
       <DependentUpon>Blood_Inventory_Report.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Blood_Inven_Report.rdlc" />
-    <EmbeddedResource Include="CreateAccountForm.resx">
-      <DependentUpon>CreateAccountForm.vb</DependentUpon>
+    <EmbeddedResource Include="CreateAdminAccount.resx">
+      <DependentUpon>CreateAdminAccount.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CreateSuperAdminAccount.resx">
+      <DependentUpon>CreateSuperAdminAccount.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Donation_History_Report.resx">
       <DependentUpon>Donation_History_Report.vb</DependentUpon>
@@ -445,6 +461,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Eligibility_Checker_old.resx">
       <DependentUpon>Eligibility_Checker_old.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SetConfig.resx">
+      <DependentUpon>SetConfig.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SuperAdmin.resx">
       <DependentUpon>SuperAdmin.vb</DependentUpon>

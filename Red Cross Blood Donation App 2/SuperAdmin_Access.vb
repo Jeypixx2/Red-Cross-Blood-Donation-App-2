@@ -30,18 +30,10 @@ Public Class SuperAdmin_Access
             Exit Sub
         End If
 
-        ' Hardcoded check for SuperAdmin
-        If username = "admin" AndAlso password = "admin" Then
-            MessageBox.Show("SuperAdmin login successful!", "Welcome SuperAdmin", MessageBoxButtons.OK, MessageBoxIcon.Information)
-            SuperAdmin.Show() ' Show SuperAdmin Dashboard
-            Me.Hide() ' Hide Login Form
-            Exit Sub
-        End If
-
         ' Encrypt the entered password
         Dim encryptedPassword As String = Encrypt(password)
 
-        Dim query As String = "SELECT COUNT(*) FROM accounts WHERE username = @username AND password = @password"
+        Dim query As String = "SELECT COUNT(*) FROM accountssuperadmin WHERE username = @username AND password = @password"
         Try
             Using cmd As New MySqlCommand(query, conn)
                 cmd.Parameters.AddWithValue("@username", username)
@@ -52,7 +44,7 @@ Public Class SuperAdmin_Access
                 If count > 0 Then
                     ' Login successful
                     MessageBox.Show("Login successful!", "Welcome", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                    Admin_Dashboard.Show() ' Show Admin Dashboard
+                    SuperAdmin.Show() ' Show Admin Dashboard
                     Me.Hide() ' Hide Login Form
                 Else
                     ' Login failed
@@ -69,8 +61,7 @@ Public Class SuperAdmin_Access
 
 
     Private Sub createAcc_Click(sender As Object, e As EventArgs) Handles createAcc.Click
-        Dim createAccountForm As New CreateAccountForm()
-        createAccountForm.Show()
+        CreateSuperAdminAccount.Show()
         Me.Hide()
     End Sub
 

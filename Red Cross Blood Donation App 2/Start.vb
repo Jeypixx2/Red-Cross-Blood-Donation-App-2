@@ -165,4 +165,5 @@ INSERT INTO History (
             End Try
         End Using
     End Sub
+
 End Class
