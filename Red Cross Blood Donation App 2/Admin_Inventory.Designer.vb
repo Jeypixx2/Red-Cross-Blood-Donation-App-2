@@ -69,9 +69,9 @@ Partial Class Admin_Inventory
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.dgvInventory.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvInventory.Location = New System.Drawing.Point(12, 130)
+        Me.dgvInventory.Location = New System.Drawing.Point(12, 155)
         Me.dgvInventory.Name = "dgvInventory"
-        Me.dgvInventory.Size = New System.Drawing.Size(1227, 718)
+        Me.dgvInventory.Size = New System.Drawing.Size(1227, 699)
         Me.dgvInventory.TabIndex = 18
         '
         'EligibilityRecord

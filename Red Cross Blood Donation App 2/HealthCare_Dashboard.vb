@@ -371,18 +371,35 @@ Public Class HealthCare_Dashboard
     Private Function FilterDataBySearch(query As String, searchText As String) As DataTable
         Dim table As New DataTable()
         Dim connection As MySqlConnection = modDB.conn
+
         Try
+            ' Ensure the connection is open
+            If connection.State = ConnectionState.Closed Then
+                modDB.UpdateConnectionString() ' Ensure connection string is updated
+                connection.Open()
+            End If
+
             Using cmd As New MySqlCommand(query, connection)
                 cmd.Parameters.AddWithValue("@searchText", "%" & searchText & "%")
+
                 Using reader As MySqlDataReader = cmd.ExecuteReader()
                     table.Load(reader)
                 End Using
             End Using
+
         Catch ex As MySqlException
             MessageBox.Show($"An error occurred: {ex.Message}", "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+
+        Finally
+            ' Ensure the connection is closed properly to prevent memory leaks
+            If connection.State = ConnectionState.Open Then
+                connection.Close()
+            End If
         End Try
+
         Return table
     End Function
+
 
 
     Private Sub FetchIDs()
