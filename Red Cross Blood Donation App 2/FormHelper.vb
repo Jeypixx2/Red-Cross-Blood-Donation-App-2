@@ -107,9 +107,23 @@ Public Class FormHelper
 
         Dim bloodtypes As String() = {"A+", "B+", "AB+", "O+", "A-", "B-", "AB-", "O-"}
 
-        Dim collectionmethods As String() = {""}
+        Dim collectionmethods As String() = {"Venipuncture", "Apheresis", "Autologus", "Directed"}
 
+        Dim civilstatusOptions As String() = {"Single", "Married"}
 
+        Dim nationalityOptions As String() = {"Filipino"}
+
+        Dim occupationsOptions As String() = {"Doctor", "Engineer", "Teacher", "Nurse", "Software Developer", "Police Officer", "Firefighter", "Artist", "Mechanic", "Chef"}
+
+        Dim bagtypeOptions As String() = {"Single Bag", "Double Bag", "Triple Bag", "Quadruple Bag", "Aphresis"}
+
+        Dim companyhospitalnameOptions As String() = {"Leon Hernandez Hospital", "Provincial Hospital", "Lourdes Hospital", "New Doctor's Hospital"}
+
+        Dim personnelNameOptions As String() = {"Dr. Juan Dela Cruz", "Dr. Maria Santos", "Dr. Jose Gomez", "Dr. Ana Lopez", "Dr. Carlos Reyes"}
+
+        Dim retrievalPurposeOptions As String() = {"Patient Data Retrieval", "Blood Donation Records", "Medical History Review", "Donor Eligibility Check",
+            "Inventory Status Check", "Emergency Contact Lookup", "Medical Test Results", "Appointment Scheduling"
+        }
 
 
         Dim rand As New Random()
@@ -136,6 +150,9 @@ Public Class FormHelper
             End If
             Dim sex As String = If(rand.Next(2) = 0, "Male", "Female")
             Dim bloodType As String = bloodtypes(rand.Next(bloodtypes.Length))
+            Dim civilstatus As String = civilstatusOptions(rand.Next(civilstatusOptions.Length))
+            Dim nationality As String = nationalityOptions(rand.Next(nationalityOptions.Length))
+            Dim occupation As String = occupationsOptions(rand.Next(occupationsOptions.Length))
 
 
             ' Generate random details (eligibility)
@@ -157,26 +174,105 @@ Public Class FormHelper
 
             ' Generate random details (donation)
             Dim bloodID As Integer = i
-            Dim bloodTypeD As String = bloodType.TrimEnd("+"c, "-"c) ' Extract the blood type (A, B, AB, O)
+            Dim blood_group As String = bloodType.TrimEnd("+"c, "-"c) ' Extract the blood type (A, B, AB, O)
             Dim rhesusFactor As String = If(bloodType.EndsWith("+"), "Rh+", "Rh-") ' Extract the Rhesus factor
-            Dim collectionMethod As String = If(rand.Next(2) = 0, "Manual Collection", "Automatic Collection")
+            Dim collectionMethod As String = collectionmethods(rand.Next(collectionmethods.Length))
             Dim bloodVolume As Integer = New Integer() {200, 300, 400, 500, 600}(rand.Next(5))
             Dim donationType As String = New String() {"Whole Blood Donation", "Plasma Donation (Apheresis)", "Platelet Donation (Apheresis)", "Red Blood Cell Donation (Apheresis)", "Double Red Cell Donation", "Autologous Donation", "Directed Donation"}(rand.Next(7))
             Dim donationDate As DateTime = regDate.Date
             Dim donationTime As TimeSpan = regDate.TimeOfDay
             Dim randomDays As Integer = rand.Next(1, 31) ' Random number of days between 1 and 30
             Dim nextEligibilityDate As DateTime = regDate.AddMonths(3).AddDays(randomDays)
-            Dim numberOfUnits As Integer = rand.Next(1, 5) ' Random number of units between 1 and 4
             Dim expirationDate As DateTime = donationDate.AddDays(42)
+            Dim bloodComponent As String = ""
+            If donationType = "Whole Blood Donation" Then
+                bloodComponent = "Whole Blood"
+            ElseIf donationType = "Plasma Donation (Apheresis)" Then
+                bloodComponent = "Plasma"
+            ElseIf donationType = "Platelet Donation (Apheresis)" Then
+                bloodComponent = "Platelets"
+            ElseIf donationType = "Red Blood Cell Donation (Apheresis)" Or donationType = "Double Red Cell Donation" Then
+                bloodComponent = "Red Blood Cells"
+            ElseIf donationType = "Autologous Donation" Or donationType = "Directed Donation" Then
+                bloodComponent = "Depends on Patient Needs"
+            Else
+                bloodComponent = "Unknown"
+            End If
+
+            Dim compatibility As String = ""
+            If bloodType = "A+" Then
+                compatibility = "A+, AB+"
+            ElseIf bloodType = "A-" Then
+                compatibility = "A+, A-, AB+, AB-"
+            ElseIf bloodType = "B+" Then
+                compatibility = "B+, AB+"
+            ElseIf bloodType = "B-" Then
+                compatibility = "B+, B-, AB+, AB-"
+            ElseIf bloodType = "O+" Then
+                compatibility = "O+, A+, B+, AB+"
+            ElseIf bloodType = "O-" Then
+                compatibility = "All Blood Types"
+            ElseIf bloodType = "AB+" Then
+                compatibility = "AB+"
+            ElseIf bloodType = "AB-" Then
+                compatibility = "AB+, AB-"
+            Else
+                compatibility = "Unknown"
+            End If
+
+            Dim bagtype As String = bagtypeOptions(rand.Next(bagtypeOptions.Length))
+
+            Dim storagelocation As String = ""
+            If donationType = "Whole Blood Donation" Or donationType = "Red Blood Cell Donation (Apheresis)" Or donationType = "Double Red Cell Donation" Or donationType = "Autologous Donation" Then
+                storagelocation = "Refrigerated Storage"
+            ElseIf donationType = "Plasma Donation (Apheresis)" Then
+                storagelocation = "Frozen Storage"
+            ElseIf donationType = "Platelet Donation (Apheresis)" Then
+                storagelocation = "Platelet Storage"
+            ElseIf donationType = "Directed Donation" Then
+                storagelocation = "Standard Storage"
+            Else
+                storagelocation = "Unknown"
+            End If
+
+
+            ' Generate Random details (HealthProvider)
+            Dim retrieveID As Integer = i
+            Dim healthproviderID As Integer = i
+            Dim companyhospitalname As String = companyhospitalnameOptions(rand.Next(companyhospitalnameOptions.Length))
+            Dim personelID As Integer = i
+            Dim PersonelName As String = personnelNameOptions(rand.Next(personnelNameOptions.Length))
+            Dim PurposeofRetrieval As String = retrievalPurposeOptions(rand.Next(retrievalPurposeOptions.Length))
+            Dim prefixes As String() = {"091", "092", "093", "094", "095", "096", "097", "098", "099"}
+
+            ' Randomly select a prefix
+            Dim selectedPrefix As String = prefixes(rand.Next(prefixes.Length))
+
+            ' Generate the rest of the contact number (7 digits)
+            Dim contactNumber As String = selectedPrefix & rand.Next(1000000, 9999999).ToString()
+            Dim nameParts As String() = {"admin", "info", "support", "contact"}
+
+            ' Randomly select a hospital and an email name part
+            Dim selectedHospital As String = companyhospitalnameOptions(rand.Next(companyhospitalnameOptions.Length))
+            Dim namePart As String = nameParts(rand.Next(nameParts.Length))
+
+            ' Generate the email address based on the selected hospital
+            Dim emailAddress As String = namePart & "@" & selectedHospital.Replace(" ", "").ToLower() & ".com"
+            Dim retrieveDate As DateTime = regDate
+
+
 
             Dim connectionString As String = "Server=localhost;Database=redcrossdb;Uid=root;Pwd=;"
             Using connection As New MySqlConnection(connectionString)
+                connection.Open()
+                Dim transaction As MySqlTransaction = connection.BeginTransaction()
+
                 Try
-                    connection.Open()
+
 
                     ' Insert the new donor data
-                    Dim query As String = "INSERT INTO donors (LastName, FirstName, MiddleName, Baranggay, City, Province, DateofBirth, Age, Sex, BloodType, RegDate) " &
-                                  "VALUES (@LastName, @FirstName, @MiddleName, @Baranggay, @City, @Province, @DateOfBirth, @Age, @Sex, @BloodType, @RegDate)"
+                    Dim query As String = "INSERT INTO donors (LastName, FirstName, MiddleName, Baranggay, City, Province, DateofBirth, Age, Sex, BloodType, RegDate, CivilStatus, Nationality, Occupation) " &
+                                          "VALUES (@LastName, @FirstName, @MiddleName, @Baranggay, @City, @Province, @DateOfBirth, @Age, @Sex, @BloodType, @RegDate, @CivilStatus, @Nationality, @Occupation)"
                     Using cmd As New MySqlCommand(query, connection)
                         cmd.Parameters.AddWithValue("@LastName", lastName)
                         cmd.Parameters.AddWithValue("@FirstName", firstName)
@@ -189,15 +285,18 @@ Public Class FormHelper
                         cmd.Parameters.AddWithValue("@Sex", sex)
                         cmd.Parameters.AddWithValue("@BloodType", bloodType)
                         cmd.Parameters.AddWithValue("@RegDate", regDate)
+                        cmd.Parameters.AddWithValue("@CivilStatus", civilstatus)
+                        cmd.Parameters.AddWithValue("@Nationality", nationality)
+                        cmd.Parameters.AddWithValue("@Occupation", occupation)
 
                         cmd.ExecuteNonQuery()
                     End Using
 
                     ' Insert the eligibility data
                     Dim eligibilityQuery As String = "INSERT INTO eligibility (EligibilityID, DonorID, Weight, BloodPressure, Hemoglobin, ConditionCheck, ConditionType, " &
-                                             "Substance, SubstanceDate, TattooPiercing, TattooPiercingDate, Medication, MedicationDate, EligibilityStatus, EligibilityDate) " &
-                                             "VALUES (@EligibilityID, @DonorID, @Weight, @BloodPressure, @HemoglobinLevel, @ConditionCheck, @ConditionType, " &
-                                             "@SubstanceCheck, @SubstanceDate, @TattooCheck, @TattooDate, @MedicationCheck, @MedicationDate, @EligibilityStatus, @EligibilityDate)"
+                                                     "Substance, SubstanceDate, TattooPiercing, TattooPiercingDate, Medication, MedicationDate, EligibilityStatus, EligibilityDate) " &
+                                                     "VALUES (@EligibilityID, @DonorID, @Weight, @BloodPressure, @HemoglobinLevel, @ConditionCheck, @ConditionType, " &
+                                                     "@SubstanceCheck, @SubstanceDate, @TattooCheck, @TattooDate, @MedicationCheck, @MedicationDate, @EligibilityStatus, @EligibilityDate)"
                     Using cmdEligibility As New MySqlCommand(eligibilityQuery, connection)
                         cmdEligibility.Parameters.AddWithValue("@EligibilityID", eligiblityID)
                         cmdEligibility.Parameters.AddWithValue("@DonorID", donorID)
@@ -219,14 +318,14 @@ Public Class FormHelper
                     End Using
 
                     ' Insert the donation data
-                    Dim donationQuery As String = "INSERT INTO donation (BloodID, DonorID, BloodType, RhesusFactor, CollectionMethod, BloodVolume, DonationType, " &
-                               "DonationDate, DonationTime, NextEligibilityDate, Number_Of_Unit, Expiration_Date) " &
-                               "VALUES (@BloodID, @DonorID, @BloodType, @RhesusFactor, @CollectionMethod, @BloodVolume, @DonationType, " &
-                               "@DonationDate, @DonationTime, @NextEligibilityDate, @Number_Of_Unit, @Expiration_Date)"
+                    Dim donationQuery As String = "INSERT INTO donation (BloodID, DonorID, Blood_Group, RhesusFactor, CollectionMethod, BloodVolume, DonationType, " &
+                                                  "DonationDate, DonationTime, NextEligibilityDate, Expiration_Date, BloodComponent, Compatibility, BagType, StorageLocation) " &
+                                                  "VALUES (@BloodID, @DonorID, @Blood_Group, @RhesusFactor, @CollectionMethod, @BloodVolume, @DonationType, " &
+                                                  "@DonationDate, @DonationTime, @NextEligibilityDate, @Expiration_Date, @BloodComponent, @Compatibility, @BagType, @StorageLocation)"
                     Using cmdDonation As New MySqlCommand(donationQuery, connection)
                         cmdDonation.Parameters.AddWithValue("@BloodID", bloodID)
                         cmdDonation.Parameters.AddWithValue("@DonorID", donorID)
-                        cmdDonation.Parameters.AddWithValue("@BloodType", bloodTypeD)
+                        cmdDonation.Parameters.AddWithValue("@Blood_Group", blood_group)
                         cmdDonation.Parameters.AddWithValue("@RhesusFactor", rhesusFactor)
                         cmdDonation.Parameters.AddWithValue("@CollectionMethod", collectionMethod)
                         cmdDonation.Parameters.AddWithValue("@BloodVolume", bloodVolume)
@@ -234,29 +333,72 @@ Public Class FormHelper
                         cmdDonation.Parameters.AddWithValue("@DonationDate", donationDate)
                         cmdDonation.Parameters.AddWithValue("@DonationTime", donationTime)
                         cmdDonation.Parameters.AddWithValue("@NextEligibilityDate", nextEligibilityDate)
-                        cmdDonation.Parameters.AddWithValue("@Number_Of_Unit", numberOfUnits)
                         cmdDonation.Parameters.AddWithValue("@Expiration_Date", expirationDate)
+                        cmdDonation.Parameters.AddWithValue("@BloodComponent", bloodComponent)
+                        cmdDonation.Parameters.AddWithValue("@Compatibility", compatibility)
+                        cmdDonation.Parameters.AddWithValue("@BagType", bagtype)
+                        cmdDonation.Parameters.AddWithValue("@StorageLocation", storagelocation)
 
+                        ' Execute the donation query
                         cmdDonation.ExecuteNonQuery()
                     End Using
+
+                    ' Insert into healthprovider table
+                    Dim healthProviderQuery As String = "INSERT INTO healthprovider (RetrieveID, HealthProviderID, CompanyHospitalName, PersonnelID, PersonnelName, BloodID, LastName, FirstName, MiddleName, Blood_Group, RhesusFactor, DonationType, BloodVolume, RetrieveDate, PurposeOfRetrieval, ContactNo, EmailAdd) " &
+                                    "VALUES (@retrieveID, @healthproviderID, @companyhospitalname, @personelID, @personelName, @BloodID, @LastName, @FirstName, @MiddleName, @Blood_Group, @RhesusFactor, @DonationType, @BloodVolume, @RetrieveDate, @purposeOfRetrieval, @contactNumber, @EmailAdd)"
+
+                    Using cmdHealthProvider As New MySqlCommand(healthProviderQuery, connection)
+                        ' Add parameters for health provider details
+                        cmdHealthProvider.Parameters.AddWithValue("@retrieveID", retrieveID)
+                        cmdHealthProvider.Parameters.AddWithValue("@healthproviderID", healthproviderID)
+                        cmdHealthProvider.Parameters.AddWithValue("@companyhospitalname", companyhospitalname)
+                        cmdHealthProvider.Parameters.AddWithValue("@personelID", personelID)
+                        cmdHealthProvider.Parameters.AddWithValue("@personelName", PersonelName)
+                        cmdHealthProvider.Parameters.AddWithValue("@purposeOfRetrieval", PurposeofRetrieval)
+                        cmdHealthProvider.Parameters.AddWithValue("@contactNumber", contactNumber)
+                        cmdHealthProvider.Parameters.AddWithValue("@EmailAdd", emailAddress)
+                        cmdHealthProvider.Parameters.AddWithValue("@RetrieveDate", regDate)
+
+                        ' Add parameters for blood details
+                        cmdHealthProvider.Parameters.AddWithValue("@BloodID", bloodID)
+                        cmdHealthProvider.Parameters.AddWithValue("@LastName", lastName)
+                        cmdHealthProvider.Parameters.AddWithValue("@FirstName", firstName)
+                        cmdHealthProvider.Parameters.AddWithValue("@MiddleName", middleName)
+                        cmdHealthProvider.Parameters.AddWithValue("@Blood_Group", blood_group) ' Ensure this matches the variable name
+                        cmdHealthProvider.Parameters.AddWithValue("@RhesusFactor", rhesusFactor)
+                        cmdHealthProvider.Parameters.AddWithValue("@DonationType", donationType)
+                        cmdHealthProvider.Parameters.AddWithValue("@BloodVolume", bloodVolume)
+
+                        ' Execute the healthprovider query
+                        cmdHealthProvider.ExecuteNonQuery()
+                    End Using
+
+                    ' Your database operations here
+                    ' Commit the transaction
+                    transaction.Commit()
                 Catch ex As MySqlException
-                    MessageBox.Show("An error occurred: " & ex.Message)
+                    transaction.Rollback()
+                    MessageBox.Show("MySQL Error: " & ex.Message)
+                    Console.WriteLine("Error in transaction for donor ID: " & i)
                 Catch ex As Exception
-                    MessageBox.Show("An unexpected error occurred: " & ex.Message)
-                Finally
-                    connection.Close()
+                    transaction.Rollback()
+                    MessageBox.Show("General Error: " & ex.Message)
                 End Try
+
+
+
+
             End Using
         Next
     End Sub
-    Private Function RandomBloodpressure() As String
+    Public Function RandomBloodpressure() As String
         ' Random blood pressure values within normal range
         Dim systolic As Integer = (New Random()).Next(90, 121)
         Dim diastolic As Integer = (New Random()).Next(60, 81)
         Return $"{systolic}/{diastolic}"
     End Function
 
-    Private Function RandomHemoglobin(sex As String) As Double
+    Public Function RandomHemoglobin(sex As String) As Double
         ' Generate a hemoglobin level based on gender
         Dim random As New Random()
         If sex = "Male" Then

@@ -4,8 +4,10 @@ Imports System.Data.SqlClient
 Public Class Start
     Public frmhelper As New FormHelper
 
+
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         ' Initialize the connection (if needed)
+        'frmhelper.Seeders()
         UpdateConnectionString()
         openConn("redcrossdb") ' Specify database name directly if db_name is undefined
     End Sub
@@ -26,142 +28,142 @@ Public Class Start
     End Sub
 End Class
 
-' DonorSummary.vb (Separate Class File)
-Public Class DonorSummary
-    ' Define your connection string (use your actual connection string)
-    Dim connectionString As String = "Server=localhost;Database=redcrossdb;Uid=root;Pwd=;"
+' donorsummary.vb (separate class file)
+Public Class donorsummary
+    ' define your connection string (use your actual connection string)
+    Dim connectionstring As String = "server=localhost;database=redcrossdb;uid=root;pwd=;"
 
-    Public Sub GetDonorSummaryAndInsertToHistory(donorID As Integer)
-        ' Create the SQL query to get the required data
+    Public Sub getdonorsummaryandinserttohistory(donorid As Integer)
+        ' create the sql query to get the required data
         Dim query As String = "
-        SELECT 
-            d.DonorID,
-            SUM(e.EligibilityCheck) AS TotalEligibilityCheck,
-            COUNT(DISTINCT don.DonationID) AS TotalDonation,
-            SUM(don.BloodVolume_Wholeblood) AS TotalBloodVolume_Wholeblood,
-            SUM(don.BloodVolume_Redblood) AS TotalBloodVolume_Redblood,
-            SUM(don.BloodVolume_Platelets) AS TotalBloodVolume_Platelets,
-            SUM(don.BloodVolume_Plasma) AS TotalBloodVolume_Plasma,
-            SUM(don.BloodVolume_Whiteblood) AS TotalBloodVolume_Whiteblood,
-            d.LastName,
-            d.FirstName,
-            d.MiddleName,
-            SUM(don.BloodVolume_Wholeblood + don.BloodVolume_Redblood + don.BloodVolume_Platelets + don.BloodVolume_Plasma + don.BloodVolume_Whiteblood) AS TotalBloodVolume_All,
-            d.DonorRegDate,
-            MAX(e.LastEligibilityCheckDate) AS LastEligibilityCheckDate,
-            MAX(don.DonationDate) AS LatestDonationDate
-        FROM Donors d
-        LEFT JOIN Eligibility e ON d.DonorID = e.DonorID
-        LEFT JOIN Donations don ON d.DonorID = don.DonorID
-        WHERE d.DonorID = @DonorID
-        GROUP BY d.DonorID, d.LastName, d.FirstName, d.MiddleName, d.DonorRegDate"
+        select 
+            d.donorid,
+            sum(e.eligibilitycheck) as totaleligibilitycheck,
+            count(distinct don.donationid) as totaldonation,
+            sum(don.bloodvolume_wholeblood) as totalbloodvolume_wholeblood,
+            sum(don.bloodvolume_redblood) as totalbloodvolume_redblood,
+            sum(don.bloodvolume_platelets) as totalbloodvolume_platelets,
+            sum(don.bloodvolume_plasma) as totalbloodvolume_plasma,
+            sum(don.bloodvolume_whiteblood) as totalbloodvolume_whiteblood,
+            d.lastname,
+            d.firstname,
+            d.middlename,
+            sum(don.bloodvolume_wholeblood + don.bloodvolume_redblood + don.bloodvolume_platelets + don.bloodvolume_plasma + don.bloodvolume_whiteblood) as totalbloodvolume_all,
+            d.donorregdate,
+            max(e.lasteligibilitycheckdate) as lasteligibilitycheckdate,
+            max(don.donationdate) as latestdonationdate
+        from donors d
+        left join eligibility e on d.donorid = e.donorid
+        left join donations don on d.donorid = don.donorid
+        where d.donorid = @donorid
+        group by d.donorid, d.lastname, d.firstname, d.middlename, d.donorregdate"
 
-        ' Establish a connection to the database
-        Using conn As New SqlConnection(connectionString)
+        ' establish a connection to the database
+        Using conn As New SqlConnection(connectionstring)
             Try
                 conn.Open()
 
-                ' Create a command to execute the SQL query
+                ' create a command to execute the sql query
                 Using cmd As New SqlCommand(query, conn)
-                    ' Add the parameter for DonorID to prevent SQL injection
-                    cmd.Parameters.AddWithValue("@DonorID", donorID)
+                    ' add the parameter for donorid to prevent sql injection
+                    cmd.Parameters.AddWithValue("@donorid", donorid)
 
-                    ' Execute the query and retrieve the data
+                    ' execute the query and retrieve the data
                     Using reader As SqlDataReader = cmd.ExecuteReader()
                         If reader.HasRows Then
                             While reader.Read()
-                                ' Retrieve the data from the reader
-                                Dim retrievedDonorId = reader("DonorID")
-                                Dim totalEligibilityCheck = reader("TotalEligibilityCheck")
-                                Dim totalDonation = reader("TotalDonation")
-                                Dim totalBloodVolumeWholeblood = reader("TotalBloodVolume_Wholeblood")
-                                Dim totalBloodVolumeRedblood = reader("TotalBloodVolume_Redblood")
-                                Dim totalBloodVolumePlatelets = reader("TotalBloodVolume_Platelets")
-                                Dim totalBloodVolumePlasma = reader("TotalBloodVolume_Plasma")
-                                Dim totalBloodVolumeWhiteblood = reader("TotalBloodVolume_Whiteblood")
-                                Dim lastName = reader("LastName")
-                                Dim firstName = reader("FirstName")
-                                Dim middleName = reader("MiddleName")
-                                Dim totalBloodVolumeAll = reader("TotalBloodVolume_All")
-                                Dim donorRegDate = reader("DonorRegDate")
-                                Dim lastEligibilityCheckDate = reader("LastEligibilityCheckDate")
-                                Dim latestDonationDate = reader("LatestDonationDate")
+                                ' retrieve the data from the reader
+                                Dim retrieveddonorid = reader("donorid")
+                                Dim totaleligibilitycheck = reader("totaleligibilitycheck")
+                                Dim totaldonation = reader("totaldonation")
+                                Dim totalbloodvolumewholeblood = reader("totalbloodvolume_wholeblood")
+                                Dim totalbloodvolumeredblood = reader("totalbloodvolume_redblood")
+                                Dim totalbloodvolumeplatelets = reader("totalbloodvolume_platelets")
+                                Dim totalbloodvolumeplasma = reader("totalbloodvolume_plasma")
+                                Dim totalbloodvolumewhiteblood = reader("totalbloodvolume_whiteblood")
+                                Dim lastname = reader("lastname")
+                                Dim firstname = reader("firstname")
+                                Dim middlename = reader("middlename")
+                                Dim totalbloodvolumeall = reader("totalbloodvolume_all")
+                                Dim donorregdate = reader("donorregdate")
+                                Dim lasteligibilitycheckdate = reader("lasteligibilitycheckdate")
+                                Dim latestdonationdate = reader("latestdonationdate")
 
-                                ' Prepare the SQL INSERT statement for the History table
-                                Dim insertQuery As String = "
-INSERT INTO History (
-    DonorID,
-    TotalEligibilityCheck,
-    TotalDonation,
-    TotalBloodVolume_Wholeblood,
-    TotalBloodVolume_Redblood,
-    TotalBloodVolume_Platelets,
-    TotalBloodVolume_Plasma,
-    TotalBloodVolume_Whiteblood,
-    LastName,
-    FirstName,
-    MiddleName,
-    TotalBloodVolume_All,
-    DonorRegDate,
-    LastEligibilityCheckDate,
-    LatestDonationDate
-) VALUES (
-    @DonorID,
-    @TotalEligibilityCheck,
-    @TotalDonation,
-    @TotalBloodVolume_Wholeblood,
-    @TotalBloodVolume_Redblood,
-    @TotalBloodVolume_Platelets,
-    @TotalBloodVolume_Plasma,
-    @TotalBloodVolume_Whiteblood,
-    @LastName,
-    @FirstName,
-    @MiddleName,
-    @TotalBloodVolume_All,
-    @DonorRegDate,
-    @LastEligibilityCheckDate,
-    @LatestDonationDate
+                                ' prepare the sql insert statement for the history table
+                                Dim insertquery As String = "
+insert into history (
+    donorid,
+    totaleligibilitycheck,
+    totaldonation,
+    totalbloodvolume_wholeblood,
+    totalbloodvolume_redblood,
+    totalbloodvolume_platelets,
+    totalbloodvolume_plasma,
+    totalbloodvolume_whiteblood,
+    lastname,
+    firstname,
+    middlename,
+    totalbloodvolume_all,
+    donorregdate,
+    lasteligibilitycheckdate,
+    latestdonationdate
+) values (
+    @donorid,
+    @totaleligibilitycheck,
+    @totaldonation,
+    @totalbloodvolume_wholeblood,
+    @totalbloodvolume_redblood,
+    @totalbloodvolume_platelets,
+    @totalbloodvolume_plasma,
+    @totalbloodvolume_whiteblood,
+    @lastname,
+    @firstname,
+    @middlename,
+    @totalbloodvolume_all,
+    @donorregdate,
+    @lasteligibilitycheckdate,
+    @latestdonationdate
 )"
 
-                                ' Create the insert command
-                                Using insertCmd As New SqlCommand(insertQuery, conn)
-                                    ' Add parameters to the insert command
-                                    insertCmd.Parameters.AddWithValue("@DonorID", retrievedDonorId)
-                                    insertCmd.Parameters.AddWithValue("@TotalEligibilityCheck", totalEligibilityCheck)
-                                    insertCmd.Parameters.AddWithValue("@TotalDonation", totalDonation)
-                                    insertCmd.Parameters.AddWithValue("@TotalBloodVolume_Wholeblood", totalBloodVolumeWholeblood)
-                                    insertCmd.Parameters.AddWithValue("@TotalBloodVolume_Redblood", totalBloodVolumeRedblood)
-                                    insertCmd.Parameters.AddWithValue("@TotalBloodVolume_Platelets", totalBloodVolumePlatelets)
-                                    insertCmd.Parameters.AddWithValue("@TotalBloodVolume_Plasma", totalBloodVolumePlasma)
-                                    insertCmd.Parameters.AddWithValue("@TotalBloodVolume_Whiteblood", totalBloodVolumeWhiteblood)
-                                    insertCmd.Parameters.AddWithValue("@LastName", lastName)
-                                    insertCmd.Parameters.AddWithValue("@FirstName", firstName)
-                                    insertCmd.Parameters.AddWithValue("@MiddleName", middleName)
-                                    insertCmd.Parameters.AddWithValue("@TotalBloodVolume_All", totalBloodVolumeAll)
-                                    insertCmd.Parameters.AddWithValue("@DonorRegDate", donorRegDate)
-                                    insertCmd.Parameters.AddWithValue("@LastEligibilityCheckDate", lastEligibilityCheckDate)
-                                    insertCmd.Parameters.AddWithValue("@LatestDonationDate", latestDonationDate)
+                                ' create the insert command
+                                Using insertcmd As New SqlCommand(insertquery, conn)
+                                    ' add parameters to the insert command
+                                    insertcmd.Parameters.AddWithValue("@donorid", retrieveddonorid)
+                                    insertcmd.Parameters.AddWithValue("@totaleligibilitycheck", totaleligibilitycheck)
+                                    insertcmd.Parameters.AddWithValue("@totaldonation", totaldonation)
+                                    insertcmd.Parameters.AddWithValue("@totalbloodvolume_wholeblood", totalbloodvolumewholeblood)
+                                    insertcmd.Parameters.AddWithValue("@totalbloodvolume_redblood", totalbloodvolumeredblood)
+                                    insertcmd.Parameters.AddWithValue("@totalbloodvolume_platelets", totalbloodvolumeplatelets)
+                                    insertcmd.Parameters.AddWithValue("@totalbloodvolume_plasma", totalbloodvolumeplasma)
+                                    insertcmd.Parameters.AddWithValue("@totalbloodvolume_whiteblood", totalbloodvolumewhiteblood)
+                                    insertcmd.Parameters.AddWithValue("@lastname", lastname)
+                                    insertcmd.Parameters.AddWithValue("@firstname", firstname)
+                                    insertcmd.Parameters.AddWithValue("@middlename", middlename)
+                                    insertcmd.Parameters.AddWithValue("@totalbloodvolume_all", totalbloodvolumeall)
+                                    insertcmd.Parameters.AddWithValue("@donorregdate", donorregdate)
+                                    insertcmd.Parameters.AddWithValue("@lasteligibilitycheckdate", lasteligibilitycheckdate)
+                                    insertcmd.Parameters.AddWithValue("@latestdonationdate", latestdonationdate)
 
-                                    ' Execute the insert command and check for any errors
+                                    ' execute the insert command and check for any errors
                                     Try
-                                        insertCmd.ExecuteNonQuery()
-                                        Console.WriteLine("Data inserted successfully!")
+                                        insertcmd.ExecuteNonQuery()
+                                        Console.WriteLine("data inserted successfully!")
                                     Catch ex As Exception
-                                        ' Output the error message if something goes wrong
-                                        Console.WriteLine("Error inserting data: " & ex.Message)
+                                        ' output the error message if something goes wrong
+                                        Console.WriteLine("error inserting data: " & ex.Message)
                                     End Try
                                 End Using
 
                             End While
                         Else
-                            Console.WriteLine("No data found for the specified DonorID.")
+                            Console.WriteLine("no data found for the specified donorid.")
                         End If
                     End Using
                 End Using
 
             Catch ex As Exception
-                ' Handle any errors that might occur
-                Console.WriteLine($"Error: {ex.Message}")
+                ' handle any errors that might occur
+                Console.WriteLine($"error: {ex.Message}")
             End Try
         End Using
     End Sub
