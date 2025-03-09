@@ -22,20 +22,6 @@ Public Class Donation_Management_old
         End If
     End Sub
 
-    ' Method to split BloodType and assign values to txtBloodType and txtRhesusFactor
-    Private Sub SetBloodTypeAndRhesus()
-        If Not String.IsNullOrEmpty(BloodType) Then
-            ' Remove the last character if it's a + or - 
-            Dim bloodTypeChar As String = BloodType.Substring(0, BloodType.Length - 1)
-            ' Set the Rhesus factor based on the last character
-            Dim rhesusFactor As String = If(BloodType.Last() = "+", "Rh+", "Rh-")
-
-            ' Update the text boxes
-            txtBloodType.Text = bloodTypeChar
-            txtRhesusFactor.Text = rhesusFactor
-        End If
-    End Sub
-
     ' Event handler for the 'Proceed' button click
     Private Sub Proceed_Click(sender As Object, e As EventArgs) Handles Proceed.Click
         ' Check required fields
@@ -49,16 +35,16 @@ Public Class Donation_Management_old
             Return
         End If
 
-        ' Proceed with donation data insertion
-        Try
-            ' Insert donation data into the database
+        ' Check if donation data exists
+        If DonationExists() Then
+            UpdateDonationData()
+        Else
             InsertDonationData()
-            ' Hide current form and show the success message
-            Me.Hide()
-            Process_Success.Show()
-        Catch ex As Exception
-            MessageBox.Show("An unexpected error occurred: " & ex.Message)
-        End Try
+        End If
+
+        ' Hide current form and show the success message
+        Me.Hide()
+        Process_Success.Show()
     End Sub
 
     ' Method to validate blood volume
@@ -66,21 +52,26 @@ Public Class Donation_Management_old
         Return Not String.IsNullOrEmpty(txtBloodVolume.Text) AndAlso IsNumeric(txtBloodVolume.Text)
     End Function
 
+    ' Method to check if donation data already exists
+    Private Function DonationExists() As Boolean
+        Dim connection As MySqlConnection = modDB.conn
+        Dim query As String = "SELECT COUNT(*) FROM donation WHERE DonorID = @DonorID"
+        Using cmd As New MySqlCommand(query, connection)
+            cmd.Parameters.AddWithValue("@DonorID", DonorID)
+            Return Convert.ToInt32(cmd.ExecuteScalar()) > 0
+        End Using
+    End Function
+
     ' Method to insert donation data into the database
     Private Sub InsertDonationData()
-        ' Use the existing connection from MySQLModule (no need to call Connect again)
         Dim connection As MySqlConnection = modDB.conn
-
         If connection IsNot Nothing AndAlso connection.State = ConnectionState.Open Then
             Try
-                ' SQL query for inserting the donation data into the database
-                Dim query As String = "INSERT INTO donation (DonationDate, DonorID, Blood_Group, RhesusFactor, BloodVolume, CollectionMethod, DonationTime, DonationType, NextEligibilityDate) " &
-                                      "VALUES (@DonationDate, @DonorID, @Blood_Group, @RhesusFactor, @BloodVolume, @CollectionMethod, @DonationTime, @DonationType, @NextEligibilityDate)"
+                Dim query As String = "INSERT INTO donation (DonationDate, DonorID, Blood_Group, RhesusFactor, BloodVolume, CollectionMethod, DonationTime, DonationType, NextEligibilityDate, StorageLocation) " &
+                                      "VALUES (@DonationDate, @DonorID, @Blood_Group, @RhesusFactor, @BloodVolume, @CollectionMethod, @DonationTime, @DonationType, @NextEligibilityDate, @StorageLocation)"
                 Using cmd As New MySqlCommand(query, connection)
-                    ' Set parameters for the query
                     cmd.Parameters.AddWithValue("@DonationDate", DateTime.Now.ToString("yyyy-MM-dd"))
                     cmd.Parameters.AddWithValue("@DonorID", DonorID)
-
                     cmd.Parameters.AddWithValue("@Blood_Group", txtBloodType.Text)
                     cmd.Parameters.AddWithValue("@RhesusFactor", txtRhesusFactor.Text)
                     cmd.Parameters.AddWithValue("@BloodVolume", txtBloodVolume.Text)
@@ -88,8 +79,7 @@ Public Class Donation_Management_old
                     cmd.Parameters.AddWithValue("@DonationTime", DateTime.Now.ToString("HH:mm:ss"))
                     cmd.Parameters.AddWithValue("@DonationType", DonationTypeCheckedlist.Text)
                     cmd.Parameters.AddWithValue("@NextEligibilityDate", CalculateNextEligibilityDate())
-
-                    ' Execute the query
+                    cmd.Parameters.AddWithValue("@StorageLocation", txtStorage.Text)
                     cmd.ExecuteNonQuery()
                     MessageBox.Show("Donation data successfully added.")
                 End Using
@@ -101,9 +91,35 @@ Public Class Donation_Management_old
         End If
     End Sub
 
+    ' Method to update donation data in the database
+    Private Sub UpdateDonationData()
+        Dim connection As MySqlConnection = modDB.conn
+        If connection IsNot Nothing AndAlso connection.State = ConnectionState.Open Then
+            Try
+                Dim query As String = "UPDATE donation SET Blood_Group = @Blood_Group, RhesusFactor = @RhesusFactor, BloodVolume = @BloodVolume, CollectionMethod = @CollectionMethod, " &
+                                      "DonationType = @DonationType, NextEligibilityDate = @NextEligibilityDate, StorageLocation = @StorageLocation WHERE DonorID = @DonorID"
+                Using cmd As New MySqlCommand(query, connection)
+                    cmd.Parameters.AddWithValue("@Blood_Group", txtBloodType.Text)
+                    cmd.Parameters.AddWithValue("@RhesusFactor", txtRhesusFactor.Text)
+                    cmd.Parameters.AddWithValue("@BloodVolume", txtBloodVolume.Text)
+                    cmd.Parameters.AddWithValue("@CollectionMethod", CollectionCheckedList.Text)
+                    cmd.Parameters.AddWithValue("@DonationType", DonationTypeCheckedlist.Text)
+                    cmd.Parameters.AddWithValue("@NextEligibilityDate", CalculateNextEligibilityDate())
+                    cmd.Parameters.AddWithValue("@StorageLocation", txtStorage.Text)
+                    cmd.Parameters.AddWithValue("@DonorID", DonorID)
+                    cmd.ExecuteNonQuery()
+                    MessageBox.Show("Donation data successfully updated.")
+                End Using
+            Catch ex As MySqlException
+                MessageBox.Show("Database error: " & ex.Message)
+            End Try
+        Else
+            MessageBox.Show("Database connection is not open.")
+        End If
+    End Sub
+
     ' Function to calculate the next eligibility date
     Private Function CalculateNextEligibilityDate() As String
-        ' Assuming a 3-month wait period after donation
         Return DateTime.Now.AddMonths(3).ToString("yyyy-MM-dd")
     End Function
 End Class
