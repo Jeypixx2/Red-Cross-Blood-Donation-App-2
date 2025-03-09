@@ -74,8 +74,8 @@ Public Class Donation_Management_old
         If connection IsNot Nothing AndAlso connection.State = ConnectionState.Open Then
             Try
                 ' SQL query for inserting the donation data into the database
-                Dim query As String = "INSERT INTO donation (DonationDate, DonorID, Blood_Group, RhesusFactor, BloodVolume, CollectionMethod, DonationTime, DonationType, NextEligibilityDate) " &
-                                      "VALUES (@DonationDate, @DonorID, @Blood_Group, @RhesusFactor, @BloodVolume, @CollectionMethod, @DonationTime, @DonationType, @NextEligibilityDate)"
+                Dim query As String = "INSERT INTO donation (DonationDate, DonorID, Blood_Group, RhesusFactor, BloodVolume, CollectionMethod, DonationTime, DonationType, NextEligibilityDate, StorageLocation) " &
+                                      "VALUES (@DonationDate, @DonorID, @Blood_Group, @RhesusFactor, @BloodVolume, @CollectionMethod, @DonationTime, @DonationType, @NextEligibilityDate, @StorageLocation)"
                 Using cmd As New MySqlCommand(query, connection)
                     ' Set parameters for the query
                     cmd.Parameters.AddWithValue("@DonationDate", DateTime.Now.ToString("yyyy-MM-dd"))
@@ -88,6 +88,7 @@ Public Class Donation_Management_old
                     cmd.Parameters.AddWithValue("@DonationTime", DateTime.Now.ToString("HH:mm:ss"))
                     cmd.Parameters.AddWithValue("@DonationType", DonationTypeCheckedlist.Text)
                     cmd.Parameters.AddWithValue("@NextEligibilityDate", CalculateNextEligibilityDate())
+                    cmd.Parameters.AddWithValue("@StorageLocation", CheckStorageLocation())
 
                     ' Execute the query
                     cmd.ExecuteNonQuery()
@@ -106,4 +107,24 @@ Public Class Donation_Management_old
         ' Assuming a 3-month wait period after donation
         Return DateTime.Now.AddMonths(3).ToString("yyyy-MM-dd")
     End Function
+
+    Private Function CheckStorageLocation() As String
+        Select Case DonationTypeCheckedlist.Text
+            Case "Whole Blood Donation", "Red Blood Cell Donation (Apheresis)", "Double Red Cell Donation", "Autologous Donation"
+                Return "Refrigerated Storage"
+            Case "Plasma Donation (Apheresis)"
+                Return "Frozen Storage"
+            Case "Platelet Donation (Apheresis)"
+                Return "Platelet Storage"
+            Case "Directed Donation"
+                Return "Standard Storage"
+            Case Else
+                Return "Unknown"
+        End Select
+    End Function
+
+    Private Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click
+        Eligibility_Checker_new.Show()
+        Me.Hide()
+    End Sub
 End Class

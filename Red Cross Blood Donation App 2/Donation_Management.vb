@@ -1,4 +1,5 @@
-﻿Imports MySql.Data.MySqlClient
+﻿Imports System.Security.Cryptography.X509Certificates
+Imports MySql.Data.MySqlClient
 
 Public Class Donation_Management_new
     ' Properties to hold values from the previous forms
@@ -50,7 +51,7 @@ Public Class Donation_Management_new
                     cmd.Parameters.AddWithValue("@BloodComponent", CheckBloodComponent())
                     cmd.Parameters.AddWithValue("@Compatibility", CheckCompatibility(BloodType))
                     cmd.Parameters.AddWithValue("@Expiration_Date", CalculateExpirationDate())
-                    cmd.Parameters.AddWithValue("@StorageLocation", txtStorage.Text)
+                    cmd.Parameters.AddWithValue("@StorageLocation", CheckStorageLocation())
 
 
                     ' Execute the query
@@ -69,6 +70,21 @@ Public Class Donation_Management_new
     Private Function CalculateNextEligibilityDate() As String
         ' Assuming a 3-month wait period after donation
         Return DateTime.Now.AddMonths(3).ToString("yyyy-MM-dd")
+    End Function
+
+    Private Function CheckStorageLocation() As String
+        Select Case DonationTypeCheckedlist.Text
+            Case "Whole Blood Donation", "Red Blood Cell Donation (Apheresis)", "Double Red Cell Donation", "Autologous Donation"
+                Return "Refrigerated Storage"
+            Case "Plasma Donation (Apheresis)"
+                Return "Frozen Storage"
+            Case "Platelet Donation (Apheresis)"
+                Return "Platelet Storage"
+            Case "Directed Donation"
+                Return "Standard Storage"
+            Case Else
+                Return "Unknown"
+        End Select
     End Function
 
     Private Function CheckBloodComponent() As String
@@ -150,4 +166,8 @@ Public Class Donation_Management_new
         Me.Hide()
     End Sub
 
+    Private Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click
+        Eligibility_Checker_new.Show()
+        Me.Hide()
+    End Sub
 End Class

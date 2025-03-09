@@ -35,8 +35,7 @@ Partial Class Donation_Management_old
         Me.Rhesus_Factor = New System.Windows.Forms.Label()
         Me.txtBloodType = New System.Windows.Forms.RichTextBox()
         Me.Blood_type = New System.Windows.Forms.Label()
-        Me.txtStorage = New System.Windows.Forms.RichTextBox()
-        Me.Label2 = New System.Windows.Forms.Label()
+        Me.Button3 = New System.Windows.Forms.Button()
         Me.SuspendLayout()
         '
         'Proceed
@@ -44,7 +43,7 @@ Partial Class Donation_Management_old
         Me.Proceed.BackColor = System.Drawing.Color.Blue
         Me.Proceed.Font = New System.Drawing.Font("Segoe UI", 12.0!)
         Me.Proceed.ForeColor = System.Drawing.SystemColors.ControlLightLight
-        Me.Proceed.Location = New System.Drawing.Point(308, 379)
+        Me.Proceed.Location = New System.Drawing.Point(308, 348)
         Me.Proceed.Name = "Proceed"
         Me.Proceed.Size = New System.Drawing.Size(83, 32)
         Me.Proceed.TabIndex = 23
@@ -187,27 +186,17 @@ Partial Class Donation_Management_old
         Me.Blood_type.TabIndex = 24
         Me.Blood_type.Text = "Blood Group"
         '
-        'txtStorage
+        'Button3
         '
-        Me.txtStorage.BackColor = System.Drawing.SystemColors.Menu
-        Me.txtStorage.Font = New System.Drawing.Font("Segoe UI", 12.0!)
-        Me.txtStorage.Location = New System.Drawing.Point(56, 327)
-        Me.txtStorage.Name = "txtStorage"
-        Me.txtStorage.Size = New System.Drawing.Size(211, 29)
-        Me.txtStorage.TabIndex = 37
-        Me.txtStorage.Text = ""
-        '
-        'Label2
-        '
-        Me.Label2.AutoSize = True
-        Me.Label2.BackColor = System.Drawing.SystemColors.InactiveBorder
-        Me.Label2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
-        Me.Label2.Font = New System.Drawing.Font("Segoe UI", 9.0!)
-        Me.Label2.Location = New System.Drawing.Point(56, 307)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(98, 17)
-        Me.Label2.TabIndex = 36
-        Me.Label2.Text = "Storage Location"
+        Me.Button3.BackColor = System.Drawing.Color.Blue
+        Me.Button3.Font = New System.Drawing.Font("Segoe UI", 12.0!)
+        Me.Button3.ForeColor = System.Drawing.SystemColors.ControlLightLight
+        Me.Button3.Location = New System.Drawing.Point(320, 384)
+        Me.Button3.Name = "Button3"
+        Me.Button3.Size = New System.Drawing.Size(53, 38)
+        Me.Button3.TabIndex = 46
+        Me.Button3.Text = "Back"
+        Me.Button3.UseVisualStyleBackColor = False
         '
         'Donation_Management_old
         '
@@ -215,8 +204,7 @@ Partial Class Donation_Management_old
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.SystemColors.ButtonHighlight
         Me.ClientSize = New System.Drawing.Size(726, 434)
-        Me.Controls.Add(Me.txtStorage)
-        Me.Controls.Add(Me.Label2)
+        Me.Controls.Add(Me.Button3)
         Me.Controls.Add(Me.CheckedListBox1)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.DonationTypeCheckedlist)
@@ -231,6 +219,8 @@ Partial Class Donation_Management_old
         Me.Controls.Add(Me.Blood_type)
         Me.Controls.Add(Me.Proceed)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
+        Me.MaximizeBox = False
+        Me.MinimizeBox = False
         Me.Name = "Donation_Management_old"
         Me.Text = "Donation Management Existing Donor"
         Me.ResumeLayout(False)
@@ -251,6 +241,5 @@ Partial Class Donation_Management_old
     Friend WithEvents Rhesus_Factor As Label
     Friend WithEvents txtBloodType As RichTextBox
     Friend WithEvents Blood_type As Label
-    Friend WithEvents txtStorage As RichTextBox
-    Friend WithEvents Label2 As Label
+    Friend WithEvents Button3 As Button
 End Class

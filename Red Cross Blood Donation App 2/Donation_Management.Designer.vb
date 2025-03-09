@@ -35,8 +35,7 @@ Partial Class Donation_Management_new
         Me.Proceed = New System.Windows.Forms.Button()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.BagTypeCheckedlist = New System.Windows.Forms.CheckedListBox()
-        Me.txtStorage = New System.Windows.Forms.RichTextBox()
-        Me.Label2 = New System.Windows.Forms.Label()
+        Me.Button3 = New System.Windows.Forms.Button()
         Me.SuspendLayout()
         '
         'Blood_type
@@ -157,7 +156,7 @@ Partial Class Donation_Management_new
         Me.Proceed.BackColor = System.Drawing.Color.Blue
         Me.Proceed.Font = New System.Drawing.Font("Segoe UI", 12.0!)
         Me.Proceed.ForeColor = System.Drawing.SystemColors.ControlLightLight
-        Me.Proceed.Location = New System.Drawing.Point(308, 379)
+        Me.Proceed.Location = New System.Drawing.Point(308, 348)
         Me.Proceed.Name = "Proceed"
         Me.Proceed.Size = New System.Drawing.Size(77, 30)
         Me.Proceed.TabIndex = 11
@@ -187,27 +186,17 @@ Partial Class Donation_Management_new
         Me.BagTypeCheckedlist.Size = New System.Drawing.Size(289, 109)
         Me.BagTypeCheckedlist.TabIndex = 13
         '
-        'txtStorage
+        'Button3
         '
-        Me.txtStorage.BackColor = System.Drawing.SystemColors.Menu
-        Me.txtStorage.Font = New System.Drawing.Font("Segoe UI", 12.0!)
-        Me.txtStorage.Location = New System.Drawing.Point(56, 329)
-        Me.txtStorage.Name = "txtStorage"
-        Me.txtStorage.Size = New System.Drawing.Size(211, 29)
-        Me.txtStorage.TabIndex = 15
-        Me.txtStorage.Text = ""
-        '
-        'Label2
-        '
-        Me.Label2.AutoSize = True
-        Me.Label2.BackColor = System.Drawing.SystemColors.InactiveBorder
-        Me.Label2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
-        Me.Label2.Font = New System.Drawing.Font("Segoe UI", 9.0!)
-        Me.Label2.Location = New System.Drawing.Point(56, 309)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(98, 17)
-        Me.Label2.TabIndex = 14
-        Me.Label2.Text = "Storage Location"
+        Me.Button3.BackColor = System.Drawing.Color.Blue
+        Me.Button3.Font = New System.Drawing.Font("Segoe UI", 12.0!)
+        Me.Button3.ForeColor = System.Drawing.SystemColors.ControlLightLight
+        Me.Button3.Location = New System.Drawing.Point(320, 384)
+        Me.Button3.Name = "Button3"
+        Me.Button3.Size = New System.Drawing.Size(53, 38)
+        Me.Button3.TabIndex = 45
+        Me.Button3.Text = "Back"
+        Me.Button3.UseVisualStyleBackColor = False
         '
         'Donation_Management_new
         '
@@ -215,8 +204,7 @@ Partial Class Donation_Management_new
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.SystemColors.ControlLightLight
         Me.ClientSize = New System.Drawing.Size(726, 434)
-        Me.Controls.Add(Me.txtStorage)
-        Me.Controls.Add(Me.Label2)
+        Me.Controls.Add(Me.Button3)
         Me.Controls.Add(Me.BagTypeCheckedlist)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.Proceed)
@@ -231,9 +219,10 @@ Partial Class Donation_Management_new
         Me.Controls.Add(Me.txtBloodType)
         Me.Controls.Add(Me.Blood_type)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
+        Me.MaximizeBox = False
+        Me.MinimizeBox = False
         Me.Name = "Donation_Management_new"
         Me.Text = "Donation Management New Donor"
-        Me.WindowState = System.Windows.Forms.FormWindowState.Maximized
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -252,6 +241,5 @@ Partial Class Donation_Management_new
     Friend WithEvents Proceed As Button
     Friend WithEvents Label1 As Label
     Friend WithEvents BagTypeCheckedlist As CheckedListBox
-    Friend WithEvents txtStorage As RichTextBox
-    Friend WithEvents Label2 As Label
+    Friend WithEvents Button3 As Button
 End Class

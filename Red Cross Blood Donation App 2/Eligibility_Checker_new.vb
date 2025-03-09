@@ -322,4 +322,8 @@ Public Class Eligibility_Checker_new
         Return If(clb.CheckedItems.Contains("Yes"), 1, 0)
     End Function
 
+    Private Sub Back_Click(sender As Object, e As EventArgs) Handles Back.Click
+        Donor_Management_New.Show()
+        Me.Hide()
+    End Sub
 End Class
