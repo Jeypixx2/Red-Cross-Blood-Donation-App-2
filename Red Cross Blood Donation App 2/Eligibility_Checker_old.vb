@@ -326,4 +326,9 @@ Public Class Eligibility_Checker_old
             End If
         End If
     End Sub
+
+    Private Sub Back_Click_1(sender As Object, e As EventArgs) Handles Back.Click
+        Donor_Management_New.Show()
+        Me.Hide()
+    End Sub
 End Class

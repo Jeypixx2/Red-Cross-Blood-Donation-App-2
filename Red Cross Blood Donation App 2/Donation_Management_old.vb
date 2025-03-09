@@ -122,4 +122,24 @@ Public Class Donation_Management_old
     Private Function CalculateNextEligibilityDate() As String
         Return DateTime.Now.AddMonths(3).ToString("yyyy-MM-dd")
     End Function
+
+    Private Function CheckStorageLocation() As String
+        Select Case DonationTypeCheckedlist.Text
+            Case "Whole Blood Donation", "Red Blood Cell Donation (Apheresis)", "Double Red Cell Donation", "Autologous Donation"
+                Return "Refrigerated Storage"
+            Case "Plasma Donation (Apheresis)"
+                Return "Frozen Storage"
+            Case "Platelet Donation (Apheresis)"
+                Return "Platelet Storage"
+            Case "Directed Donation"
+                Return "Standard Storage"
+            Case Else
+                Return "Unknown"
+        End Select
+    End Function
+
+    Private Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click
+        Eligibility_Checker_new.Show()
+        Me.Hide()
+    End Sub
 End Class
