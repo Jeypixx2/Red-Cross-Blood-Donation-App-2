@@ -79,7 +79,7 @@ Public Class Donation_Management_old
                     cmd.Parameters.AddWithValue("@DonationTime", DateTime.Now.ToString("HH:mm:ss"))
                     cmd.Parameters.AddWithValue("@DonationType", DonationTypeCheckedlist.Text)
                     cmd.Parameters.AddWithValue("@NextEligibilityDate", CalculateNextEligibilityDate())
-                    cmd.Parameters.AddWithValue("@StorageLocation", txtStorage.Text)
+
                     cmd.ExecuteNonQuery()
                     MessageBox.Show("Donation data successfully added.")
                 End Using
@@ -105,7 +105,7 @@ Public Class Donation_Management_old
                     cmd.Parameters.AddWithValue("@CollectionMethod", CollectionCheckedList.Text)
                     cmd.Parameters.AddWithValue("@DonationType", DonationTypeCheckedlist.Text)
                     cmd.Parameters.AddWithValue("@NextEligibilityDate", CalculateNextEligibilityDate())
-                    cmd.Parameters.AddWithValue("@StorageLocation", txtStorage.Text)
+
                     cmd.Parameters.AddWithValue("@DonorID", DonorID)
                     cmd.ExecuteNonQuery()
                     MessageBox.Show("Donation data successfully updated.")
