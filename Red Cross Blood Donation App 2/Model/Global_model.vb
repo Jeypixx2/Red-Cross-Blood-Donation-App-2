@@ -57,7 +57,7 @@ Public Class Global_model
 
 
     Sub UpdateDataGridView(filteredData As DataTable, ByVal DataGridView As DataGridView)
-        RenameColumns(filteredData)
+
         DataGridView.DataSource = Nothing
         DataGridView.DataSource = filteredData
 
@@ -89,29 +89,7 @@ Public Class Global_model
 
 
     ' Function to rename columns in the DataTable
-    Private Sub RenameColumns(dataTable As DataTable)
-        ' Example: Create a dictionary to map original column names to new names
-        Dim columnNameMapping As New Dictionary(Of String, String) From {
-            {"RegDate", "Registration Date"},
-            {"LastName", "Last Name"},
-            {"FirstName", "First Name"},
-            {"MiddleName", "Middle Name"},
-            {"Baranggay", "Barangay"},
-            {"City", "City"},
-            {"Province", "Province"},
-            {"DateofBirth", "Date of Birth"},
-            {"Sex", "Sex"},
-            {"BloodType", "Blood Type"},
-            {"Age", "Age"}
-        }
 
-        ' Loop through each column and update the column name
-        For Each column As DataColumn In dataTable.Columns
-            If columnNameMapping.ContainsKey(column.ColumnName) Then
-                column.ColumnName = columnNameMapping(column.ColumnName)
-            End If
-        Next
-    End Sub
 
     Public Function Search(searchText As String, ByVal currentTable As String) As DataTable
         searchText = searchText.Trim().ToLower() ' Trim spaces and convert to lowercase

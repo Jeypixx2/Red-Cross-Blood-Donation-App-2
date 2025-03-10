@@ -9,6 +9,7 @@ Public Class Admin_Dashboard
 
     ' Load event handler for the dashboard
     Private Sub Admin_Dashboard_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        EnableEditingAndDeleting()
         Try
             modDB.openConn("redcrossdb")
 
@@ -341,5 +342,64 @@ Public Class Admin_Dashboard
         LoadChart1(startDate, endDate)
         LoadChart2(startDate, endDate)
     End Sub
+    Private Sub EnableEditingAndDeleting()
+        DataGridView1.ReadOnly = False ' Allow editing
+        DataGridView1.AllowUserToDeleteRows = True ' Allow row deletion
+    End Sub
+    Private Sub DataGridView1_CellEndEdit(sender As Object, e As DataGridViewCellEventArgs) Handles DataGridView1.CellEndEdit
+        ' Ensure that the edited cell is valid
+        If e.RowIndex < 0 OrElse e.ColumnIndex < 0 Then Exit Sub
+        If DataGridView1.Rows(e.RowIndex).IsNewRow Then Exit Sub
 
+        Try
+            ' Get the new value entered by the user
+            Dim newValue As Object = DataGridView1.Rows(e.RowIndex).Cells(e.ColumnIndex).Value
+            Dim columnName As String = DataGridView1.Columns(e.ColumnIndex).Name
+            Dim primaryKeyColumn As String = "DonorID" ' Adjust this based on your table's primary key
+
+            ' Get the primary key value of the edited row
+            Dim rowID As Object = DataGridView1.Rows(e.RowIndex).Cells(primaryKeyColumn).Value
+
+            ' Ensure we have a valid primary key value
+            If rowID Is Nothing OrElse IsDBNull(rowID) Then
+                MessageBox.Show("Primary key is missing. Cannot update record.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                Exit Sub
+            End If
+
+            ' Ensure new value is not null
+            If newValue Is Nothing OrElse IsDBNull(newValue) Then
+                newValue = DBNull.Value
+            End If
+
+            ' Ensure no active DataReader is open
+            If modDB.conn.State = ConnectionState.Open Then modDB.conn.Close()
+
+            ' Construct the SQL UPDATE statement (using backticks to handle special column names)
+            Dim query As String = $"UPDATE donors SET `{columnName}` = @newValue WHERE `{primaryKeyColumn}` = @rowID"
+
+            ' Execute the update query
+            Using cmd As New MySqlCommand(query, modDB.conn)
+                cmd.Parameters.AddWithValue("@newValue", newValue)
+                cmd.Parameters.AddWithValue("@rowID", rowID)
+
+                modDB.conn.Open()
+                cmd.ExecuteNonQuery()
+                modDB.conn.Close()
+            End Using
+
+            ' Log the update
+            modDB.Logs($"Updated `{columnName}` for DonorID {rowID} to {newValue}")
+
+        Catch ex As Exception
+            MessageBox.Show($"Error updating record: {ex.Message}", "Update Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        Finally
+            ' Ensure connection is closed to avoid conflicts
+            If modDB.conn.State = ConnectionState.Open Then modDB.conn.Close()
+        End Try
+    End Sub
+
+
+    Private Sub DataGridView1_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles DataGridView1.CellContentClick
+
+    End Sub
 End Class

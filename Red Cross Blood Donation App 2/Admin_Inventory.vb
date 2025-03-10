@@ -12,6 +12,7 @@ Public Class Admin_Inventory
     Public Calendar As Integer
 
     Private Sub Admin_Inventory_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        EnableEditingAndDeleting()
         Try
             ' Initialize SelectedDate to today if it is not set
             If SelectedDate = DateTime.MinValue Then
@@ -47,6 +48,63 @@ Public Class Admin_Inventory
             Debug.WriteLine("Error: " & ex.Message)
         End Try
     End Sub
+    Private Function GetPrimaryKey(tableName As String) As String
+        Dim primaryKey As String = ""
+
+        Select Case tableName.ToLower()
+            Case "donors"
+                primaryKey = "DonorID"
+            Case "donation"
+                primaryKey = "BloodID"
+            Case "eligibility"
+                primaryKey = "EligibilityID"
+            Case "healthprovider"
+                primaryKey = "RetrieveID"
+            Case "history"
+                primaryKey = "HistoryID"
+            Case Else
+                Throw New Exception("Unknown table: " & tableName)
+        End Select
+
+        Return primaryKey
+    End Function
+
+
+    Private Sub EnableEditingAndDeleting()
+        dgvInventory.ReadOnly = False ' Allow editing
+        dgvInventory.AllowUserToDeleteRows = True ' Allow row deletion
+    End Sub
+    Private Sub dgvInventory_CellEndEdit(sender As Object, e As DataGridViewCellEventArgs) Handles dgvInventory.CellEndEdit
+        Try
+            ' Ensure the row and column indexes are valid
+            If e.RowIndex >= 0 AndAlso e.ColumnIndex >= 0 Then
+                Dim updatedValue As Object = dgvInventory.Rows(e.RowIndex).Cells(e.ColumnIndex).Value
+                Dim columnName As String = dgvInventory.Columns(e.ColumnIndex).Name
+                Dim primaryKeyColumn As String = GetPrimaryKey(currentTable) ' Fetch primary key dynamically
+                Dim primaryKeyValue As Object = dgvInventory.Rows(e.RowIndex).Cells(primaryKeyColumn).Value
+
+                ' Ensure connection is open
+                If modDB.conn.State = ConnectionState.Closed Then
+                    modDB.conn.Open()
+                End If
+
+                ' Update the database
+                Dim query As String = $"UPDATE {currentTable} SET `{columnName}` = @value WHERE {primaryKeyColumn} = @id"
+
+
+                Using cmd As New MySqlCommand(query, modDB.conn)
+                    cmd.Parameters.AddWithValue("@value", updatedValue)
+                    cmd.Parameters.AddWithValue("@id", primaryKeyValue)
+                    cmd.ExecuteNonQuery()
+                End Using
+            End If
+        Catch ex As Exception
+            MessageBox.Show("Error updating database: " & ex.Message, "Update Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        Finally
+
+        End Try
+    End Sub
+
 
 
 
@@ -54,6 +112,7 @@ Public Class Admin_Inventory
         Admin_Dashboard.Show()
         Me.Hide()
     End Sub
+
     Private Sub PopulateMonths()
         cmbMonths.Items.Clear()
         For month As Integer = 1 To 12
@@ -334,6 +393,4 @@ Public Class Admin_Inventory
         modDB.Logs("View History Data")
 
     End Sub
-
-
 End Class
