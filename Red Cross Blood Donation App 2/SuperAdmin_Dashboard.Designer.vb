@@ -22,12 +22,12 @@ Partial Class SuperAdmin_Dashboard
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim ChartArea1 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
-        Dim Legend1 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
-        Dim Series1 As System.Windows.Forms.DataVisualization.Charting.Series = New System.Windows.Forms.DataVisualization.Charting.Series()
-        Dim ChartArea2 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
-        Dim Legend2 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
-        Dim Series2 As System.Windows.Forms.DataVisualization.Charting.Series = New System.Windows.Forms.DataVisualization.Charting.Series()
+        Dim ChartArea9 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
+        Dim Legend9 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
+        Dim Series9 As System.Windows.Forms.DataVisualization.Charting.Series = New System.Windows.Forms.DataVisualization.Charting.Series()
+        Dim ChartArea10 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
+        Dim Legend10 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
+        Dim Series10 As System.Windows.Forms.DataVisualization.Charting.Series = New System.Windows.Forms.DataVisualization.Charting.Series()
         Me.History = New System.Windows.Forms.Button()
         Me.txtSearch = New System.Windows.Forms.TextBox()
         Me.Panel1 = New System.Windows.Forms.Panel()
@@ -204,8 +204,7 @@ Partial Class SuperAdmin_Dashboard
         '
         'dgvInventory
         '
-        Me.dgvInventory.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
+        Me.dgvInventory.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.dgvInventory.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvInventory.Location = New System.Drawing.Point(118, 130)
@@ -351,7 +350,7 @@ Partial Class SuperAdmin_Dashboard
         Me.back.BackColor = System.Drawing.Color.Red
         Me.back.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.back.ForeColor = System.Drawing.SystemColors.Control
-        Me.back.Location = New System.Drawing.Point(6, 797)
+        Me.back.Location = New System.Drawing.Point(6, 370)
         Me.back.Name = "back"
         Me.back.Size = New System.Drawing.Size(106, 51)
         Me.back.TabIndex = 46
@@ -363,17 +362,17 @@ Partial Class SuperAdmin_Dashboard
         Me.Line_Chart.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Line_Chart.BackColor = System.Drawing.Color.MistyRose
-        ChartArea1.Name = "ChartArea1"
-        Me.Line_Chart.ChartAreas.Add(ChartArea1)
-        Legend1.Name = "Legend1"
-        Me.Line_Chart.Legends.Add(Legend1)
+        ChartArea9.Name = "ChartArea1"
+        Me.Line_Chart.ChartAreas.Add(ChartArea9)
+        Legend9.Name = "Legend1"
+        Me.Line_Chart.Legends.Add(Legend9)
         Me.Line_Chart.Location = New System.Drawing.Point(118, 469)
         Me.Line_Chart.Name = "Line_Chart"
-        Series1.ChartArea = "ChartArea1"
-        Series1.Legend = "Legend1"
-        Series1.Name = "Series1"
-        Me.Line_Chart.Series.Add(Series1)
-        Me.Line_Chart.Size = New System.Drawing.Size(1097, 206)
+        Series9.ChartArea = "ChartArea1"
+        Series9.Legend = "Legend1"
+        Series9.Name = "Series1"
+        Me.Line_Chart.Series.Add(Series9)
+        Me.Line_Chart.Size = New System.Drawing.Size(1097, 180)
         Me.Line_Chart.TabIndex = 47
         Me.Line_Chart.Text = "Chart2"
         '
@@ -382,17 +381,17 @@ Partial Class SuperAdmin_Dashboard
         Me.Bar_Graph.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Bar_Graph.BackColor = System.Drawing.Color.MistyRose
-        ChartArea2.Name = "ChartArea1"
-        Me.Bar_Graph.ChartAreas.Add(ChartArea2)
-        Legend2.Name = "Legend1"
-        Me.Bar_Graph.Legends.Add(Legend2)
-        Me.Bar_Graph.Location = New System.Drawing.Point(118, 681)
+        ChartArea10.Name = "ChartArea1"
+        Me.Bar_Graph.ChartAreas.Add(ChartArea10)
+        Legend10.Name = "Legend1"
+        Me.Bar_Graph.Legends.Add(Legend10)
+        Me.Bar_Graph.Location = New System.Drawing.Point(118, 655)
         Me.Bar_Graph.Name = "Bar_Graph"
-        Series2.ChartArea = "ChartArea1"
-        Series2.Legend = "Legend1"
-        Series2.Name = "Series1"
-        Me.Bar_Graph.Series.Add(Series2)
-        Me.Bar_Graph.Size = New System.Drawing.Size(1097, 176)
+        Series10.ChartArea = "ChartArea1"
+        Series10.Legend = "Legend1"
+        Series10.Name = "Series1"
+        Me.Bar_Graph.Series.Add(Series10)
+        Me.Bar_Graph.Size = New System.Drawing.Size(1097, 150)
         Me.Bar_Graph.TabIndex = 48
         Me.Bar_Graph.Text = "Chart1"
         '
