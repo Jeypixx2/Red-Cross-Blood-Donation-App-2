@@ -593,14 +593,6 @@ Public Class HealthCare_Dashboard
         Start.Show()
     End Sub
 
-    Private Sub dtpFrom_ValueChanged(sender As Object, e As EventArgs) Handles dtpFrom.ValueChanged
-
-    End Sub
-
-    Private Sub Label2_Click(sender As Object, e As EventArgs) Handles Label2.Click
-
-    End Sub
-
     Private Sub btnFilterCharts_Click(sender As Object, e As EventArgs) Handles btnFilterCharts.Click
         Dim startDate As Date = dtpFrom.Value
         Dim endDate As Date = dtpTo.Value
@@ -623,4 +615,5 @@ Public Class HealthCare_Dashboard
         Print.Show()
         Me.Hide()
     End Sub
+
 End Class

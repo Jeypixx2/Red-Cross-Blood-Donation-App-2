@@ -64,7 +64,6 @@ Partial Class HealthCare_Dashboard
         '
         'SearchTextBox
         '
-        Me.SearchTextBox.Anchor = System.Windows.Forms.AnchorStyles.Left
         Me.SearchTextBox.Font = New System.Drawing.Font("Segoe UI", 9.0!)
         Me.SearchTextBox.Location = New System.Drawing.Point(335, 92)
         Me.SearchTextBox.Name = "SearchTextBox"
@@ -86,7 +85,9 @@ Partial Class HealthCare_Dashboard
         '
         'DataGridView1
         '
-        Me.DataGridView1.Anchor = CType((System.Windows.Forms.AnchorStyles.Left Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.DataGridView1.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.DataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.DataGridView1.Location = New System.Drawing.Point(21, 142)
         Me.DataGridView1.Name = "DataGridView1"
@@ -95,7 +96,6 @@ Partial Class HealthCare_Dashboard
         '
         'ComboBox1
         '
-        Me.ComboBox1.Anchor = System.Windows.Forms.AnchorStyles.Left
         Me.ComboBox1.FormattingEnabled = True
         Me.ComboBox1.Location = New System.Drawing.Point(931, 94)
         Me.ComboBox1.Name = "ComboBox1"
@@ -104,14 +104,12 @@ Partial Class HealthCare_Dashboard
         '
         'MonthCalendar1
         '
-        Me.MonthCalendar1.Anchor = System.Windows.Forms.AnchorStyles.Left
         Me.MonthCalendar1.Location = New System.Drawing.Point(931, 94)
         Me.MonthCalendar1.Name = "MonthCalendar1"
         Me.MonthCalendar1.TabIndex = 15
         '
         'Monthly
         '
-        Me.Monthly.Anchor = System.Windows.Forms.AnchorStyles.Left
         Me.Monthly.BackColor = System.Drawing.SystemColors.ButtonFace
         Me.Monthly.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold)
         Me.Monthly.Location = New System.Drawing.Point(822, 92)
@@ -123,7 +121,6 @@ Partial Class HealthCare_Dashboard
         '
         'Weekly
         '
-        Me.Weekly.Anchor = System.Windows.Forms.AnchorStyles.Left
         Me.Weekly.BackColor = System.Drawing.SystemColors.ButtonFace
         Me.Weekly.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold)
         Me.Weekly.Location = New System.Drawing.Point(720, 92)
@@ -135,7 +132,6 @@ Partial Class HealthCare_Dashboard
         '
         'Daily
         '
-        Me.Daily.Anchor = System.Windows.Forms.AnchorStyles.Left
         Me.Daily.BackColor = System.Drawing.SystemColors.ButtonFace
         Me.Daily.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold)
         Me.Daily.Location = New System.Drawing.Point(620, 92)
@@ -185,6 +181,7 @@ Partial Class HealthCare_Dashboard
         '
         'dtpFrom
         '
+        Me.dtpFrom.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.dtpFrom.Location = New System.Drawing.Point(503, 407)
         Me.dtpFrom.Name = "dtpFrom"
         Me.dtpFrom.Size = New System.Drawing.Size(145, 20)
@@ -192,6 +189,7 @@ Partial Class HealthCare_Dashboard
         '
         'dtpTo
         '
+        Me.dtpTo.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.dtpTo.Location = New System.Drawing.Point(706, 407)
         Me.dtpTo.Name = "dtpTo"
         Me.dtpTo.Size = New System.Drawing.Size(145, 20)
@@ -199,6 +197,7 @@ Partial Class HealthCare_Dashboard
         '
         'Label1
         '
+        Me.Label1.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label1.AutoSize = True
         Me.Label1.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label1.Location = New System.Drawing.Point(451, 407)
@@ -209,6 +208,7 @@ Partial Class HealthCare_Dashboard
         '
         'Label2
         '
+        Me.Label2.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label2.AutoSize = True
         Me.Label2.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label2.Location = New System.Drawing.Point(673, 407)
@@ -219,6 +219,7 @@ Partial Class HealthCare_Dashboard
         '
         'btnFilterCharts
         '
+        Me.btnFilterCharts.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.btnFilterCharts.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnFilterCharts.Location = New System.Drawing.Point(879, 400)
         Me.btnFilterCharts.Name = "btnFilterCharts"
