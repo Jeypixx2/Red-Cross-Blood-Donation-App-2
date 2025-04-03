@@ -22,12 +22,12 @@ Partial Class HealthCare_Dashboard
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Dim ChartArea1 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
-        Dim Legend1 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
-        Dim Series1 As System.Windows.Forms.DataVisualization.Charting.Series = New System.Windows.Forms.DataVisualization.Charting.Series()
-        Dim ChartArea2 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
-        Dim Legend2 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
-        Dim Series2 As System.Windows.Forms.DataVisualization.Charting.Series = New System.Windows.Forms.DataVisualization.Charting.Series()
+        Dim ChartArea3 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
+        Dim Legend3 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
+        Dim Series3 As System.Windows.Forms.DataVisualization.Charting.Series = New System.Windows.Forms.DataVisualization.Charting.Series()
+        Dim ChartArea4 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
+        Dim Legend4 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
+        Dim Series4 As System.Windows.Forms.DataVisualization.Charting.Series = New System.Windows.Forms.DataVisualization.Charting.Series()
         Me.pbLogo = New System.Windows.Forms.PictureBox()
         Me.SearchTextBox = New System.Windows.Forms.RichTextBox()
         Me.Retrieve_Data = New System.Windows.Forms.Button()
@@ -45,6 +45,7 @@ Partial Class HealthCare_Dashboard
         Me.Label2 = New System.Windows.Forms.Label()
         Me.btnFilterCharts = New System.Windows.Forms.Button()
         Me.back = New System.Windows.Forms.Button()
+        Me.btnPrint = New System.Windows.Forms.Button()
         CType(Me.pbLogo, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.Bar_Graph, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -96,7 +97,7 @@ Partial Class HealthCare_Dashboard
         '
         Me.ComboBox1.Anchor = System.Windows.Forms.AnchorStyles.Left
         Me.ComboBox1.FormattingEnabled = True
-        Me.ComboBox1.Location = New System.Drawing.Point(971, 92)
+        Me.ComboBox1.Location = New System.Drawing.Point(931, 94)
         Me.ComboBox1.Name = "ComboBox1"
         Me.ComboBox1.Size = New System.Drawing.Size(121, 21)
         Me.ComboBox1.TabIndex = 16
@@ -104,7 +105,7 @@ Partial Class HealthCare_Dashboard
         'MonthCalendar1
         '
         Me.MonthCalendar1.Anchor = System.Windows.Forms.AnchorStyles.Left
-        Me.MonthCalendar1.Location = New System.Drawing.Point(971, 92)
+        Me.MonthCalendar1.Location = New System.Drawing.Point(931, 94)
         Me.MonthCalendar1.Name = "MonthCalendar1"
         Me.MonthCalendar1.TabIndex = 15
         '
@@ -149,16 +150,16 @@ Partial Class HealthCare_Dashboard
         Me.Bar_Graph.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Bar_Graph.BackColor = System.Drawing.Color.MistyRose
-        ChartArea1.Name = "ChartArea1"
-        Me.Bar_Graph.ChartAreas.Add(ChartArea1)
-        Legend1.Name = "Legend1"
-        Me.Bar_Graph.Legends.Add(Legend1)
+        ChartArea3.Name = "ChartArea1"
+        Me.Bar_Graph.ChartAreas.Add(ChartArea3)
+        Legend3.Name = "Legend1"
+        Me.Bar_Graph.Legends.Add(Legend3)
         Me.Bar_Graph.Location = New System.Drawing.Point(21, 436)
         Me.Bar_Graph.Name = "Bar_Graph"
-        Series1.ChartArea = "ChartArea1"
-        Series1.Legend = "Legend1"
-        Series1.Name = "Series1"
-        Me.Bar_Graph.Series.Add(Series1)
+        Series3.ChartArea = "ChartArea1"
+        Series3.Legend = "Legend1"
+        Series3.Name = "Series1"
+        Me.Bar_Graph.Series.Add(Series3)
         Me.Bar_Graph.Size = New System.Drawing.Size(1394, 204)
         Me.Bar_Graph.TabIndex = 27
         Me.Bar_Graph.Text = "Chart2"
@@ -168,16 +169,16 @@ Partial Class HealthCare_Dashboard
         Me.Line_Chart.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Line_Chart.BackColor = System.Drawing.Color.MistyRose
-        ChartArea2.Name = "ChartArea1"
-        Me.Line_Chart.ChartAreas.Add(ChartArea2)
-        Legend2.Name = "Legend1"
-        Me.Line_Chart.Legends.Add(Legend2)
+        ChartArea4.Name = "ChartArea1"
+        Me.Line_Chart.ChartAreas.Add(ChartArea4)
+        Legend4.Name = "Legend1"
+        Me.Line_Chart.Legends.Add(Legend4)
         Me.Line_Chart.Location = New System.Drawing.Point(21, 646)
         Me.Line_Chart.Name = "Line_Chart"
-        Series2.ChartArea = "ChartArea1"
-        Series2.Legend = "Legend1"
-        Series2.Name = "Series1"
-        Me.Line_Chart.Series.Add(Series2)
+        Series4.ChartArea = "ChartArea1"
+        Series4.Legend = "Legend1"
+        Series4.Name = "Series1"
+        Me.Line_Chart.Series.Add(Series4)
         Me.Line_Chart.Size = New System.Drawing.Size(1394, 179)
         Me.Line_Chart.TabIndex = 28
         Me.Line_Chart.Text = "Chart1"
@@ -231,12 +232,24 @@ Partial Class HealthCare_Dashboard
         Me.back.BackColor = System.Drawing.Color.Red
         Me.back.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.back.ForeColor = System.Drawing.SystemColors.Control
-        Me.back.Location = New System.Drawing.Point(1227, 75)
+        Me.back.Location = New System.Drawing.Point(1326, 75)
         Me.back.Name = "back"
         Me.back.Size = New System.Drawing.Size(106, 51)
         Me.back.TabIndex = 47
         Me.back.Text = "Back"
         Me.back.UseVisualStyleBackColor = False
+        '
+        'btnPrint
+        '
+        Me.btnPrint.BackColor = System.Drawing.Color.FromArgb(CType(CType(207, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(6, Byte), Integer))
+        Me.btnPrint.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnPrint.ForeColor = System.Drawing.SystemColors.Control
+        Me.btnPrint.Location = New System.Drawing.Point(1199, 75)
+        Me.btnPrint.Name = "btnPrint"
+        Me.btnPrint.Size = New System.Drawing.Size(106, 51)
+        Me.btnPrint.TabIndex = 48
+        Me.btnPrint.Text = "Print"
+        Me.btnPrint.UseVisualStyleBackColor = False
         '
         'HealthCare_Dashboard
         '
@@ -244,6 +257,7 @@ Partial Class HealthCare_Dashboard
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.SystemColors.ButtonHighlight
         Me.ClientSize = New System.Drawing.Size(1444, 881)
+        Me.Controls.Add(Me.btnPrint)
         Me.Controls.Add(Me.back)
         Me.Controls.Add(Me.btnFilterCharts)
         Me.Controls.Add(Me.Label2)
@@ -292,4 +306,5 @@ Partial Class HealthCare_Dashboard
     Friend WithEvents Label2 As Label
     Friend WithEvents btnFilterCharts As Button
     Friend WithEvents back As Button
+    Friend WithEvents btnPrint As Button
 End Class

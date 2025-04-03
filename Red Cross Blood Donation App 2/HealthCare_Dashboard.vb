@@ -98,7 +98,7 @@ Public Class HealthCare_Dashboard
             chartArea.AxisY.MajorGrid.LineColor = Color.LightGray
             Line_Chart.ChartAreas.Add(chartArea)
 
-            ' Query to filter donation data based on date range
+
             Dim query As String = "
             SELECT 
                 YEAR(DonationDate) AS DonationYear, 
@@ -514,8 +514,8 @@ Public Class HealthCare_Dashboard
                         connection.Open()
                         Using transaction As MySqlTransaction = connection.BeginTransaction()
                             Try
-                                Dim insertQuery As String = "INSERT INTO HealthProvider (HealthProviderID, CompanyHospitalName, PersonnelID, PersonnelName, BloodID, LastName, FirstName, MiddleName, BloodType, RhesusFactor, DonationType, BloodVolume, RetrieveDate, PurposeOfRetrieval, ContactNo, EmailAdd) " &
-                                                        "VALUES (@HealthProviderID, @HospitalName, @PersonnelID, @PersonnelName, @BloodID, @LastName, @FirstName, @MiddleName, @BloodType, @RhesusFactor, @DonationType, @BloodVolume, @RetrieveDate, @PurposeOfRetrieval, @ContactNo, @EmailAdd)"
+                                Dim insertQuery As String = "INSERT INTO HealthProvider (HealthProviderID, CompanyHospitalName, PersonnelID, PersonnelName, BloodID, LastName, FirstName, MiddleName, Blood_Group, RhesusFactor, DonationType, BloodVolume, RetrieveDate, PurposeOfRetrieval, ContactNo, EmailAdd) " &
+                                                        "VALUES (@HealthProviderID, @HospitalName, @PersonnelID, @PersonnelName, @BloodID, @LastName, @FirstName, @MiddleName, @Blood_Group, @RhesusFactor, @DonationType, @BloodVolume, @RetrieveDate, @PurposeOfRetrieval, @ContactNo, @EmailAdd)"
 
                                 Using cmd As New MySqlCommand(insertQuery, connection, transaction)
                                     cmd.Parameters.AddWithValue("@HealthProviderID", HealthProviderID)
@@ -526,7 +526,7 @@ Public Class HealthCare_Dashboard
                                     cmd.Parameters.AddWithValue("@LastName", lastName)
                                     cmd.Parameters.AddWithValue("@FirstName", firstName)
                                     cmd.Parameters.AddWithValue("@MiddleName", middleName)
-                                    cmd.Parameters.AddWithValue("@BloodType", bloodType)
+                                    cmd.Parameters.AddWithValue("@Blood_Group", bloodType)
                                     cmd.Parameters.AddWithValue("@RhesusFactor", rhesusFactor)
                                     cmd.Parameters.AddWithValue("@DonationType", donationType)
                                     cmd.Parameters.AddWithValue("@BloodVolume", bloodVolume)
@@ -616,6 +616,11 @@ Public Class HealthCare_Dashboard
 
     Private Sub back_Click_1(sender As Object, e As EventArgs) Handles back.Click
         Start.Show()
+        Me.Hide()
+    End Sub
+
+    Private Sub btnPrint_Click(sender As Object, e As EventArgs) Handles btnPrint.Click
+        Print.Show()
         Me.Hide()
     End Sub
 End Class

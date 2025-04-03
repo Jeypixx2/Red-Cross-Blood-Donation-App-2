@@ -290,6 +290,14 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DataSet5.xsd</DependentUpon>
     </Compile>
+    <Compile Include="DataSet6.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DataSet6.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DataSet6.vb">
+      <DependentUpon>DataSet6.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Donation_History_Report.Designer.vb">
       <DependentUpon>Donation_History_Report.vb</DependentUpon>
     </Compile>
@@ -333,6 +341,12 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="NavigationHelper.vb" />
+    <Compile Include="Print.Designer.vb">
+      <DependentUpon>Print.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Print.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="SetConfig.Designer.vb">
       <DependentUpon>SetConfig.vb</DependentUpon>
     </Compile>
@@ -463,6 +477,12 @@
     <EmbeddedResource Include="Eligibility_Checker_old.resx">
       <DependentUpon>Eligibility_Checker_old.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Print.resx">
+      <DependentUpon>Print.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Health_Report.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
     <EmbeddedResource Include="SetConfig.resx">
       <DependentUpon>SetConfig.vb</DependentUpon>
     </EmbeddedResource>
@@ -576,6 +596,17 @@
     </None>
     <None Include="DataSet5.xss">
       <DependentUpon>DataSet5.xsd</DependentUpon>
+    </None>
+    <None Include="DataSet6.xsc">
+      <DependentUpon>DataSet6.xsd</DependentUpon>
+    </None>
+    <None Include="DataSet6.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DataSet6.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="DataSet6.xss">
+      <DependentUpon>DataSet6.xsd</DependentUpon>
     </None>
     <None Include="My Project\Application.myapp">
       <Generator>MyApplicationCodeGenerator</Generator>
