@@ -71,7 +71,7 @@ Public Class SuperAdmin_Dashboard
 
     ' Show MonthCalendar when Daily button is clicked
     Private Sub Button5_Click(sender As Object, e As EventArgs) Handles Daily.Click
-        dtpCalendar.Visible = True
+        dtpCalendar.Visible = False
         cmbMonths.Visible = False
         isDailyView = True ' Set flag for Daily view
     End Sub
@@ -79,7 +79,7 @@ Public Class SuperAdmin_Dashboard
     ' Show MonthCalendar when Weekly button is clicked
     Private Sub Button6_Click(sender As Object, e As EventArgs) Handles Weekly.Click
         Calendar = 2
-        dtpCalendar.Visible = True
+        dtpCalendar.Visible = False
         cmbMonths.Visible = False
         isDailyView = False ' Set flag for Weekly view
     End Sub
@@ -231,6 +231,7 @@ Public Class SuperAdmin_Dashboard
         End If
 
         GlobalModel.UpdateDataGridView(Data, dgvInventory)
+        dtpCalendar.Visible = False
     End Sub
 
     Private searchTimer As New Timer()
