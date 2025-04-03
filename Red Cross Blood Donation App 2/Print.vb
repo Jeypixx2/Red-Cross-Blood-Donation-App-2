@@ -10,11 +10,9 @@ Public Class Print
         Try
             modDB.openConn(modDB.db_name)
 
-            ' Get the selected date range from the DateTimePicker controls
             Dim fromDate As String = dtpFrom.Value.ToString("yyyy-MM-dd")
             Dim toDate As String = dtpTo.Value.ToString("yyyy-MM-dd")
 
-            ' Update the query to include a date filter for registration dates
             Dim query As String = "SELECT 
                                     RetrieveID, 
                                     CompanyHospitalName, 

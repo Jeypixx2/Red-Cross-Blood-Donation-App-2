@@ -1,4 +1,5 @@
-﻿Imports System.Windows.Forms.VisualStyles.VisualStyleElement
+﻿Imports System.Windows.Forms.DataVisualization.Charting
+Imports System.Windows.Forms.VisualStyles.VisualStyleElement
 Imports MySql.Data.MySqlClient
 
 Public Class SuperAdmin_Dashboard
@@ -440,6 +441,106 @@ Public Class SuperAdmin_Dashboard
         End Try
     End Sub
 
+    Private Sub LoadChart2(startDate As Date, endDate As Date)
+        Try
+            Line_Chart.Series.Clear()
+            Line_Chart.ChartAreas.Clear()
+            Line_Chart.Legends.Clear()
+
+            Dim chartArea As New ChartArea("DonationsArea")
+            chartArea.AxisX.Title = "Month"
+            chartArea.AxisX.Interval = 1
+            chartArea.AxisY.Title = "Total Donations"
+            chartArea.AxisY.MajorGrid.LineColor = Color.LightGray
+            Line_Chart.ChartAreas.Add(chartArea)
+
+            ' Query to filter donation data based on date range
+            Dim query As String = "
+            SELECT 
+                YEAR(DonationDate) AS DonationYear, 
+                MONTHNAME(DonationDate) AS DonationMonth, 
+                COUNT(*) AS TotalDonations
+            FROM Donation
+            WHERE DonationDate BETWEEN @startDate AND @endDate
+            GROUP BY YEAR(DonationDate), MONTH(DonationDate)
+            ORDER BY YEAR(DonationDate), MONTH(DonationDate);"
+
+            Dim ds As New DataSet()
+            Dim da As New MySqlDataAdapter(query, modDB.conn)
+
+            da.SelectCommand.Parameters.AddWithValue("@startDate", startDate.ToString("yyyy-MM-dd"))
+            da.SelectCommand.Parameters.AddWithValue("@endDate", endDate.ToString("yyyy-MM-dd"))
+
+            If modDB.conn.State = ConnectionState.Closed Then
+                modDB.conn.Open()
+            End If
+
+            da.Fill(ds, "Monthly Donations")
+            modDB.conn.Close()
+
+
+
+            Dim series As New Series("Monthly Donations")
+            series.ChartType = SeriesChartType.Line
+            series.XValueMember = "DonationMonth"
+            series.YValueMembers = "TotalDonations"
+            series.IsValueShownAsLabel = True
+            series.Color = Color.DarkGreen
+
+            Line_Chart.DataSource = ds.Tables("Monthly Donations")
+            Line_Chart.Series.Add(series)
+
+            Dim legend As New Legend("Monthly Donations Legend")
+            legend.Docking = Docking.Top
+            Line_Chart.Legends.Add(legend)
+
+        Catch ex As Exception
+            MessageBox.Show($"Error loading Chart2: {ex.Message}", "Chart Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+    End Sub
+
+    Private Sub LoadChart1(startDate As Date, endDate As Date)
+        Try
+            Bar_Graph.Series.Clear()
+            Bar_Graph.ChartAreas.Clear()
+
+            Dim chartArea As New ChartArea("BloodTypesArea")
+            Bar_Graph.ChartAreas.Add(chartArea)
+
+            ' Query to filter donors within the selected date range
+            Dim query As String = "
+            SELECT bloodtype, COUNT(*) AS donors_count 
+            FROM donors 
+            WHERE RegDate BETWEEN @startDate AND @endDate
+            GROUP BY bloodtype"
+
+            Dim ds As New DataSet()
+            Dim da As New MySqlDataAdapter(query, modDB.conn)
+
+            da.SelectCommand.Parameters.AddWithValue("@startDate", startDate.ToString("yyyy-MM-dd"))
+            da.SelectCommand.Parameters.AddWithValue("@endDate", endDate.ToString("yyyy-MM-dd"))
+
+            If modDB.conn.State = ConnectionState.Closed Then
+                modDB.conn.Open()
+            End If
+
+            da.Fill(ds, "Blood Type")
+            modDB.conn.Close()
+
+
+            Dim series As New Series("Blood Type")
+            series.ChartType = SeriesChartType.Bar
+            series.XValueMember = "bloodtype"
+            series.YValueMembers = "donors_count"
+            series.IsValueShownAsLabel = True
+
+            Bar_Graph.DataSource = ds.Tables("Blood Type")
+            Bar_Graph.Series.Add(series)
+
+        Catch ex As Exception
+            MessageBox.Show($"Error loading Chart1: {ex.Message}", "Chart Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+    End Sub
 
     ' Set config
     Private Sub Config_Click_1(sender As Object, e As EventArgs) Handles Config.Click
@@ -457,5 +558,26 @@ Public Class SuperAdmin_Dashboard
     Private Sub back_Click(sender As Object, e As EventArgs) Handles back.Click
         Start.Show()
         Me.Hide()
+    End Sub
+
+    Private Sub Line_Chart_Click(sender As Object, e As EventArgs) Handles Line_Chart.Click
+
+    End Sub
+
+    Private Sub Bar_Graph_Click(sender As Object, e As EventArgs) Handles Bar_Graph.Click
+
+    End Sub
+
+    Private Sub btnFilterCharts_Click(sender As Object, e As EventArgs) Handles btnFilterCharts.Click
+        Dim startDate As Date = dtpFrom.Value
+        Dim endDate As Date = dtpTo.Value
+
+        If startDate > endDate Then
+            MessageBox.Show("Start date cannot be later than end date.", "Invalid Date Range", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            Return
+        End If
+
+        LoadChart1(startDate, endDate)
+        LoadChart2(startDate, endDate)
     End Sub
 End Class
