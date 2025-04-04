@@ -44,21 +44,17 @@ Public Class Eligibility_Checker_new
         End If
     End Sub
 
-    ' Validate DonorID
     Private Function ValidateDonorID() As Boolean
         Return DonorID > 0
     End Function
 
-    ' Save eligibility data to the database
     Private Function SaveEligibilityData() As Boolean
         Dim connection As MySqlConnection = modDB.conn
         Try
 
-            ' Fetch donor full name and birthdate (we need birthdate for age calculation)
             DonorName = GetDonorFullName(connection)
-            Dim birthdate As DateTime = GetDonorBirthdate(connection)  ' Assuming GetDonorBirthdate function is added
+            Dim birthdate As DateTime = GetDonorBirthdate(connection)
 
-            ' Insert eligibility data and flag permanent ineligibility if needed
             If InsertEligibilityData(connection) Then
                 ' Calculate and update donor age
                 Dim age As Integer = CalculateAge(birthdate)
@@ -113,16 +109,14 @@ Public Class Eligibility_Checker_new
         Return String.Empty
     End Function
 
-    ' Insert eligibility data into the database and flag as permanently ineligible if necessary
     Private Function InsertEligibilityData(connection As MySqlConnection) As Boolean
-        Dim query As String = "INSERT INTO eligibility (DonorID, Weight, BloodPressure, Hemoglobin, ConditionCheck, ConditionType, Substance, SubstanceDate, TattooPiercing, TattooPiercingDate, Medication, MedicationDate, EligibilityStatus, EligibilityDate) " &
+        Dim query As String = "INSERT INTO eligibility (DonorID, Weight, BloodPressure, Hemoglobin, ConditionCheck, ConditionType, Substance, SubstanceDate, TattooPiercing, TattooPiercingDate, Medication, MedicationDate,EligibilityStatus, EligibilityDate) " &
                           "VALUES (@DonorID, @Weight, @BloodPressure, @Hemoglobin, @ConditionCheck, @ConditionType, @Substance, @SubstanceDate, @TattooPiercing, @TattooPiercingDate, @Medication, @MedicationDate, @EligibilityStatus, @EligibilityDate)"
 
         Using cmd As New MySqlCommand(query, connection)
-            ' Add parameters
             AddEligibilityParameters(cmd)
 
-            ' Flag permanent ineligibility if needed
+
             If GetConditionCheck() = 1 AndAlso Not String.IsNullOrEmpty(conditiontypetextbox.Text) Then
                 FlagPermanentIneligibility(connection)
                 MessageBox.Show("Donor flagged as permanently ineligible due to specific conditions.")
@@ -150,7 +144,6 @@ Public Class Eligibility_Checker_new
         Return age
     End Function
 
-    ' Add parameters to eligibility insert query
     Private Sub AddEligibilityParameters(cmd As MySqlCommand)
         cmd.Parameters.AddWithValue("@DonorID", DonorID)
         cmd.Parameters.AddWithValue("@Weight", ParseIntegerField(weighttextbox.Text, "weight"))
@@ -189,9 +182,9 @@ Public Class Eligibility_Checker_new
         cmd.Parameters.AddWithValue("@EligibilityDate", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"))
     End Sub
 
-    ' Flag donor as permanently ineligible
+
     Private Sub FlagPermanentIneligibility(connection As MySqlConnection)
-        Dim query As String = "UPDATE donors SET EligibilityStatus = 'Ineligible' WHERE DonorID = @DonorID"
+        Dim query As String = "UPDATE eligibility SET EligibilityStatus = 0 WHERE DonorID = @DonorID"
         Using cmd As New MySqlCommand(query, connection)
             cmd.Parameters.AddWithValue("@DonorID", DonorID)
             cmd.ExecuteNonQuery()
