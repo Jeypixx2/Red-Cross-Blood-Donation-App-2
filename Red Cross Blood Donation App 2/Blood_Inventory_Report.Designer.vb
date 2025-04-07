@@ -48,10 +48,10 @@ Partial Class Blood_Inventory_Report
         Me.ReportViewer1.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.ReportViewer1.Location = New System.Drawing.Point(322, 74)
+        Me.ReportViewer1.Location = New System.Drawing.Point(399, 74)
         Me.ReportViewer1.Name = "ReportViewer1"
         Me.ReportViewer1.ServerReport.BearerToken = Nothing
-        Me.ReportViewer1.Size = New System.Drawing.Size(707, 663)
+        Me.ReportViewer1.Size = New System.Drawing.Size(633, 663)
         Me.ReportViewer1.TabIndex = 4
         '
         'btnBack
