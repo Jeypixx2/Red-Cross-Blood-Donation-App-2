@@ -7,6 +7,9 @@ Public Class Blood_Inventory_Report
     End Sub
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+
+
+        Logs("Load Report")
         Try
             modDB.openConn(modDB.db_name)
 
@@ -18,9 +21,9 @@ Public Class Blood_Inventory_Report
             Dim query As String = "SELECT
                 donation.BloodID,
                 donors.BloodType,
-                donation.Blood_Group,
-                donation.RhesusFactor,
+                donation.Compatibility,
                 donation.BloodVolume,
+                donation.StorageLocation,
                 donation.DonationType,
                 COALESCE(donation.Expiration_Date, '1900-01-01') AS Expiration_Date
             FROM 
