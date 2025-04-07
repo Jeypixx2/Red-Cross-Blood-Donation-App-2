@@ -283,13 +283,17 @@ Partial Public Class DataSet3
     Partial Public Class Blood_Inven_RepDataTable
         Inherits Global.System.Data.TypedTableBase(Of Blood_Inven_RepRow)
         
+        Private columnBloodID As Global.System.Data.DataColumn
+        
         Private columnBloodType As Global.System.Data.DataColumn
         
         Private columnBlood_Group As Global.System.Data.DataColumn
         
         Private columnRhesusFactor As Global.System.Data.DataColumn
         
-        Private columnNumber_Of_Unit As Global.System.Data.DataColumn
+        Private columnBloodVolume As Global.System.Data.DataColumn
+        
+        Private columnDonationType As Global.System.Data.DataColumn
         
         Private columnExpiration_Date As Global.System.Data.DataColumn
         
@@ -330,6 +334,14 @@ Partial Public Class DataSet3
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
+        Public ReadOnly Property BloodIDColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnBloodID
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public ReadOnly Property BloodTypeColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnBloodType
@@ -354,9 +366,17 @@ Partial Public Class DataSet3
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
-        Public ReadOnly Property Number_Of_UnitColumn() As Global.System.Data.DataColumn
+        Public ReadOnly Property BloodVolumeColumn() As Global.System.Data.DataColumn
             Get
-                Return Me.columnNumber_Of_Unit
+                Return Me.columnBloodVolume
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
+        Public ReadOnly Property DonationTypeColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnDonationType
             End Get
         End Property
         
@@ -405,9 +425,9 @@ Partial Public Class DataSet3
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
-        Public Overloads Function AddBlood_Inven_RepRow(ByVal BloodType As String, ByVal Blood_Group As String, ByVal RhesusFactor As String, ByVal Number_Of_Unit As String, ByVal Expiration_Date As String) As Blood_Inven_RepRow
+        Public Overloads Function AddBlood_Inven_RepRow(ByVal BloodID As String, ByVal BloodType As String, ByVal Blood_Group As String, ByVal RhesusFactor As String, ByVal BloodVolume As String, ByVal DonationType As String, ByVal Expiration_Date As String) As Blood_Inven_RepRow
             Dim rowBlood_Inven_RepRow As Blood_Inven_RepRow = CType(Me.NewRow,Blood_Inven_RepRow)
-            Dim columnValuesArray() As Object = New Object() {BloodType, Blood_Group, RhesusFactor, Number_Of_Unit, Expiration_Date}
+            Dim columnValuesArray() As Object = New Object() {BloodID, BloodType, Blood_Group, RhesusFactor, BloodVolume, DonationType, Expiration_Date}
             rowBlood_Inven_RepRow.ItemArray = columnValuesArray
             Me.Rows.Add(rowBlood_Inven_RepRow)
             Return rowBlood_Inven_RepRow
@@ -430,24 +450,30 @@ Partial Public Class DataSet3
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Friend Sub InitVars()
+            Me.columnBloodID = MyBase.Columns("BloodID")
             Me.columnBloodType = MyBase.Columns("BloodType")
             Me.columnBlood_Group = MyBase.Columns("Blood_Group")
             Me.columnRhesusFactor = MyBase.Columns("RhesusFactor")
-            Me.columnNumber_Of_Unit = MyBase.Columns("Number_Of_Unit")
+            Me.columnBloodVolume = MyBase.Columns("BloodVolume")
+            Me.columnDonationType = MyBase.Columns("DonationType")
             Me.columnExpiration_Date = MyBase.Columns("Expiration_Date")
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Private Sub InitClass()
+            Me.columnBloodID = New Global.System.Data.DataColumn("BloodID", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnBloodID)
             Me.columnBloodType = New Global.System.Data.DataColumn("BloodType", GetType(String), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columnBloodType)
             Me.columnBlood_Group = New Global.System.Data.DataColumn("Blood_Group", GetType(String), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columnBlood_Group)
             Me.columnRhesusFactor = New Global.System.Data.DataColumn("RhesusFactor", GetType(String), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columnRhesusFactor)
-            Me.columnNumber_Of_Unit = New Global.System.Data.DataColumn("Number_Of_Unit", GetType(String), Nothing, Global.System.Data.MappingType.Element)
-            MyBase.Columns.Add(Me.columnNumber_Of_Unit)
+            Me.columnBloodVolume = New Global.System.Data.DataColumn("BloodVolume", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnBloodVolume)
+            Me.columnDonationType = New Global.System.Data.DataColumn("DonationType", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnDonationType)
             Me.columnExpiration_Date = New Global.System.Data.DataColumn("Expiration_Date", GetType(String), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columnExpiration_Date)
         End Sub
@@ -596,6 +622,21 @@ Partial Public Class DataSet3
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
+        Public Property BloodID() As String
+            Get
+                Try 
+                    Return CType(Me(Me.tableBlood_Inven_Rep.BloodIDColumn),String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'BloodID' in table 'Blood_Inven_Rep' is DBNull.", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tableBlood_Inven_Rep.BloodIDColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
         Public Property BloodType() As String
             Get
                 Try 
@@ -641,16 +682,31 @@ Partial Public Class DataSet3
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
-        Public Property Number_Of_Unit() As String
+        Public Property BloodVolume() As String
             Get
                 Try 
-                    Return CType(Me(Me.tableBlood_Inven_Rep.Number_Of_UnitColumn),String)
+                    Return CType(Me(Me.tableBlood_Inven_Rep.BloodVolumeColumn),String)
                 Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'Number_Of_Unit' in table 'Blood_Inven_Rep' is DBNull.", e)
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'BloodVolume' in table 'Blood_Inven_Rep' is DBNull.", e)
                 End Try
             End Get
             Set
-                Me(Me.tableBlood_Inven_Rep.Number_Of_UnitColumn) = value
+                Me(Me.tableBlood_Inven_Rep.BloodVolumeColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
+        Public Property DonationType() As String
+            Get
+                Try 
+                    Return CType(Me(Me.tableBlood_Inven_Rep.DonationTypeColumn),String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'DonationType' in table 'Blood_Inven_Rep' is DBNull.", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tableBlood_Inven_Rep.DonationTypeColumn) = value
             End Set
         End Property
         
@@ -668,6 +724,18 @@ Partial Public Class DataSet3
                 Me(Me.tableBlood_Inven_Rep.Expiration_DateColumn) = value
             End Set
         End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
+        Public Function IsBloodIDNull() As Boolean
+            Return Me.IsNull(Me.tableBlood_Inven_Rep.BloodIDColumn)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
+        Public Sub SetBloodIDNull()
+            Me(Me.tableBlood_Inven_Rep.BloodIDColumn) = Global.System.Convert.DBNull
+        End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
@@ -707,14 +775,26 @@ Partial Public Class DataSet3
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
-        Public Function IsNumber_Of_UnitNull() As Boolean
-            Return Me.IsNull(Me.tableBlood_Inven_Rep.Number_Of_UnitColumn)
+        Public Function IsBloodVolumeNull() As Boolean
+            Return Me.IsNull(Me.tableBlood_Inven_Rep.BloodVolumeColumn)
         End Function
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
-        Public Sub SetNumber_Of_UnitNull()
-            Me(Me.tableBlood_Inven_Rep.Number_Of_UnitColumn) = Global.System.Convert.DBNull
+        Public Sub SetBloodVolumeNull()
+            Me(Me.tableBlood_Inven_Rep.BloodVolumeColumn) = Global.System.Convert.DBNull
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
+        Public Function IsDonationTypeNull() As Boolean
+            Return Me.IsNull(Me.tableBlood_Inven_Rep.DonationTypeColumn)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")>  _
+        Public Sub SetDonationTypeNull()
+            Me(Me.tableBlood_Inven_Rep.DonationTypeColumn) = Global.System.Convert.DBNull
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _

@@ -280,6 +280,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DataSet3.xsd</DependentUpon>
     </Compile>
+    <Compile Include="DataSet3.vb">
+      <DependentUpon>DataSet3.xsd</DependentUpon>
+    </Compile>
     <Compile Include="DataSet4.Designer.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
