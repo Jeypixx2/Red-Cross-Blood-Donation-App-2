@@ -25,7 +25,7 @@ Public Class HealthCare_Dashboard
 
         Try
             modDB.openConn("redcrossdb")
-
+            modDB.Logs("HealthCare Dashboard loaded")
             ' Set default date range (Last 30 days)
             dtpFrom.Value = DateTime.Today.AddDays(-30)
             dtpTo.Value = DateTime.Today
@@ -39,6 +39,7 @@ Public Class HealthCare_Dashboard
 
         Catch ex As MySqlException
             MessageBox.Show($"Connection failed: {ex.Message}", "Connection Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            modDB.Logs($"Connection failed: {ex.Message}")
         End Try
         MonthCalendar1.Visible = False
     End Sub
@@ -79,6 +80,7 @@ Public Class HealthCare_Dashboard
 
             Bar_Graph.DataSource = ds.Tables("Blood Type")
             Bar_Graph.Series.Add(series)
+            modDB.Logs("Loaded Chart1 with data")
 
         Catch ex As Exception
             MessageBox.Show($"Error loading Chart1: {ex.Message}", "Chart Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -137,6 +139,7 @@ Public Class HealthCare_Dashboard
             Dim legend As New Legend("Monthly Donations Legend")
             legend.Docking = Docking.Top
             Line_Chart.Legends.Add(legend)
+            modDB.Logs("Loaded Chart2 with data")
 
         Catch ex As Exception
             MessageBox.Show($"Error loading Chart2: {ex.Message}", "Chart Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -172,6 +175,7 @@ Public Class HealthCare_Dashboard
         MonthCalendar1.Visible = True
         ComboBox1.Visible = False
         isDailyView = True
+        modDB.Logs("Filter Daily")
     End Sub
 
     ' Show MonthCalendar when Weekly button is clicked
@@ -179,6 +183,7 @@ Public Class HealthCare_Dashboard
         MonthCalendar1.Visible = True
         ComboBox1.Visible = False
         isDailyView = False
+        modDB.Logs("Filter Weekly")
     End Sub
 
     ' Load data based on selected date from the MonthCalendar
@@ -233,6 +238,7 @@ Public Class HealthCare_Dashboard
                           "WHERE MONTH(donation.DonationDate) = @param0"
         Dim filteredData As DataTable = FilterData(query, selectedMonth)
         UpdateDataGridView(filteredData)
+        modDB.Logs("Filter Monthly")
     End Sub
 
     ' Show data for the selected date
@@ -329,6 +335,7 @@ Public Class HealthCare_Dashboard
 
         ' Restart the timer
         searchTimer.Start()
+
     End Sub
 
     Private Sub searchTimer_Tick(sender As Object, e As EventArgs) Handles searchTimer.Tick
@@ -365,6 +372,7 @@ Public Class HealthCare_Dashboard
 
         ' Update DataGridView with the filtered data
         UpdateDataGridView(filteredData)
+        modDB.Logs("Search Data")
     End Sub
 
     ' Filter data based on the search text
@@ -400,8 +408,6 @@ Public Class HealthCare_Dashboard
         Return table
     End Function
 
-
-
     Private Sub FetchIDs()
         Dim connection As MySqlConnection = modDB.conn
         Try
@@ -409,12 +415,13 @@ Public Class HealthCare_Dashboard
             Dim healthProviderQuery As String = "SELECT HealthProviderID FROM healthprovider WHERE CompanyHospitalName = @hospitalName"
             Using cmd As New MySqlCommand(healthProviderQuery, connection)
                 cmd.Parameters.AddWithValue("@hospitalName", hospitalName)
+                If connection.State = ConnectionState.Closed Then connection.Open()
                 Dim result = cmd.ExecuteScalar()
                 If result IsNot Nothing Then
                     HealthProviderID = Convert.ToInt32(result)
                 Else
                     ' If not found, generate a unique ID
-                    HealthProviderID = GenerateUniqueID()
+                    HealthProviderID = GenerateUniqueID("HealthProviderID", "healthprovider")
                 End If
             End Using
 
@@ -427,7 +434,7 @@ Public Class HealthCare_Dashboard
                     PersonnelID = Convert.ToInt32(result)
                 Else
                     ' If not found, generate a unique ID
-                    PersonnelID = GenerateUniqueID()
+                    PersonnelID = GenerateUniqueID("PersonnelID", "healthprovider")
                 End If
             End Using
         Catch ex As MySqlException
@@ -435,22 +442,23 @@ Public Class HealthCare_Dashboard
         End Try
     End Sub
 
-    Private Function GenerateUniqueID() As Integer
-        ' Get the current time in milliseconds
-        Dim currentTimeMilliseconds As Long = DateTime.UtcNow.Ticks / TimeSpan.TicksPerMillisecond
-
-        ' Generate a random number between 1000 and 9999
-        Dim random As New Random()
-        Dim randomNumber As Integer = random.Next(1000, 9999)
-
-        ' Combine the current time in milliseconds and the random number to form a unique ID
-        Dim uniqueID As String = currentTimeMilliseconds.ToString() & randomNumber.ToString()
-
-        ' Return the first 8 digits of the combined ID to ensure it's manageable as an Integer
-        ' If you want a longer ID, you can adjust the length or change the data type
-        Return Convert.ToInt32(uniqueID.Substring(0, 8))
+    Private Function GenerateUniqueID(columnName As String, tableName As String) As Integer
+        Dim newID As Integer = 1
+        Dim connection As MySqlConnection = modDB.conn
+        Try
+            Dim query As String = $"SELECT MAX({columnName}) FROM {tableName}"
+            Using cmd As New MySqlCommand(query, connection)
+                If connection.State = ConnectionState.Closed Then connection.Open()
+                Dim result = cmd.ExecuteScalar()
+                If result IsNot Nothing AndAlso Not IsDBNull(result) Then
+                    newID = Convert.ToInt32(result) + 1
+                End If
+            End Using
+        Catch ex As MySqlException
+            MessageBox.Show($"An error occurred while generating a unique ID: {ex.Message}", "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+        Return newID
     End Function
-
 
 
     Private Sub Retrieve_Data_Click(sender As Object, e As EventArgs) Handles Retrieve_Data.Click
@@ -474,16 +482,11 @@ Public Class HealthCare_Dashboard
 
             ' If no valid IDs found, generate new ones
             If HealthProviderID = 0 Then
-                HealthProviderID = GenerateUniqueID()
+                HealthProviderID = GenerateUniqueID("HealthProviderID", "healthprovider")
             End If
             If PersonnelID = 0 Then
-                PersonnelID = GenerateUniqueID()
+                PersonnelID = GenerateUniqueID("PersonnelID", "healthprovider")
             End If
-
-            ' Use the new IDs
-            Dim RetrieveID As Integer = HealthProviderID
-            HealthProviderID = RetrieveID
-            PersonnelID = RetrieveID
 
             ' Prompt user for additional details
             Dim purposeOfRetrieval As String = InputBox("Enter the Purpose of Retrieval:", "Purpose of Retrieval")
@@ -492,16 +495,16 @@ Public Class HealthCare_Dashboard
 
             ' Confirm retrieval with the user
             Dim confirmationMessage As String = $"You are about to retrieve the following data:" & vbCrLf &
-                                            $"Blood ID: {bloodID}" & vbCrLf &
-                                            $"Name: {lastName}, {firstName} {middleName}" & vbCrLf &
-                                            $"Blood Type: {bloodType} {rhesusFactor}" & vbCrLf &
-                                            $"Donation Type: {donationType}" & vbCrLf &
-                                            $"Blood Volume: {bloodVolume}" & vbCrLf &
-                                            $"Donation Date: {donationDate}" & vbCrLf &
-                                            $"Purpose of Retrieval: {purposeOfRetrieval}" & vbCrLf &
-                                            $"Contact Number: {contactNo}" & vbCrLf &
-                                            $"Email Address: {emailAdd}" & vbCrLf &
-                                            "Do you want to continue?"
+                                        $"Blood ID: {bloodID}" & vbCrLf &
+                                        $"Name: {lastName}, {firstName} {middleName}" & vbCrLf &
+                                        $"Blood Type: {bloodType} {rhesusFactor}" & vbCrLf &
+                                        $"Donation Type: {donationType}" & vbCrLf &
+                                        $"Blood Volume: {bloodVolume}" & vbCrLf &
+                                        $"Donation Date: {donationDate}" & vbCrLf &
+                                        $"Purpose of Retrieval: {purposeOfRetrieval}" & vbCrLf &
+                                        $"Contact Number: {contactNo}" & vbCrLf &
+                                        $"Email Address: {emailAdd}" & vbCrLf &
+                                        "Do you want to continue?"
 
             Dim result As DialogResult = MessageBox.Show(confirmationMessage, "Confirm Retrieval", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
 
@@ -510,18 +513,18 @@ Public Class HealthCare_Dashboard
                     Dim retrieveDate As Date = DateTime.Now
 
                     ' Insert data into HealthProvider table
-                    Using connection As New MySqlConnection(strConnection)
+                    Using connection As New MySqlConnection(modDB.strConnection)
                         connection.Open()
                         Using transaction As MySqlTransaction = connection.BeginTransaction()
                             Try
                                 Dim insertQuery As String = "INSERT INTO HealthProvider (HealthProviderID, CompanyHospitalName, PersonnelID, PersonnelName, BloodID, LastName, FirstName, MiddleName, Blood_Group, RhesusFactor, DonationType, BloodVolume, RetrieveDate, PurposeOfRetrieval, ContactNo, EmailAdd) " &
-                                                        "VALUES (@HealthProviderID, @HospitalName, @PersonnelID, @PersonnelName, @BloodID, @LastName, @FirstName, @MiddleName, @Blood_Group, @RhesusFactor, @DonationType, @BloodVolume, @RetrieveDate, @PurposeOfRetrieval, @ContactNo, @EmailAdd)"
+                                                    "VALUES (@HealthProviderID, @HospitalName, @PersonnelID, @PersonnelName, @BloodID, @LastName, @FirstName, @MiddleName, @Blood_Group, @RhesusFactor, @DonationType, @BloodVolume, @RetrieveDate, @PurposeOfRetrieval, @ContactNo, @EmailAdd)"
 
                                 Using cmd As New MySqlCommand(insertQuery, connection, transaction)
                                     cmd.Parameters.AddWithValue("@HealthProviderID", HealthProviderID)
-                                    cmd.Parameters.AddWithValue("@HospitalName", hospitalName) ' Assuming hospitalName is a variable defined elsewhere
+                                    cmd.Parameters.AddWithValue("@HospitalName", hospitalName)
                                     cmd.Parameters.AddWithValue("@PersonnelID", PersonnelID)
-                                    cmd.Parameters.AddWithValue("@PersonnelName", personnelName) ' Assuming personnelName is defined elsewhere
+                                    cmd.Parameters.AddWithValue("@PersonnelName", personnelName)
                                     cmd.Parameters.AddWithValue("@BloodID", bloodID)
                                     cmd.Parameters.AddWithValue("@LastName", lastName)
                                     cmd.Parameters.AddWithValue("@FirstName", firstName)
@@ -546,9 +549,11 @@ Public Class HealthCare_Dashboard
 
                                 transaction.Commit()
                                 MessageBox.Show("Data retrieved successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                                modDB.Logs("Data retrieved successfully")
                             Catch ex As Exception
                                 transaction.Rollback()
                                 MessageBox.Show("Error: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                                modDB.Logs("Error during data retrieval: " & ex.Message)
                             End Try
                         End Using
                     End Using
@@ -556,6 +561,7 @@ Public Class HealthCare_Dashboard
                     RefreshDataGridView()
                 Catch ex As Exception
                     MessageBox.Show("An unexpected error occurred: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                    modDB.Logs("Unexpected error during data retrieval: " & ex.Message)
                 End Try
             End If
         Else
@@ -601,7 +607,7 @@ Public Class HealthCare_Dashboard
             MessageBox.Show("Start date cannot be later than end date.", "Invalid Date Range", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             Return
         End If
-
+        modDB.Logs("Filtered Data on Charts")
         LoadChart1(startDate, endDate)
         LoadChart2(startDate, endDate)
     End Sub

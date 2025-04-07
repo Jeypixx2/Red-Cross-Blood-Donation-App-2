@@ -160,6 +160,7 @@ Public Class Admin_Dashboard
         MonthCalendar1.Visible = True
         ComboBox1.Visible = False
         isDailyView = True ' Set flag for Daily view
+        modDB.Logs("Filter Daily")
     End Sub
 
     ' Show MonthCalendar when Weekly button is clicked
@@ -167,6 +168,7 @@ Public Class Admin_Dashboard
         MonthCalendar1.Visible = True
         ComboBox1.Visible = False
         isDailyView = False ' Set flag for Weekly view
+        modDB.Logs("Filter Weekly")
     End Sub
 
     ' Filter data based on SQL query and parameters
@@ -278,6 +280,7 @@ Public Class Admin_Dashboard
         PopulateMonths()
         MonthCalendar1.Visible = False
         ComboBox1.Visible = True
+        modDB.Logs("Filter Monthly")
     End Sub
 
     Private Sub ComboBox1_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ComboBox1.SelectedIndexChanged
@@ -289,14 +292,17 @@ Public Class Admin_Dashboard
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Inventory.Click
         Admin_Inventory.Show()
         Me.Hide()
+        modDB.Logs("Inventory")
     End Sub
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Donor.Click
         OpenNewForm(Me, New User_Status())
+        modDB.Logs("Donor")
     End Sub
 
     Private Sub Button4_Click(sender As Object, e As EventArgs) Handles User.Click
         OpenNewForm(Me, New User_Status())
+        modDB.Logs("Donation")
     End Sub
 
     Private Sub Button1_Click_1(sender As Object, e As EventArgs) Handles Button1.Click
@@ -392,38 +398,11 @@ Public Class Admin_Dashboard
 
         Catch ex As Exception
             MessageBox.Show($"Error updating record: {ex.Message}", "Update Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            modDB.Logs($"Error updating record: {ex.Message}")
         Finally
             ' Ensure connection is closed to avoid conflicts
             If modDB.conn.State = ConnectionState.Open Then modDB.conn.Close()
         End Try
     End Sub
 
-
-    Private Sub DataGridView1_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles DataGridView1.CellContentClick
-
-    End Sub
-
-    Private Sub Line_Chart_Click(sender As Object, e As EventArgs) Handles Line_Chart.Click
-
-    End Sub
-
-    Private Sub Bar_Graph_Click(sender As Object, e As EventArgs) Handles Bar_Graph.Click
-
-    End Sub
-
-    Private Sub Label3_Click(sender As Object, e As EventArgs) Handles Label3.Click
-
-    End Sub
-
-    Private Sub Label2_Click(sender As Object, e As EventArgs) Handles Label2.Click
-
-    End Sub
-
-    Private Sub dtpTo_ValueChanged(sender As Object, e As EventArgs) Handles dtpTo.ValueChanged
-
-    End Sub
-
-    Private Sub dtpFrom_ValueChanged(sender As Object, e As EventArgs) Handles dtpFrom.ValueChanged
-
-    End Sub
 End Class

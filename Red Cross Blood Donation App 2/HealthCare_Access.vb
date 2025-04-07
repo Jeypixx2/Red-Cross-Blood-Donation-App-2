@@ -32,6 +32,19 @@ Public Class HealthCare_Access
             MessageBox.Show("New record detected. Data will be passed to the next form.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information)
         End If
 
+        ' Set the CurrentLoggedUser structure
+        modDB.CurrentLoggedUser = New modDB.LoggedUser With {
+            .id = existingIDs.Item1,
+            .name = personnelName,
+            .position = "Health Provider",
+            .username = hospitalName,
+            .password = String.Empty,
+            .type = 3
+        }
+
+        ' Log the login event
+        modDB.Logs("Health Provider logged in")
+
         ' Pass the data to the dashboard without saving
         Dim dashboard As New HealthCare_Dashboard(hospitalName, personnelName)
         Me.Hide()

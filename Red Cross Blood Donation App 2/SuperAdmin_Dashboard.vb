@@ -24,6 +24,7 @@ Public Class SuperAdmin_Dashboard
             currentTable = "donors"
             dbDateColumn = "RegDate"
             Calendar = 1
+            modDB.Logs("Load SuperAdmin Dashboard Successfully!")
 
             ' Initialize SelectedDate to today if it is not set
             If String.IsNullOrEmpty(SelectedDate) OrElse SelectedDate = Date.MinValue.ToString("yyyy-MM-dd") Then
@@ -74,6 +75,7 @@ Public Class SuperAdmin_Dashboard
         dtpCalendar.Visible = True
         cmbMonths.Visible = False
         isDailyView = True ' Set flag for Daily view
+        modDB.Logs("Filter Daily")
     End Sub
 
     ' Show MonthCalendar when Weekly button is clicked
@@ -82,6 +84,7 @@ Public Class SuperAdmin_Dashboard
         dtpCalendar.Visible = True
         cmbMonths.Visible = False
         isDailyView = False ' Set flag for Weekly view
+        modDB.Logs("Filter Weekly")
     End Sub
 
     ' Show the ComboBox for month selection
@@ -89,6 +92,7 @@ Public Class SuperAdmin_Dashboard
         PopulateMonths()
         dtpCalendar.Visible = False
         cmbMonths.Visible = True
+        modDB.Logs("Filter Monthly")
     End Sub
 
     ' Load data for the selected month when a month is chosen from the ComboBox
@@ -104,6 +108,7 @@ Public Class SuperAdmin_Dashboard
 
         ' Hide the ComboBox after selection
         cmbMonths.Visible = False
+
     End Sub
 
 
@@ -210,7 +215,7 @@ Public Class SuperAdmin_Dashboard
         Dim rowCount As Integer = modDB.LoadToDGV(query, dgvInventory)
 
 
-        modDB.Logs("View History")
+        modDB.Logs("View Health Provider")
 
 
         If rowCount = 0 Then
@@ -247,6 +252,7 @@ Public Class SuperAdmin_Dashboard
         searchTimer.Interval = 500
         AddHandler searchTimer.Tick, AddressOf PerformSearch
         searchTimer.Start()
+        modDB.Logs("Search Data")
     End Sub
 
     Private Sub PerformSearch(sender As Object, e As EventArgs)
@@ -288,6 +294,7 @@ Public Class SuperAdmin_Dashboard
             searchTimer.Stop()
 
             txtSearch.Tag = Nothing
+
         End Try
     End Sub
 
@@ -318,7 +325,7 @@ Public Class SuperAdmin_Dashboard
 
     Private Sub Button8_Click(sender As Object, e As EventArgs) Handles Button8.Click
         Health_Provider_Report.Show()
-        modDB.Logs("ViewHealth Provider Report")
+        modDB.Logs("View Health Provider Report")
     End Sub
 
     Private Sub History_Click(sender As Object, e As EventArgs) Handles History.Click
@@ -355,7 +362,7 @@ Public Class SuperAdmin_Dashboard
         GlobalModel.UpdateDataGridView(Data, dgvInventory)
 
         ' Log the action
-        modDB.Logs("View History Data")
+        modDB.Logs("View Logs Data")
     End Sub
 
     Private Sub Accounts_Click(sender As Object, e As EventArgs) Handles Accounts.Click
@@ -373,7 +380,7 @@ Public Class SuperAdmin_Dashboard
         GlobalModel.UpdateDataGridView(Data, dgvInventory)
 
         ' Log the action
-        modDB.Logs("View History Data")
+        modDB.Logs("View Accounts Data")
     End Sub
 
     Private Sub EnableEditingAndDeleting()
@@ -431,6 +438,7 @@ Public Class SuperAdmin_Dashboard
                     End Using
 
                     ' Notify success
+                    modDB.Logs("Update Inventory Data")
                     MessageBox.Show("Record updated successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
                 Else
                     Throw New Exception($"Primary key column not defined for table: {currentTable}")
@@ -494,6 +502,7 @@ Public Class SuperAdmin_Dashboard
             Dim legend As New Legend("Monthly Donations Legend")
             legend.Docking = Docking.Top
             Line_Chart.Legends.Add(legend)
+            modDB.Logs("Load Data on Chart2")
 
         Catch ex As Exception
             MessageBox.Show($"Error loading Chart2: {ex.Message}", "Chart Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -537,6 +546,7 @@ Public Class SuperAdmin_Dashboard
 
             Bar_Graph.DataSource = ds.Tables("Blood Type")
             Bar_Graph.Series.Add(series)
+            modDB.Logs("Load Data on Chart2")
 
         Catch ex As Exception
             MessageBox.Show($"Error loading Chart1: {ex.Message}", "Chart Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -546,26 +556,22 @@ Public Class SuperAdmin_Dashboard
     ' Set config
     Private Sub Config_Click_1(sender As Object, e As EventArgs) Handles Config.Click
         OpenNewForm(Me, New SetConfig())
+        modDB.Logs("Open Config")
     End Sub
 
     Private Sub New_Donor_Click(sender As Object, e As EventArgs) Handles New_Donor.Click
         OpenNewForm(Me, New User_Status())
+        modDB.Logs("New Donor")
     End Sub
 
     Private Sub New_Donation_Click(sender As Object, e As EventArgs) Handles New_Donation.Click
         OpenNewForm(Me, New User_Status())
+        modDB.Logs("New Donation")
     End Sub
 
     Private Sub back_Click(sender As Object, e As EventArgs) Handles back.Click
         Start.Show()
         Me.Hide()
-    End Sub
-
-    Private Sub Line_Chart_Click(sender As Object, e As EventArgs) Handles Line_Chart.Click
-
-    End Sub
-
-    Private Sub Bar_Graph_Click(sender As Object, e As EventArgs) Handles Bar_Graph.Click
 
     End Sub
 
@@ -577,7 +583,7 @@ Public Class SuperAdmin_Dashboard
             MessageBox.Show("Start date cannot be later than end date.", "Invalid Date Range", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             Return
         End If
-
+        modDB.Logs("Filtered Data on Charts")
         LoadChart1(startDate, endDate)
         LoadChart2(startDate, endDate)
     End Sub

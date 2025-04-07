@@ -9,7 +9,7 @@ Public Class Admin_Access
             If cmdRead.Read() AndAlso cmdRead.GetInt32(0) = 0 Then
                 createAcc.Visible = True ' Show "Create Account" label if table is empty
             Else
-                createAcc.Visible = True ' Hide "Create Account" label if table has records
+                createAcc.Visible = False ' Hide "Create Account" label if table has records
             End If
         Catch ex As Exception
             MessageBox.Show($"Error loading admin_account: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -33,24 +33,44 @@ Public Class Admin_Access
         ' Encrypt the entered password
         Dim encryptedPassword As String = Encrypt(password)
 
-        Dim query As String = "SELECT COUNT(*) FROM accounts WHERE username = @username AND password = @password"
+        Dim query As String = "SELECT * FROM accounts WHERE username = @username AND password = @password"
         Try
             Using cmd As New MySqlCommand(query, conn)
                 cmd.Parameters.AddWithValue("@username", username)
                 cmd.Parameters.AddWithValue("@password", encryptedPassword) ' Use encrypted password
                 openConn(db_name)
 
-                Dim count As Integer = Convert.ToInt32(cmd.ExecuteScalar())
-                If count > 0 Then
-                    ' Login successful
-                    MessageBox.Show("Login successful!", "Welcome", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                    Admin_Dashboard.Show() ' Show Admin Dashboard
-                    Me.Hide() ' Hide Login Form
-                Else
-                    ' Login failed
-                    MessageBox.Show("Invalid username or password.", "Login Failed", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                    txtPassword.Text = String.Empty ' Clear the password field
-                End If
+                Using reader As MySqlDataReader = cmd.ExecuteReader()
+                    If reader.Read() Then
+                        ' Login successful
+                        Dim userId As Integer = reader.GetInt32("AdminID")
+                        Dim userlevelName As String = reader.GetString("username")
+                        Dim userPosition As String = "Admin"
+                        Dim userType As Integer = 2
+
+                        ' Set the CurrentLoggedUser structure
+                        modDB.CurrentLoggedUser = New modDB.LoggedUser With {
+                            .id = userId,
+                            .name = userlevelName,
+                            .position = userPosition,
+                            .username = username,
+                            .password = encryptedPassword,
+                            .type = userType
+                        }
+
+                        ' Log the login event
+
+                        modDB.Logs("Admin logged in")
+
+                        MessageBox.Show("Login successful!", "Welcome", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                        Admin_Dashboard.Show() ' Show Admin Dashboard
+                        Me.Hide() ' Hide Login Form
+                    Else
+                        ' Login failed
+                        MessageBox.Show("Invalid username or password.", "Login Failed", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                        txtPassword.Text = String.Empty ' Clear the password field
+                    End If
+                End Using
             End Using
         Catch ex As Exception
             MessageBox.Show($"Error during login: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -58,7 +78,6 @@ Public Class Admin_Access
             conn?.Close()
         End Try
     End Sub
-
 
     Private Sub createAcc_Click(sender As Object, e As EventArgs) Handles createAcc.Click
         CreateAdminAccount.Show()

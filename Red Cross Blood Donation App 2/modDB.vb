@@ -167,8 +167,9 @@ Module modDB
     End Function
     Sub Logs(ByVal transaction As String, Optional ByVal events As String = "*_Click")
         Try
+            Dim userId As Integer = CurrentLoggedUser.id
             readQuery(String.Format("INSERT INTO `logs`(`dt`, `user_accounts_id`, `event`, `transactions`) VALUES ({0},{1},'{2}','{3}')", "now()",
-                                    CurrentLoggedUser.id,
+                                    userId,
                                     events,
                                     transaction))
         Catch ex As Exception
