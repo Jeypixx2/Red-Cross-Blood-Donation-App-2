@@ -18,7 +18,8 @@ Public Class Blood_Inventory_Report
             Dim toDate As String = dtpTo.Value.ToString("yyyy-MM-dd")
 
             ' Update the query to filter by the date range
-            Dim query As String = "SELECT 
+            Dim query As String = "SELECT
+                donation.BloodID,
                 donors.BloodType,
                 donation.Compatibility,
                 donation.BloodVolume,
@@ -63,15 +64,4 @@ Public Class Blood_Inventory_Report
         Admin_Dashboard.Show()
     End Sub
 
-    Private Sub Blood_Inventory_Report_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-
-    End Sub
-
-    Private Sub dtpFrom_ValueChanged(sender As Object, e As EventArgs) Handles dtpFrom.ValueChanged
-
-    End Sub
-
-    Private Sub dtpTo_ValueChanged(sender As Object, e As EventArgs) Handles dtpTo.ValueChanged
-
-    End Sub
 End Class
