@@ -58,19 +58,6 @@ Module modDB
         End Try
     End Sub
 
-    Public Sub readQuery(ByVal sql As String)
-        Try
-            openConn(db_name)
-            With cmd
-                .Connection = conn
-                .CommandText = sql
-                cmdRead = .ExecuteReader
-            End With
-        Catch EX As Exception
-            MsgBox(EX.Message, MsgBoxStyle.Critical)
-        End Try
-    End Sub
-
     Public Function isConnectedToLocalServer() As Boolean
         Dim result As Boolean = False
         Try
@@ -165,17 +152,50 @@ Module modDB
         End Using
         Return cipherText
     End Function
+    ' For SELECT queries (reading data)
+    Public Sub readQuery(ByVal sql As String)
+        Try
+            openConn(db_name)
+            With cmd
+                .Connection = conn
+                .CommandText = sql
+                If cmdRead IsNot Nothing AndAlso Not cmdRead.IsClosed Then
+                    cmdRead.Close()
+                End If
+                cmdRead = .ExecuteReader()
+            End With
+        Catch EX As Exception
+            MsgBox(EX.Message, MsgBoxStyle.Critical)
+        End Try
+    End Sub
+
+    ' For INSERT, UPDATE, DELETE queries
+    Public Sub executeQuery(ByVal sql As String)
+        Try
+            openConn(db_name)
+            With cmd
+                .Connection = conn
+                .CommandText = sql
+                .ExecuteNonQuery()
+            End With
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Critical)
+        Finally
+            conn.Close()
+        End Try
+    End Sub
+
+    ' Updated Logs method to use executeQuery instead of readQuery
     Sub Logs(ByVal transaction As String, Optional ByVal events As String = "*_Click")
         Try
             Dim userId As Integer = CurrentLoggedUser.id
-            readQuery(String.Format("INSERT INTO `logs`(`dt`, `user_accounts_id`, `event`, `transactions`) VALUES ({0},{1},'{2}','{3}')", "now()",
-                                    userId,
-                                    events,
-                                    transaction))
+            Dim sql As String = String.Format("INSERT INTO `logs`(`dt`, `user_accounts_id`, `event`, `transactions`) VALUES (NOW(), {0}, '{1}', '{2}')", userId, events, transaction)
+            executeQuery(sql)
         Catch ex As Exception
             MsgBox(ex.Message)
         End Try
     End Sub
+
 
 
 End Module

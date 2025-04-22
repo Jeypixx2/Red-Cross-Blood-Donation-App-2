@@ -57,44 +57,41 @@ Public Class HealthCare_Access
         Dim personnelID As Integer = -1
 
         Try
-            ' Get the HealthProviderID based on hospital name
+            If conn.State = ConnectionState.Closed Then conn.Open()
+
+            ' Get HealthProviderID first
             Dim sqlProviderID As String = "SELECT HealthProviderID FROM Healthprovider WHERE CompanyHospitalName = @CompanyHospitalName LIMIT 1"
-            Using cmd As New MySqlCommand(sqlProviderID, conn)
-                If conn.State = ConnectionState.Closed Then conn.Open()
-                cmd.Parameters.AddWithValue("@CompanyHospitalName", hospitalName)
-                Using dr As MySqlDataReader = cmd.ExecuteReader()
-                    If dr.Read() Then
-                        healthProviderID = dr.GetInt32("HealthProviderID") ' Get the existing HealthProviderID
+            Using cmdProvider As New MySqlCommand(sqlProviderID, conn)
+                cmdProvider.Parameters.AddWithValue("@CompanyHospitalName", hospitalName)
+                Using drProvider As MySqlDataReader = cmdProvider.ExecuteReader()
+                    If drProvider.Read() Then
+                        healthProviderID = drProvider.GetInt32("HealthProviderID")
                     End If
-                End Using
+                End Using ' Reader automatically closed here
             End Using
 
-            ' Get the PersonnelID for the given hospital and personnel name
+            ' Now get PersonnelID
             Dim sqlPersonnelID As String = "SELECT PersonnelID FROM Healthprovider WHERE CompanyHospitalName = @CompanyHospitalName AND PersonnelName = @PersonnelName LIMIT 1"
-            Using cmd As New MySqlCommand(sqlPersonnelID, conn)
-                cmd.Parameters.AddWithValue("@CompanyHospitalName", hospitalName)
-                cmd.Parameters.AddWithValue("@PersonnelName", personnelName)
-                Using dr As MySqlDataReader = cmd.ExecuteReader()
-                    If dr.Read() Then
-                        personnelID = dr.GetInt32("PersonnelID")
+            Using cmdPersonnel As New MySqlCommand(sqlPersonnelID, conn)
+                cmdPersonnel.Parameters.AddWithValue("@CompanyHospitalName", hospitalName)
+                cmdPersonnel.Parameters.AddWithValue("@PersonnelName", personnelName)
+                Using drPersonnel As MySqlDataReader = cmdPersonnel.ExecuteReader()
+                    If drPersonnel.Read() Then
+                        personnelID = drPersonnel.GetInt32("PersonnelID")
                     End If
                 End Using
             End Using
-
-            If healthProviderID = -1 Then
-                healthProviderID = -1
-            End If
-
-            If personnelID = -1 Then
-                personnelID = -1
-            End If
 
         Catch ex As Exception
             MessageBox.Show("An error occurred while checking IDs: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        Finally
+            If conn.State = ConnectionState.Open Then conn.Close()
         End Try
 
         Return Tuple.Create(healthProviderID, personnelID)
     End Function
+
+
 
     Private Sub btnAdmin_Click(sender As Object, e As EventArgs) Handles btnAdmin.Click
         Me.Hide()
