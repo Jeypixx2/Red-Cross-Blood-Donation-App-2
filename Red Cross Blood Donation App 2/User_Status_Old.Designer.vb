@@ -31,6 +31,7 @@ Partial Class User_Status_Old
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Label3 = New System.Windows.Forms.Label()
+        Me.dtpBdate = New System.Windows.Forms.DateTimePicker()
         CType(Me.pbLogo, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -75,7 +76,7 @@ Partial Class User_Status_Old
         '
         Me.LastNameTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.LastNameTextBox.Font = New System.Drawing.Font("Microsoft Sans Serif", 16.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LastNameTextBox.Location = New System.Drawing.Point(62, 217)
+        Me.LastNameTextBox.Location = New System.Drawing.Point(62, 196)
         Me.LastNameTextBox.Name = "LastNameTextBox"
         Me.LastNameTextBox.Size = New System.Drawing.Size(180, 32)
         Me.LastNameTextBox.TabIndex = 9
@@ -84,7 +85,7 @@ Partial Class User_Status_Old
         '
         Me.FirstNameTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.FirstNameTextBox.Font = New System.Drawing.Font("Microsoft Sans Serif", 16.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.FirstNameTextBox.Location = New System.Drawing.Point(62, 277)
+        Me.FirstNameTextBox.Location = New System.Drawing.Point(62, 256)
         Me.FirstNameTextBox.Name = "FirstNameTextBox"
         Me.FirstNameTextBox.Size = New System.Drawing.Size(180, 32)
         Me.FirstNameTextBox.TabIndex = 10
@@ -93,7 +94,7 @@ Partial Class User_Status_Old
         '
         Me.MiddleNameTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.MiddleNameTextBox.Font = New System.Drawing.Font("Microsoft Sans Serif", 16.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.MiddleNameTextBox.Location = New System.Drawing.Point(62, 342)
+        Me.MiddleNameTextBox.Location = New System.Drawing.Point(62, 321)
         Me.MiddleNameTextBox.Name = "MiddleNameTextBox"
         Me.MiddleNameTextBox.Size = New System.Drawing.Size(180, 32)
         Me.MiddleNameTextBox.TabIndex = 11
@@ -101,7 +102,7 @@ Partial Class User_Status_Old
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(59, 201)
+        Me.Label1.Location = New System.Drawing.Point(59, 180)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(58, 13)
         Me.Label1.TabIndex = 12
@@ -110,7 +111,7 @@ Partial Class User_Status_Old
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(59, 261)
+        Me.Label2.Location = New System.Drawing.Point(59, 240)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(57, 13)
         Me.Label2.TabIndex = 13
@@ -119,11 +120,19 @@ Partial Class User_Status_Old
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(59, 326)
+        Me.Label3.Location = New System.Drawing.Point(59, 305)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(69, 13)
         Me.Label3.TabIndex = 14
         Me.Label3.Text = "Middle Name"
+        '
+        'dtpBdate
+        '
+        Me.dtpBdate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
+        Me.dtpBdate.Location = New System.Drawing.Point(62, 366)
+        Me.dtpBdate.Name = "dtpBdate"
+        Me.dtpBdate.Size = New System.Drawing.Size(180, 20)
+        Me.dtpBdate.TabIndex = 15
         '
         'User_Status_Old
         '
@@ -132,6 +141,7 @@ Partial Class User_Status_Old
         Me.AutoSize = True
         Me.BackColor = System.Drawing.SystemColors.ButtonHighlight
         Me.ClientSize = New System.Drawing.Size(319, 493)
+        Me.Controls.Add(Me.dtpBdate)
         Me.Controls.Add(Me.Label3)
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.Label1)
@@ -161,4 +171,5 @@ Partial Class User_Status_Old
     Friend WithEvents Label1 As Label
     Friend WithEvents Label2 As Label
     Friend WithEvents Label3 As Label
+    Friend WithEvents dtpBdate As DateTimePicker
 End Class

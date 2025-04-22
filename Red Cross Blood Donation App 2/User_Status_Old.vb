@@ -10,6 +10,7 @@ Public Class User_Status_Old
         Dim firstName As String = FirstNameTextBox.Text
         Dim middleName As String = MiddleNameTextBox.Text
         Dim lastName As String = LastNameTextBox.Text
+        Dim birthDate As Date = dtpBdate.Value.Date  ' Get the selected birthdate
 
         If String.IsNullOrEmpty(firstName) OrElse String.IsNullOrEmpty(middleName) OrElse String.IsNullOrEmpty(lastName) Then
             MessageBox.Show("Please fill in all name fields.")
@@ -21,13 +22,14 @@ Public Class User_Status_Old
             modDB.openConn("redcrossdb")
             Dim connection As MySqlConnection = modDB.conn
 
-            ' Query to retrieve donor details and latest NextEligibilityDate
+            ' Query to retrieve donor details including birthdate filtering
             Dim donorQuery As String = "SELECT DonorID, BloodType, DateOfBirth, CONCAT(FirstName, ' ', MiddleName, ' ', LastName) AS FullName " &
-                                       "FROM donors WHERE FirstName = @firstName AND MiddleName = @middleName AND LastName = @lastName"
+                                       "FROM donors WHERE FirstName = @firstName AND MiddleName = @middleName AND LastName = @lastName AND DateOfBirth = @birthDate"
             Using command As New MySqlCommand(donorQuery, connection)
                 command.Parameters.AddWithValue("@firstName", firstName.Trim())
                 command.Parameters.AddWithValue("@middleName", middleName.Trim())
                 command.Parameters.AddWithValue("@lastName", lastName.Trim())
+                command.Parameters.AddWithValue("@birthDate", birthDate.ToString("yyyy-MM-dd")) ' Format to match MySQL DATE
 
                 Using reader As MySqlDataReader = command.ExecuteReader()
                     If reader.HasRows Then
@@ -36,10 +38,9 @@ Public Class User_Status_Old
                             BloodType = reader("BloodType").ToString()
 
                             ' Calculate the donor's age using DateOfBirth
-                            Dim birthdate As DateTime = Convert.ToDateTime(reader("DateOfBirth"))
-                            DonorAge = CalculateAge(birthdate)
+                            Dim retrievedBirthDate As DateTime = Convert.ToDateTime(reader("DateOfBirth"))
+                            DonorAge = CalculateAge(retrievedBirthDate)
 
-                            ' After retrieving DonorID, check NextEligibilityDate
                             reader.Close() ' Close the reader before executing the next query
 
                             ' Query to retrieve the latest NextEligibilityDate
@@ -69,7 +70,7 @@ Public Class User_Status_Old
                             Exit Sub
                         End While
                     Else
-                        MessageBox.Show("No users found with that name.")
+                        MessageBox.Show("No users found matching the name and birthdate.")
                     End If
                 End Using
             End Using
