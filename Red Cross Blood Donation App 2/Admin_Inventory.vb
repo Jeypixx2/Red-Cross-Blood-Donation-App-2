@@ -11,12 +11,39 @@ Public Class Admin_Inventory
     Public dbDateColumn As String
     Public Calendar As Integer
 
+    Private Sub UpdateConnectionString()
+        ' Check if connection is closed or null
+        If modDB.conn Is Nothing Then
+            ' Initialize the connection if it's null
+            modDB.conn = New MySqlConnection(modDB.strConnection)
+        End If
+
+        ' Open the connection if it's closed
+        If modDB.conn.State = ConnectionState.Closed Then
+            Try
+                modDB.conn.Open()
+            Catch ex As Exception
+                MessageBox.Show("Error connecting to database: " & ex.Message, "Connection Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End Try
+        End If
+    End Sub
+
     Private Sub Admin_Inventory_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         EnableEditingAndDeleting()
+        UpdateConnectionString()
         Try
             ' Initialize SelectedDate to today if it is not set
             If SelectedDate = DateTime.MinValue Then
                 SelectedDate = DateTime.Now
+            End If
+
+            ' Set default values for currentTable and dbDateColumn if they're not initialized
+            If String.IsNullOrEmpty(currentTable) Then
+                currentTable = "donors" ' Default table
+            End If
+
+            If String.IsNullOrEmpty(dbDateColumn) Then
+                dbDateColumn = "RegDate" ' Default date column
             End If
 
             ' Debugging: Log the value of SelectedDate
