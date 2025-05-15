@@ -43,6 +43,7 @@ Public Class HealthCare_Access
         }
 
         ' Log the login event
+        MessageBox.Show("CurrentLoggedUser.id: " & modDB.CurrentLoggedUser.id)
         modDB.Logs("Health Provider logged in")
 
         ' Pass the data to the dashboard without saving

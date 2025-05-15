@@ -59,7 +59,7 @@ Public Class Admin_Access
                         }
 
                         ' Log the login event
-
+                        MessageBox.Show("CurrentLoggedUser.id: " & modDB.CurrentLoggedUser.id)
                         modDB.Logs("Admin logged in")
 
                         MessageBox.Show("Login successful!", "Welcome", MessageBoxButtons.OK, MessageBoxIcon.Information)
