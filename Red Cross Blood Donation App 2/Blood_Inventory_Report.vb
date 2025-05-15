@@ -61,7 +61,6 @@ Public Class Blood_Inventory_Report
 
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles btnBack.Click
         Me.Close()
-        Admin_Dashboard.Show()
     End Sub
 
 End Class

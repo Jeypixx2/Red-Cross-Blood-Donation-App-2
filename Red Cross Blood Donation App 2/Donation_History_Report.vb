@@ -6,15 +6,6 @@ Public Class Donation_History_Report
         Me.ReportViewer1.RefreshReport()
     End Sub
 
-    Private Sub Donation_History_Report_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-
-    End Sub
-
-    Private Sub btnBack_Click(sender As Object, e As EventArgs) Handles btnBack.Click
-        Me.Close()
-
-    End Sub
-
     Private Sub Button1_Click_1(sender As Object, e As EventArgs) Handles Button1.Click
         Try
             modDB.openConn(modDB.db_name)
@@ -67,12 +58,7 @@ Public Class Donation_History_Report
         End Try
     End Sub
 
-
-    Private Sub Label1_Click(sender As Object, e As EventArgs) Handles Label1.Click
-
-    End Sub
-
-    Private Sub dtpFrom_ValueChanged(sender As Object, e As EventArgs) Handles dtpFrom.ValueChanged
-
+    Private Sub btnBack_Click(sender As Object, e As EventArgs) Handles btnBack.Click
+        Me.Close()
     End Sub
 End Class
