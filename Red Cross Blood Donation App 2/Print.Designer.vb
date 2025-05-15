@@ -67,8 +67,6 @@ Partial Class Print
         '
         'btnBack
         '
-        Me.btnBack.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnBack.BackColor = System.Drawing.SystemColors.HotTrack
         Me.btnBack.Font = New System.Drawing.Font("Mongolian Baiti", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnBack.ForeColor = System.Drawing.SystemColors.ControlLightLight
