@@ -7,7 +7,7 @@ Public Class Start
 
     Public Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         ' Initialize the database connection
-        frmhelper.Seeders()
+        ' frmhelper.Seeders()
         UpdateConnectionString()
         openConn("redcrossdb")
 
