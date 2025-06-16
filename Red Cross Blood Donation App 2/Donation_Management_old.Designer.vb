@@ -23,7 +23,7 @@ Partial Class Donation_Management_old
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.Proceed = New System.Windows.Forms.Button()
-        Me.CheckedListBox1 = New System.Windows.Forms.CheckedListBox()
+        Me.BagTypeCheckedList = New System.Windows.Forms.CheckedListBox()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.DonationTypeCheckedlist = New System.Windows.Forms.CheckedListBox()
         Me.Don_type = New System.Windows.Forms.Label()
@@ -43,23 +43,23 @@ Partial Class Donation_Management_old
         Me.Proceed.BackColor = System.Drawing.Color.Blue
         Me.Proceed.Font = New System.Drawing.Font("Segoe UI", 12.0!)
         Me.Proceed.ForeColor = System.Drawing.SystemColors.ControlLightLight
-        Me.Proceed.Location = New System.Drawing.Point(308, 348)
+        Me.Proceed.Location = New System.Drawing.Point(309, 339)
         Me.Proceed.Name = "Proceed"
         Me.Proceed.Size = New System.Drawing.Size(83, 32)
         Me.Proceed.TabIndex = 23
         Me.Proceed.Text = "Proceed"
         Me.Proceed.UseVisualStyleBackColor = False
         '
-        'CheckedListBox1
+        'BagTypeCheckedList
         '
-        Me.CheckedListBox1.BackColor = System.Drawing.SystemColors.Menu
-        Me.CheckedListBox1.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!)
-        Me.CheckedListBox1.FormattingEnabled = True
-        Me.CheckedListBox1.Items.AddRange(New Object() {"Singe Bag", "Double Bag", "Triple Bag", "Quadruple Bag", "Aphresis"})
-        Me.CheckedListBox1.Location = New System.Drawing.Point(391, 183)
-        Me.CheckedListBox1.Name = "CheckedListBox1"
-        Me.CheckedListBox1.Size = New System.Drawing.Size(289, 109)
-        Me.CheckedListBox1.TabIndex = 35
+        Me.BagTypeCheckedList.BackColor = System.Drawing.SystemColors.Menu
+        Me.BagTypeCheckedList.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!)
+        Me.BagTypeCheckedList.FormattingEnabled = True
+        Me.BagTypeCheckedList.Items.AddRange(New Object() {"Singe Bag", "Double Bag", "Triple Bag", "Quadruple Bag", "Aphresis"})
+        Me.BagTypeCheckedList.Location = New System.Drawing.Point(391, 183)
+        Me.BagTypeCheckedList.Name = "BagTypeCheckedList"
+        Me.BagTypeCheckedList.Size = New System.Drawing.Size(289, 109)
+        Me.BagTypeCheckedList.TabIndex = 35
         '
         'Label1
         '
@@ -191,7 +191,7 @@ Partial Class Donation_Management_old
         Me.Button3.BackColor = System.Drawing.Color.Blue
         Me.Button3.Font = New System.Drawing.Font("Segoe UI", 12.0!)
         Me.Button3.ForeColor = System.Drawing.SystemColors.ControlLightLight
-        Me.Button3.Location = New System.Drawing.Point(320, 384)
+        Me.Button3.Location = New System.Drawing.Point(321, 375)
         Me.Button3.Name = "Button3"
         Me.Button3.Size = New System.Drawing.Size(53, 38)
         Me.Button3.TabIndex = 46
@@ -203,9 +203,9 @@ Partial Class Donation_Management_old
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.SystemColors.ButtonHighlight
-        Me.ClientSize = New System.Drawing.Size(726, 434)
+        Me.ClientSize = New System.Drawing.Size(726, 420)
         Me.Controls.Add(Me.Button3)
-        Me.Controls.Add(Me.CheckedListBox1)
+        Me.Controls.Add(Me.BagTypeCheckedList)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.DonationTypeCheckedlist)
         Me.Controls.Add(Me.Don_type)
@@ -229,7 +229,7 @@ Partial Class Donation_Management_old
     End Sub
 
     Friend WithEvents Proceed As Button
-    Friend WithEvents CheckedListBox1 As CheckedListBox
+    Friend WithEvents BagTypeCheckedList As CheckedListBox
     Friend WithEvents Label1 As Label
     Friend WithEvents DonationTypeCheckedlist As CheckedListBox
     Friend WithEvents Don_type As Label

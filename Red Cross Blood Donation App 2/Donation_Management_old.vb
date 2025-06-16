@@ -67,8 +67,8 @@ Public Class Donation_Management_old
         Dim connection As MySqlConnection = modDB.conn
         If connection IsNot Nothing AndAlso connection.State = ConnectionState.Open Then
             Try
-                Dim query As String = "INSERT INTO donation (DonationDate, DonorID, Blood_Group, RhesusFactor, BloodVolume, CollectionMethod, DonationTime, DonationType, NextEligibilityDate, StorageLocation) " &
-                                      "VALUES (@DonationDate, @DonorID, @Blood_Group, @RhesusFactor, @BloodVolume, @CollectionMethod, @DonationTime, @DonationType, @NextEligibilityDate, @StorageLocation)"
+                Dim query As String = "INSERT INTO donation (DonationDate, DonorID, Blood_Group, RhesusFactor, BloodVolume, CollectionMethod, DonationTime, DonationType, NextEligibilityDate, BloodComponent, Compatibility, BagType, Expiration_Date, StorageLocation) " &
+                                      "VALUES (@DonationDate, @DonorID, @Blood_Group, @RhesusFactor, @BloodVolume, @CollectionMethod, @DonationTime, @DonationType, @NextEligibilityDate, @BloodComponent, @Compatibility, @BagType, @Expiration_Date, @StorageLocation)"
                 Using cmd As New MySqlCommand(query, connection)
                     cmd.Parameters.AddWithValue("@DonationDate", DateTime.Now.ToString("yyyy-MM-dd"))
                     cmd.Parameters.AddWithValue("@DonorID", DonorID)
@@ -79,6 +79,11 @@ Public Class Donation_Management_old
                     cmd.Parameters.AddWithValue("@DonationTime", DateTime.Now.ToString("HH:mm:ss"))
                     cmd.Parameters.AddWithValue("@DonationType", DonationTypeCheckedlist.Text)
                     cmd.Parameters.AddWithValue("@NextEligibilityDate", CalculateNextEligibilityDate())
+                    cmd.Parameters.AddWithValue("@BagType", BagTypeCheckedlist.Text)
+                    cmd.Parameters.AddWithValue("@BloodComponent", CheckBloodComponent())
+                    cmd.Parameters.AddWithValue("@Compatibility", CheckCompatibility(BloodType))
+                    cmd.Parameters.AddWithValue("@Expiration_Date", CalculateExpirationDate())
+                    cmd.Parameters.AddWithValue("@StorageLocation", CheckStorageLocation())
 
                     cmd.ExecuteNonQuery()
                     MessageBox.Show("Donation data successfully added.")
@@ -96,16 +101,33 @@ Public Class Donation_Management_old
         Dim connection As MySqlConnection = modDB.conn
         If connection IsNot Nothing AndAlso connection.State = ConnectionState.Open Then
             Try
-                Dim query As String = "UPDATE donation SET Blood_Group = @Blood_Group, RhesusFactor = @RhesusFactor, BloodVolume = @BloodVolume, CollectionMethod = @CollectionMethod, " &
-                                      "DonationType = @DonationType, NextEligibilityDate = @NextEligibilityDate, StorageLocation = @StorageLocation WHERE DonorID = @DonorID"
+                Dim query As String = "UPDATE donation SET " &
+                                  "Blood_Group = @Blood_Group, " &
+                                  "RhesusFactor = @RhesusFactor, " &
+                                  "BloodVolume = @BloodVolume, " &
+                                  "CollectionMethod = @CollectionMethod, " &
+                                  "DonationTime = @DonationTime, " &
+                                  "DonationType = @DonationType, " &
+                                  "NextEligibilityDate = @NextEligibilityDate, " &
+                                  "BagType = @BagType, " &
+                                  "BloodComponent = @BloodComponent, " &
+                                  "Compatibility = @Compatibility, " &
+                                  "Expiration_Date = @Expiration_Date, " &
+                                  "StorageLocation = @StorageLocation " &
+                                  "WHERE DonorID = @DonorID"
                 Using cmd As New MySqlCommand(query, connection)
                     cmd.Parameters.AddWithValue("@Blood_Group", txtBloodType.Text)
                     cmd.Parameters.AddWithValue("@RhesusFactor", txtRhesusFactor.Text)
                     cmd.Parameters.AddWithValue("@BloodVolume", txtBloodVolume.Text)
                     cmd.Parameters.AddWithValue("@CollectionMethod", CollectionCheckedList.Text)
+                    cmd.Parameters.AddWithValue("@DonationTime", DateTime.Now.ToString("HH:mm:ss"))
                     cmd.Parameters.AddWithValue("@DonationType", DonationTypeCheckedlist.Text)
                     cmd.Parameters.AddWithValue("@NextEligibilityDate", CalculateNextEligibilityDate())
-
+                    cmd.Parameters.AddWithValue("@BagType", BagTypeCheckedList.Text)
+                    cmd.Parameters.AddWithValue("@BloodComponent", CheckBloodComponent())
+                    cmd.Parameters.AddWithValue("@Compatibility", CheckCompatibility(BloodType))
+                    cmd.Parameters.AddWithValue("@Expiration_Date", CalculateExpirationDate())
+                    cmd.Parameters.AddWithValue("@StorageLocation", CheckStorageLocation())
                     cmd.Parameters.AddWithValue("@DonorID", DonorID)
                     cmd.ExecuteNonQuery()
                     MessageBox.Show("Donation data successfully updated.")
@@ -125,21 +147,89 @@ Public Class Donation_Management_old
 
     Private Function CheckStorageLocation() As String
         Select Case DonationTypeCheckedlist.Text
-            Case "Whole Blood Donation", "Red Blood Cell Donation (Apheresis)", "Double Red Cell Donation", "Autologous Donation"
+            Case "Whole Blood Donation", "Red Blood Cell Donation (Apheresis)"
                 Return "Refrigerated Storage"
             Case "Plasma Donation (Apheresis)"
                 Return "Frozen Storage"
             Case "Platelet Donation (Apheresis)"
                 Return "Platelet Storage"
-            Case "Directed Donation"
-                Return "Standard Storage"
+            Case "White Blood Cell Donatation (Apheresis"
+                Return "White Blood Cell Storage"
             Case Else
                 Return "Unknown"
         End Select
+    End Function
+
+    Private Function CheckBloodComponent() As String
+        Select Case DonationTypeCheckedlist.Text
+            Case "Whole Blood Donation"
+                Return "Whole Blood"
+            Case "Plasma Donation (Apheresis)"
+                Return "Plasma"
+            Case "Platelet Donation (Apheresis)"
+                Return "Platelets"
+            Case "Red Blood Cell Donation (Apheresis)"
+                Return "Red Blood Cells"
+            Case "White Blood Cell Donation (Apheresis)"
+                Return "White Blood Cells"
+            Case Else
+                Return "Unknown"
+        End Select
+    End Function
+
+    Private Function CheckCompatibility(BloodType As String) As String
+        ' Compatibility rules for blood types and Rh factors
+        Select Case BloodType
+            Case "O-"
+                Return "Compatible with all blood types"
+            Case "O+"
+                Return "Compatible with O+, A+, B+, AB+"
+            Case "A-"
+                Return "Compatible with A-, A+, AB-, AB+"
+            Case "A+"
+                Return "Compatible with A+ and AB+"
+            Case "B-"
+                Return "Compatible with B-, B+, AB-, AB+"
+            Case "B+"
+                Return "Compatible with B+ and AB+"
+            Case "AB-"
+                Return "Compatible with AB-, AB+"
+            Case "AB+"
+                Return "Compatible with AB+ only"
+            Case Else
+                Return "Unknown compatibility"
+        End Select
+    End Function
+
+    Private Function CalculateExpirationDate() As String
+        Dim expirationDate As DateTime
+
+        ' Get the blood component type from the checked list
+        Dim bloodComponent As String = CheckBloodComponent()
+
+        ' Calculate expiration date based on the blood component
+        Select Case bloodComponent
+            Case "Whole Blood"
+                expirationDate = DateTime.Now.AddDays(35)
+            Case "Plasma"
+                expirationDate = DateTime.Now.AddDays(365)
+            Case "Platelets"
+                expirationDate = DateTime.Now.AddDays(5)
+            Case "Red Blood Cells"
+                expirationDate = DateTime.Now.AddDays(42)
+            Case "White Blood Cells"
+                expirationDate = DateTime.Now.AddDays(1) ' 24 hours
+            Case Else
+                Return "Unknown expiration date"
+        End Select
+
+        ' Return the expiration date as a string
+        Return expirationDate.ToString("yyyy-MM-dd")
     End Function
 
     Private Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click
         Eligibility_Checker_new.Show()
         Me.Hide()
     End Sub
+
 End Class

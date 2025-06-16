@@ -99,7 +99,7 @@ Public Class Admin_Inventory
 
     Private Sub EnableEditingAndDeleting()
         dgvInventory.ReadOnly = False ' Allow editing
-        dgvInventory.AllowUserToDeleteRows = True ' Allow row deletion
+        dgvInventory.AllowUserToDeleteRows = False ' Allow row deletion
     End Sub
     Private Sub dgvInventory_CellEndEdit(sender As Object, e As DataGridViewCellEventArgs) Handles dgvInventory.CellEndEdit
         Try
@@ -420,4 +420,83 @@ Public Class Admin_Inventory
         modDB.Logs("View History Data")
 
     End Sub
+
+    Private Sub btnUpdate_Click(sender As Object, e As EventArgs) Handles btnUpdate.Click
+        Try
+            ' Check if a cell is selected
+            If dgvInventory.CurrentCell Is Nothing Then
+                MessageBox.Show("Please select a cell to update.", "No Selection", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                Return
+            End If
+
+            Dim rowIndex As Integer = dgvInventory.CurrentCell.RowIndex
+            Dim columnIndex As Integer = dgvInventory.CurrentCell.ColumnIndex
+
+            ' Skip new rows
+            If dgvInventory.Rows(rowIndex).IsNewRow Then
+                MessageBox.Show("Cannot update a new row. Please complete the row first.", "New Row", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                Return
+            End If
+
+            ' Get the edited cell's value, column name
+            Dim editedCell = dgvInventory.Rows(rowIndex).Cells(columnIndex)
+            Dim columnName = dgvInventory.Columns(columnIndex).Name
+            Dim newValue As Object = If(editedCell.Value IsNot Nothing, editedCell.Value, DBNull.Value)
+
+            ' Get the primary key column for the current table
+            Dim primaryKeyColumn As String = GetPrimaryKey(currentTable)
+
+            ' Find the index of the primary key column in the DataGridView
+            Dim primaryKeyColumnIndex As Integer = -1
+            For i As Integer = 0 To dgvInventory.Columns.Count - 1
+                If dgvInventory.Columns(i).Name.Equals(primaryKeyColumn, StringComparison.OrdinalIgnoreCase) Then
+                    primaryKeyColumnIndex = i
+                    Exit For
+                End If
+            Next
+
+            If primaryKeyColumnIndex = -1 Then
+                Throw New Exception($"Primary key column '{primaryKeyColumn}' not found in the DataGridView.")
+            End If
+
+            Dim rowID = dgvInventory.Rows(rowIndex).Cells(primaryKeyColumnIndex).Value ' Get the primary key value
+
+            If rowID Is Nothing OrElse IsDBNull(rowID) Then
+                Throw New Exception("Primary key value is missing or invalid.")
+            End If
+
+            ' Ensure connection is open
+            If modDB.conn.State = ConnectionState.Closed Then
+                modDB.conn.Open()
+            End If
+
+            ' Construct the UPDATE query
+            Dim query As String = $"UPDATE {currentTable} SET `{columnName}` = @value WHERE {primaryKeyColumn} = @id"
+
+            Using cmd As New MySqlCommand(query, modDB.conn)
+                ' Add parameters to avoid SQL injection
+                cmd.Parameters.AddWithValue("@value", newValue)
+                cmd.Parameters.AddWithValue("@id", rowID)
+
+                ' Execute query
+                Dim rowsAffected As Integer = cmd.ExecuteNonQuery()
+
+                ' Log the update
+                modDB.Logs($"Updated {columnName} in {currentTable} for ID {rowID}. Rows affected: {rowsAffected}.")
+            End Using
+
+            ' Notify success
+            modDB.Logs("Update Inventory Data")
+            MessageBox.Show("Record updated successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
+
+            ' Refresh the data to show the updated values
+            Dim Data = GlobalModel.GetAll(currentTable, Calendar, dbDateColumn, SelectedDate)
+            GlobalModel.UpdateDataGridView(Data, dgvInventory)
+
+        Catch ex As Exception
+            ' Handle exceptions
+            MessageBox.Show($"Error updating record: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+    End Sub
+
 End Class

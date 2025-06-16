@@ -39,7 +39,6 @@ Public Class Donation_Management_new
                     ' Set parameters for the query
                     cmd.Parameters.AddWithValue("@DonationDate", DateTime.Now.ToString("yyyy-MM-dd"))
                     cmd.Parameters.AddWithValue("@DonorID", DonorID)
-
                     cmd.Parameters.AddWithValue("@Blood_Group", txtBloodType.Text)
                     cmd.Parameters.AddWithValue("@RhesusFactor", txtRhesusFactor.Text)
                     cmd.Parameters.AddWithValue("@BloodVolume", txtBloodVolume.Text)
@@ -74,14 +73,14 @@ Public Class Donation_Management_new
 
     Private Function CheckStorageLocation() As String
         Select Case DonationTypeCheckedlist.Text
-            Case "Whole Blood Donation", "Red Blood Cell Donation (Apheresis)", "Double Red Cell Donation", "Autologous Donation"
+            Case "Whole Blood Donation", "Red Blood Cell Donation (Apheresis)"
                 Return "Refrigerated Storage"
             Case "Plasma Donation (Apheresis)"
                 Return "Frozen Storage"
             Case "Platelet Donation (Apheresis)"
                 Return "Platelet Storage"
-            Case "Directed Donation"
-                Return "Standard Storage"
+            Case "White Blood Cell Donation (Apheresis)"
+                Return "White Blood Cell Storage"
             Case Else
                 Return "Unknown"
         End Select

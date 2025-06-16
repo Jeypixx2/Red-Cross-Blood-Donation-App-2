@@ -587,4 +587,164 @@ Public Class SuperAdmin_Dashboard
         LoadChart1(startDate, endDate)
         LoadChart2(startDate, endDate)
     End Sub
+
+    Private Sub btnUpdate_Click(sender As Object, e As EventArgs) Handles btnUpdate.Click
+        Try
+            ' Check if a cell is selected
+            If dgvInventory.CurrentCell Is Nothing Then
+                MessageBox.Show("Please select a cell to update.", "No Selection", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                Return
+            End If
+
+            Dim rowIndex As Integer = dgvInventory.CurrentCell.RowIndex
+            Dim columnIndex As Integer = dgvInventory.CurrentCell.ColumnIndex
+
+            ' Skip new rows
+            If dgvInventory.Rows(rowIndex).IsNewRow Then
+                MessageBox.Show("Cannot update a new row. Please complete the row first.", "New Row", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                Return
+            End If
+
+            ' Get the edited cell's value, column name
+            Dim editedCell = dgvInventory.Rows(rowIndex).Cells(columnIndex)
+            Dim columnName = dgvInventory.Columns(columnIndex).Name
+            Dim newValue As Object = If(editedCell.Value IsNot Nothing, editedCell.Value, DBNull.Value)
+
+            ' Determine the primary key column for the current table
+            Dim primaryKeyColumn As String = ""
+            If tablePrimaryKeys.TryGetValue(currentTable, primaryKeyColumn) Then
+                ' Find the index of the primary key column in the DataGridView
+                Dim primaryKeyColumnIndex As Integer = -1
+                For i As Integer = 0 To dgvInventory.Columns.Count - 1
+                    If dgvInventory.Columns(i).Name.Equals(primaryKeyColumn, StringComparison.OrdinalIgnoreCase) Then
+                        primaryKeyColumnIndex = i
+                        Exit For
+                    End If
+                Next
+
+                If primaryKeyColumnIndex = -1 Then
+                    Throw New Exception($"Primary key column '{primaryKeyColumn}' not found in the DataGridView.")
+                End If
+
+                Dim rowID = dgvInventory.Rows(rowIndex).Cells(primaryKeyColumnIndex).Value ' Get the primary key value
+
+                If rowID Is Nothing OrElse IsDBNull(rowID) Then
+                    Throw New Exception("Primary key value is missing or invalid.")
+                End If
+
+                ' Construct the UPDATE query
+                Dim query As String = $"UPDATE {currentTable} SET {columnName} = @newValue WHERE {primaryKeyColumn} = @rowID"
+
+                Using conn As New MySqlConnection(modDB.strConnection)
+                    Using cmd As New MySqlCommand(query, conn)
+                        ' Add parameters to avoid SQL injection
+                        cmd.Parameters.AddWithValue("@newValue", newValue)
+                        cmd.Parameters.AddWithValue("@rowID", rowID)
+
+                        ' Open connection and execute query
+                        conn.Open()
+                        Dim rowsAffected As Integer = cmd.ExecuteNonQuery()
+
+                        ' Log the update
+                        modDB.Logs($"Updated {columnName} in {currentTable} for ID {rowID}. Rows affected: {rowsAffected}.")
+                    End Using
+                End Using
+
+                ' Notify success
+                modDB.Logs("Update Inventory Data")
+                MessageBox.Show("Record updated successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
+
+                ' Refresh the data to show the updated values
+                Dim Data = GlobalModel.GetAll(currentTable, Calendar, dbDateColumn, SelectedDate)
+                GlobalModel.UpdateDataGridView(Data, dgvInventory)
+            Else
+                Throw New Exception($"Primary key column not defined for table: {currentTable}")
+            End If
+        Catch ex As Exception
+            ' Handle exceptions
+            MessageBox.Show($"Error updating record: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+    End Sub
+
+    Private Sub btnDelete_Click(sender As Object, e As EventArgs) Handles btnDelete.Click
+        Try
+            ' Check if a row is selected
+            If dgvInventory.CurrentRow Is Nothing OrElse dgvInventory.SelectedRows.Count = 0 Then
+                MessageBox.Show("Please select a row to delete.", "No Selection", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                Return
+            End If
+
+            ' Get the selected row index
+            Dim rowIndex As Integer = dgvInventory.CurrentRow.Index
+
+            ' Skip new rows
+            If dgvInventory.Rows(rowIndex).IsNewRow Then
+                MessageBox.Show("Cannot delete a new row.", "New Row", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                Return
+            End If
+
+            ' Confirm deletion with the user
+            Dim result As DialogResult = MessageBox.Show("Are you sure you want to delete this record? This action cannot be undone.",
+                                                    "Confirm Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Warning)
+
+            If result = DialogResult.No Then
+                Return
+            End If
+
+            ' Determine the primary key column for the current table
+            Dim primaryKeyColumn As String = ""
+            If tablePrimaryKeys.TryGetValue(currentTable, primaryKeyColumn) Then
+                ' Find the index of the primary key column in the DataGridView
+                Dim primaryKeyColumnIndex As Integer = -1
+                For i As Integer = 0 To dgvInventory.Columns.Count - 1
+                    If dgvInventory.Columns(i).Name.Equals(primaryKeyColumn, StringComparison.OrdinalIgnoreCase) Then
+                        primaryKeyColumnIndex = i
+                        Exit For
+                    End If
+                Next
+
+                If primaryKeyColumnIndex = -1 Then
+                    Throw New Exception($"Primary key column '{primaryKeyColumn}' not found in the DataGridView.")
+                End If
+
+                Dim rowID = dgvInventory.Rows(rowIndex).Cells(primaryKeyColumnIndex).Value ' Get the primary key value
+
+                If rowID Is Nothing OrElse IsDBNull(rowID) Then
+                    Throw New Exception("Primary key value is missing or invalid.")
+                End If
+
+                ' Construct the DELETE query
+                Dim query As String = $"DELETE FROM {currentTable} WHERE {primaryKeyColumn} = @rowID"
+
+                Using conn As New MySqlConnection(modDB.strConnection)
+                    Using cmd As New MySqlCommand(query, conn)
+                        ' Add parameter to avoid SQL injection
+                        cmd.Parameters.AddWithValue("@rowID", rowID)
+
+                        ' Open connection and execute query
+                        conn.Open()
+                        Dim rowsAffected As Integer = cmd.ExecuteNonQuery()
+
+                        ' Log the deletion
+                        modDB.Logs($"Deleted record from {currentTable} with ID {rowID}. Rows affected: {rowsAffected}.")
+                    End Using
+                End Using
+
+                ' Notify success
+                modDB.Logs("Delete Inventory Data")
+                MessageBox.Show("Record deleted successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
+
+                ' Refresh the data to show the updated grid without the deleted row
+                Dim Data = GlobalModel.GetAll(currentTable, Calendar, dbDateColumn, SelectedDate)
+                GlobalModel.UpdateDataGridView(Data, dgvInventory)
+            Else
+                Throw New Exception($"Primary key column not defined for table: {currentTable}")
+            End If
+        Catch ex As Exception
+            ' Handle exceptions
+            MessageBox.Show($"Error deleting record: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+    End Sub
+
+
 End Class

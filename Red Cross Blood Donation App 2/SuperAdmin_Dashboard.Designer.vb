@@ -22,12 +22,12 @@ Partial Class SuperAdmin_Dashboard
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim ChartArea9 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
-        Dim Legend9 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
-        Dim Series9 As System.Windows.Forms.DataVisualization.Charting.Series = New System.Windows.Forms.DataVisualization.Charting.Series()
-        Dim ChartArea10 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
-        Dim Legend10 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
-        Dim Series10 As System.Windows.Forms.DataVisualization.Charting.Series = New System.Windows.Forms.DataVisualization.Charting.Series()
+        Dim ChartArea3 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
+        Dim Legend3 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
+        Dim Series3 As System.Windows.Forms.DataVisualization.Charting.Series = New System.Windows.Forms.DataVisualization.Charting.Series()
+        Dim ChartArea4 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
+        Dim Legend4 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
+        Dim Series4 As System.Windows.Forms.DataVisualization.Charting.Series = New System.Windows.Forms.DataVisualization.Charting.Series()
         Me.History = New System.Windows.Forms.Button()
         Me.txtSearch = New System.Windows.Forms.TextBox()
         Me.Panel1 = New System.Windows.Forms.Panel()
@@ -61,6 +61,8 @@ Partial Class SuperAdmin_Dashboard
         Me.btnFilterCharts = New System.Windows.Forms.Button()
         Me.dtpTo = New System.Windows.Forms.DateTimePicker()
         Me.dtpFrom = New System.Windows.Forms.DateTimePicker()
+        Me.btnUpdate = New System.Windows.Forms.Button()
+        Me.btnDelete = New System.Windows.Forms.Button()
         Me.Panel1.SuspendLayout()
         CType(Me.dgvInventory, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.pbLogo, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -362,16 +364,16 @@ Partial Class SuperAdmin_Dashboard
         Me.Line_Chart.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Line_Chart.BackColor = System.Drawing.Color.MistyRose
-        ChartArea9.Name = "ChartArea1"
-        Me.Line_Chart.ChartAreas.Add(ChartArea9)
-        Legend9.Name = "Legend1"
-        Me.Line_Chart.Legends.Add(Legend9)
+        ChartArea3.Name = "ChartArea1"
+        Me.Line_Chart.ChartAreas.Add(ChartArea3)
+        Legend3.Name = "Legend1"
+        Me.Line_Chart.Legends.Add(Legend3)
         Me.Line_Chart.Location = New System.Drawing.Point(118, 469)
         Me.Line_Chart.Name = "Line_Chart"
-        Series9.ChartArea = "ChartArea1"
-        Series9.Legend = "Legend1"
-        Series9.Name = "Series1"
-        Me.Line_Chart.Series.Add(Series9)
+        Series3.ChartArea = "ChartArea1"
+        Series3.Legend = "Legend1"
+        Series3.Name = "Series1"
+        Me.Line_Chart.Series.Add(Series3)
         Me.Line_Chart.Size = New System.Drawing.Size(1097, 180)
         Me.Line_Chart.TabIndex = 47
         Me.Line_Chart.Text = "Chart2"
@@ -381,16 +383,16 @@ Partial Class SuperAdmin_Dashboard
         Me.Bar_Graph.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Bar_Graph.BackColor = System.Drawing.Color.MistyRose
-        ChartArea10.Name = "ChartArea1"
-        Me.Bar_Graph.ChartAreas.Add(ChartArea10)
-        Legend10.Name = "Legend1"
-        Me.Bar_Graph.Legends.Add(Legend10)
+        ChartArea4.Name = "ChartArea1"
+        Me.Bar_Graph.ChartAreas.Add(ChartArea4)
+        Legend4.Name = "Legend1"
+        Me.Bar_Graph.Legends.Add(Legend4)
         Me.Bar_Graph.Location = New System.Drawing.Point(118, 655)
         Me.Bar_Graph.Name = "Bar_Graph"
-        Series10.ChartArea = "ChartArea1"
-        Series10.Legend = "Legend1"
-        Series10.Name = "Series1"
-        Me.Bar_Graph.Series.Add(Series10)
+        Series4.ChartArea = "ChartArea1"
+        Series4.Legend = "Legend1"
+        Series4.Name = "Series1"
+        Me.Bar_Graph.Series.Add(Series4)
         Me.Bar_Graph.Size = New System.Drawing.Size(1097, 150)
         Me.Bar_Graph.TabIndex = 48
         Me.Bar_Graph.Text = "Chart1"
@@ -441,12 +443,36 @@ Partial Class SuperAdmin_Dashboard
         Me.dtpFrom.Size = New System.Drawing.Size(108, 20)
         Me.dtpFrom.TabIndex = 49
         '
+        'btnUpdate
+        '
+        Me.btnUpdate.BackColor = System.Drawing.SystemColors.ButtonFace
+        Me.btnUpdate.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold)
+        Me.btnUpdate.Location = New System.Drawing.Point(12, 297)
+        Me.btnUpdate.Name = "btnUpdate"
+        Me.btnUpdate.Size = New System.Drawing.Size(93, 32)
+        Me.btnUpdate.TabIndex = 54
+        Me.btnUpdate.Text = "Update"
+        Me.btnUpdate.UseVisualStyleBackColor = False
+        '
+        'btnDelete
+        '
+        Me.btnDelete.BackColor = System.Drawing.SystemColors.ButtonFace
+        Me.btnDelete.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold)
+        Me.btnDelete.Location = New System.Drawing.Point(12, 335)
+        Me.btnDelete.Name = "btnDelete"
+        Me.btnDelete.Size = New System.Drawing.Size(93, 32)
+        Me.btnDelete.TabIndex = 55
+        Me.btnDelete.Text = "Delete"
+        Me.btnDelete.UseVisualStyleBackColor = False
+        '
         'SuperAdmin_Dashboard
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.SystemColors.ButtonHighlight
         Me.ClientSize = New System.Drawing.Size(1444, 881)
+        Me.Controls.Add(Me.btnDelete)
+        Me.Controls.Add(Me.btnUpdate)
         Me.Controls.Add(Me.Label3)
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.btnFilterCharts)
@@ -523,4 +549,6 @@ Partial Class SuperAdmin_Dashboard
     Friend WithEvents btnFilterCharts As Button
     Friend WithEvents dtpTo As DateTimePicker
     Friend WithEvents dtpFrom As DateTimePicker
+    Friend WithEvents btnUpdate As Button
+    Friend WithEvents btnDelete As Button
 End Class

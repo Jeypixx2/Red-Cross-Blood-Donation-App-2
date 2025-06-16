@@ -107,7 +107,7 @@ Public Class FormHelper
 
         Dim bloodtypes As String() = {"A+", "B+", "AB+", "O+", "A-", "B-", "AB-", "O-"}
 
-        Dim collectionmethods As String() = {"Venipuncture", "Apheresis", "Autologus", "Directed"}
+        Dim collectionmethods As String() = {"Manual Collection", "Automatic Collection"}
 
         Dim civilstatusOptions As String() = {"Single", "Married"}
 
@@ -176,7 +176,7 @@ Public Class FormHelper
             Dim bloodID As Integer = i
             Dim blood_group As String = bloodType.TrimEnd("+"c, "-"c) ' Extract the blood type (A, B, AB, O)
             Dim rhesusFactor As String = If(bloodType.EndsWith("+"), "Rh+", "Rh-") ' Extract the Rhesus factor
-            Dim collectionMethod As String = collectionmethods(rand.Next(collectionmethods.Length))
+            Dim collectionMethod As String = ""
             Dim bloodVolume As Integer = New Integer() {200, 300, 400, 500, 600}(rand.Next(5))
             Dim donationType As String = New String() {"Whole Blood Donation", "Plasma Donation (Apheresis)", "Platelet Donation (Apheresis)", "Red Blood Cell Donation (Apheresis)", "Double Red Cell Donation", "Autologous Donation", "Directed Donation"}(rand.Next(7))
             Dim donationDate As DateTime = regDate.Date
@@ -185,16 +185,23 @@ Public Class FormHelper
             Dim nextEligibilityDate As DateTime = regDate.AddMonths(3).AddDays(randomDays)
             Dim expirationDate As DateTime = donationDate.AddDays(42)
             Dim bloodComponent As String = ""
+
+            ' Condition for blood component and Collection method
             If donationType = "Whole Blood Donation" Then
+                collectionMethod = "Manual Collection"
                 bloodComponent = "Whole Blood"
             ElseIf donationType = "Plasma Donation (Apheresis)" Then
+                collectionMethod = "Automatic Collection"
                 bloodComponent = "Plasma"
             ElseIf donationType = "Platelet Donation (Apheresis)" Then
+                collectionMethod = "Automatic Collection"
                 bloodComponent = "Platelets"
-            ElseIf donationType = "Red Blood Cell Donation (Apheresis)" Or donationType = "Double Red Cell Donation" Then
+            ElseIf donationType = "Red Blood Cell Donation (Apheresis)" Then
+                collectionMethod = "Automatic Collection"
                 bloodComponent = "Red Blood Cells"
-            ElseIf donationType = "Autologous Donation" Or donationType = "Directed Donation" Then
-                bloodComponent = "Depends on Patient Needs"
+            ElseIf donationType = "White Blood Cell Donation" Then
+                collectionMethod = "Automatic Collection"
+                bloodComponent = "White Blood Cells"
             Else
                 bloodComponent = "Unknown"
             End If
@@ -223,14 +230,14 @@ Public Class FormHelper
             Dim bagtype As String = bagtypeOptions(rand.Next(bagtypeOptions.Length))
 
             Dim storagelocation As String = ""
-            If donationType = "Whole Blood Donation" Or donationType = "Red Blood Cell Donation (Apheresis)" Or donationType = "Double Red Cell Donation" Or donationType = "Autologous Donation" Then
+            If donationType = "Whole Blood Donation" Or donationType = "Red Blood Cell Donation (Apheresis)" Then
                 storagelocation = "Refrigerated Storage"
             ElseIf donationType = "Plasma Donation (Apheresis)" Then
                 storagelocation = "Frozen Storage"
             ElseIf donationType = "Platelet Donation (Apheresis)" Then
                 storagelocation = "Platelet Storage"
-            ElseIf donationType = "Directed Donation" Then
-                storagelocation = "Standard Storage"
+            ElseIf donationType = "White Blood Cell Donation (Apheresis" Then
+                storagelocation = "White Blood Cell Storage"
             Else
                 storagelocation = "Unknown"
             End If

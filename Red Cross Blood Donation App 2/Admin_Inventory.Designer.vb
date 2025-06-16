@@ -43,6 +43,7 @@ Partial Class Admin_Inventory
         Me.Button4 = New System.Windows.Forms.Button()
         Me.History = New System.Windows.Forms.Button()
         Me.pbLogo = New System.Windows.Forms.PictureBox()
+        Me.btnUpdate = New System.Windows.Forms.Button()
         CType(Me.dgvInventory, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel1.SuspendLayout()
         CType(Me.pbLogo, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -69,9 +70,9 @@ Partial Class Admin_Inventory
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.dgvInventory.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvInventory.Location = New System.Drawing.Point(12, 155)
+        Me.dgvInventory.Location = New System.Drawing.Point(111, 155)
         Me.dgvInventory.Name = "dgvInventory"
-        Me.dgvInventory.Size = New System.Drawing.Size(1227, 699)
+        Me.dgvInventory.Size = New System.Drawing.Size(1128, 714)
         Me.dgvInventory.TabIndex = 18
         '
         'EligibilityRecord
@@ -281,12 +282,24 @@ Partial Class Admin_Inventory
         Me.pbLogo.TabIndex = 2
         Me.pbLogo.TabStop = False
         '
+        'btnUpdate
+        '
+        Me.btnUpdate.BackColor = System.Drawing.SystemColors.ControlLight
+        Me.btnUpdate.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold)
+        Me.btnUpdate.Location = New System.Drawing.Point(12, 155)
+        Me.btnUpdate.Name = "btnUpdate"
+        Me.btnUpdate.Size = New System.Drawing.Size(86, 50)
+        Me.btnUpdate.TabIndex = 26
+        Me.btnUpdate.Text = "Update"
+        Me.btnUpdate.UseVisualStyleBackColor = False
+        '
         'Admin_Inventory
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.SystemColors.ControlLightLight
         Me.ClientSize = New System.Drawing.Size(1444, 881)
+        Me.Controls.Add(Me.btnUpdate)
         Me.Controls.Add(Me.History)
         Me.Controls.Add(Me.txtSearch)
         Me.Controls.Add(Me.Panel1)
@@ -337,4 +350,5 @@ Partial Class Admin_Inventory
     Friend WithEvents Button8 As Button
     Friend WithEvents Button4 As Button
     Friend WithEvents History As Button
+    Friend WithEvents btnUpdate As Button
 End Class
