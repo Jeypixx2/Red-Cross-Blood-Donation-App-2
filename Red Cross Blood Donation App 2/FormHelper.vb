@@ -134,7 +134,7 @@ Public Class FormHelper
         For i As Integer = 1 To 15 'Change depending on needed data
             ' Generate random details (donor)
             Dim donorID As Integer = i
-            Dim regDate As DateTime = DateTime.Now.AddDays(-rand.Next(1, 1460)) ' Random registration date in the last 4 years
+            Dim regDate As DateTime = DateTime.Now ' Random registration date in the last 4 years copy this .AddDays(-rand.Next(1, 1460))
             Dim regDateStr As String = regDate.ToString("yyyy-MM-dd") ' String version if needed
             Dim lastName As String = lastnames(rand.Next(lastnames.Length))
             Dim firstName As String = firstnames(rand.Next(firstnames.Length))
