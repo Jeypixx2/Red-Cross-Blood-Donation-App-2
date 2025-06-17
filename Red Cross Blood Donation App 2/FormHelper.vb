@@ -130,8 +130,8 @@ Public Class FormHelper
         Dim currentDateTime As DateTime = DateTime.Now
         Dim substanceligible As Integer = New Random().Next(0, 12)
 
-        ' Loop to generate 100 donor entries
-        For i As Integer = 1 To 10000
+        ' Loop to generate donor entries
+        For i As Integer = 1 To 15 'Change depending on needed data
             ' Generate random details (donor)
             Dim donorID As Integer = i
             Dim regDate As DateTime = DateTime.Now.AddDays(-rand.Next(1, 1460)) ' Random registration date in the last 4 years
@@ -178,7 +178,7 @@ Public Class FormHelper
             Dim rhesusFactor As String = If(bloodType.EndsWith("+"), "Rh+", "Rh-") ' Extract the Rhesus factor
             Dim collectionMethod As String = ""
             Dim bloodVolume As Integer = New Integer() {200, 300, 400, 500, 600}(rand.Next(5))
-            Dim donationType As String = New String() {"Whole Blood Donation", "Plasma Donation (Apheresis)", "Platelet Donation (Apheresis)", "Red Blood Cell Donation (Apheresis)", "Double Red Cell Donation", "Autologous Donation", "Directed Donation"}(rand.Next(7))
+            Dim donationType As String = New String() {"Whole Blood Donation", "Plasma Donation (Apheresis)", "Platelet Donation (Apheresis)", "Red Blood Cell Donation (Apheresis)", "White Blood Cell Donation (Apheresis)"}(rand.Next(5))
             Dim donationDate As DateTime = regDate.Date
             Dim donationTime As TimeSpan = regDate.TimeOfDay
             Dim randomDays As Integer = rand.Next(1, 31) ' Random number of days between 1 and 30
