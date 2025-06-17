@@ -183,7 +183,21 @@ Public Class FormHelper
             Dim donationTime As TimeSpan = regDate.TimeOfDay
             Dim randomDays As Integer = rand.Next(1, 31) ' Random number of days between 1 and 30
             Dim nextEligibilityDate As DateTime = regDate.AddMonths(3).AddDays(randomDays)
-            Dim expirationDate As DateTime = donationDate.AddDays(42)
+            Dim expirationDate As DateTime
+            Select Case donationType
+                Case "Whole Blood Donation"
+                    expirationDate = donationDate.AddDays(42)
+                Case "Red Blood Cell Donation (Apheresis)"
+                    expirationDate = donationDate.AddDays(42)
+                Case "Plasma Donation (Apheresis)"
+                    expirationDate = donationDate.AddDays(365)
+                Case "Platelet Donation (Apheresis)"
+                    expirationDate = donationDate.AddDays(5)
+                Case "White Blood Cell Donation (Apheresis)"
+                    expirationDate = donationDate.AddDays(1)
+                Case Else
+                    expirationDate = donationDate.AddDays(42) ' Default to 42 days
+            End Select
             Dim bloodComponent As String = ""
 
             ' Condition for blood component and Collection method
@@ -199,7 +213,7 @@ Public Class FormHelper
             ElseIf donationType = "Red Blood Cell Donation (Apheresis)" Then
                 collectionMethod = "Automatic Collection"
                 bloodComponent = "Red Blood Cells"
-            ElseIf donationType = "White Blood Cell Donation" Then
+            ElseIf donationType = "White Blood Cell Donation (Apheresis)" Then
                 collectionMethod = "Automatic Collection"
                 bloodComponent = "White Blood Cells"
             Else
@@ -236,7 +250,7 @@ Public Class FormHelper
                 storagelocation = "Frozen Storage"
             ElseIf donationType = "Platelet Donation (Apheresis)" Then
                 storagelocation = "Platelet Storage"
-            ElseIf donationType = "White Blood Cell Donation (Apheresis" Then
+            ElseIf donationType = "White Blood Cell Donation (Apheresis)" Then
                 storagelocation = "White Blood Cell Storage"
             Else
                 storagelocation = "Unknown"
