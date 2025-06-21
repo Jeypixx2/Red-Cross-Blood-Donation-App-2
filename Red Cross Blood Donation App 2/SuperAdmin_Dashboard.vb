@@ -111,152 +111,115 @@ Public Class SuperAdmin_Dashboard
 
     End Sub
 
-
     Private Sub DonorRecord_Click(sender As Object, e As EventArgs) Handles DonorRecord.Click
-        UpdateConnectionString()
-        DoubleBuffering.EnableDoubleBuffering(dgvInventory)
+            UpdateConnectionString()
+            DoubleBuffering.EnableDoubleBuffering(dgvInventory)
 
-        currentTable = "donors"
-        dbDateColumn = "RegDate"
-        Calendar = 1
+            currentTable = "donors"
+            dbDateColumn = "RegDate"
+            Calendar = 1
 
-        Dim query As String
-        If dtpCalendar.SelectionStart = Date.MinValue OrElse dtpCalendar.SelectionStart = Nothing Then
-            query = $"SELECT * FROM {currentTable} ORDER BY {dbDateColumn} DESC"
-        Else
-            SelectedDate = dtpCalendar.SelectionStart.ToString("yyyy-MM-dd")
-            query = $"SELECT * FROM {currentTable} WHERE DATE({dbDateColumn}) = '{SelectedDate}'"
-        End If
+            Dim query As String = $"SELECT * FROM {currentTable}"
 
-        Dim rowCount As Integer = modDB.LoadToDGV(query, dgvInventory)
-        modDB.Logs("View Donor History")
+            Dim rowCount As Integer = modDB.LoadToDGV(query, dgvInventory)
+            modDB.Logs("View Donor History")
 
-        If rowCount = 0 Then
-            MessageBox.Show("No donor records found for the selected date.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
-        End If
-    End Sub
+            If rowCount = 0 Then
+                MessageBox.Show("No donor records found.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            End If
+        End Sub
 
-    Private Sub DonationRecord_Click(sender As Object, e As EventArgs) Handles DonationRecord.Click
-        UpdateConnectionString()
-        DoubleBuffering.EnableDoubleBuffering(dgvInventory)
+        Private Sub DonationRecord_Click(sender As Object, e As EventArgs) Handles DonationRecord.Click
+            UpdateConnectionString()
+            DoubleBuffering.EnableDoubleBuffering(dgvInventory)
 
-        currentTable = "donation"
-        dbDateColumn = "DonationDate"
-        Calendar = 1
+            currentTable = "donation"
+            dbDateColumn = "DonationDate"
+            Calendar = 1
 
-        Dim query As String
-        If dtpCalendar.SelectionStart = Date.MinValue OrElse dtpCalendar.SelectionStart = Nothing Then
-            query = $"SELECT * FROM {currentTable} ORDER BY {dbDateColumn} DESC"
-        Else
-            SelectedDate = dtpCalendar.SelectionStart.ToString("yyyy-MM-dd")
-            query = $"SELECT * FROM {currentTable} WHERE DATE({dbDateColumn}) = '{SelectedDate}'"
-        End If
+            Dim query As String = $"SELECT * FROM {currentTable}"
 
-        Dim rowCount As Integer = modDB.LoadToDGV(query, dgvInventory)
-        modDB.Logs("View Donation History")
+            Dim rowCount As Integer = modDB.LoadToDGV(query, dgvInventory)
+            modDB.Logs("View Donation History")
 
-        If rowCount = 0 Then
-            MessageBox.Show("No donation records found for the selected date.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
-        End If
-    End Sub
+            If rowCount = 0 Then
+                MessageBox.Show("No donation records found.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            End If
+        End Sub
 
-    Private Sub EligibilityRecord_Click(sender As Object, e As EventArgs) Handles EligibilityRecord.Click
-        UpdateConnectionString()
-        DoubleBuffering.EnableDoubleBuffering(dgvInventory)
+        Private Sub EligibilityRecord_Click(sender As Object, e As EventArgs) Handles EligibilityRecord.Click
+            UpdateConnectionString()
+            DoubleBuffering.EnableDoubleBuffering(dgvInventory)
 
-        currentTable = "eligibility"
-        dbDateColumn = "EligibilityDate"
-        Calendar = 1
+            currentTable = "eligibility"
+            dbDateColumn = "EligibilityDate"
+            Calendar = 1
 
-        Dim query As String
-        If dtpCalendar.SelectionStart = Date.MinValue OrElse dtpCalendar.SelectionStart = Nothing Then
-            query = $"SELECT * FROM {currentTable} ORDER BY {dbDateColumn} DESC"
-        Else
-            SelectedDate = dtpCalendar.SelectionStart.ToString("yyyy-MM-dd")
-            query = $"SELECT * FROM {currentTable} WHERE DATE({dbDateColumn}) = '{SelectedDate}'"
-        End If
+            Dim query As String = $"SELECT * FROM {currentTable}"
 
-        Dim rowCount As Integer = modDB.LoadToDGV(query, dgvInventory)
-        modDB.Logs("View Eligibility History")
+            Dim rowCount As Integer = modDB.LoadToDGV(query, dgvInventory)
+            modDB.Logs("View Eligibility History")
 
-        If rowCount = 0 Then
-            MessageBox.Show("No eligibility records found for the selected date.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
-        End If
-    End Sub
+            If rowCount = 0 Then
+                MessageBox.Show("No eligibility records found.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            End If
+        End Sub
 
-    Private Sub Health_Provider_Click(sender As Object, e As EventArgs) Handles Health_Provider.Click
-        UpdateConnectionString()
-        DoubleBuffering.EnableDoubleBuffering(dgvInventory)
+        Private Sub Health_Provider_Click(sender As Object, e As EventArgs) Handles Health_Provider.Click
+            UpdateConnectionString()
+            DoubleBuffering.EnableDoubleBuffering(dgvInventory)
 
-        currentTable = "healthprovider"
-        dbDateColumn = "RetrieveDate"
-        Calendar = 1
+            currentTable = "healthprovider"
+            dbDateColumn = "RetrieveDate"
+            Calendar = 1
 
-        Dim query As String
-        If dtpCalendar.SelectionStart = Date.MinValue OrElse dtpCalendar.SelectionStart = Nothing Then
-            query = $"SELECT * FROM {currentTable} ORDER BY {dbDateColumn} DESC"
-        Else
-            SelectedDate = dtpCalendar.SelectionStart.ToString("yyyy-MM-dd")
-            query = $"SELECT * FROM {currentTable} WHERE DATE({dbDateColumn}) = '{SelectedDate}'"
-        End If
+            Dim query As String = $"SELECT * FROM {currentTable}"
 
-        Dim rowCount As Integer = modDB.LoadToDGV(query, dgvInventory)
-        modDB.Logs("View Health Provider")
+            Dim rowCount As Integer = modDB.LoadToDGV(query, dgvInventory)
+            modDB.Logs("View Health Provider")
 
-        If rowCount = 0 Then
-            MessageBox.Show("No history records found for the selected date.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
-        End If
-    End Sub
+            If rowCount = 0 Then
+                MessageBox.Show("No history records found.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            End If
+        End Sub
 
-    Private Sub History_Click(sender As Object, e As EventArgs) Handles History.Click
-        UpdateConnectionString()
-        DoubleBuffering.EnableDoubleBuffering(dgvInventory)
+        Private Sub History_Click(sender As Object, e As EventArgs) Handles History.Click
+            UpdateConnectionString()
+            DoubleBuffering.EnableDoubleBuffering(dgvInventory)
 
-        currentTable = "history"
-        dbDateColumn = "DonorRegDate"
-        Calendar = 1
+            currentTable = "history"
+            dbDateColumn = "DonorRegDate"
+            Calendar = 1
 
-        Dim query As String
-        If dtpCalendar.SelectionStart = Date.MinValue OrElse dtpCalendar.SelectionStart = Nothing Then
-            query = $"SELECT * FROM {currentTable} ORDER BY {dbDateColumn} DESC"
-        Else
-            SelectedDate = dtpCalendar.SelectionStart.ToString("yyyy-MM-dd")
-            query = $"SELECT * FROM {currentTable} WHERE DATE({dbDateColumn}) = '{SelectedDate}'"
-        End If
+            Dim query As String = $"SELECT * FROM {currentTable}"
 
-        Dim rowCount As Integer = modDB.LoadToDGV(query, dgvInventory)
-        modDB.Logs("View Health Provider")
+            Dim rowCount As Integer = modDB.LoadToDGV(query, dgvInventory)
+            modDB.Logs("View Health Provider")
 
-        If rowCount = 0 Then
-            MessageBox.Show("No history records found for the selected date.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
-        End If
-        modDB.Logs("View History Data")
-    End Sub
+            If rowCount = 0 Then
+                MessageBox.Show("No history records found.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            End If
+            modDB.Logs("View History Data")
+        End Sub
 
-    Private Sub Logs_Click(sender As Object, e As EventArgs) Handles Logs.Click
-        UpdateConnectionString()
-        DoubleBuffering.EnableDoubleBuffering(dgvInventory)
+        Private Sub Logs_Click(sender As Object, e As EventArgs) Handles Logs.Click
+            UpdateConnectionString()
+            DoubleBuffering.EnableDoubleBuffering(dgvInventory)
 
-        currentTable = "logs"
-        dbDateColumn = "dt"
-        Calendar = 1
+            currentTable = "logs"
+            dbDateColumn = "dt"
+            Calendar = 1
 
-        Dim query As String
-        If dtpCalendar.SelectionStart = Date.MinValue OrElse dtpCalendar.SelectionStart = Nothing Then
-            query = $"SELECT * FROM {currentTable} ORDER BY {dbDateColumn} DESC"
-        Else
-            SelectedDate = dtpCalendar.SelectionStart.ToString("yyyy-MM-dd")
-            query = $"SELECT * FROM {currentTable} WHERE DATE({dbDateColumn}) = '{SelectedDate}'"
-        End If
+            Dim query As String = $"SELECT * FROM {currentTable}"
 
-        Dim rowCount As Integer = modDB.LoadToDGV(query, dgvInventory)
-        modDB.Logs("View Health Provider")
+            Dim rowCount As Integer = modDB.LoadToDGV(query, dgvInventory)
+            modDB.Logs("View Health Provider")
 
-        If rowCount = 0 Then
-            MessageBox.Show("No history records found for the selected date.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
-        End If
-        modDB.Logs("View Logs Data")
-    End Sub
+            If rowCount = 0 Then
+                MessageBox.Show("No history records found.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            End If
+            modDB.Logs("View Logs Data")
+        End Sub
 
     Private Sub Accounts_Click(sender As Object, e As EventArgs) Handles Accounts.Click
         UpdateConnectionString()
@@ -266,19 +229,13 @@ Public Class SuperAdmin_Dashboard
         dbDateColumn = "dt_created"
         Calendar = 1
 
-        Dim query As String
-        If dtpCalendar.SelectionStart = Date.MinValue OrElse dtpCalendar.SelectionStart = Nothing Then
-            query = $"SELECT * FROM {currentTable} ORDER BY {dbDateColumn} DESC"
-        Else
-            SelectedDate = dtpCalendar.SelectionStart.ToString("yyyy-MM-dd")
-            query = $"SELECT * FROM {currentTable} WHERE DATE({dbDateColumn}) = '{SelectedDate}'"
-        End If
+        Dim query As String = $"SELECT * FROM {currentTable}"
 
         Dim rowCount As Integer = modDB.LoadToDGV(query, dgvInventory)
         modDB.Logs("View Health Provider")
 
         If rowCount = 0 Then
-            MessageBox.Show("No history records found for the selected date.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            MessageBox.Show("No history records found.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
         End If
         modDB.Logs("View Accounts Data")
     End Sub
