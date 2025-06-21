@@ -223,10 +223,8 @@ Public Class Eligibility_Checker_old
         Return True
     End Function
 
-    ' Check if the donor is eligible based on medication use rules
     Private Function IsMedicationEligible() As Boolean
         If GetMedicationUse() = 1 Then
-            ' Assuming medicationDatePicker is a DateTimePicker control
             Dim medicationDate As DateTime = medicationDatePicker.Value
             Dim daysSinceUse As Integer = (DateTime.Now - medicationDate).Days
             ' Example rule: Donor is ineligible if medication use was within the last 7 days
