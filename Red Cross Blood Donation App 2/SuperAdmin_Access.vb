@@ -3,13 +3,13 @@
 Public Class SuperAdmin_Access
     Private Sub SuperAdmin_Access_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         ' Check if the admin_account table is empty
-        Dim query As String = "SELECT COUNT(*) FROM accountssuperadmin"
+        Dim query As String = "SELECT COUNT(*) FROM accounts WHERE isSuperAdmin = TRUE"
         Try
             readQuery(query)
             If cmdRead.Read() AndAlso cmdRead.GetInt32(0) = 0 Then
-                createAcc.Visible = True ' Show "Create Account" label if table is empty
+                createAcc.Visible = True ' Show "Create Account" label if no SuperAdmin exists
             Else
-                createAcc.Visible = False ' Hide "Create Account" label if table has records
+                createAcc.Visible = False ' Hide "Create Account" label if a SuperAdmin exists
             End If
         Catch ex As Exception
             MessageBox.Show($"Error loading admin_account: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -33,7 +33,7 @@ Public Class SuperAdmin_Access
         ' Encrypt the entered password
         Dim encryptedPassword As String = Encrypt(password)
 
-        Dim query As String = "SELECT * FROM accountssuperadmin WHERE username = @username AND password = @password"
+        Dim query As String = "SELECT * FROM accounts WHERE username = @username AND password = @password AND isSuperAdmin = TRUE"
         Try
             Using cmd As New MySqlCommand(query, conn)
                 cmd.Parameters.AddWithValue("@username", username)

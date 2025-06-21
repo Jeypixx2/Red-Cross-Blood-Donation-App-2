@@ -540,7 +540,14 @@ Public Class HealthCare_Dashboard
                                     cmd.ExecuteNonQuery()
                                 End Using
 
-                                ' Delete the selected row from the donation table
+                                ' Move the selected row from donation to another table (e.g., donation_archive) before deleting
+                                Dim insertArchiveQuery As String = "INSERT INTO donation_archive SELECT *, @RetrievedByHealthProviderID FROM donation WHERE BloodID = @BloodID"
+                                Using archiveCmd As New MySqlCommand(insertArchiveQuery, connection, transaction)
+                                    archiveCmd.Parameters.AddWithValue("@BloodID", bloodID)
+                                    archiveCmd.Parameters.AddWithValue("@RetrievedByHealthProviderID", HealthProviderID)
+                                    archiveCmd.ExecuteNonQuery()
+                                End Using
+
                                 Dim deleteQuery As String = "DELETE FROM donation WHERE BloodID = @BloodID"
                                 Using cmd As New MySqlCommand(deleteQuery, connection, transaction)
                                     cmd.Parameters.AddWithValue("@BloodID", bloodID)

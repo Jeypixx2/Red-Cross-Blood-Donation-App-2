@@ -11,8 +11,8 @@ Public Class HealthCare_Access
 
     Private Sub btnLogin_Click(sender As Object, e As EventArgs) Handles btnLogin.Click
         ' Store the input data in variables
-        hospitalName = txtHospitalName.Text.Trim() ' Trim input to avoid leading/trailing spaces
-        personnelName = txtNameAquirer.Text.Trim()
+        hospitalName = txtHealthcareaccount.Text.Trim() ' Trim input to avoid leading/trailing spaces
+        personnelName = txthealthcarepassword.Text.Trim()
 
         ' Ensure that both fields are filled before proceeding
         If String.IsNullOrEmpty(hospitalName) OrElse String.IsNullOrEmpty(personnelName) Then
@@ -97,5 +97,10 @@ Public Class HealthCare_Access
     Private Sub btnAdmin_Click(sender As Object, e As EventArgs) Handles btnAdmin.Click
         Me.Hide()
         Start.Show()
+    End Sub
+
+    Private Sub BtnCreateAccount_Click(sender As Object, e As EventArgs) Handles BtnCreateAccount.Click
+        Me.Hide()
+        HealthCare_NewAccount.Show()
     End Sub
 End Class

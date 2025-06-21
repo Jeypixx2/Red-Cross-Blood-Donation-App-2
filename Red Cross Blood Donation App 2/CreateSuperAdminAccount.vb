@@ -24,13 +24,14 @@ Public Class CreateSuperAdminAccount
         Dim encryptedPassword As String = Encrypt(password)
 
         ' Query to insert data into the admin_account table
-        Dim query As String = "INSERT INTO accountssuperadmin (username, password, dt_created) VALUES (@username, @password, @dt_created)"
+        Dim query As String = "INSERT INTO accounts (username, password, dt_created) VALUES (@username, @password, @dt_created, @isSuperAdmin)"
         Try
             Using cmd As New MySqlCommand(query, conn)
                 ' Add parameters to the query
                 cmd.Parameters.AddWithValue("@username", username)
                 cmd.Parameters.AddWithValue("@password", encryptedPassword) ' Store encrypted password
                 cmd.Parameters.AddWithValue("@dt_created", DateTime.Now) ' Use current date and time
+                cmd.Parameters.AddWithValue("@isSuperAdmin", True) ' Set isSuperAdmin to True
 
                 ' Open connection
                 openConn(db_name)

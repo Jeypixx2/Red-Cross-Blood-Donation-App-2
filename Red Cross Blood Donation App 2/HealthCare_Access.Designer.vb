@@ -23,11 +23,12 @@ Partial Class HealthCare_Access
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.Label1 = New System.Windows.Forms.Label()
-        Me.txtHospitalName = New System.Windows.Forms.RichTextBox()
+        Me.txtHealthcareaccount = New System.Windows.Forms.RichTextBox()
         Me.Label2 = New System.Windows.Forms.Label()
-        Me.txtNameAquirer = New System.Windows.Forms.RichTextBox()
+        Me.txthealthcarepassword = New System.Windows.Forms.RichTextBox()
         Me.btnLogin = New System.Windows.Forms.Button()
         Me.btnAdmin = New System.Windows.Forms.Button()
+        Me.BtnCreateAccount = New System.Windows.Forms.Label()
         Me.pbLogo = New System.Windows.Forms.PictureBox()
         CType(Me.pbLogo, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -39,21 +40,21 @@ Partial Class HealthCare_Access
         Me.Label1.Font = New System.Drawing.Font("Arial", 14.25!)
         Me.Label1.Location = New System.Drawing.Point(432, 363)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(241, 22)
+        Me.Label1.Size = New System.Drawing.Size(187, 22)
         Me.Label1.TabIndex = 2
-        Me.Label1.Text = "Company or Hospital Name"
+        Me.Label1.Text = "Health Care Account "
         '
-        'txtHospitalName
+        'txtHealthcareaccount
         '
-        Me.txtHospitalName.Anchor = System.Windows.Forms.AnchorStyles.Top
-        Me.txtHospitalName.BackColor = System.Drawing.SystemColors.MenuBar
-        Me.txtHospitalName.Cursor = System.Windows.Forms.Cursors.IBeam
-        Me.txtHospitalName.Font = New System.Drawing.Font("Segoe UI", 9.0!)
-        Me.txtHospitalName.Location = New System.Drawing.Point(436, 388)
-        Me.txtHospitalName.Name = "txtHospitalName"
-        Me.txtHospitalName.Size = New System.Drawing.Size(489, 35)
-        Me.txtHospitalName.TabIndex = 3
-        Me.txtHospitalName.Text = ""
+        Me.txtHealthcareaccount.Anchor = System.Windows.Forms.AnchorStyles.Top
+        Me.txtHealthcareaccount.BackColor = System.Drawing.SystemColors.MenuBar
+        Me.txtHealthcareaccount.Cursor = System.Windows.Forms.Cursors.IBeam
+        Me.txtHealthcareaccount.Font = New System.Drawing.Font("Segoe UI", 9.0!)
+        Me.txtHealthcareaccount.Location = New System.Drawing.Point(436, 388)
+        Me.txtHealthcareaccount.Name = "txtHealthcareaccount"
+        Me.txtHealthcareaccount.Size = New System.Drawing.Size(489, 35)
+        Me.txtHealthcareaccount.TabIndex = 3
+        Me.txtHealthcareaccount.Text = ""
         '
         'Label2
         '
@@ -62,21 +63,21 @@ Partial Class HealthCare_Access
         Me.Label2.Font = New System.Drawing.Font("Arial", 14.25!)
         Me.Label2.Location = New System.Drawing.Point(432, 452)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(151, 22)
+        Me.Label2.Size = New System.Drawing.Size(94, 22)
         Me.Label2.TabIndex = 4
-        Me.Label2.Text = "Personnel Name"
+        Me.Label2.Text = "Password"
         '
-        'txtNameAquirer
+        'txthealthcarepassword
         '
-        Me.txtNameAquirer.Anchor = System.Windows.Forms.AnchorStyles.Top
-        Me.txtNameAquirer.BackColor = System.Drawing.SystemColors.MenuBar
-        Me.txtNameAquirer.Cursor = System.Windows.Forms.Cursors.IBeam
-        Me.txtNameAquirer.Font = New System.Drawing.Font("Segoe UI", 9.0!)
-        Me.txtNameAquirer.Location = New System.Drawing.Point(436, 477)
-        Me.txtNameAquirer.Name = "txtNameAquirer"
-        Me.txtNameAquirer.Size = New System.Drawing.Size(489, 35)
-        Me.txtNameAquirer.TabIndex = 5
-        Me.txtNameAquirer.Text = ""
+        Me.txthealthcarepassword.Anchor = System.Windows.Forms.AnchorStyles.Top
+        Me.txthealthcarepassword.BackColor = System.Drawing.SystemColors.MenuBar
+        Me.txthealthcarepassword.Cursor = System.Windows.Forms.Cursors.IBeam
+        Me.txthealthcarepassword.Font = New System.Drawing.Font("Segoe UI", 9.0!)
+        Me.txthealthcarepassword.Location = New System.Drawing.Point(436, 477)
+        Me.txthealthcarepassword.Name = "txthealthcarepassword"
+        Me.txthealthcarepassword.Size = New System.Drawing.Size(489, 35)
+        Me.txthealthcarepassword.TabIndex = 5
+        Me.txthealthcarepassword.Text = ""
         '
         'btnLogin
         '
@@ -84,7 +85,7 @@ Partial Class HealthCare_Access
         Me.btnLogin.BackColor = System.Drawing.Color.FromArgb(CType(CType(3, Byte), Integer), CType(CType(1, Byte), Integer), CType(CType(84, Byte), Integer))
         Me.btnLogin.Font = New System.Drawing.Font("Arial", 24.0!, System.Drawing.FontStyle.Bold)
         Me.btnLogin.ForeColor = System.Drawing.SystemColors.InactiveBorder
-        Me.btnLogin.Location = New System.Drawing.Point(436, 532)
+        Me.btnLogin.Location = New System.Drawing.Point(436, 552)
         Me.btnLogin.Name = "btnLogin"
         Me.btnLogin.Size = New System.Drawing.Size(489, 68)
         Me.btnLogin.TabIndex = 6
@@ -97,12 +98,24 @@ Partial Class HealthCare_Access
         Me.btnAdmin.BackColor = System.Drawing.Color.FromArgb(CType(CType(207, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(6, Byte), Integer))
         Me.btnAdmin.Font = New System.Drawing.Font("Arial", 15.75!)
         Me.btnAdmin.ForeColor = System.Drawing.SystemColors.ButtonHighlight
-        Me.btnAdmin.Location = New System.Drawing.Point(624, 625)
+        Me.btnAdmin.Location = New System.Drawing.Point(624, 645)
         Me.btnAdmin.Name = "btnAdmin"
         Me.btnAdmin.Size = New System.Drawing.Size(96, 39)
         Me.btnAdmin.TabIndex = 15
         Me.btnAdmin.Text = "Back"
         Me.btnAdmin.UseVisualStyleBackColor = False
+        '
+        'BtnCreateAccount
+        '
+        Me.BtnCreateAccount.Anchor = System.Windows.Forms.AnchorStyles.Top
+        Me.BtnCreateAccount.AutoSize = True
+        Me.BtnCreateAccount.Font = New System.Drawing.Font("Arial Narrow", 11.25!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Underline), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BtnCreateAccount.ForeColor = System.Drawing.Color.DimGray
+        Me.BtnCreateAccount.Location = New System.Drawing.Point(432, 515)
+        Me.BtnCreateAccount.Name = "BtnCreateAccount"
+        Me.BtnCreateAccount.Size = New System.Drawing.Size(60, 20)
+        Me.BtnCreateAccount.TabIndex = 17
+        Me.BtnCreateAccount.Text = "Register"
         '
         'pbLogo
         '
@@ -121,15 +134,16 @@ Partial Class HealthCare_Access
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.SystemColors.ButtonHighlight
         Me.ClientSize = New System.Drawing.Size(1364, 749)
+        Me.Controls.Add(Me.BtnCreateAccount)
         Me.Controls.Add(Me.pbLogo)
         Me.Controls.Add(Me.btnAdmin)
         Me.Controls.Add(Me.btnLogin)
-        Me.Controls.Add(Me.txtNameAquirer)
+        Me.Controls.Add(Me.txthealthcarepassword)
         Me.Controls.Add(Me.Label2)
-        Me.Controls.Add(Me.txtHospitalName)
+        Me.Controls.Add(Me.txtHealthcareaccount)
         Me.Controls.Add(Me.Label1)
         Me.Name = "HealthCare_Access"
-        Me.Text = "HealthCare_Access"
+        Me.Text = "Health Care Account Login"
         Me.WindowState = System.Windows.Forms.FormWindowState.Maximized
         CType(Me.pbLogo, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
@@ -137,10 +151,11 @@ Partial Class HealthCare_Access
 
     End Sub
     Friend WithEvents Label1 As Label
-    Friend WithEvents txtHospitalName As RichTextBox
+    Friend WithEvents txtHealthcareaccount As RichTextBox
     Friend WithEvents Label2 As Label
-    Friend WithEvents txtNameAquirer As RichTextBox
+    Friend WithEvents txthealthcarepassword As RichTextBox
     Friend WithEvents btnLogin As Button
     Friend WithEvents btnAdmin As Button
     Friend WithEvents pbLogo As PictureBox
+    Friend WithEvents BtnCreateAccount As Label
 End Class
