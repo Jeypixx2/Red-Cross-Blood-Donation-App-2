@@ -1,98 +1,117 @@
 ﻿Imports MySql.Data.MySqlClient
 
 Public Class HealthCare_Access
-    ' Temporary storage for the hospital and personnel names
-    Private hospitalName As String
-    Private personnelName As String
 
     Private Sub HealthCare_Access_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        UpdateConnectionString()
+        txthealthcarepassword.PasswordChar = "*"
     End Sub
 
     Private Sub btnLogin_Click(sender As Object, e As EventArgs) Handles btnLogin.Click
-        ' Store the input data in variables
-        hospitalName = txtHealthcareaccount.Text.Trim() ' Trim input to avoid leading/trailing spaces
-        personnelName = txthealthcarepassword.Text.Trim()
+        ' Retrieve username and password from TextBox controls
+        Dim username As String = txthealthcareaccount.Text.Trim()
+        Dim password As String = txthealthcarepassword.Text
 
-        ' Ensure that both fields are filled before proceeding
-        If String.IsNullOrEmpty(hospitalName) OrElse String.IsNullOrEmpty(personnelName) Then
-            MessageBox.Show("Please enter both Hospital Name and Personnel Name.", "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        ' Validate inputs
+        If String.IsNullOrEmpty(username) OrElse String.IsNullOrEmpty(password) Then
+            MessageBox.Show("Please enter both username and password.", "Login Failed", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             Return
         End If
 
-        ' Debugging: Show the captured values in a message box
-        MessageBox.Show($"Hospital Name: {hospitalName}, Personnel Name: {personnelName}", "Debugging", MessageBoxButtons.OK, MessageBoxIcon.Information)
+        ' Encrypt the entered password
+        Dim encryptedPassword As String = modDB.Encrypt(password)
 
-        ' Check if the Hospital and Personnel already exist
-        Dim existingIDs = GetHealthProviderAndPersonnelID(hospitalName, personnelName)
-
-        If existingIDs.Item1 <> -1 AndAlso existingIDs.Item2 <> -1 Then
-            MessageBox.Show("Record already exists. Using existing HealthProviderID and PersonnelID.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information)
-        Else
-            MessageBox.Show("New record detected. Data will be passed to the next form.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information)
-        End If
-
-        ' Set the CurrentLoggedUser structure
-        modDB.CurrentLoggedUser = New modDB.LoggedUser With {
-            .id = existingIDs.Item1,
-            .name = personnelName,
-            .position = "Health Provider",
-            .username = hospitalName,
-            .password = String.Empty,
-            .type = 3
-        }
-
-        ' Log the login event
-        MessageBox.Show("CurrentLoggedUser.id: " & modDB.CurrentLoggedUser.id)
-        modDB.Logs("Health Provider logged in")
-
-        ' Pass the data to the dashboard without saving
-        Dim dashboard As New HealthCare_Dashboard(hospitalName, personnelName)
-        Me.Hide()
-        dashboard.Show()
-    End Sub
-
-    ' Function to check if Hospital and Personnel exist, retrieve or increment IDs
-    Public Function GetHealthProviderAndPersonnelID(hospitalName As String, personnelName As String) As Tuple(Of Integer, Integer)
-        Dim healthProviderID As Integer = -1
-        Dim personnelID As Integer = -1
+        ' Query to check credentials and get user details
+        Dim query As String = "SELECT * FROM healthprovideraccounts WHERE username = @username AND password = @password"
 
         Try
-            If conn.State = ConnectionState.Closed Then conn.Open()
+            Using cmd As New MySqlCommand(query, modDB.conn)
+                cmd.Parameters.AddWithValue("@username", username)
+                cmd.Parameters.AddWithValue("@password", encryptedPassword)
+                modDB.openConn(modDB.db_name)
 
-            ' Get HealthProviderID first
-            Dim sqlProviderID As String = "SELECT HealthProviderID FROM Healthprovider WHERE CompanyHospitalName = @CompanyHospitalName LIMIT 1"
-            Using cmdProvider As New MySqlCommand(sqlProviderID, conn)
-                cmdProvider.Parameters.AddWithValue("@CompanyHospitalName", hospitalName)
-                Using drProvider As MySqlDataReader = cmdProvider.ExecuteReader()
-                    If drProvider.Read() Then
-                        healthProviderID = drProvider.GetInt32("HealthProviderID")
-                    End If
-                End Using ' Reader automatically closed here
-            End Using
+                Using reader As MySqlDataReader = cmd.ExecuteReader()
+                    If reader.Read() Then
+                        ' Check if account is verified
+                        Dim isVerified As Boolean = Convert.ToBoolean(reader("IsVerified"))
+                        If Not isVerified Then
+                            MessageBox.Show("Your account is pending verification. Please wait for administrator approval.",
+                                  "Account Not Verified", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                            txthealthcarepassword.Clear()
+                            Return
+                        End If
 
-            ' Now get PersonnelID
-            Dim sqlPersonnelID As String = "SELECT PersonnelID FROM Healthprovider WHERE CompanyHospitalName = @CompanyHospitalName AND PersonnelName = @PersonnelName LIMIT 1"
-            Using cmdPersonnel As New MySqlCommand(sqlPersonnelID, conn)
-                cmdPersonnel.Parameters.AddWithValue("@CompanyHospitalName", hospitalName)
-                cmdPersonnel.Parameters.AddWithValue("@PersonnelName", personnelName)
-                Using drPersonnel As MySqlDataReader = cmdPersonnel.ExecuteReader()
-                    If drPersonnel.Read() Then
-                        personnelID = drPersonnel.GetInt32("PersonnelID")
+                        ' Login successful - Read all needed values while reader is active
+                        Dim providerId As Integer = reader.GetInt32("HCPid")
+                        Dim firstName As String = reader.GetString("fname")
+                        Dim lastName As String = reader.GetString("lname")
+                        Dim affiliatedInstitution As String = reader("AffiliatedInstitutionName").ToString()
+                        Dim userPosition As String = "Healthcare Provider"
+                        Dim userType As Integer = 3 ' Type 3 for healthcare provider
+
+                        ' Set the CurrentLoggedUser structure
+                        modDB.CurrentLoggedUser = New modDB.LoggedUser With {
+                        .id = providerId,
+                        .name = $"{firstName} {lastName}",
+                        .position = userPosition,
+                        .username = username,
+                        .password = encryptedPassword,
+                        .type = userType
+                    }
+
+                        ' Close the reader before calling UpdateLastLoginDate
+                        reader.Close()
+
+                        ' Update LastLoginDate
+                        UpdateLastLoginDate(providerId)
+
+                        ' Log the login event
+                        modDB.Logs("Healthcare Provider logged in")
+
+                        MessageBox.Show("Login successful!", "Welcome", MessageBoxButtons.OK, MessageBoxIcon.Information)
+
+                        ' Clear the password field
+                        txthealthcarepassword.Clear()
+
+                        ' Show Healthcare Dashboard using the stored value
+                        Dim dashboard As New HealthCare_Dashboard(affiliatedInstitution, $"{firstName} {lastName}")
+                        dashboard.Show()
+                        Me.Hide()
+                    Else
+                        ' Login failed
+                        MessageBox.Show("Invalid username or password.", "Login Failed",
+                              MessageBoxButtons.OK, MessageBoxIcon.Error)
+                        txthealthcarepassword.Clear()
                     End If
                 End Using
             End Using
-
         Catch ex As Exception
-            MessageBox.Show("An error occurred while checking IDs: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            MessageBox.Show($"Error during login: {ex.Message}", "Error",
+                   MessageBoxButtons.OK, MessageBoxIcon.Error)
         Finally
-            If conn.State = ConnectionState.Open Then conn.Close()
+            modDB.conn?.Close()
         End Try
+    End Sub
 
-        Return Tuple.Create(healthProviderID, personnelID)
-    End Function
+    Private Sub UpdateLastLoginDate(providerId As Integer)
+        Try
+            Dim updateQuery As String = "UPDATE healthprovideraccounts SET LastLoginDate = @lastLoginDate " &
+                                  "WHERE HCPid = @providerId"
 
+            Using cmd As New MySqlCommand(updateQuery, modDB.conn)
+                cmd.Parameters.AddWithValue("@lastLoginDate", DateTime.Now)
+                cmd.Parameters.AddWithValue("@providerId", providerId)
 
+                If modDB.conn.State = ConnectionState.Closed Then
+                    modDB.conn.Open()
+                End If
+
+                cmd.ExecuteNonQuery()
+            End Using
+        Catch ex As Exception
+            ' Log the error but don't stop the login process
+            modDB.Logs($"Error updating last login date: {ex.Message}")
+        End Try
+    End Sub
 
     Private Sub btnAdmin_Click(sender As Object, e As EventArgs) Handles btnAdmin.Click
         Me.Hide()
@@ -100,7 +119,7 @@ Public Class HealthCare_Access
     End Sub
 
     Private Sub BtnCreateAccount_Click(sender As Object, e As EventArgs) Handles BtnCreateAccount.Click
-        Me.Hide()
         HealthCare_NewAccount.Show()
     End Sub
+
 End Class

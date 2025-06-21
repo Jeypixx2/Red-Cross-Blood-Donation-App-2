@@ -240,6 +240,25 @@ Public Class SuperAdmin_Dashboard
         modDB.Logs("View Accounts Data")
     End Sub
 
+    Private Sub HP_Accounts_Click(sender As Object, e As EventArgs) Handles HP_Accounts.Click
+        UpdateConnectionString()
+        DoubleBuffering.EnableDoubleBuffering(dgvInventory)
+
+        currentTable = "healthprovideraccounts"
+        dbDateColumn = "CreatedDate"
+        Calendar = 1
+
+        Dim query As String = $"SELECT * FROM {currentTable}"
+
+        Dim rowCount As Integer = modDB.LoadToDGV(query, dgvInventory)
+        modDB.Logs("View Health Provider Accounts")
+
+        If rowCount = 0 Then
+            MessageBox.Show("No history records found.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
+        End If
+        modDB.Logs("View Accounts Data")
+    End Sub
+
     Private Sub dtpCalendar_DateChanged(sender As Object, e As DateRangeEventArgs) Handles dtpCalendar.DateSelected
         SelectedDate = dtpCalendar.SelectionStart.ToString("yyyy-MM-dd")
         Dim SelectedDateWeek As Date = SelectedDate.AddDays(DayOfWeek.Saturday - SelectedDate.DayOfWeek).ToString("yyyy-MM-dd")
@@ -355,7 +374,8 @@ Public Class SuperAdmin_Dashboard
     {"healthprovider", "RetrieveID"},
     {"history", "HistoryID"},
     {"logs", "user_accounts_id"},
-    {"accounts", "adminID"}}
+    {"accounts", "adminID"},
+    {"healthprovideraccounts", "HCPid"}}
     ' Add more table-to-ID mappings as needed
 
     Private Sub dgvInventory_CellValueChanged(sender As Object, e As DataGridViewCellEventArgs) Handles dgvInventory.CellValueChanged
@@ -704,6 +724,4 @@ Public Class SuperAdmin_Dashboard
             MessageBox.Show($"Error deleting record: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
     End Sub
-
-
 End Class

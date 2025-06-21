@@ -12,14 +12,6 @@ Public Class HealthCare_Dashboard
     Private PersonnelID As Integer ' To store the fixed PersonnelID
     Dim chartConnection As New MySqlConnection("server=localhost;user id=root;password=;database=redcrossdb")
 
-    ' Constructor to receive data from HealthCare_Access form
-    Public Sub New(hospitalName As String, personnelName As String)
-        InitializeComponent()
-        Me.hospitalName = hospitalName
-        Me.personnelName = personnelName
-        ' Fetch IDs for the hospital and personnel
-        FetchIDs()
-    End Sub
 
     Private Sub HealthCare_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
@@ -408,40 +400,6 @@ Public Class HealthCare_Dashboard
         Return table
     End Function
 
-    Private Sub FetchIDs()
-        Dim connection As MySqlConnection = modDB.conn
-        Try
-            ' Fetch HealthProviderID based on hospitalName
-            Dim healthProviderQuery As String = "SELECT HealthProviderID FROM healthprovider WHERE CompanyHospitalName = @hospitalName"
-            Using cmd As New MySqlCommand(healthProviderQuery, connection)
-                cmd.Parameters.AddWithValue("@hospitalName", hospitalName)
-                If connection.State = ConnectionState.Closed Then connection.Open()
-                Dim result = cmd.ExecuteScalar()
-                If result IsNot Nothing Then
-                    HealthProviderID = Convert.ToInt32(result)
-                Else
-                    ' If not found, generate a unique ID
-                    HealthProviderID = GenerateUniqueID("HealthProviderID", "healthprovider")
-                End If
-            End Using
-
-            ' Fetch PersonnelID based on personnelName
-            Dim personnelQuery As String = "SELECT PersonnelID FROM healthprovider WHERE PersonnelName = @personnelName"
-            Using cmd As New MySqlCommand(personnelQuery, connection)
-                cmd.Parameters.AddWithValue("@personnelName", personnelName)
-                Dim result = cmd.ExecuteScalar()
-                If result IsNot Nothing Then
-                    PersonnelID = Convert.ToInt32(result)
-                Else
-                    ' If not found, generate a unique ID
-                    PersonnelID = GenerateUniqueID("PersonnelID", "healthprovider")
-                End If
-            End Using
-        Catch ex As MySqlException
-            MessageBox.Show($"An error occurred: {ex.Message}", "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        End Try
-    End Sub
-
     Private Function GenerateUniqueID(columnName As String, tableName As String) As Integer
         Dim newID As Integer = 1
         Dim connection As MySqlConnection = modDB.conn
@@ -476,17 +434,6 @@ Public Class HealthCare_Dashboard
             Dim donationDate As String = selectedRow.Cells("DonationDate").Value.ToString()
             Dim donationType As String = selectedRow.Cells("DonationType").Value.ToString()
             Dim bloodVolume As String = selectedRow.Cells("BloodVolume").Value.ToString()
-
-            ' Fetch HealthProviderID and PersonnelID based on HospitalName and PersonnelName
-            FetchIDs()
-
-            ' If no valid IDs found, generate new ones
-            If HealthProviderID = 0 Then
-                HealthProviderID = GenerateUniqueID("HealthProviderID", "healthprovider")
-            End If
-            If PersonnelID = 0 Then
-                PersonnelID = GenerateUniqueID("PersonnelID", "healthprovider")
-            End If
 
             ' Prompt user for additional details
             Dim purposeOfRetrieval As String = InputBox("Enter the Purpose of Retrieval:", "Purpose of Retrieval")

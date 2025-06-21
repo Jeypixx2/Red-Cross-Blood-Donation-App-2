@@ -47,7 +47,6 @@ Partial Class SuperAdmin_Dashboard
         Me.Monthly = New System.Windows.Forms.Button()
         Me.Weekly = New System.Windows.Forms.Button()
         Me.Daily = New System.Windows.Forms.Button()
-        Me.pbLogo = New System.Windows.Forms.PictureBox()
         Me.Logs = New System.Windows.Forms.Button()
         Me.Accounts = New System.Windows.Forms.Button()
         Me.Config = New System.Windows.Forms.Button()
@@ -63,11 +62,13 @@ Partial Class SuperAdmin_Dashboard
         Me.dtpFrom = New System.Windows.Forms.DateTimePicker()
         Me.btnUpdate = New System.Windows.Forms.Button()
         Me.btnDelete = New System.Windows.Forms.Button()
+        Me.pbLogo = New System.Windows.Forms.PictureBox()
+        Me.HP_Accounts = New System.Windows.Forms.Button()
         Me.Panel1.SuspendLayout()
         CType(Me.dgvInventory, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.pbLogo, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.Line_Chart, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.Bar_Graph, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.pbLogo, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'History
@@ -280,16 +281,6 @@ Partial Class SuperAdmin_Dashboard
         Me.Daily.Text = "Daily"
         Me.Daily.UseVisualStyleBackColor = False
         '
-        'pbLogo
-        '
-        Me.pbLogo.Image = Global.Red_Cross_Blood_Donation_App_2.My.Resources.Resources.Red_Cross_logo
-        Me.pbLogo.Location = New System.Drawing.Point(6, 0)
-        Me.pbLogo.Name = "pbLogo"
-        Me.pbLogo.Size = New System.Drawing.Size(99, 130)
-        Me.pbLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
-        Me.pbLogo.TabIndex = 26
-        Me.pbLogo.TabStop = False
-        '
         'Logs
         '
         Me.Logs.BackColor = System.Drawing.SystemColors.ButtonFace
@@ -316,7 +307,7 @@ Partial Class SuperAdmin_Dashboard
         '
         Me.Config.BackColor = System.Drawing.SystemColors.ButtonFace
         Me.Config.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold)
-        Me.Config.Location = New System.Drawing.Point(981, 0)
+        Me.Config.Location = New System.Drawing.Point(1104, 0)
         Me.Config.Name = "Config"
         Me.Config.Size = New System.Drawing.Size(117, 50)
         Me.Config.TabIndex = 43
@@ -465,12 +456,34 @@ Partial Class SuperAdmin_Dashboard
         Me.btnDelete.Text = "Delete"
         Me.btnDelete.UseVisualStyleBackColor = False
         '
+        'pbLogo
+        '
+        Me.pbLogo.Image = Global.Red_Cross_Blood_Donation_App_2.My.Resources.Resources.Red_Cross_logo
+        Me.pbLogo.Location = New System.Drawing.Point(6, 0)
+        Me.pbLogo.Name = "pbLogo"
+        Me.pbLogo.Size = New System.Drawing.Size(99, 130)
+        Me.pbLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
+        Me.pbLogo.TabIndex = 26
+        Me.pbLogo.TabStop = False
+        '
+        'HP_Accounts
+        '
+        Me.HP_Accounts.BackColor = System.Drawing.SystemColors.ButtonFace
+        Me.HP_Accounts.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.HP_Accounts.Location = New System.Drawing.Point(981, 0)
+        Me.HP_Accounts.Name = "HP_Accounts"
+        Me.HP_Accounts.Size = New System.Drawing.Size(117, 50)
+        Me.HP_Accounts.TabIndex = 56
+        Me.HP_Accounts.Text = "Health Provider Accounts"
+        Me.HP_Accounts.UseVisualStyleBackColor = False
+        '
         'SuperAdmin_Dashboard
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.SystemColors.ButtonHighlight
         Me.ClientSize = New System.Drawing.Size(1444, 881)
+        Me.Controls.Add(Me.HP_Accounts)
         Me.Controls.Add(Me.btnDelete)
         Me.Controls.Add(Me.btnUpdate)
         Me.Controls.Add(Me.Label3)
@@ -508,9 +521,9 @@ Partial Class SuperAdmin_Dashboard
         Me.Panel1.ResumeLayout(False)
         Me.Panel1.PerformLayout()
         CType(Me.dgvInventory, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.pbLogo, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.Line_Chart, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.Bar_Graph, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.pbLogo, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -551,4 +564,5 @@ Partial Class SuperAdmin_Dashboard
     Friend WithEvents dtpFrom As DateTimePicker
     Friend WithEvents btnUpdate As Button
     Friend WithEvents btnDelete As Button
+    Friend WithEvents HP_Accounts As Button
 End Class
