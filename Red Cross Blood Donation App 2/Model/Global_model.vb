@@ -22,7 +22,7 @@ Public Class Global_model
             ' Log the query and parameters for debugging
             Console.WriteLine("SQL Query: " & query)
             For i As Integer = 0 To parameters.Length - 1
-                Console.WriteLine($"Parameter {i}: {parameters(i)}")
+                Console.WriteLine("Parameter " & i & ": " & parameters(i))
             Next
 
             Using cmd As New MySqlCommand(query, conn)

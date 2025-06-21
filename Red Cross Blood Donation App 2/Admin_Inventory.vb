@@ -188,7 +188,6 @@ Public Class Admin_Inventory
         cmbMonths.Visible = False
     End Sub
 
-
     Private Sub DonorRecord_Click(sender As Object, e As EventArgs) Handles DonorRecord.Click
         ' Update connection string and enable double buffering
         UpdateConnectionString()
@@ -198,25 +197,14 @@ Public Class Admin_Inventory
         currentTable = "donors"
         dbDateColumn = "RegDate"
         Calendar = 1
-        SelectedDate = dtpCalendar.SelectionStart.ToString("yyyy-MM-dd")
 
-        ' Construct the query based on selected date
-        Dim query As String = $"SELECT * FROM {currentTable} WHERE DATE({dbDateColumn}) = @SelectedDate"
-
-        ' Call the LoadDGV function from modDB to load the data into the DataGridView
-        Dim rowCount As Integer = modDB.LoadToDGV(query, dgvInventory)
+        ' Show all data by default
+        Dim allDataQuery As String = $"SELECT * FROM {currentTable}"
+        modDB.LoadToDGV(allDataQuery, dgvInventory)
 
         ' Log the action
         modDB.Logs("View Donor History")
-
-        ' Optionally, check row count or provide further feedback
-        If rowCount = 0 Then
-            MessageBox.Show("No donor records found for the selected date.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
-        End If
     End Sub
-
-
-
 
     Private Sub DonationRecord_Click(sender As Object, e As EventArgs) Handles DonationRecord.Click
         ' Update connection string and enable double buffering
@@ -227,25 +215,14 @@ Public Class Admin_Inventory
         currentTable = "donation"
         dbDateColumn = "DonationDate"
         Calendar = 1
-        SelectedDate = dtpCalendar.SelectionStart.ToString("yyyy-MM-dd")
 
-        ' Construct the query based on selected date
-        Dim query As String = $"SELECT * FROM {currentTable} WHERE DATE({dbDateColumn}) = @SelectedDate"
-
-        ' Call the LoadDGV function from modDB to load the data into the DataGridView
-        Dim rowCount As Integer = modDB.LoadToDGV(query, dgvInventory)
+        ' Show all data by default
+        Dim allDataQuery As String = $"SELECT * FROM {currentTable}"
+        modDB.LoadToDGV(allDataQuery, dgvInventory)
 
         ' Log the action
         modDB.Logs("View Donation History")
-
-        ' Optionally, check row count or provide further feedback
-        If rowCount = 0 Then
-            MessageBox.Show("No donation records found for the selected date.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
-        End If
     End Sub
-
-
-
 
     Private Sub EligibilityRecord_Click(sender As Object, e As EventArgs) Handles EligibilityRecord.Click
         ' Update connection string and enable double buffering
@@ -256,51 +233,46 @@ Public Class Admin_Inventory
         currentTable = "eligibility"
         dbDateColumn = "EligibilityDate"
         Calendar = 1
-        SelectedDate = dtpCalendar.SelectionStart.ToString("yyyy-MM-dd")
 
-        ' Construct the query based on selected date
-        Dim query As String = $"SELECT * FROM {currentTable} WHERE DATE({dbDateColumn}) = @SelectedDate"
-
-        ' Call the LoadDGV function from modDB to load the data into the DataGridView
-        Dim rowCount As Integer = modDB.LoadToDGV(query, dgvInventory)
+        ' Show all data by default
+        Dim allDataQuery As String = $"SELECT * FROM {currentTable}"
+        modDB.LoadToDGV(allDataQuery, dgvInventory)
 
         ' Log the action
         modDB.Logs("View Eligibility History")
-
-        ' Optionally, check row count or provide further feedback
-        If rowCount = 0 Then
-            MessageBox.Show("No eligibility records found for the selected date.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
-        End If
     End Sub
 
     Private Sub Health_Provider_Click(sender As Object, e As EventArgs) Handles Health_Provider.Click
-
-
         UpdateConnectionString()
         DoubleBuffering.EnableDoubleBuffering(dgvInventory)
-
 
         currentTable = "healthprovider"
         dbDateColumn = "RetrieveDate"
         Calendar = 1
-        SelectedDate = dtpCalendar.SelectionStart.ToString("yyyy-MM-dd")
 
-
-        Dim query As String = $"SELECT * FROM {currentTable} WHERE DATE({dbDateColumn}) = @SelectedDate"
-
-
-        Dim rowCount As Integer = modDB.LoadToDGV(query, dgvInventory)
-
+        ' Show all data by default
+        Dim allDataQuery As String = $"SELECT * FROM {currentTable}"
+        modDB.LoadToDGV(allDataQuery, dgvInventory)
 
         modDB.Logs("View History")
-
-
-        If rowCount = 0 Then
-            MessageBox.Show("No history records found for the selected date.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
-        End If
     End Sub
 
+    Private Sub History_Click(sender As Object, e As EventArgs) Handles History.Click
+        UpdateConnectionString()
+        DoubleBuffering.EnableDoubleBuffering(dgvInventory)
 
+        ' Set parameters for the current table and date column
+        currentTable = "history"
+        dbDateColumn = "DonorRegDate" ' Change this to the appropriate column for the history table
+        Calendar = 1
+
+        ' Show all data by default
+        Dim allDataQuery As String = $"SELECT * FROM {currentTable}"
+        modDB.LoadToDGV(allDataQuery, dgvInventory)
+
+        ' Log the action
+        modDB.Logs("View History Data")
+    End Sub
 
     Private Sub dtpCalendar_DateChanged(sender As Object, e As DateRangeEventArgs) Handles dtpCalendar.DateSelected
         SelectedDate = dtpCalendar.SelectionStart.ToString("yyyy-MM-dd")
@@ -400,25 +372,6 @@ Public Class Admin_Inventory
     Private Sub Button8_Click(sender As Object, e As EventArgs) Handles Button8.Click
         Health_Provider_Report.Show()
         modDB.Logs("ViewHealth Provider Report")
-    End Sub
-
-    Private Sub History_Click(sender As Object, e As EventArgs) Handles History.Click
-        UpdateConnectionString()
-        DoubleBuffering.EnableDoubleBuffering(dgvInventory)
-
-        ' Set parameters for the current table and date column
-        currentTable = "history"
-        dbDateColumn = "DonorRegDate" ' Change this to the appropriate column for the history table
-        Calendar = 1
-        SelectedDate = dtpCalendar.SelectionStart.ToString("yyyy-MM-dd")
-
-        ' Fetch the data and update the DataGridView
-        Dim Data = GlobalModel.GetAll(currentTable, Calendar, dbDateColumn, SelectedDate)
-        GlobalModel.UpdateDataGridView(Data, dgvInventory)
-
-        ' Log the action
-        modDB.Logs("View History Data")
-
     End Sub
 
     Private Sub btnUpdate_Click(sender As Object, e As EventArgs) Handles btnUpdate.Click
