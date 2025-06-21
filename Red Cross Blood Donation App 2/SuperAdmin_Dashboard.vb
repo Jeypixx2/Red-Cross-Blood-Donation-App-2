@@ -122,7 +122,7 @@ Public Class SuperAdmin_Dashboard
 
         Dim query As String
         If dtpCalendar.SelectionStart = Date.MinValue OrElse dtpCalendar.SelectionStart = Nothing Then
-            query = $"SELECT * FROM {currentTable} ORDER BY {dbDateColumn} DESC LIMIT 30"
+            query = $"SELECT * FROM {currentTable} ORDER BY {dbDateColumn} DESC"
         Else
             SelectedDate = dtpCalendar.SelectionStart.ToString("yyyy-MM-dd")
             query = $"SELECT * FROM {currentTable} WHERE DATE({dbDateColumn}) = '{SelectedDate}'"
@@ -146,7 +146,7 @@ Public Class SuperAdmin_Dashboard
 
         Dim query As String
         If dtpCalendar.SelectionStart = Date.MinValue OrElse dtpCalendar.SelectionStart = Nothing Then
-            query = $"SELECT * FROM {currentTable} ORDER BY {dbDateColumn} DESC LIMIT 30"
+            query = $"SELECT * FROM {currentTable} ORDER BY {dbDateColumn} DESC"
         Else
             SelectedDate = dtpCalendar.SelectionStart.ToString("yyyy-MM-dd")
             query = $"SELECT * FROM {currentTable} WHERE DATE({dbDateColumn}) = '{SelectedDate}'"
@@ -170,7 +170,7 @@ Public Class SuperAdmin_Dashboard
 
         Dim query As String
         If dtpCalendar.SelectionStart = Date.MinValue OrElse dtpCalendar.SelectionStart = Nothing Then
-            query = $"SELECT * FROM {currentTable} ORDER BY {dbDateColumn} DESC LIMIT 30"
+            query = $"SELECT * FROM {currentTable} ORDER BY {dbDateColumn} DESC"
         Else
             SelectedDate = dtpCalendar.SelectionStart.ToString("yyyy-MM-dd")
             query = $"SELECT * FROM {currentTable} WHERE DATE({dbDateColumn}) = '{SelectedDate}'"
@@ -194,7 +194,7 @@ Public Class SuperAdmin_Dashboard
 
         Dim query As String
         If dtpCalendar.SelectionStart = Date.MinValue OrElse dtpCalendar.SelectionStart = Nothing Then
-            query = $"SELECT * FROM {currentTable} ORDER BY {dbDateColumn} DESC LIMIT 30"
+            query = $"SELECT * FROM {currentTable} ORDER BY {dbDateColumn} DESC"
         Else
             SelectedDate = dtpCalendar.SelectionStart.ToString("yyyy-MM-dd")
             query = $"SELECT * FROM {currentTable} WHERE DATE({dbDateColumn}) = '{SelectedDate}'"
@@ -218,7 +218,7 @@ Public Class SuperAdmin_Dashboard
 
         Dim query As String
         If dtpCalendar.SelectionStart = Date.MinValue OrElse dtpCalendar.SelectionStart = Nothing Then
-            query = $"SELECT * FROM {currentTable} ORDER BY {dbDateColumn} DESC LIMIT 30"
+            query = $"SELECT * FROM {currentTable} ORDER BY {dbDateColumn} DESC"
         Else
             SelectedDate = dtpCalendar.SelectionStart.ToString("yyyy-MM-dd")
             query = $"SELECT * FROM {currentTable} WHERE DATE({dbDateColumn}) = '{SelectedDate}'"
@@ -243,7 +243,7 @@ Public Class SuperAdmin_Dashboard
 
         Dim query As String
         If dtpCalendar.SelectionStart = Date.MinValue OrElse dtpCalendar.SelectionStart = Nothing Then
-            query = $"SELECT * FROM {currentTable} ORDER BY {dbDateColumn} DESC LIMIT 30"
+            query = $"SELECT * FROM {currentTable} ORDER BY {dbDateColumn} DESC"
         Else
             SelectedDate = dtpCalendar.SelectionStart.ToString("yyyy-MM-dd")
             query = $"SELECT * FROM {currentTable} WHERE DATE({dbDateColumn}) = '{SelectedDate}'"
@@ -268,7 +268,7 @@ Public Class SuperAdmin_Dashboard
 
         Dim query As String
         If dtpCalendar.SelectionStart = Date.MinValue OrElse dtpCalendar.SelectionStart = Nothing Then
-            query = $"SELECT * FROM {currentTable} ORDER BY {dbDateColumn} DESC LIMIT 30"
+            query = $"SELECT * FROM {currentTable} ORDER BY {dbDateColumn} DESC"
         Else
             SelectedDate = dtpCalendar.SelectionStart.ToString("yyyy-MM-dd")
             query = $"SELECT * FROM {currentTable} WHERE DATE({dbDateColumn}) = '{SelectedDate}'"
