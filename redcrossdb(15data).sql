@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 17, 2025 at 03:21 AM
+-- Generation Time: Jun 21, 2025 at 02:43 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -31,74 +31,19 @@ CREATE TABLE `accounts` (
   `adminID` int(11) NOT NULL,
   `username` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
-  `dt_created` date NOT NULL DEFAULT current_timestamp()
+  `dt_created` date NOT NULL DEFAULT current_timestamp(),
+  `isSuperAdmin` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `accounts`
 --
 
-INSERT INTO `accounts` (`adminID`, `username`, `password`, `dt_created`) VALUES
-(1, 'admin', 'pIbvhgmpVHahDBTYUgQvew==', '2024-12-09'),
-(2, 'admin1', 'Lj/0jKeGO5+TuqLM3fMV3w==', '2024-12-09'),
-(3, 'admin1', 'Lj/0jKeGO5+TuqLM3fMV3w==', '2024-12-24'),
-(4, 'admin56', 'sBalC2SckJsS5IRhTqckjw==', '2025-03-04');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `accountssuperadmin`
---
-
-CREATE TABLE `accountssuperadmin` (
-  `adminID` int(11) NOT NULL,
-  `username` varchar(225) NOT NULL,
-  `password` varchar(225) NOT NULL,
-  `dt_created` date NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `accountssuperadmin`
---
-
-INSERT INTO `accountssuperadmin` (`adminID`, `username`, `password`, `dt_created`) VALUES
-(1, 'admin', 'pIbvhgmpVHahDBTYUgQvew==', '2025-03-09');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `adminlogs`
---
-
-CREATE TABLE `adminlogs` (
-  `logsID` int(11) NOT NULL,
-  `dt` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-  `user_acounts_id` int(11) NOT NULL,
-  `event` varchar(255) NOT NULL,
-  `transactions` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `admin_account`
---
-
-CREATE TABLE `admin_account` (
-  `adminID` int(11) NOT NULL,
-  `username` varchar(100) NOT NULL,
-  `password` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `admin_account`
---
-
-INSERT INTO `admin_account` (`adminID`, `username`, `password`) VALUES
-(1, 'ajuju', 'julius'),
-(2, 'admin', 'admin'),
-(3, 'Admin21', 'WB6/w1cKMZ5TAMaZOdEMdAXD6zzVyFOeQ0QzKGQgA8k='),
-(4, 'admin', 'pIbvhgmpVHahDBTYUgQvew==');
+INSERT INTO `accounts` (`adminID`, `username`, `password`, `dt_created`, `isSuperAdmin`) VALUES
+(1, 'admin', 'pIbvhgmpVHahDBTYUgQvew==', '2024-12-09', 1),
+(2, 'admin1', 'Lj/0jKeGO5+TuqLM3fMV3w==', '2024-12-09', 0),
+(3, 'admin1', 'Lj/0jKeGO5+TuqLM3fMV3w==', '2024-12-24', 0),
+(4, 'admin56', 'sBalC2SckJsS5IRhTqckjw==', '2025-03-04', 0);
 
 -- --------------------------------------------------------
 
@@ -331,6 +276,37 @@ INSERT INTO `healthprovider` (`RetrieveID`, `HealthProviderID`, `CompanyHospital
 (13, 13, 'Leon Hernandez Hospital', 13, 'Dr. Carlos Reyes', 13, 'Simmons', 'Walter', 'Louise', 'A', 'Rh', 'Platelet Donation (Apheresis)', 400, '2025-06-17 09:21:34', 'Inventory Status Check', '0992931287', 'info@newdoctor\'shospital.com'),
 (14, 14, 'New Doctor\'s Hospital', 14, 'Dr. Juan Dela Cruz', 14, 'Vargas', 'Isabel', 'Lily', 'B', 'Rh', 'Platelet Donation (Apheresis)', 600, '2025-06-17 09:21:34', 'Appointment Scheduling', '0997188452', 'support@lourdeshospital.com'),
 (15, 15, 'Lourdes Hospital', 15, 'Dr. Juan Dela Cruz', 15, 'Graham', 'Maya', 'Cora', 'A', 'Rh', 'Red Blood Cell Donation (Apheresis)', 300, '2025-06-17 09:21:34', 'Medical History Review', '0945015578', 'contact@leonhernandezhospital.com');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `healthprovideraccounts`
+--
+
+CREATE TABLE `healthprovideraccounts` (
+  `HCPid` int(11) NOT NULL,
+  `username` varchar(50) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `lname` varchar(100) NOT NULL,
+  `fname` varchar(100) NOT NULL,
+  `mname` varchar(100) DEFAULT NULL,
+  `suffix` varchar(10) DEFAULT NULL,
+  `birthdate` date NOT NULL,
+  `gender` varchar(10) DEFAULT NULL,
+  `email` varchar(255) NOT NULL,
+  `mobilenumber` varchar(20) DEFAULT NULL,
+  `profession` varchar(100) NOT NULL,
+  `PRCLicenseNumber` varchar(20) NOT NULL,
+  `PRCIssuanceDate` date NOT NULL,
+  `PRCExpiryDate` date NOT NULL,
+  `AffiliatedInstitutionName` varchar(255) NOT NULL,
+  `AffiliatedInstitutionDOHLTO` varchar(50) DEFAULT NULL,
+  `Department` varchar(100) NOT NULL,
+  `IsVerified` tinyint(1) NOT NULL DEFAULT 0,
+  `VerificationDate` date NOT NULL,
+  `CreatedDate` date NOT NULL DEFAULT current_timestamp(),
+  `LastLoginDate` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -718,7 +694,81 @@ INSERT INTO `logs` (`dt`, `user_accounts_id`, `event`, `transactions`) VALUES
 ('2025-06-17 01:05:01', 1, '*_Click', 'Filter Daily'),
 ('2025-06-17 01:05:43', 1, '*_Click', 'View History Data'),
 ('2025-06-17 01:06:12', 1, '*_Click', 'View Donation History'),
-('2025-06-17 01:06:14', 1, '*_Click', 'Filter Daily');
+('2025-06-17 01:06:14', 1, '*_Click', 'Filter Daily'),
+('2025-06-21 00:20:26', 1, '*_Click', 'SuperAdmin logged in'),
+('2025-06-21 00:20:27', 1, '*_Click', 'Load SuperAdmin Dashboard Successfully!'),
+('2025-06-21 00:20:31', 1, '*_Click', 'View Accounts Data'),
+('2025-06-21 00:20:35', 1, '*_Click', 'Filter Monthly'),
+('2025-06-21 00:20:42', 1, '*_Click', 'Filter Monthly'),
+('2025-06-21 00:36:06', 1, '*_Click', 'SuperAdmin logged in'),
+('2025-06-21 00:36:07', 1, '*_Click', 'Load SuperAdmin Dashboard Successfully!'),
+('2025-06-21 00:36:09', 1, '*_Click', 'View Donor History'),
+('2025-06-21 00:36:11', 1, '*_Click', 'View Donation History'),
+('2025-06-21 00:36:11', 1, '*_Click', 'View Eligibility History'),
+('2025-06-21 00:36:12', 1, '*_Click', 'View Health Provider'),
+('2025-06-21 00:36:12', 1, '*_Click', 'View Health Provider'),
+('2025-06-21 00:36:12', 1, '*_Click', 'View History Data'),
+('2025-06-21 00:36:13', 1, '*_Click', 'View Health Provider'),
+('2025-06-21 00:36:13', 1, '*_Click', 'View Logs Data'),
+('2025-06-21 00:36:14', 1, '*_Click', 'View Health Provider'),
+('2025-06-21 00:36:14', 1, '*_Click', 'View History Data'),
+('2025-06-21 00:36:15', 1, '*_Click', 'View Health Provider'),
+('2025-06-21 00:36:16', 1, '*_Click', 'View Health Provider'),
+('2025-06-21 00:36:16', 1, '*_Click', 'View History Data'),
+('2025-06-21 00:36:17', 1, '*_Click', 'View Health Provider'),
+('2025-06-21 00:36:17', 1, '*_Click', 'View Logs Data'),
+('2025-06-21 00:36:17', 1, '*_Click', 'View Health Provider'),
+('2025-06-21 00:36:17', 1, '*_Click', 'View History Data'),
+('2025-06-21 00:36:18', 1, '*_Click', 'View Health Provider'),
+('2025-06-21 00:36:18', 1, '*_Click', 'View Health Provider'),
+('2025-06-21 00:36:18', 1, '*_Click', 'View Logs Data'),
+('2025-06-21 00:36:52', 1, '*_Click', 'SuperAdmin logged in'),
+('2025-06-21 00:36:52', 1, '*_Click', 'Load SuperAdmin Dashboard Successfully!'),
+('2025-06-21 00:36:57', 1, '*_Click', 'View Health Provider'),
+('2025-06-21 00:36:57', 1, '*_Click', 'View Accounts Data'),
+('2025-06-21 00:36:59', 1, '*_Click', 'Filter Monthly'),
+('2025-06-21 00:37:04', 1, '*_Click', 'Filter Monthly'),
+('2025-06-21 00:37:09', 1, '*_Click', 'Filter Monthly'),
+('2025-06-21 00:37:10', 1, '*_Click', 'Filter Monthly'),
+('2025-06-21 00:37:15', 1, '*_Click', 'Filter Monthly'),
+('2025-06-21 00:37:16', 1, '*_Click', 'Filter Monthly'),
+('2025-06-21 00:37:19', 1, '*_Click', 'Filter Monthly'),
+('2025-06-21 00:37:23', 1, '*_Click', 'Filter Monthly'),
+('2025-06-21 00:37:27', 1, '*_Click', 'Filter Monthly'),
+('2025-06-21 00:37:39', 1, '*_Click', 'Filter Monthly'),
+('2025-06-21 00:37:42', 1, '*_Click', 'Filter Monthly'),
+('2025-06-21 00:37:45', 1, '*_Click', 'Filter Weekly'),
+('2025-06-21 00:38:21', 1, '*_Click', 'View Health Provider'),
+('2025-06-21 00:38:21', 1, '*_Click', 'View Logs Data'),
+('2025-06-21 00:38:23', 1, '*_Click', 'Filter Monthly'),
+('2025-06-21 00:38:25', 1, '*_Click', 'Filter Weekly'),
+('2025-06-21 00:38:41', 1, '*_Click', 'Filter Weekly'),
+('2025-06-21 00:38:45', 1, '*_Click', 'View Eligibility History'),
+('2025-06-21 00:38:47', 1, '*_Click', 'Filter Monthly'),
+('2025-06-21 00:38:47', 1, '*_Click', 'Filter Weekly'),
+('2025-06-21 00:38:50', 1, '*_Click', 'Filter Weekly'),
+('2025-06-21 00:38:52', 1, '*_Click', 'Filter Weekly'),
+('2025-06-21 00:38:56', 1, '*_Click', 'View Health Provider'),
+('2025-06-21 00:38:57', 1, '*_Click', 'View History Data'),
+('2025-06-21 00:38:57', 1, '*_Click', 'Filter Weekly'),
+('2025-06-21 00:39:02', 1, '*_Click', 'View Eligibility History'),
+('2025-06-21 00:39:03', 1, '*_Click', 'Filter Weekly'),
+('2025-06-21 00:39:05', 1, '*_Click', 'View Donation History'),
+('2025-06-21 00:39:06', 1, '*_Click', 'Filter Weekly'),
+('2025-06-21 00:39:08', 1, '*_Click', 'View Donor History'),
+('2025-06-21 00:39:09', 1, '*_Click', 'Filter Weekly'),
+('2025-06-21 00:39:13', 1, '*_Click', 'View Ineligibility Report'),
+('2025-06-21 00:39:15', 1, '*_Click', 'View Blood Inventory Report'),
+('2025-06-21 00:39:20', 1, '*_Click', 'Load Report'),
+('2025-06-21 00:39:31', 1, '*_Click', 'Load Report'),
+('2025-06-21 00:39:47', 1, '*_Click', 'View Donation History'),
+('2025-06-21 00:39:47', 1, '*_Click', 'View Donor History'),
+('2025-06-21 00:39:48', 1, '*_Click', 'View Donation History'),
+('2025-06-21 00:39:50', 1, '*_Click', 'Filter Weekly'),
+('2025-06-21 00:40:21', 1, '*_Click', 'View Donation Donationn Histroy Report'),
+('2025-06-21 00:40:36', 1, '*_Click', 'View Donor Registration Report'),
+('2025-06-21 00:40:44', 1, '*_Click', 'View Ineligibility Report'),
+('2025-06-21 00:40:49', 1, '*_Click', 'View Health Provider Report');
 
 --
 -- Indexes for dumped tables
@@ -728,12 +778,6 @@ INSERT INTO `logs` (`dt`, `user_accounts_id`, `event`, `transactions`) VALUES
 -- Indexes for table `accounts`
 --
 ALTER TABLE `accounts`
-  ADD PRIMARY KEY (`adminID`);
-
---
--- Indexes for table `accountssuperadmin`
---
-ALTER TABLE `accountssuperadmin`
   ADD PRIMARY KEY (`adminID`);
 
 --
@@ -764,6 +808,12 @@ ALTER TABLE `healthprovider`
   ADD KEY `BloodID` (`BloodID`);
 
 --
+-- Indexes for table `healthprovideraccounts`
+--
+ALTER TABLE `healthprovideraccounts`
+  ADD PRIMARY KEY (`HCPid`);
+
+--
 -- Indexes for table `history`
 --
 ALTER TABLE `history`
@@ -779,12 +829,6 @@ ALTER TABLE `history`
 --
 ALTER TABLE `accounts`
   MODIFY `adminID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
---
--- AUTO_INCREMENT for table `accountssuperadmin`
---
-ALTER TABLE `accountssuperadmin`
-  MODIFY `adminID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `donation`
@@ -809,6 +853,12 @@ ALTER TABLE `eligibility`
 --
 ALTER TABLE `healthprovider`
   MODIFY `RetrieveID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+
+--
+-- AUTO_INCREMENT for table `healthprovideraccounts`
+--
+ALTER TABLE `healthprovideraccounts`
+  MODIFY `HCPid` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `history`
