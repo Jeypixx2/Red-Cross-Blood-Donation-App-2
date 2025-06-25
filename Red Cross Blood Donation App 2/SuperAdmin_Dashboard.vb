@@ -394,6 +394,7 @@ Public Class SuperAdmin_Dashboard
                         End While
                     End Using
                 End Using
+                conn.Close()
             End Using
         Catch ex As Exception
             MessageBox.Show("Error loading donut chart: " & ex.Message)
