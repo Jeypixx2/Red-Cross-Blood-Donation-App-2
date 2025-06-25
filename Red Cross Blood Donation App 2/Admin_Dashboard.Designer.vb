@@ -255,20 +255,18 @@ Partial Class Admin_Dashboard
         Me.ChartBar.ChartAreas.Add(ChartArea1)
         Legend1.Name = "Legend1"
         Me.ChartBar.Legends.Add(Legend1)
-        Me.ChartBar.Location = New System.Drawing.Point(675, 540)
+        Me.ChartBar.Location = New System.Drawing.Point(427, 540)
         Me.ChartBar.Name = "ChartBar"
         Series1.ChartArea = "ChartArea1"
         Series1.Legend = "Legend1"
         Series1.Name = "Series1"
         Me.ChartBar.Series.Add(Series1)
-        Me.ChartBar.Size = New System.Drawing.Size(530, 276)
+        Me.ChartBar.Size = New System.Drawing.Size(778, 276)
         Me.ChartBar.TabIndex = 25
         Me.ChartBar.Text = "Chart1"
         '
         'ChartDonut
         '
-        Me.ChartDonut.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         ChartArea2.Name = "ChartArea1"
         Me.ChartDonut.ChartAreas.Add(ChartArea2)
         Legend2.Name = "Legend1"
@@ -305,7 +303,7 @@ Partial Class Admin_Dashboard
         'cmbBloodType
         '
         Me.cmbBloodType.FormattingEnabled = True
-        Me.cmbBloodType.Location = New System.Drawing.Point(617, 497)
+        Me.cmbBloodType.Location = New System.Drawing.Point(407, 497)
         Me.cmbBloodType.Name = "cmbBloodType"
         Me.cmbBloodType.Size = New System.Drawing.Size(121, 21)
         Me.cmbBloodType.TabIndex = 49

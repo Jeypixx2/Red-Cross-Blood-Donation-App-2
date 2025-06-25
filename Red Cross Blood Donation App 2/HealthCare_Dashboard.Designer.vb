@@ -88,7 +88,7 @@ Partial Class HealthCare_Dashboard
         Me.DataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.DataGridView1.Location = New System.Drawing.Point(21, 142)
         Me.DataGridView1.Name = "DataGridView1"
-        Me.DataGridView1.Size = New System.Drawing.Size(1394, 247)
+        Me.DataGridView1.Size = New System.Drawing.Size(1394, 149)
         Me.DataGridView1.TabIndex = 6
         '
         'ComboBox1
@@ -140,8 +140,6 @@ Partial Class HealthCare_Dashboard
         '
         'ChartDonut
         '
-        Me.ChartDonut.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         ChartArea1.Name = "ChartArea1"
         Me.ChartDonut.ChartAreas.Add(ChartArea1)
         Legend1.Name = "Legend1"
@@ -152,25 +150,25 @@ Partial Class HealthCare_Dashboard
         Series1.Legend = "Legend1"
         Series1.Name = "Series1"
         Me.ChartDonut.Series.Add(Series1)
-        Me.ChartDonut.Size = New System.Drawing.Size(400, 317)
+        Me.ChartDonut.Size = New System.Drawing.Size(423, 317)
         Me.ChartDonut.TabIndex = 27
         Me.ChartDonut.Text = "Chart2"
         '
         'ChartBar
         '
-        Me.ChartBar.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
+        Me.ChartBar.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         ChartArea2.Name = "ChartArea1"
         Me.ChartBar.ChartAreas.Add(ChartArea2)
         Legend2.Name = "Legend1"
         Me.ChartBar.Legends.Add(Legend2)
-        Me.ChartBar.Location = New System.Drawing.Point(734, 537)
+        Me.ChartBar.Location = New System.Drawing.Point(450, 537)
         Me.ChartBar.Name = "ChartBar"
         Series2.ChartArea = "ChartArea1"
         Series2.Legend = "Legend1"
         Series2.Name = "Series1"
         Me.ChartBar.Series.Add(Series2)
-        Me.ChartBar.Size = New System.Drawing.Size(681, 317)
+        Me.ChartBar.Size = New System.Drawing.Size(965, 317)
         Me.ChartBar.TabIndex = 28
         Me.ChartBar.Text = "Chart1"
         '
@@ -208,7 +206,7 @@ Partial Class HealthCare_Dashboard
         'cmbBloodType
         '
         Me.cmbBloodType.FormattingEnabled = True
-        Me.cmbBloodType.Location = New System.Drawing.Point(720, 502)
+        Me.cmbBloodType.Location = New System.Drawing.Point(427, 502)
         Me.cmbBloodType.Name = "cmbBloodType"
         Me.cmbBloodType.Size = New System.Drawing.Size(121, 21)
         Me.cmbBloodType.TabIndex = 50
