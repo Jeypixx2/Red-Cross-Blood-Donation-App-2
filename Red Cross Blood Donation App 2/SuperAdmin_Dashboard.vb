@@ -310,7 +310,7 @@ Public Class SuperAdmin_Dashboard
                 Dim editedCell = dgvInventory.Rows(e.RowIndex).Cells(e.ColumnIndex)
                 Dim columnName = dgvInventory.Columns(e.ColumnIndex).Name
                 Dim newValue As Object = If(editedCell.Value IsNot Nothing, editedCell.Value, DBNull.Value)
-                Dim primaryKeyColumn As String
+                Dim primaryKeyColumn As String = Nothing
                 If tablePrimaryKeys.TryGetValue(currentTable, primaryKeyColumn) Then
                     Dim rowID = dgvInventory.Rows(e.RowIndex).Cells(primaryKeyColumn).Value
                     If rowID Is Nothing OrElse IsDBNull(rowID) Then
@@ -322,7 +322,6 @@ Public Class SuperAdmin_Dashboard
                         Using cmd As New MySqlCommand(query, conn)
                             cmd.Parameters.AddWithValue("@newValue", newValue)
                             cmd.Parameters.AddWithValue("@rowID", rowID)
-                            conn.Open()
                             cmd.ExecuteNonQuery()
                             modDB.Logs($"Updated {columnName} in {currentTable} for ID {rowID}.")
                         End Using
