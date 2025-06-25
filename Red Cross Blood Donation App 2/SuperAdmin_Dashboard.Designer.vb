@@ -22,12 +22,12 @@ Partial Class SuperAdmin_Dashboard
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim ChartArea3 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
-        Dim Legend3 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
-        Dim Series3 As System.Windows.Forms.DataVisualization.Charting.Series = New System.Windows.Forms.DataVisualization.Charting.Series()
-        Dim ChartArea4 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
-        Dim Legend4 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
-        Dim Series4 As System.Windows.Forms.DataVisualization.Charting.Series = New System.Windows.Forms.DataVisualization.Charting.Series()
+        Dim ChartArea1 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
+        Dim Legend1 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
+        Dim Series1 As System.Windows.Forms.DataVisualization.Charting.Series = New System.Windows.Forms.DataVisualization.Charting.Series()
+        Dim ChartArea2 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
+        Dim Legend2 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
+        Dim Series2 As System.Windows.Forms.DataVisualization.Charting.Series = New System.Windows.Forms.DataVisualization.Charting.Series()
         Me.History = New System.Windows.Forms.Button()
         Me.txtSearch = New System.Windows.Forms.TextBox()
         Me.Panel1 = New System.Windows.Forms.Panel()
@@ -53,21 +53,18 @@ Partial Class SuperAdmin_Dashboard
         Me.New_Donor = New System.Windows.Forms.Button()
         Me.New_Donation = New System.Windows.Forms.Button()
         Me.back = New System.Windows.Forms.Button()
-        Me.Line_Chart = New System.Windows.Forms.DataVisualization.Charting.Chart()
-        Me.Bar_Graph = New System.Windows.Forms.DataVisualization.Charting.Chart()
-        Me.Label3 = New System.Windows.Forms.Label()
-        Me.Label2 = New System.Windows.Forms.Label()
-        Me.btnFilterCharts = New System.Windows.Forms.Button()
-        Me.dtpTo = New System.Windows.Forms.DateTimePicker()
-        Me.dtpFrom = New System.Windows.Forms.DateTimePicker()
+        Me.ChartDonut = New System.Windows.Forms.DataVisualization.Charting.Chart()
+        Me.ChartBar = New System.Windows.Forms.DataVisualization.Charting.Chart()
         Me.btnUpdate = New System.Windows.Forms.Button()
         Me.btnDelete = New System.Windows.Forms.Button()
         Me.pbLogo = New System.Windows.Forms.PictureBox()
         Me.HP_Accounts = New System.Windows.Forms.Button()
+        Me.dtpDonutMonth = New System.Windows.Forms.DateTimePicker()
+        Me.cmbBloodType = New System.Windows.Forms.ComboBox()
         Me.Panel1.SuspendLayout()
         CType(Me.dgvInventory, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.Line_Chart, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.Bar_Graph, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.ChartDonut, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.ChartBar, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.pbLogo, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -350,89 +347,41 @@ Partial Class SuperAdmin_Dashboard
         Me.back.Text = "Back"
         Me.back.UseVisualStyleBackColor = False
         '
-        'Line_Chart
+        'ChartDonut
         '
-        Me.Line_Chart.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+        Me.ChartDonut.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Line_Chart.BackColor = System.Drawing.Color.MistyRose
-        ChartArea3.Name = "ChartArea1"
-        Me.Line_Chart.ChartAreas.Add(ChartArea3)
-        Legend3.Name = "Legend1"
-        Me.Line_Chart.Legends.Add(Legend3)
-        Me.Line_Chart.Location = New System.Drawing.Point(118, 469)
-        Me.Line_Chart.Name = "Line_Chart"
-        Series3.ChartArea = "ChartArea1"
-        Series3.Legend = "Legend1"
-        Series3.Name = "Series1"
-        Me.Line_Chart.Series.Add(Series3)
-        Me.Line_Chart.Size = New System.Drawing.Size(1097, 180)
-        Me.Line_Chart.TabIndex = 47
-        Me.Line_Chart.Text = "Chart2"
+        ChartArea1.Name = "ChartArea1"
+        Me.ChartDonut.ChartAreas.Add(ChartArea1)
+        Legend1.Name = "Legend1"
+        Me.ChartDonut.Legends.Add(Legend1)
+        Me.ChartDonut.Location = New System.Drawing.Point(118, 506)
+        Me.ChartDonut.Name = "ChartDonut"
+        Series1.ChartArea = "ChartArea1"
+        Series1.Legend = "Legend1"
+        Series1.Name = "Series1"
+        Me.ChartDonut.Series.Add(Series1)
+        Me.ChartDonut.Size = New System.Drawing.Size(415, 317)
+        Me.ChartDonut.TabIndex = 47
+        Me.ChartDonut.Text = "Chart2"
         '
-        'Bar_Graph
+        'ChartBar
         '
-        Me.Bar_Graph.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+        Me.ChartBar.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Bar_Graph.BackColor = System.Drawing.Color.MistyRose
-        ChartArea4.Name = "ChartArea1"
-        Me.Bar_Graph.ChartAreas.Add(ChartArea4)
-        Legend4.Name = "Legend1"
-        Me.Bar_Graph.Legends.Add(Legend4)
-        Me.Bar_Graph.Location = New System.Drawing.Point(118, 655)
-        Me.Bar_Graph.Name = "Bar_Graph"
-        Series4.ChartArea = "ChartArea1"
-        Series4.Legend = "Legend1"
-        Series4.Name = "Series1"
-        Me.Bar_Graph.Series.Add(Series4)
-        Me.Bar_Graph.Size = New System.Drawing.Size(1097, 150)
-        Me.Bar_Graph.TabIndex = 48
-        Me.Bar_Graph.Text = "Chart1"
-        '
-        'Label3
-        '
-        Me.Label3.AutoSize = True
-        Me.Label3.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label3.Location = New System.Drawing.Point(783, 435)
-        Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(27, 20)
-        Me.Label3.TabIndex = 53
-        Me.Label3.Text = "To"
-        '
-        'Label2
-        '
-        Me.Label2.AutoSize = True
-        Me.Label2.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label2.Location = New System.Drawing.Point(541, 434)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(46, 20)
-        Me.Label2.TabIndex = 52
-        Me.Label2.Text = "From"
-        '
-        'btnFilterCharts
-        '
-        Me.btnFilterCharts.BackColor = System.Drawing.Color.Firebrick
-        Me.btnFilterCharts.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnFilterCharts.ForeColor = System.Drawing.SystemColors.ButtonHighlight
-        Me.btnFilterCharts.Location = New System.Drawing.Point(961, 427)
-        Me.btnFilterCharts.Name = "btnFilterCharts"
-        Me.btnFilterCharts.Size = New System.Drawing.Size(97, 34)
-        Me.btnFilterCharts.TabIndex = 51
-        Me.btnFilterCharts.Text = "Filter"
-        Me.btnFilterCharts.UseVisualStyleBackColor = False
-        '
-        'dtpTo
-        '
-        Me.dtpTo.Location = New System.Drawing.Point(816, 435)
-        Me.dtpTo.Name = "dtpTo"
-        Me.dtpTo.Size = New System.Drawing.Size(108, 20)
-        Me.dtpTo.TabIndex = 50
-        '
-        'dtpFrom
-        '
-        Me.dtpFrom.Location = New System.Drawing.Point(593, 434)
-        Me.dtpFrom.Name = "dtpFrom"
-        Me.dtpFrom.Size = New System.Drawing.Size(108, 20)
-        Me.dtpFrom.TabIndex = 49
+        ChartArea2.Name = "ChartArea1"
+        Me.ChartBar.ChartAreas.Add(ChartArea2)
+        Legend2.Name = "Legend1"
+        Me.ChartBar.Legends.Add(Legend2)
+        Me.ChartBar.Location = New System.Drawing.Point(752, 506)
+        Me.ChartBar.Name = "ChartBar"
+        Series2.ChartArea = "ChartArea1"
+        Series2.Legend = "Legend1"
+        Series2.Name = "Series1"
+        Me.ChartBar.Series.Add(Series2)
+        Me.ChartBar.Size = New System.Drawing.Size(463, 317)
+        Me.ChartBar.TabIndex = 48
+        Me.ChartBar.Text = "Chart1"
         '
         'btnUpdate
         '
@@ -477,22 +426,34 @@ Partial Class SuperAdmin_Dashboard
         Me.HP_Accounts.Text = "Health Provider Accounts"
         Me.HP_Accounts.UseVisualStyleBackColor = False
         '
+        'dtpDonutMonth
+        '
+        Me.dtpDonutMonth.Location = New System.Drawing.Point(118, 475)
+        Me.dtpDonutMonth.Name = "dtpDonutMonth"
+        Me.dtpDonutMonth.Size = New System.Drawing.Size(200, 20)
+        Me.dtpDonutMonth.TabIndex = 57
+        '
+        'cmbBloodType
+        '
+        Me.cmbBloodType.FormattingEnabled = True
+        Me.cmbBloodType.Location = New System.Drawing.Point(706, 474)
+        Me.cmbBloodType.Name = "cmbBloodType"
+        Me.cmbBloodType.Size = New System.Drawing.Size(121, 21)
+        Me.cmbBloodType.TabIndex = 58
+        '
         'SuperAdmin_Dashboard
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.SystemColors.ButtonHighlight
         Me.ClientSize = New System.Drawing.Size(1444, 881)
+        Me.Controls.Add(Me.cmbBloodType)
+        Me.Controls.Add(Me.dtpDonutMonth)
         Me.Controls.Add(Me.HP_Accounts)
         Me.Controls.Add(Me.btnDelete)
         Me.Controls.Add(Me.btnUpdate)
-        Me.Controls.Add(Me.Label3)
-        Me.Controls.Add(Me.Label2)
-        Me.Controls.Add(Me.btnFilterCharts)
-        Me.Controls.Add(Me.dtpTo)
-        Me.Controls.Add(Me.dtpFrom)
-        Me.Controls.Add(Me.Bar_Graph)
-        Me.Controls.Add(Me.Line_Chart)
+        Me.Controls.Add(Me.ChartBar)
+        Me.Controls.Add(Me.ChartDonut)
         Me.Controls.Add(Me.back)
         Me.Controls.Add(Me.New_Donation)
         Me.Controls.Add(Me.New_Donor)
@@ -521,8 +482,8 @@ Partial Class SuperAdmin_Dashboard
         Me.Panel1.ResumeLayout(False)
         Me.Panel1.PerformLayout()
         CType(Me.dgvInventory, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.Line_Chart, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.Bar_Graph, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.ChartDonut, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.ChartBar, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.pbLogo, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
@@ -555,14 +516,11 @@ Partial Class SuperAdmin_Dashboard
     Friend WithEvents New_Donor As Button
     Friend WithEvents New_Donation As Button
     Friend WithEvents back As Button
-    Friend WithEvents Line_Chart As DataVisualization.Charting.Chart
-    Friend WithEvents Bar_Graph As DataVisualization.Charting.Chart
-    Friend WithEvents Label3 As Label
-    Friend WithEvents Label2 As Label
-    Friend WithEvents btnFilterCharts As Button
-    Friend WithEvents dtpTo As DateTimePicker
-    Friend WithEvents dtpFrom As DateTimePicker
+    Friend WithEvents ChartDonut As DataVisualization.Charting.Chart
+    Friend WithEvents ChartBar As DataVisualization.Charting.Chart
     Friend WithEvents btnUpdate As Button
     Friend WithEvents btnDelete As Button
     Friend WithEvents HP_Accounts As Button
+    Friend WithEvents dtpDonutMonth As DateTimePicker
+    Friend WithEvents cmbBloodType As ComboBox
 End Class

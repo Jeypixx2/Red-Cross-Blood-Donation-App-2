@@ -73,7 +73,10 @@ Public Class HealthCare_Access
                         txthealthcarepassword.Clear()
 
                         ' Show Healthcare Dashboard using the stored value
-                        Dim dashboard As New HealthCare_Dashboard(affiliatedInstitution, $"{firstName} {lastName}")
+                        Dim dashboard As New HealthCare_Dashboard()
+                        ' Optionally, set properties if needed
+                        dashboard.AffiliatedInstitution = affiliatedInstitution
+                        dashboard.ProviderName = $"{firstName} {lastName}"
                         dashboard.Show()
                         Me.Hide()
                     Else

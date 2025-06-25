@@ -11,131 +11,30 @@ Public Class HealthCare_Dashboard
     Private HealthProviderID As Integer ' To store the fixed HealthProviderID
     Private PersonnelID As Integer ' To store the fixed PersonnelID
     Dim chartConnection As New MySqlConnection("server=localhost;user id=root;password=;database=redcrossdb")
-
+    Public Property AffiliatedInstitution As String
+    Public Property ProviderName As String
 
     Private Sub HealthCare_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-
         Try
             modDB.openConn("redcrossdb")
             modDB.Logs("HealthCare Dashboard loaded")
-            ' Set default date range (Last 30 days)
-            dtpFrom.Value = DateTime.Today.AddDays(-30)
-            dtpTo.Value = DateTime.Today
-
-            ' Load charts with the default date range
-            LoadChart1(dtpFrom.Value, dtpTo.Value)
-            LoadChart2(dtpFrom.Value, dtpTo.Value)
-
             Doublebuffer.EnableDoubleBuffering(DataGridView1)
             ShowDataForDate(DateTime.Today)
-
+            PopulateBloodTypes()
+            ' Set DateTimePicker to show only month and year
+            dtpDonutMonth.Format = DateTimePickerFormat.Custom
+            dtpDonutMonth.CustomFormat = "MMMM yyyy"
+            dtpDonutMonth.ShowUpDown = True
+            LoadDonutChart()
+            ' Optionally, set a default blood type for the bar chart
+            If cmbBloodType IsNot Nothing AndAlso cmbBloodType.SelectedItem IsNot Nothing Then
+                LoadBarChart(cmbBloodType.SelectedItem.ToString())
+            End If
         Catch ex As MySqlException
             MessageBox.Show($"Connection failed: {ex.Message}", "Connection Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             modDB.Logs($"Connection failed: {ex.Message}")
         End Try
         MonthCalendar1.Visible = False
-    End Sub
-    Private Sub LoadChart1(startDate As Date, endDate As Date)
-        Try
-            Bar_Graph.Series.Clear()
-            Bar_Graph.ChartAreas.Clear()
-
-            Dim chartArea As New ChartArea("BloodTypesArea")
-            Bar_Graph.ChartAreas.Add(chartArea)
-
-            ' Query to filter donors within the selected date range
-            Dim query As String = "
-            SELECT bloodtype, COUNT(*) AS donors_count 
-            FROM donors 
-            WHERE RegDate BETWEEN @startDate AND @endDate
-            GROUP BY bloodtype"
-
-            Dim ds As New DataSet()
-            Dim da As New MySqlDataAdapter(query, modDB.conn)
-
-            da.SelectCommand.Parameters.AddWithValue("@startDate", startDate.ToString("yyyy-MM-dd"))
-            da.SelectCommand.Parameters.AddWithValue("@endDate", endDate.ToString("yyyy-MM-dd"))
-
-            If modDB.conn.State = ConnectionState.Closed Then
-                modDB.conn.Open()
-            End If
-
-            da.Fill(ds, "Blood Type")
-            modDB.conn.Close()
-
-
-            Dim series As New Series("Blood Type")
-            series.ChartType = SeriesChartType.Bar
-            series.XValueMember = "bloodtype"
-            series.YValueMembers = "donors_count"
-            series.IsValueShownAsLabel = True
-
-            Bar_Graph.DataSource = ds.Tables("Blood Type")
-            Bar_Graph.Series.Add(series)
-            modDB.Logs("Loaded Chart1 with data")
-
-        Catch ex As Exception
-            MessageBox.Show($"Error loading Chart1: {ex.Message}", "Chart Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        End Try
-    End Sub
-
-    Private Sub LoadChart2(startDate As Date, endDate As Date)
-        Try
-            Line_Chart.Series.Clear()
-            Line_Chart.ChartAreas.Clear()
-            Line_Chart.Legends.Clear()
-
-            Dim chartArea As New ChartArea("DonationsArea")
-            chartArea.AxisX.Title = "Month"
-            chartArea.AxisX.Interval = 1
-            chartArea.AxisY.Title = "Total Donations"
-            chartArea.AxisY.MajorGrid.LineColor = Color.LightGray
-            Line_Chart.ChartAreas.Add(chartArea)
-
-
-            Dim query As String = "
-            SELECT 
-                YEAR(DonationDate) AS DonationYear, 
-                MONTHNAME(DonationDate) AS DonationMonth, 
-                COUNT(*) AS TotalDonations
-            FROM Donation
-            WHERE DonationDate BETWEEN @startDate AND @endDate
-            GROUP BY YEAR(DonationDate), MONTH(DonationDate)
-            ORDER BY YEAR(DonationDate), MONTH(DonationDate);"
-
-            Dim ds As New DataSet()
-            Dim da As New MySqlDataAdapter(query, modDB.conn)
-
-            da.SelectCommand.Parameters.AddWithValue("@startDate", startDate.ToString("yyyy-MM-dd"))
-            da.SelectCommand.Parameters.AddWithValue("@endDate", endDate.ToString("yyyy-MM-dd"))
-
-            If modDB.conn.State = ConnectionState.Closed Then
-                modDB.conn.Open()
-            End If
-
-            da.Fill(ds, "Monthly Donations")
-            modDB.conn.Close()
-
-
-
-            Dim series As New Series("Monthly Donations")
-            series.ChartType = SeriesChartType.Line
-            series.XValueMember = "DonationMonth"
-            series.YValueMembers = "TotalDonations"
-            series.IsValueShownAsLabel = True
-            series.Color = Color.DarkGreen
-
-            Line_Chart.DataSource = ds.Tables("Monthly Donations")
-            Line_Chart.Series.Add(series)
-
-            Dim legend As New Legend("Monthly Donations Legend")
-            legend.Docking = Docking.Top
-            Line_Chart.Legends.Add(legend)
-            modDB.Logs("Loaded Chart2 with data")
-
-        Catch ex As Exception
-            MessageBox.Show($"Error loading Chart2: {ex.Message}", "Chart Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        End Try
     End Sub
 
     Private Sub Admin_Dashboard_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
@@ -143,6 +42,7 @@ Public Class HealthCare_Dashboard
             chartConnection.Close()
         End If
     End Sub
+
     ' Load event handler for the dashboard
     Private Sub Admin_HealthCare_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Doublebuffer.EnableDoubleBuffering(DataGridView1)
@@ -162,7 +62,17 @@ Public Class HealthCare_Dashboard
         If ComboBox1.Items.Count > 0 Then ComboBox1.SelectedIndex = 0
     End Sub
 
-    ' Show MonthCalendar when Daily button is clicked
+    Private Sub PopulateBloodTypes()
+        cmbBloodType.Items.Clear()
+        Dim bloodTypes As String() = {"A-", "A+", "B-", "B+", "AB-", "AB+", "O-", "O+"}
+        cmbBloodType.Items.AddRange(bloodTypes)
+        If cmbBloodType.Items.Contains("O-") Then
+            cmbBloodType.SelectedItem = "O-"
+        ElseIf cmbBloodType.Items.Count > 0 Then
+            cmbBloodType.SelectedIndex = 0
+        End If
+    End Sub
+
     Private Sub Button5_Click(sender As Object, e As EventArgs) Handles Daily.Click
         MonthCalendar1.Visible = True
         ComboBox1.Visible = False
@@ -170,7 +80,6 @@ Public Class HealthCare_Dashboard
         modDB.Logs("Filter Daily")
     End Sub
 
-    ' Show MonthCalendar when Weekly button is clicked
     Private Sub Button6_Click(sender As Object, e As EventArgs) Handles Weekly.Click
         MonthCalendar1.Visible = True
         ComboBox1.Visible = False
@@ -178,7 +87,6 @@ Public Class HealthCare_Dashboard
         modDB.Logs("Filter Weekly")
     End Sub
 
-    ' Load data based on selected date from the MonthCalendar
     Private Sub MonthCalendar1_DateChanged(sender As Object, e As DateRangeEventArgs) Handles MonthCalendar1.DateChanged
         PopulateMonths()
         If MonthCalendar1.SelectionStart = DateTime.MinValue Then
@@ -548,22 +456,9 @@ Public Class HealthCare_Dashboard
         End Try
     End Sub
 
-    Private Sub Back_Click(sender As Object, e As EventArgs) Handles Back.Click
+    Private Sub Back_Click(sender As Object, e As EventArgs) Handles back.Click
         Me.Hide()
         Start.Show()
-    End Sub
-
-    Private Sub btnFilterCharts_Click(sender As Object, e As EventArgs) Handles btnFilterCharts.Click
-        Dim startDate As Date = dtpFrom.Value
-        Dim endDate As Date = dtpTo.Value
-
-        If startDate > endDate Then
-            MessageBox.Show("Start date cannot be later than end date.", "Invalid Date Range", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-            Return
-        End If
-        modDB.Logs("Filtered Data on Charts")
-        LoadChart1(startDate, endDate)
-        LoadChart2(startDate, endDate)
     End Sub
 
     Private Sub back_Click_1(sender As Object, e As EventArgs) Handles back.Click
@@ -576,4 +471,232 @@ Public Class HealthCare_Dashboard
         Me.Hide()
     End Sub
 
+    ' --- Chart Logic ---
+
+    ' Donut chart: blood volume by blood type for selected month
+    Private Sub LoadDonutChart()
+        ChartDonut.Series.Clear()
+        ChartDonut.ChartAreas.Clear()
+        ChartDonut.Titles.Clear()
+        ChartDonut.Legends.Clear()
+
+        Dim area As New ChartArea("DonutArea")
+        area.Area3DStyle.Enable3D = True
+        area.Area3DStyle.Inclination = 30
+        area.Area3DStyle.Rotation = 15
+        ChartDonut.ChartAreas.Add(area)
+
+        Dim series As New Series("BloodTypeVolume")
+        series.ChartType = SeriesChartType.Doughnut
+        series.IsValueShownAsLabel = True
+        series.LabelForeColor = Color.Black
+        series.Font = New Font("Segoe UI", 9, FontStyle.Bold)
+        ChartDonut.Series.Add(series)
+
+        ChartDonut.Legends.Add(New Legend("Legend"))
+        ChartDonut.Titles.Add("Blood Volume by Blood Type (" & dtpDonutMonth.Value.ToString("MMMM yyyy") & ")")
+
+        Dim bloodTypes As String() = {"A-", "A+", "B-", "B+", "AB-", "AB+", "O-", "O+"}
+        Dim bloodVolumes As New Dictionary(Of String, Double)
+        For Each bt In bloodTypes
+            bloodVolumes(bt) = 0
+        Next
+
+        Dim selectedMonth As Integer = dtpDonutMonth.Value.Month
+        Dim selectedYear As Integer = dtpDonutMonth.Value.Year
+
+        Dim query As String =
+            "SELECT Blood_Group, RhesusFactor, SUM(BloodVolume) AS TotalVolume " &
+            "FROM donation " &
+            "WHERE MONTH(DonationDate) = @Month AND YEAR(DonationDate) = @Year " &
+            "GROUP BY Blood_Group, RhesusFactor"
+
+        Try
+            Using conn As New MySqlConnection(modDB.strConnection)
+                conn.Open()
+                Using cmd As New MySqlCommand(query, conn)
+                    cmd.Parameters.AddWithValue("@Month", selectedMonth)
+                    cmd.Parameters.AddWithValue("@Year", selectedYear)
+                    Using reader = cmd.ExecuteReader()
+                        While reader.Read()
+                            Dim groupPart As String = reader("Blood_Group").ToString()
+                            Dim rhesusPart As String = reader("RhesusFactor").ToString()
+                            Dim bt As String = groupPart & If(rhesusPart = "Rh+", "+", "-")
+                            If bloodVolumes.ContainsKey(bt) Then
+                                bloodVolumes(bt) = Convert.ToDouble(reader("TotalVolume"))
+                            End If
+                        End While
+                    End Using
+                End Using
+            End Using
+        Catch ex As Exception
+            MessageBox.Show("Error loading donut chart: " & ex.Message)
+        End Try
+
+        Dim totalVolume As Double = bloodVolumes.Values.Sum()
+
+        If totalVolume = 0 Then
+            series.IsValueShownAsLabel = False
+            For Each bt In bloodTypes
+                Dim pointIndex = series.Points.AddXY(bt, 1)
+                series.Points(pointIndex).Color = Color.LightGray
+            Next
+        Else
+            Dim colors As New Dictionary(Of String, Color) From {
+                {"A-", Color.Red},
+                {"A+", Color.OrangeRed},
+                {"B-", Color.Blue},
+                {"B+", Color.LightBlue},
+                {"AB-", Color.Purple},
+                {"AB+", Color.MediumPurple},
+                {"O-", Color.Green},
+                {"O+", Color.YellowGreen}
+            }
+            For Each bt In bloodTypes
+                Dim pointIndex = series.Points.AddXY(bt, bloodVolumes(bt))
+                If colors.ContainsKey(bt) Then
+                    series.Points(pointIndex).Color = colors(bt)
+                End If
+            Next
+        End If
+    End Sub
+
+    ' Bar chart: donations by method for selected blood type and month
+    Private Sub LoadBarChart(bloodType As String)
+        ChartBar.Series.Clear()
+        ChartBar.ChartAreas.Clear()
+        ChartBar.Titles.Clear()
+        ChartBar.Legends.Clear()
+
+        ChartBar.BackColor = Color.White
+
+        Dim area As New ChartArea("BarArea")
+        area.BackColor = Color.White
+        area.AxisX.Title = "Number of Donations"
+        area.AxisY.Title = "Donation Method"
+        area.AxisY.LabelStyle.Font = New Font("Segoe UI", 9, FontStyle.Bold)
+        area.AxisX.LabelStyle.Font = New Font("Segoe UI", 9, FontStyle.Bold)
+        area.AxisY.Interval = 1
+        area.AxisX.MajorGrid.LineWidth = 0
+        area.AxisY.MajorGrid.LineWidth = 0
+
+        Dim donationMethods As New Dictionary(Of String, Integer) From {
+            {"Whole Blood", 0},
+            {"Plasma (A)", 0},
+            {"Platelet (A)", 0},
+            {"RBC (A)", 0},
+            {"WBC (A)", 0}
+        }
+
+        Dim groupPart As String = ""
+        Dim rhesusPart As String = ""
+        ParseBloodType(bloodType, groupPart, rhesusPart)
+
+        Dim selectedMonth As Integer = dtpDonutMonth.Value.Month
+        Dim selectedYear As Integer = dtpDonutMonth.Value.Year
+
+        Dim query As String =
+            "SELECT DonationType, COUNT(*) AS DonationCount " &
+            "FROM donation " &
+            "WHERE Blood_Group = @Group AND RhesusFactor = @Rhesus " &
+            "AND MONTH(DonationDate) = @Month AND YEAR(DonationDate) = @Year " &
+            "GROUP BY DonationType ORDER BY DonationType"
+
+        Try
+            Using conn As New MySqlConnection(modDB.strConnection)
+                conn.Open()
+                Using cmd As New MySqlCommand(query, conn)
+                    cmd.Parameters.AddWithValue("@Group", groupPart)
+                    cmd.Parameters.AddWithValue("@Rhesus", rhesusPart)
+                    cmd.Parameters.AddWithValue("@Month", selectedMonth)
+                    cmd.Parameters.AddWithValue("@Year", selectedYear)
+                    Using reader = cmd.ExecuteReader()
+                        While reader.Read()
+                            Dim methodFull As String = reader("DonationType").ToString()
+                            Dim shortKey As String = Abbreviate(methodFull)
+                            Dim count As Integer = Convert.ToInt32(reader("DonationCount"))
+                            If donationMethods.ContainsKey(shortKey) Then
+                                donationMethods(shortKey) = count
+                            End If
+                        End While
+                    End Using
+                End Using
+            End Using
+        Catch ex As Exception
+            MessageBox.Show("Error loading bar chart: " & ex.Message)
+        End Try
+
+        ChartBar.ChartAreas.Add(area)
+
+        Dim series As New Series("Donations per Method")
+        series.ChartType = SeriesChartType.Bar
+        series.IsValueShownAsLabel = True
+        series.Font = New Font("Segoe UI", 9, FontStyle.Bold)
+        series.CustomProperties = "DrawingStyle=Cylinder"
+        ChartBar.Series.Add(series)
+
+        ChartBar.Legends.Add(New Legend("Legend"))
+        ChartBar.Titles.Add("This Month's Donations by Method for " & bloodType)
+
+        Dim colors As New Dictionary(Of String, Color) From {
+            {"Whole Blood", Color.Green},
+            {"Plasma (A)", Color.Yellow},
+            {"Platelet (A)", Color.Orange},
+            {"RBC (A)", Color.Red},
+            {"WBC (A)", Color.White}
+        }
+
+        For Each kvp In donationMethods
+            Dim pointIndex = series.Points.AddXY(kvp.Key, kvp.Value)
+            series.Points(pointIndex).Color = colors(kvp.Key)
+            series.Points(pointIndex).ToolTip = $"{kvp.Value} donation(s) of {FullName(kvp.Key)}"
+            series.Points(pointIndex).Label = $"{kvp.Value} donation(s)"
+        Next
+    End Sub
+
+    ' Helper to parse blood type (e.g., "O-" -> "O", "Rh-")
+    Private Sub ParseBloodType(bloodType As String, ByRef groupPart As String, ByRef rhesusPart As String)
+        groupPart = bloodType.Substring(0, bloodType.Length - 1)
+        Dim sign = bloodType.Substring(bloodType.Length - 1)
+        rhesusPart = If(sign = "+", "Rh+", "Rh-")
+    End Sub
+
+    Private Function Abbreviate(method As String) As String
+        Select Case method
+            Case "Whole Blood Donation" : Return "Whole Blood"
+            Case "Plasma Donation (Apheresis)" : Return "Plasma (A)"
+            Case "Platelet Donation(Apheresis)" : Return "Platelet (A)"
+            Case "Red Blood Cell Donation(Apheresis)" : Return "RBC (A)"
+            Case "White Blood Cell Donation(Apheresis)" : Return "WBC (A)"
+            Case Else : Return method
+        End Select
+    End Function
+
+    Private Function FullName(shortLabel As String) As String
+        Select Case shortLabel
+            Case "Whole Blood" : Return "Whole Blood Donation"
+            Case "Plasma (A)" : Return "Plasma Donation (Apheresis)"
+            Case "Platelet (A)" : Return "Platelet Donation (Apheresis)"
+            Case "RBC (A)" : Return "Red Blood Cell Donation (Apheresis)"
+            Case "WBC (A)" : Return "White Blood Cell Donation (Apheresis)"
+            Case Else : Return shortLabel
+        End Select
+    End Function
+
+    Private Sub dtpDonutMonth_ValueChanged(sender As Object, e As EventArgs) Handles dtpDonutMonth.ValueChanged
+        LoadDonutChart()
+        If cmbBloodType.SelectedItem IsNot Nothing Then
+            LoadBarChart(cmbBloodType.SelectedItem.ToString())
+        End If
+    End Sub
+
+    Private Sub cmbBloodType_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbBloodType.SelectedIndexChanged
+        If cmbBloodType.SelectedItem IsNot Nothing Then
+            LoadBarChart(cmbBloodType.SelectedItem.ToString())
+        End If
+    End Sub
+
+    Private Sub ChartBar_Click(sender As Object, e As EventArgs) Handles ChartBar.Click
+
+    End Sub
 End Class
