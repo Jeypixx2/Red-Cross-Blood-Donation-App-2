@@ -45,21 +45,13 @@ Public Class HealthCare_Access
                         Dim firstName As String = reader.GetString("fname")
                         Dim lastName As String = reader.GetString("lname")
                         Dim affiliatedInstitution As String = reader("AffiliatedInstitutionName").ToString()
-                        Dim userPosition As String = "Healthcare Provider"
-                        Dim userType As Integer = 3 ' Type 3 for healthcare provider
+                        Dim fullName As String = $"{firstName} {lastName}"
 
-                        ' Set the CurrentLoggedUser structure
-                        modDB.CurrentLoggedUser = New modDB.LoggedUser With {
-                        .id = providerId,
-                        .name = $"{firstName} {lastName}",
-                        .position = userPosition,
-                        .username = username,
-                        .password = encryptedPassword,
-                        .type = userType
-                    }
-
-                        ' Close the reader before calling UpdateLastLoginDate
+                        ' Close the reader before calling other methods
                         reader.Close()
+
+                        ' Set current user session using SessionManager
+                        SessionManager.SetCurrentUser(providerId, fullName, affiliatedInstitution)
 
                         ' Update LastLoginDate
                         UpdateLastLoginDate(providerId)
@@ -72,11 +64,11 @@ Public Class HealthCare_Access
                         ' Clear the password field
                         txthealthcarepassword.Clear()
 
-                        ' Show Healthcare Dashboard using the stored value
+                        ' Show Healthcare Dashboard
                         Dim dashboard As New HealthCare_Dashboard()
-                        ' Optionally, set properties if needed
-                        dashboard.AffiliatedInstitution = affiliatedInstitution
-                        dashboard.ProviderName = $"{firstName} {lastName}"
+                        ' Set properties using SessionManager data
+                        dashboard.AffiliatedInstitution = SessionManager.CurrentUserHospital
+                        dashboard.ProviderName = SessionManager.CurrentUserName
                         dashboard.Show()
                         Me.Hide()
                     Else
@@ -117,6 +109,8 @@ Public Class HealthCare_Access
     End Sub
 
     Private Sub btnAdmin_Click(sender As Object, e As EventArgs) Handles btnAdmin.Click
+        ' Clear session when navigating away
+        SessionManager.ClearCurrentUser()
         Me.Hide()
         Start.Show()
     End Sub

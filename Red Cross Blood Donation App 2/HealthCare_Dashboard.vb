@@ -343,23 +343,78 @@ Public Class HealthCare_Dashboard
             Dim donationType As String = selectedRow.Cells("DonationType").Value.ToString()
             Dim bloodVolume As String = selectedRow.Cells("BloodVolume").Value.ToString()
 
-            ' Prompt user for additional details
+            ' Retrieve hospital and personnel information from database based on logged-in user
+            Dim loggedInHospitalName As String = ""
+            Dim loggedInPersonnelName As String = ""
+            Dim loggedInUserID As Integer = 0 ' This should be set during login
+
+            ' You need to store the logged-in user's HCPid somewhere accessible (like a module variable)
+            ' For now, I'll assume you have a way to get the current user's ID
+            loggedInUserID = GetCurrentLoggedInUserID() ' You need to implement this method
+
+            If loggedInUserID > 0 Then
+                Try
+                    Using connection As New MySqlConnection(modDB.strConnection)
+                        connection.Open()
+                        Dim userQuery As String = "SELECT CONCAT(fname, ' ', IFNULL(mname, ''), ' ', lname) AS FullName, AffiliatedInstitutionName FROM healthprovideraccounts WHERE HCPid = @HCPid"
+                        Using cmd As New MySqlCommand(userQuery, connection)
+                            cmd.Parameters.AddWithValue("@HCPid", loggedInUserID)
+                            Using reader As MySqlDataReader = cmd.ExecuteReader()
+                                If reader.Read() Then
+                                    loggedInPersonnelName = reader("FullName").ToString().Trim()
+                                    loggedInHospitalName = reader("AffiliatedInstitutionName").ToString()
+                                End If
+                            End Using
+                        End Using
+                    End Using
+                Catch ex As Exception
+                    MessageBox.Show("Error retrieving user information: " & ex.Message, "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                    Return
+                End Try
+            Else
+                MessageBox.Show("User not logged in or session expired.", "Authentication Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                Return
+            End If
+
+            ' Validate that we have the required information
+            If String.IsNullOrWhiteSpace(loggedInHospitalName) Then
+                MessageBox.Show("Hospital/Institution information not found for the logged-in user.", "Missing Information", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                Return
+            End If
+
+            If String.IsNullOrWhiteSpace(loggedInPersonnelName) Then
+                MessageBox.Show("Personnel information not found for the logged-in user.", "Missing Information", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                Return
+            End If
+
+            ' Prompt user for additional details (excluding hospital and personnel info since we got them from DB)
             Dim purposeOfRetrieval As String = InputBox("Enter the Purpose of Retrieval:", "Purpose of Retrieval")
             Dim contactNo As String = InputBox("Enter the Contact Number:", "Contact Number")
             Dim emailAdd As String = InputBox("Enter the Email Address:", "Email Address")
 
+            ' Generate IDs if they're not already set
+            If HealthProviderID = 0 Then
+                HealthProviderID = GenerateUniqueID("HealthProviderID", "HealthProvider")
+            End If
+
+            If PersonnelID = 0 Then
+                PersonnelID = loggedInUserID ' Use the logged-in user's HCPid as PersonnelID
+            End If
+
             ' Confirm retrieval with the user
             Dim confirmationMessage As String = $"You are about to retrieve the following data:" & vbCrLf &
-                                        $"Blood ID: {bloodID}" & vbCrLf &
-                                        $"Name: {lastName}, {firstName} {middleName}" & vbCrLf &
-                                        $"Blood Type: {bloodType} {rhesusFactor}" & vbCrLf &
-                                        $"Donation Type: {donationType}" & vbCrLf &
-                                        $"Blood Volume: {bloodVolume}" & vbCrLf &
-                                        $"Donation Date: {donationDate}" & vbCrLf &
-                                        $"Purpose of Retrieval: {purposeOfRetrieval}" & vbCrLf &
-                                        $"Contact Number: {contactNo}" & vbCrLf &
-                                        $"Email Address: {emailAdd}" & vbCrLf &
-                                        "Do you want to continue?"
+                                    $"Blood ID: {bloodID}" & vbCrLf &
+                                    $"Name: {lastName}, {firstName} {middleName}" & vbCrLf &
+                                    $"Blood Type: {bloodType} {rhesusFactor}" & vbCrLf &
+                                    $"Donation Type: {donationType}" & vbCrLf &
+                                    $"Blood Volume: {bloodVolume}" & vbCrLf &
+                                    $"Donation Date: {donationDate}" & vbCrLf &
+                                    $"Hospital/Institution: {loggedInHospitalName}" & vbCrLf &
+                                    $"Personnel: {loggedInPersonnelName}" & vbCrLf &
+                                    $"Purpose of Retrieval: {purposeOfRetrieval}" & vbCrLf &
+                                    $"Contact Number: {contactNo}" & vbCrLf &
+                                    $"Email Address: {emailAdd}" & vbCrLf &
+                                    "Do you want to continue?"
 
             Dim result As DialogResult = MessageBox.Show(confirmationMessage, "Confirm Retrieval", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
 
@@ -373,13 +428,13 @@ Public Class HealthCare_Dashboard
                         Using transaction As MySqlTransaction = connection.BeginTransaction()
                             Try
                                 Dim insertQuery As String = "INSERT INTO HealthProvider (HealthProviderID, CompanyHospitalName, PersonnelID, PersonnelName, BloodID, LastName, FirstName, MiddleName, Blood_Group, RhesusFactor, DonationType, BloodVolume, RetrieveDate, PurposeOfRetrieval, ContactNo, EmailAdd) " &
-                                                    "VALUES (@HealthProviderID, @HospitalName, @PersonnelID, @PersonnelName, @BloodID, @LastName, @FirstName, @MiddleName, @Blood_Group, @RhesusFactor, @DonationType, @BloodVolume, @RetrieveDate, @PurposeOfRetrieval, @ContactNo, @EmailAdd)"
+                                                "VALUES (@HealthProviderID, @HospitalName, @PersonnelID, @PersonnelName, @BloodID, @LastName, @FirstName, @MiddleName, @Blood_Group, @RhesusFactor, @DonationType, @BloodVolume, @RetrieveDate, @PurposeOfRetrieval, @ContactNo, @EmailAdd)"
 
                                 Using cmd As New MySqlCommand(insertQuery, connection, transaction)
                                     cmd.Parameters.AddWithValue("@HealthProviderID", HealthProviderID)
-                                    cmd.Parameters.AddWithValue("@HospitalName", hospitalName)
+                                    cmd.Parameters.AddWithValue("@HospitalName", loggedInHospitalName) ' Use value from database
                                     cmd.Parameters.AddWithValue("@PersonnelID", PersonnelID)
-                                    cmd.Parameters.AddWithValue("@PersonnelName", personnelName)
+                                    cmd.Parameters.AddWithValue("@PersonnelName", loggedInPersonnelName) ' Use value from database
                                     cmd.Parameters.AddWithValue("@BloodID", bloodID)
                                     cmd.Parameters.AddWithValue("@LastName", lastName)
                                     cmd.Parameters.AddWithValue("@FirstName", firstName)
@@ -395,13 +450,7 @@ Public Class HealthCare_Dashboard
                                     cmd.ExecuteNonQuery()
                                 End Using
 
-                                ' Move the selected row from donation to another table (e.g., donation_archive) before deleting
-                                Dim insertArchiveQuery As String = "INSERT INTO donation_archive SELECT *, @RetrievedByHealthProviderID FROM donation WHERE BloodID = @BloodID"
-                                Using archiveCmd As New MySqlCommand(insertArchiveQuery, connection, transaction)
-                                    archiveCmd.Parameters.AddWithValue("@BloodID", bloodID)
-                                    archiveCmd.Parameters.AddWithValue("@RetrievedByHealthProviderID", HealthProviderID)
-                                    archiveCmd.ExecuteNonQuery()
-                                End Using
+
 
                                 Dim deleteQuery As String = "DELETE FROM donation WHERE BloodID = @BloodID"
                                 Using cmd As New MySqlCommand(deleteQuery, connection, transaction)
@@ -411,7 +460,7 @@ Public Class HealthCare_Dashboard
 
                                 transaction.Commit()
                                 MessageBox.Show("Data retrieved successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                                modDB.Logs("Data retrieved successfully")
+                                modDB.Logs("Data retrieved successfully by " & loggedInPersonnelName & " from " & loggedInHospitalName)
                             Catch ex As Exception
                                 transaction.Rollback()
                                 MessageBox.Show("Error: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -430,6 +479,15 @@ Public Class HealthCare_Dashboard
             MessageBox.Show("Please select a row to retrieve.")
         End If
     End Sub
+
+    ' Get the current logged-in user's ID
+    Private Function GetCurrentLoggedInUserID() As Integer
+        If SessionManager.IsLoggedIn() Then
+            Return SessionManager.GetCurrentUserID()
+        Else
+            Return 0 ' No user logged in
+        End If
+    End Function
 
 
     Private Sub RefreshDataGridView()
@@ -695,9 +753,5 @@ Public Class HealthCare_Dashboard
         If cmbBloodType.SelectedItem IsNot Nothing Then
             LoadBarChart(cmbBloodType.SelectedItem.ToString())
         End If
-    End Sub
-
-    Private Sub ChartBar_Click(sender As Object, e As EventArgs) Handles ChartBar.Click
-
     End Sub
 End Class

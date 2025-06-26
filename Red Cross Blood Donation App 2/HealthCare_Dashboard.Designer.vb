@@ -22,12 +22,12 @@ Partial Class HealthCare_Dashboard
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Dim ChartArea1 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
-        Dim Legend1 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
-        Dim Series1 As System.Windows.Forms.DataVisualization.Charting.Series = New System.Windows.Forms.DataVisualization.Charting.Series()
-        Dim ChartArea2 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
-        Dim Legend2 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
-        Dim Series2 As System.Windows.Forms.DataVisualization.Charting.Series = New System.Windows.Forms.DataVisualization.Charting.Series()
+        Dim ChartArea3 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
+        Dim Legend3 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
+        Dim Series3 As System.Windows.Forms.DataVisualization.Charting.Series = New System.Windows.Forms.DataVisualization.Charting.Series()
+        Dim ChartArea4 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
+        Dim Legend4 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
+        Dim Series4 As System.Windows.Forms.DataVisualization.Charting.Series = New System.Windows.Forms.DataVisualization.Charting.Series()
         Me.pbLogo = New System.Windows.Forms.PictureBox()
         Me.SearchTextBox = New System.Windows.Forms.RichTextBox()
         Me.Retrieve_Data = New System.Windows.Forms.Button()
@@ -88,7 +88,7 @@ Partial Class HealthCare_Dashboard
         Me.DataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.DataGridView1.Location = New System.Drawing.Point(21, 142)
         Me.DataGridView1.Name = "DataGridView1"
-        Me.DataGridView1.Size = New System.Drawing.Size(1394, 149)
+        Me.DataGridView1.Size = New System.Drawing.Size(1394, 313)
         Me.DataGridView1.TabIndex = 6
         '
         'ComboBox1
@@ -140,16 +140,16 @@ Partial Class HealthCare_Dashboard
         '
         'ChartDonut
         '
-        ChartArea1.Name = "ChartArea1"
-        Me.ChartDonut.ChartAreas.Add(ChartArea1)
-        Legend1.Name = "Legend1"
-        Me.ChartDonut.Legends.Add(Legend1)
+        ChartArea3.Name = "ChartArea1"
+        Me.ChartDonut.ChartAreas.Add(ChartArea3)
+        Legend3.Name = "Legend1"
+        Me.ChartDonut.Legends.Add(Legend3)
         Me.ChartDonut.Location = New System.Drawing.Point(21, 537)
         Me.ChartDonut.Name = "ChartDonut"
-        Series1.ChartArea = "ChartArea1"
-        Series1.Legend = "Legend1"
-        Series1.Name = "Series1"
-        Me.ChartDonut.Series.Add(Series1)
+        Series3.ChartArea = "ChartArea1"
+        Series3.Legend = "Legend1"
+        Series3.Name = "Series1"
+        Me.ChartDonut.Series.Add(Series3)
         Me.ChartDonut.Size = New System.Drawing.Size(423, 317)
         Me.ChartDonut.TabIndex = 27
         Me.ChartDonut.Text = "Chart2"
@@ -158,16 +158,16 @@ Partial Class HealthCare_Dashboard
         '
         Me.ChartBar.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        ChartArea2.Name = "ChartArea1"
-        Me.ChartBar.ChartAreas.Add(ChartArea2)
-        Legend2.Name = "Legend1"
-        Me.ChartBar.Legends.Add(Legend2)
+        ChartArea4.Name = "ChartArea1"
+        Me.ChartBar.ChartAreas.Add(ChartArea4)
+        Legend4.Name = "Legend1"
+        Me.ChartBar.Legends.Add(Legend4)
         Me.ChartBar.Location = New System.Drawing.Point(450, 537)
         Me.ChartBar.Name = "ChartBar"
-        Series2.ChartArea = "ChartArea1"
-        Series2.Legend = "Legend1"
-        Series2.Name = "Series1"
-        Me.ChartBar.Series.Add(Series2)
+        Series4.ChartArea = "ChartArea1"
+        Series4.Legend = "Legend1"
+        Series4.Name = "Series1"
+        Me.ChartBar.Series.Add(Series4)
         Me.ChartBar.Size = New System.Drawing.Size(965, 317)
         Me.ChartBar.TabIndex = 28
         Me.ChartBar.Text = "Chart1"

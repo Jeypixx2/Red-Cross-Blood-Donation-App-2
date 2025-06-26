@@ -356,6 +356,7 @@
     <Compile Include="Print.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="SessionManager.vb" />
     <Compile Include="SetConfig.Designer.vb">
       <DependentUpon>SetConfig.vb</DependentUpon>
     </Compile>
