@@ -334,7 +334,8 @@ Public Class Admin_Dashboard
 
     Private Sub UpdateDataGridView(filteredData As DataTable)
         DataGridView1.DataSource = filteredData
-        If filteredData.Rows.Count = 0 Then
+        ' Only show the message if the user has performed a filter action (not on initial load)
+        If (MonthCalendar1.Visible = False AndAlso ComboBox1.Visible = False) AndAlso filteredData.Rows.Count = 0 Then
             MessageBox.Show("No data available for the selected date/week/month.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
         End If
     End Sub

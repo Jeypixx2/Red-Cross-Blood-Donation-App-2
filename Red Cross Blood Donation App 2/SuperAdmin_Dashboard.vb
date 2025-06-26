@@ -50,7 +50,10 @@ Public Class SuperAdmin_Dashboard
                 dgvInventory.DataSource = dt
                 dgvInventory.Refresh()
             Else
-                MessageBox.Show("No records found for the selected date.", "No Data", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                ' Only show the message box if a date was explicitly selected by the user
+                If SelectedDate <> Date.MinValue AndAlso SelectedDate.Date <> DateTime.Now.Date Then
+                    MessageBox.Show("No records found for the selected date.", "No Data", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                End If
             End If
 
             cmbBloodType.Items.AddRange(New String() {"A-", "A+", "B-", "B+", "AB-", "AB+", "O-", "O+"})

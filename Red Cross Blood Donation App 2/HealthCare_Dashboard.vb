@@ -182,8 +182,10 @@ Public Class HealthCare_Dashboard
     ' Update DataGridView with filtered data (date filter + search filter)
     Private Sub UpdateDataGridView(filteredData As DataTable, Optional searchText As String = "")
         ' If filtered data is null or empty, return early
-        If filteredData.Rows.Count = 0 Then
-            MessageBox.Show("No data available for the selected date/week/month or matching the search criteria.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
+        DataGridView1.DataSource = filteredData
+        ' Only show the message if the user has performed a filter action (not on initial load)
+        If (MonthCalendar1.Visible = False AndAlso ComboBox1.Visible = False) AndAlso filteredData.Rows.Count = 0 Then
+            MessageBox.Show("No data available for the selected date/week/month.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
             Return
         End If
 
