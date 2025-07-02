@@ -26,6 +26,11 @@ Public Class Admin_Dashboard
             Doublebuffer.EnableDoubleBuffering(DataGridView1)
             ShowDataForDate(DateTime.Today)
 
+            dtpDonutMonth.Format = DateTimePickerFormat.Custom
+            dtpDonutMonth.CustomFormat = "MMMM yyyy"
+            dtpDonutMonth.ShowUpDown = True
+            dtpDonutMonth.Value = DateTime.Now
+
             ' Chart integration
             dtpDonutMonth.Value = DateTime.Today
             cmbBloodType.Items.Clear()
