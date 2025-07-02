@@ -11,6 +11,14 @@ Public Class Admin_Inventory
     Public dbDateColumn As String
     Public Calendar As Integer
 
+    Public Sub ExitFormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
+        If MessageBox.Show("Are you sure you want to Log out?", "Confirm Exit", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = DialogResult.Yes Then
+            modDB.Logs("Exit Admin Inventory")
+            Start.Show()
+        Else
+            e.Cancel = True ' Cancel the closing event
+        End If
+    End Sub
     Private Sub UpdateConnectionString()
         ' Check if connection is closed or null
         If modDB.conn Is Nothing Then

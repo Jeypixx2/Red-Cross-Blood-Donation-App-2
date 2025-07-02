@@ -14,6 +14,15 @@ Public Class HealthCare_Dashboard
     Public Property AffiliatedInstitution As String
     Public Property ProviderName As String
 
+    Public Sub ExitFormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
+        If MessageBox.Show("Are you sure you want to Log out?", "Confirm Exit", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = DialogResult.Yes Then
+            modDB.Logs("Exit HealthCare Dashboard")
+            Start.Show()
+        Else
+            e.Cancel = True ' Cancel the closing event
+        End If
+    End Sub
+
     Private Sub HealthCare_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Try
             modDB.openConn("redcrossdb")

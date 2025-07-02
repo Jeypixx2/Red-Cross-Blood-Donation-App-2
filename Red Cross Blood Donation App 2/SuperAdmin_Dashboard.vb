@@ -23,6 +23,15 @@ Public Class SuperAdmin_Dashboard
 
     Private searchTimer As New Timer()
 
+    Public Sub ExitFormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
+        If MessageBox.Show("Are you sure you want to Log out?", "Confirm Exit", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = DialogResult.Yes Then
+            modDB.Logs("Exit SuperAdmin Dashboard")
+            Start.Show()
+        Else
+            e.Cancel = True ' Cancel the closing event
+        End If
+    End Sub
+
     Private Sub SuperAdmin_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         EnableEditingAndDeleting()
         Try

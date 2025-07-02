@@ -9,6 +9,15 @@ Public Class Admin_Dashboard
     ' Chart integration variables
     Private bloodTypes As String() = {"A-", "A+", "B-", "B+", "AB-", "AB+", "O-", "O+"}
 
+    Public Sub ExitFormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
+        If MessageBox.Show("Are you sure you want to Log out?", "Confirm Exit", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = DialogResult.Yes Then
+            modDB.Logs("Exit Admin Dashboard")
+            Start.Show()
+        Else
+            e.Cancel = True ' Cancel the closing event
+        End If
+    End Sub
+
     Private Sub Admin_Dashboard_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         EnableEditingAndDeleting()
         Try
