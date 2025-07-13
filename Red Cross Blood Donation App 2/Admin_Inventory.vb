@@ -298,61 +298,90 @@ Public Class Admin_Inventory
     Private searchTimer As New Timer()
 
     Private Sub txtSearch_TextChanged(sender As Object, e As EventArgs) Handles txtSearch.TextChanged
-
-        Daily.Enabled = False
-        Weekly.Enabled = False
-        Monthly.Enabled = False
-
-
         searchTimer.Stop()
+
         searchTimer.Interval = 500
+        RemoveHandler searchTimer.Tick, AddressOf PerformSearch
         AddHandler searchTimer.Tick, AddressOf PerformSearch
         searchTimer.Start()
     End Sub
 
     Private Sub PerformSearch(sender As Object, e As EventArgs)
+        searchTimer.Stop()
+
         Try
-
-            Dim searchText As String = txtSearch.Text
-
+            Dim searchText As String = txtSearch.Text.Trim()
 
             If Not String.IsNullOrWhiteSpace(searchText) Then
+                If searchText.Length < 2 Then
+                    txtSearch.Tag = Nothing
+                    Return
+                End If
+
+                If Not IsValidSearchInput(searchText) Then
+                    Return
+                End If
+
+                Me.Cursor = Cursors.WaitCursor
+
                 Dim results As DataTable = GlobalModel.Search(searchText, currentTable)
 
                 If results IsNot Nothing AndAlso results.Rows.Count > 0 Then
-
                     GlobalModel.UpdateDataGridView(results, dgvInventory)
+                    Me.Text = $"SuperAdmin Dashboard - {results.Rows.Count} results found"
+                    txtSearch.Tag = Nothing
                 Else
-
-                    If Not txtSearch.Tag IsNot Nothing AndAlso txtSearch.Tag.ToString() = "No Results" Then
-                        MessageBox.Show("No results found. Please try a different search term.", "No Results", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                        txtSearch.Clear()
-                        txtSearch.Tag = "No Results"
+                    If Not Equals(txtSearch.Tag, "NoResultsShownFor_" & searchText.ToLower()) Then
+                        MessageBox.Show($"No results found for '{searchText}'.", "No Results", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                        txtSearch.Tag = "NoResultsShownFor_" & searchText.ToLower()
                     End If
+                    dgvInventory.DataSource = New DataTable()
                 End If
             Else
-
-                dgvInventory.DataSource = Nothing
+                ReloadCurrentTableData()
+                txtSearch.Tag = Nothing
+                Me.Text = "SuperAdmin Dashboard"
             End If
 
         Catch ex As Exception
-            ' Show error message
-            MessageBox.Show("Error occurred while performing the search: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-
+            MessageBox.Show($"Search error: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            modDB.Logs($"Search Error: {ex.Message}")
+            ReloadCurrentTableData()
         Finally
-            ' Re-enable the buttons after search is complete
-            Daily.Enabled = True
-            Weekly.Enabled = True
-            Monthly.Enabled = True
-
-
-            searchTimer.Stop()
-
-            txtSearch.Tag = Nothing
+            Me.Cursor = Cursors.Default
         End Try
     End Sub
 
+    Private Sub ReloadCurrentTableData()
+        Try
+            UpdateConnectionString()
+            Dim query As String = $"SELECT * FROM {currentTable}"
+            modDB.LoadToDGV(query, dgvInventory)
+        Catch ex As Exception
+            MessageBox.Show($"Error reloading data: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            modDB.Logs($"Reload Error: {ex.Message}")
+        End Try
+    End Sub
 
+    Private Function IsValidSearchInput(searchText As String) As Boolean
+        ' Check minimum length
+        If searchText.Length < 2 Then
+            Return False
+        End If
+
+        ' Check for potentially harmful SQL characters
+        Dim dangerousChars As String() = {"'", """", ";", "--", "/*", "*/", "DROP", "DELETE", "UPDATE", "INSERT"}
+        Dim upperSearch As String = searchText.ToUpper()
+
+        For Each dangerousChar In dangerousChars
+            If upperSearch.Contains(dangerousChar.ToUpper()) Then
+                MessageBox.Show("Search contains invalid characters or keywords.", "Invalid Search", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                Return False
+            End If
+        Next
+
+        Return True
+    End Function
 
     'Reports
     Private Sub Button1_Click_1(sender As Object, e As EventArgs) Handles Button1.Click

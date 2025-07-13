@@ -16,7 +16,7 @@ Public Class SuperAdmin_Dashboard
         {"donation", "bloodID"},
         {"healthprovider", "RetrieveID"},
         {"history", "HistoryID"},
-        {"logs", "user_accounts_id"},
+        {"logs", "user_accounts_id"}, ' Assuming user_accounts_id is the primary key for logs
         {"accounts", "adminID"},
         {"healthprovideraccounts", "HCPid"}
     }
@@ -174,9 +174,8 @@ Public Class SuperAdmin_Dashboard
         Calendar = 1
         Dim query As String = $"SELECT * FROM {currentTable}"
         Dim rowCount As Integer = modDB.LoadToDGV(query, dgvInventory)
-        modDB.Logs("View Health Provider") ' This log seems to be duplicated with the one below
-        If rowCount = 0 Then MessageBox.Show("No history records found.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
         modDB.Logs("View History Data")
+        If rowCount = 0 Then MessageBox.Show("No history records found.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
     End Sub
 
     Private Sub Logs_Click(sender As Object, e As EventArgs) Handles Logs.Click
@@ -187,9 +186,8 @@ Public Class SuperAdmin_Dashboard
         Calendar = 1
         Dim query As String = $"SELECT * FROM {currentTable}"
         Dim rowCount As Integer = modDB.LoadToDGV(query, dgvInventory)
-        modDB.Logs("View Health Provider") ' This log seems to be duplicated with the one below
-        If rowCount = 0 Then MessageBox.Show("No logs records found.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
         modDB.Logs("View Logs Data")
+        If rowCount = 0 Then MessageBox.Show("No logs records found.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
     End Sub
 
     Private Sub Accounts_Click(sender As Object, e As EventArgs) Handles Accounts.Click
@@ -200,9 +198,8 @@ Public Class SuperAdmin_Dashboard
         Calendar = 1
         Dim query As String = $"SELECT * FROM {currentTable}"
         Dim rowCount As Integer = modDB.LoadToDGV(query, dgvInventory)
-        modDB.Logs("View Health Provider") ' This log seems to be duplicated with the one below
-        If rowCount = 0 Then MessageBox.Show("No accounts records found.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
         modDB.Logs("View Accounts Data")
+        If rowCount = 0 Then MessageBox.Show("No accounts records found.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
     End Sub
 
     Private Sub HP_Accounts_Click(sender As Object, e As EventArgs) Handles HP_Accounts.Click
@@ -215,7 +212,6 @@ Public Class SuperAdmin_Dashboard
         Dim rowCount As Integer = modDB.LoadToDGV(query, dgvInventory)
         modDB.Logs("View Health Provider Accounts")
         If rowCount = 0 Then MessageBox.Show("No health provider accounts found.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
-        modDB.Logs("View Accounts Data")
     End Sub
 
     Private Sub dtpCalendar_DateChanged(sender As Object, e As DateRangeEventArgs) Handles dtpCalendar.DateSelected
@@ -299,7 +295,6 @@ Public Class SuperAdmin_Dashboard
         End Try
     End Sub
 
-
     Private Function IsValidSearchInput(searchText As String) As Boolean
         ' Check minimum length
         If searchText.Length < 2 Then
@@ -319,8 +314,6 @@ Public Class SuperAdmin_Dashboard
 
         Return True
     End Function
-
-
 
     Private Sub cmbBloodType_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbBloodType.SelectedIndexChanged
         If cmbBloodType.SelectedItem IsNot Nothing Then
@@ -363,40 +356,25 @@ Public Class SuperAdmin_Dashboard
 
     Private Sub EnableEditingAndDeleting()
         dgvInventory.ReadOnly = False
-        dgvInventory.AllowUserToDeleteRows = True
+        dgvInventory.AllowUserToDeleteRows = True ' This setting enables the built-in delete row functionality, often used with a "delete" key press.
     End Sub
+
+    Private changedRows As New Dictionary(Of Integer, Boolean)
 
     Private Sub dgvInventory_CellValueChanged(sender As Object, e As DataGridViewCellEventArgs) Handles dgvInventory.CellValueChanged
         Try
             If e.RowIndex >= 0 AndAlso e.ColumnIndex >= 0 Then
                 If dgvInventory.Rows(e.RowIndex).IsNewRow Then Exit Sub
-                Dim editedCell = dgvInventory.Rows(e.RowIndex).Cells(e.ColumnIndex)
-                Dim columnName = dgvInventory.Columns(e.ColumnIndex).Name
-                Dim newValue As Object = If(editedCell.Value IsNot Nothing, editedCell.Value, DBNull.Value)
-                Dim primaryKeyColumn As String = Nothing
-                If tablePrimaryKeys.TryGetValue(currentTable, primaryKeyColumn) Then
-                    Dim rowID = dgvInventory.Rows(e.RowIndex).Cells(primaryKeyColumn).Value
-                    If rowID Is Nothing OrElse IsDBNull(rowID) Then
-                        Throw New Exception("Primary key value is missing or invalid.")
-                    End If
-                    Dim query As String = $"UPDATE {currentTable} SET {columnName} = @newValue WHERE {primaryKeyColumn} = @rowID"
-                    Using conn As New MySqlConnection(modDB.strConnection)
-                        conn.Open()
-                        Using cmd As New MySqlCommand(query, conn)
-                            cmd.Parameters.AddWithValue("@newValue", newValue)
-                            cmd.Parameters.AddWithValue("@rowID", rowID)
-                            cmd.ExecuteNonQuery()
-                            modDB.Logs($"Updated {columnName} in {currentTable} for ID {rowID}.")
-                        End Using
-                    End Using
-                    modDB.Logs("Update Inventory Data")
-                    MessageBox.Show("Record updated successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                Else
-                    Throw New Exception($"Primary key column not defined for table: {currentTable}")
+
+                If Not changedRows.ContainsKey(e.RowIndex) Then
+                    changedRows.Add(e.RowIndex, True)
                 End If
+
+
+                modDB.Logs($"Cell in row {e.RowIndex}, column {dgvInventory.Columns(e.ColumnIndex).Name} changed.")
             End If
         Catch ex As Exception
-            MessageBox.Show($"Error updating record: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            modDB.Logs($"Error in CellValueChanged: {ex.Message}")
         End Try
     End Sub
 
@@ -635,11 +613,199 @@ Public Class SuperAdmin_Dashboard
         Me.Hide()
     End Sub
 
-    Private Sub btnDelete_Click(sender As Object, e As EventArgs) Handles btnDelete.Click
+    Private Sub btnUpdate_Click(sender As Object, e As EventArgs) Handles btnUpdate.Click
+        ' This method now handles updating all changed rows to the database.
+        If changedRows.Count = 0 Then
+            MessageBox.Show("No changes to update.", "No Changes", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            Exit Sub
+        End If
 
+        Dim updatesSuccessful As Integer = 0
+        Dim updatesFailed As Integer = 0
+
+        Using conn As New MySqlConnection(modDB.strConnection)
+            Try
+                conn.Open()
+                Dim primaryKeyColumn As String = Nothing
+
+                If Not tablePrimaryKeys.TryGetValue(currentTable, primaryKeyColumn) Then
+                    Throw New Exception($"Primary key column not defined for table: {currentTable}")
+                End If
+
+                For Each rowIndex As Integer In changedRows.Keys
+                    Dim row As DataGridViewRow = dgvInventory.Rows(rowIndex)
+
+                    ' Skip new rows that haven't been committed or fully entered yet
+                    If row.IsNewRow Then
+                        Continue For
+                    End If
+
+                    Dim rowID As Object = row.Cells(primaryKeyColumn).Value
+                    If rowID Is Nothing OrElse IsDBNull(rowID) Then
+                        modDB.Logs($"Skipping row {rowIndex}: Primary key value is missing or invalid.")
+                        updatesFailed += 1
+                        Continue For
+                    End If
+
+                    ' Construct the UPDATE query dynamically for each changed cell in the row
+                    Dim updateClauses As New List(Of String)
+                    Dim cmd As New MySqlCommand("", conn) ' Command created once per row for parameters
+
+                    For Each cell As DataGridViewCell In row.Cells
+                        ' Only update cells that are part of a bound column and not the primary key itself
+                        If cell.OwningColumn.DataPropertyName IsNot Nothing AndAlso
+                       cell.OwningColumn.Name <> primaryKeyColumn Then
+
+                            Dim originalValue As Object = If(cell.Value IsNot Nothing, cell.Value, DBNull.Value)
+                            Dim columnName As String = cell.OwningColumn.Name
+
+                            ' Check if the cell's value has actually changed from its original loaded state
+                            ' This requires storing original values, which isn't in your current code.
+                            ' For simplicity, this example updates all cells in a flagged row.
+                            ' A more robust solution would involve tracking individual cell changes.
+
+                            updateClauses.Add($"{columnName} = @{columnName}Value")
+                            cmd.Parameters.AddWithValue($"@{columnName}Value", originalValue)
+                        End If
+                    Next
+
+                    If updateClauses.Count > 0 Then
+                        Dim query As String = $"UPDATE {currentTable} SET {String.Join(", ", updateClauses)} WHERE {primaryKeyColumn} = @rowID"
+                        cmd.CommandText = query
+                        cmd.Parameters.AddWithValue("@rowID", rowID)
+
+                        Try
+                            cmd.ExecuteNonQuery()
+                            modDB.Logs($"Updated row in {currentTable} for ID {rowID}.")
+                            updatesSuccessful += 1
+                            ' Optionally, reset the row's background color if you changed it
+                            ' row.DefaultCellStyle.BackColor = dgvInventory.DefaultCellStyle.BackColor
+                        Catch ex As Exception
+                            modDB.Logs($"Error updating row ID {rowID}: {ex.Message}")
+                            updatesFailed += 1
+                        End Try
+                    Else
+                        modDB.Logs($"No updatable columns found for row ID {rowID}.")
+                    End If
+                Next
+
+                If updatesSuccessful > 0 Then
+                    MessageBox.Show($"{updatesSuccessful} record(s) updated successfully! {updatesFailed} failed.", "Update Complete", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                ElseIf updatesFailed > 0 Then
+                    MessageBox.Show($"All updates failed. Please check logs for details.", "Update Failed", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                Else
+                    MessageBox.Show("No records were actually updated.", "No Updates", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                End If
+
+                ' Clear the list of changed rows after attempting to save them
+                changedRows.Clear()
+
+            Catch ex As Exception
+                MessageBox.Show($"Error during batch update: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                modDB.Logs($"Error during batch update: {ex.Message}")
+            Finally
+                If conn.State = ConnectionState.Open Then
+                    conn.Close()
+                End If
+            End Try
+        End Using
     End Sub
 
-    Private Sub btnUpdate_Click(sender As Object, e As EventArgs) Handles btnUpdate.Click
+    Private Sub btnDelete_Click(sender As Object, e As EventArgs) Handles btnDelete.Click
+        If dgvInventory.SelectedRows.Count > 0 Then
+            ' More specific confirmation message for donor deletion
+            Dim confirmMessage As String = "Are you sure you want to delete the selected row(s)? This action cannot be undone."
+            If currentTable = "donors" Then
+                confirmMessage &= Environment.NewLine & Environment.NewLine & "WARNING: Deleting a donor will also delete all associated history, eligibility, and donation records for that donor."
+            End If
 
+            If MessageBox.Show(confirmMessage, "Confirm Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) = DialogResult.Yes Then
+                Try
+                    Dim primaryKeyColumn As String = Nothing
+                    If tablePrimaryKeys.TryGetValue(currentTable, primaryKeyColumn) Then
+                        Using conn As New MySqlConnection(modDB.strConnection)
+                            conn.Open()
+                            Using transaction As MySqlTransaction = conn.BeginTransaction()
+                                Try
+                                    For Each row As DataGridViewRow In dgvInventory.SelectedRows
+                                        If Not row.IsNewRow Then
+                                            Dim rowID As Object = row.Cells(primaryKeyColumn).Value
+                                            If rowID Is Nothing OrElse IsDBNull(rowID) Then
+                                                MessageBox.Show("Cannot delete: Primary key value is missing for a selected row.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                                                Continue For
+                                            End If
+
+                                            If currentTable = "donors" Then
+                                                Dim donorIDToDelete As Integer = CType(rowID, Integer)
+
+                                                ' Delete from 'history' table
+                                                Dim deleteHistoryQuery As String = "DELETE FROM history WHERE DonorID = @DonorID"
+                                                Using cmdHistory As New MySqlCommand(deleteHistoryQuery, conn, transaction)
+                                                    cmdHistory.Parameters.AddWithValue("@DonorID", donorIDToDelete)
+                                                    cmdHistory.ExecuteNonQuery()
+                                                    modDB.Logs($"Deleted history records for DonorID {donorIDToDelete}.")
+                                                End Using
+
+                                                ' Delete from 'eligibility' table
+                                                Dim deleteEligibilityQuery As String = "DELETE FROM eligibility WHERE DonorID = @DonorID"
+                                                Using cmdEligibility As New MySqlCommand(deleteEligibilityQuery, conn, transaction)
+                                                    cmdEligibility.Parameters.AddWithValue("@DonorID", donorIDToDelete)
+                                                    cmdEligibility.ExecuteNonQuery()
+                                                    modDB.Logs($"Deleted eligibility records for DonorID {donorIDToDelete}.")
+                                                End Using
+
+                                                ' Delete from 'donation' table
+                                                Dim deleteDonationQuery As String = "DELETE FROM donation WHERE DonorID = @DonorID"
+                                                Using cmdDonation As New MySqlCommand(deleteDonationQuery, conn, transaction)
+                                                    cmdDonation.Parameters.AddWithValue("@DonorID", donorIDToDelete)
+                                                    cmdDonation.ExecuteNonQuery()
+                                                    modDB.Logs($"Deleted donation records for DonorID {donorIDToDelete}.")
+                                                End Using
+                                            ElseIf currentTable = "accounts" Then
+                                                Dim adminIDToDelete As Integer = CType(rowID, Integer)
+                                                Dim deleteLogsQuery As String = "DELETE FROM logs WHERE user_accounts_id = @AdminID"
+                                                Using cmdLogs As New MySqlCommand(deleteLogsQuery, conn, transaction)
+                                                    cmdLogs.Parameters.AddWithValue("@AdminID", adminIDToDelete)
+                                                    cmdLogs.ExecuteNonQuery()
+                                                    modDB.Logs($"Deleted logs records for adminID {adminIDToDelete}.")
+                                                End Using
+                                            ElseIf currentTable = "healthprovideraccounts" Then
+                                                Dim hcpIDToDelete As Integer = CType(rowID, Integer)
+                                                Dim deleteHPQuery As String = "DELETE FROM healthprovider WHERE HCPid = @HCPid" ' Assuming HCPid is the FK in healthprovider
+                                                Using cmdHP As New MySqlCommand(deleteHPQuery, conn, transaction)
+                                                    cmdHP.Parameters.AddWithValue("@HCPid", hcpIDToDelete)
+                                                    cmdHP.ExecuteNonQuery()
+                                                    modDB.Logs($"Deleted healthprovider records for HCPid {hcpIDToDelete}.")
+                                                End Using
+                                            End If
+                                            Dim query As String = $"DELETE FROM {currentTable} WHERE {primaryKeyColumn} = @rowID"
+                                            Using cmd As New MySqlCommand(query, conn, transaction)
+                                                cmd.Parameters.AddWithValue("@rowID", rowID)
+                                                cmd.ExecuteNonQuery()
+                                                modDB.Logs($"Deleted record from {currentTable} with ID {rowID}.")
+                                            End Using
+                                        End If
+                                    Next
+                                    transaction.Commit()
+                                    MessageBox.Show("Selected row(s) and related records deleted successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                                Catch ex As Exception
+                                    transaction.Rollback()
+                                    Throw New Exception("Transaction failed. " & ex.Message, ex) ' Re-throw to be caught by outer catch
+                                End Try
+                            End Using
+                        End Using
+
+                        ReloadCurrentTableData()
+                    Else
+                        MessageBox.Show($"Deletion failed: Primary key column not defined for table: {currentTable}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                    End If
+                Catch ex As Exception
+                    MessageBox.Show($"Error deleting record(s): {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                    modDB.Logs($"Deletion Error: {ex.Message}")
+                End Try
+            End If
+        Else
+            MessageBox.Show("Please select at least one row to delete.", "No Row Selected", MessageBoxButtons.OK, MessageBoxIcon.Information)
+        End If
     End Sub
 End Class
