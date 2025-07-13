@@ -21,8 +21,6 @@ Public Class SuperAdmin_Dashboard
         {"healthprovideraccounts", "HCPid"}
     }
 
-    Private searchTimer As New Timer()
-
     Public Sub ExitFormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
         If MessageBox.Show("Are you sure you want to Log out?", "Confirm Exit", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = DialogResult.Yes Then
             modDB.Logs("Exit SuperAdmin Dashboard")
@@ -59,7 +57,7 @@ Public Class SuperAdmin_Dashboard
                 dgvInventory.DataSource = dt
                 dgvInventory.Refresh()
             Else
-                ' Only show the message box if a date was explicitly selected by the user
+                ' Only show the message box if a specific date was selected (not default or today)
                 If SelectedDate <> Date.MinValue AndAlso SelectedDate.Date <> DateTime.Now.Date Then
                     MessageBox.Show("No records found for the selected date.", "No Data", MessageBoxButtons.OK, MessageBoxIcon.Information)
                 End If
@@ -165,7 +163,7 @@ Public Class SuperAdmin_Dashboard
         Dim query As String = $"SELECT * FROM {currentTable}"
         Dim rowCount As Integer = modDB.LoadToDGV(query, dgvInventory)
         modDB.Logs("View Health Provider")
-        If rowCount = 0 Then MessageBox.Show("No history records found.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
+        If rowCount = 0 Then MessageBox.Show("No health provider records found.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
     End Sub
 
     Private Sub History_Click(sender As Object, e As EventArgs) Handles History.Click
@@ -176,7 +174,7 @@ Public Class SuperAdmin_Dashboard
         Calendar = 1
         Dim query As String = $"SELECT * FROM {currentTable}"
         Dim rowCount As Integer = modDB.LoadToDGV(query, dgvInventory)
-        modDB.Logs("View Health Provider")
+        modDB.Logs("View Health Provider") ' This log seems to be duplicated with the one below
         If rowCount = 0 Then MessageBox.Show("No history records found.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
         modDB.Logs("View History Data")
     End Sub
@@ -189,8 +187,8 @@ Public Class SuperAdmin_Dashboard
         Calendar = 1
         Dim query As String = $"SELECT * FROM {currentTable}"
         Dim rowCount As Integer = modDB.LoadToDGV(query, dgvInventory)
-        modDB.Logs("View Health Provider")
-        If rowCount = 0 Then MessageBox.Show("No history records found.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
+        modDB.Logs("View Health Provider") ' This log seems to be duplicated with the one below
+        If rowCount = 0 Then MessageBox.Show("No logs records found.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
         modDB.Logs("View Logs Data")
     End Sub
 
@@ -202,8 +200,8 @@ Public Class SuperAdmin_Dashboard
         Calendar = 1
         Dim query As String = $"SELECT * FROM {currentTable}"
         Dim rowCount As Integer = modDB.LoadToDGV(query, dgvInventory)
-        modDB.Logs("View Health Provider")
-        If rowCount = 0 Then MessageBox.Show("No history records found.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
+        modDB.Logs("View Health Provider") ' This log seems to be duplicated with the one below
+        If rowCount = 0 Then MessageBox.Show("No accounts records found.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
         modDB.Logs("View Accounts Data")
     End Sub
 
@@ -216,7 +214,7 @@ Public Class SuperAdmin_Dashboard
         Dim query As String = $"SELECT * FROM {currentTable}"
         Dim rowCount As Integer = modDB.LoadToDGV(query, dgvInventory)
         modDB.Logs("View Health Provider Accounts")
-        If rowCount = 0 Then MessageBox.Show("No history records found.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
+        If rowCount = 0 Then MessageBox.Show("No health provider accounts found.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information)
         modDB.Logs("View Accounts Data")
     End Sub
 
@@ -233,43 +231,96 @@ Public Class SuperAdmin_Dashboard
         dtpCalendar.Visible = False
     End Sub
 
+    Private searchTimer As New Timer()
+
     Private Sub txtSearch_TextChanged(sender As Object, e As EventArgs) Handles txtSearch.TextChanged
-        Daily.Enabled = False
-        Weekly.Enabled = False
-        Monthly.Enabled = False
         searchTimer.Stop()
+
         searchTimer.Interval = 500
+        RemoveHandler searchTimer.Tick, AddressOf PerformSearch
+        AddHandler searchTimer.Tick, AddressOf PerformSearch
         searchTimer.Start()
-        modDB.Logs("Search Data")
     End Sub
 
     Private Sub PerformSearch(sender As Object, e As EventArgs)
+        searchTimer.Stop()
+
         Try
-            Dim searchText As String = txtSearch.Text
+            Dim searchText As String = txtSearch.Text.Trim()
+
             If Not String.IsNullOrWhiteSpace(searchText) Then
+                If searchText.Length < 2 Then
+                    txtSearch.Tag = Nothing
+                    Return
+                End If
+
+                If Not IsValidSearchInput(searchText) Then
+                    Return
+                End If
+
+                Me.Cursor = Cursors.WaitCursor
+
                 Dim results As DataTable = GlobalModel.Search(searchText, currentTable)
+
                 If results IsNot Nothing AndAlso results.Rows.Count > 0 Then
                     GlobalModel.UpdateDataGridView(results, dgvInventory)
+                    Me.Text = $"SuperAdmin Dashboard - {results.Rows.Count} results found"
+                    txtSearch.Tag = Nothing
                 Else
-                    If txtSearch.Tag Is Nothing OrElse txtSearch.Tag.ToString() <> "No Results" Then
-                        MessageBox.Show("No results found. Please try a different search term.", "No Results", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                        txtSearch.Clear()
-                        txtSearch.Tag = "No Results"
+                    If Not Equals(txtSearch.Tag, "NoResultsShownFor_" & searchText.ToLower()) Then
+                        MessageBox.Show($"No results found for '{searchText}'.", "No Results", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                        txtSearch.Tag = "NoResultsShownFor_" & searchText.ToLower()
                     End If
+                    dgvInventory.DataSource = New DataTable()
                 End If
             Else
-                dgvInventory.DataSource = Nothing
+                ReloadCurrentTableData()
+                txtSearch.Tag = Nothing
+                Me.Text = "SuperAdmin Dashboard"
             End If
+
         Catch ex As Exception
-            MessageBox.Show("Error occurred while performing the search: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            MessageBox.Show($"Search error: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            modDB.Logs($"Search Error: {ex.Message}")
+            ReloadCurrentTableData()
         Finally
-            Daily.Enabled = True
-            Weekly.Enabled = True
-            Monthly.Enabled = True
-            searchTimer.Stop()
-            txtSearch.Tag = Nothing
+            Me.Cursor = Cursors.Default
         End Try
     End Sub
+
+    Private Sub ReloadCurrentTableData()
+        Try
+            UpdateConnectionString()
+            Dim query As String = $"SELECT * FROM {currentTable}"
+            modDB.LoadToDGV(query, dgvInventory)
+        Catch ex As Exception
+            MessageBox.Show($"Error reloading data: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            modDB.Logs($"Reload Error: {ex.Message}")
+        End Try
+    End Sub
+
+
+    Private Function IsValidSearchInput(searchText As String) As Boolean
+        ' Check minimum length
+        If searchText.Length < 2 Then
+            Return False
+        End If
+
+        ' Check for potentially harmful SQL characters
+        Dim dangerousChars As String() = {"'", """", ";", "--", "/*", "*/", "DROP", "DELETE", "UPDATE", "INSERT"}
+        Dim upperSearch As String = searchText.ToUpper()
+
+        For Each dangerousChar In dangerousChars
+            If upperSearch.Contains(dangerousChar.ToUpper()) Then
+                MessageBox.Show("Search contains invalid characters or keywords.", "Invalid Search", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                Return False
+            End If
+        Next
+
+        Return True
+    End Function
+
+
 
     Private Sub cmbBloodType_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbBloodType.SelectedIndexChanged
         If cmbBloodType.SelectedItem IsNot Nothing Then
@@ -500,6 +551,7 @@ Public Class SuperAdmin_Dashboard
                         End While
                     End Using
                 End Using
+                conn.Close()
             End Using
         Catch ex As Exception
             MessageBox.Show("Error loading bar chart: " & ex.Message)
@@ -583,7 +635,11 @@ Public Class SuperAdmin_Dashboard
         Me.Hide()
     End Sub
 
-    Private Sub ChartDonut_Click(sender As Object, e As EventArgs) Handles ChartDonut.Click
+    Private Sub btnDelete_Click(sender As Object, e As EventArgs) Handles btnDelete.Click
+
+    End Sub
+
+    Private Sub btnUpdate_Click(sender As Object, e As EventArgs) Handles btnUpdate.Click
 
     End Sub
 End Class

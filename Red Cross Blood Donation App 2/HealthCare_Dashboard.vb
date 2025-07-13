@@ -319,25 +319,6 @@ Public Class HealthCare_Dashboard
         Return table
     End Function
 
-    Private Function GenerateUniqueID(columnName As String, tableName As String) As Integer
-        Dim newID As Integer = 1
-        Dim connection As MySqlConnection = modDB.conn
-        Try
-            Dim query As String = $"SELECT MAX({columnName}) FROM {tableName}"
-            Using cmd As New MySqlCommand(query, connection)
-                If connection.State = ConnectionState.Closed Then connection.Open()
-                Dim result = cmd.ExecuteScalar()
-                If result IsNot Nothing AndAlso Not IsDBNull(result) Then
-                    newID = Convert.ToInt32(result) + 1
-                End If
-            End Using
-        Catch ex As MySqlException
-            MessageBox.Show($"An error occurred while generating a unique ID: {ex.Message}", "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        End Try
-        Return newID
-    End Function
-
-
     Private Sub Retrieve_Data_Click(sender As Object, e As EventArgs) Handles Retrieve_Data.Click
         ' Check if a row is selected
         If DataGridView1.SelectedRows.Count > 0 Then
@@ -403,11 +384,6 @@ Public Class HealthCare_Dashboard
             Dim contactNo As String = InputBox("Enter the Contact Number:", "Contact Number")
             Dim emailAdd As String = InputBox("Enter the Email Address:", "Email Address")
 
-            ' Generate IDs if they're not already set
-            If HealthProviderID = 0 Then
-                HealthProviderID = GenerateUniqueID("HealthProviderID", "HealthProvider")
-            End If
-
             If PersonnelID = 0 Then
                 PersonnelID = loggedInUserID ' Use the logged-in user's HCPid as PersonnelID
             End If
@@ -438,11 +414,10 @@ Public Class HealthCare_Dashboard
                         connection.Open()
                         Using transaction As MySqlTransaction = connection.BeginTransaction()
                             Try
-                                Dim insertQuery As String = "INSERT INTO HealthProvider (HealthProviderID, CompanyHospitalName, PersonnelID, PersonnelName, BloodID, LastName, FirstName, MiddleName, Blood_Group, RhesusFactor, DonationType, BloodVolume, RetrieveDate, PurposeOfRetrieval, ContactNo, EmailAdd) " &
-                                                "VALUES (@HealthProviderID, @HospitalName, @PersonnelID, @PersonnelName, @BloodID, @LastName, @FirstName, @MiddleName, @Blood_Group, @RhesusFactor, @DonationType, @BloodVolume, @RetrieveDate, @PurposeOfRetrieval, @ContactNo, @EmailAdd)"
+                                Dim insertQuery As String = "INSERT INTO HealthProvider (PersonnelID, CompanyHospitalName, PersonnelName, BloodID, LastName, FirstName, MiddleName, Blood_Group, RhesusFactor, DonationType, BloodVolume, RetrieveDate, PurposeOfRetrieval, ContactNo, EmailAdd) " &
+                                                "VALUES (@PersonnelID, @HospitalName, @PersonnelName, @BloodID, @LastName, @FirstName, @MiddleName, @Blood_Group, @RhesusFactor, @DonationType, @BloodVolume, @RetrieveDate, @PurposeOfRetrieval, @ContactNo, @EmailAdd)"
 
                                 Using cmd As New MySqlCommand(insertQuery, connection, transaction)
-                                    cmd.Parameters.AddWithValue("@HealthProviderID", HealthProviderID)
                                     cmd.Parameters.AddWithValue("@HospitalName", loggedInHospitalName) ' Use value from database
                                     cmd.Parameters.AddWithValue("@PersonnelID", PersonnelID)
                                     cmd.Parameters.AddWithValue("@PersonnelName", loggedInPersonnelName) ' Use value from database
