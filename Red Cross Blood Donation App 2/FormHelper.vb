@@ -131,7 +131,7 @@ Public Class FormHelper
         Dim substanceligible As Integer = New Random().Next(0, 12)
 
         ' Loop to generate donor entries
-        For i As Integer = 1 To 15 'Change depending on needed data
+        For i As Integer = 1 To 10000 'Change depending on needed data
             ' Generate random details (donor)
             Dim donorID As Integer = i
             Dim regDate As DateTime = DateTime.Now ' Random registration date in the last 4 years copy this .AddDays(-rand.Next(1, 1460))
@@ -365,15 +365,14 @@ Public Class FormHelper
                     End Using
 
                     ' Insert into healthprovider table
-                    Dim healthProviderQuery As String = "INSERT INTO healthprovider (RetrieveID, HealthProviderID, CompanyHospitalName, PersonnelID, PersonnelName, BloodID, LastName, FirstName, MiddleName, Blood_Group, RhesusFactor, DonationType, BloodVolume, RetrieveDate, PurposeOfRetrieval, ContactNo, EmailAdd) " &
-                                    "VALUES (@retrieveID, @healthproviderID, @companyhospitalname, @personelID, @personelName, @BloodID, @LastName, @FirstName, @MiddleName, @Blood_Group, @RhesusFactor, @DonationType, @BloodVolume, @RetrieveDate, @purposeOfRetrieval, @contactNumber, @EmailAdd)"
+                    Dim healthProviderQuery As String = "INSERT INTO healthprovider (RetrieveID, PersonnelID, CompanyHospitalName, PersonnelName, BloodID, LastName, FirstName, MiddleName, Blood_Group, RhesusFactor, DonationType, BloodVolume, RetrieveDate, PurposeOfRetrieval, ContactNo, EmailAdd) " &
+                                    "VALUES (@retrieveID, @personelID, @companyhospitalname, @personelName, @BloodID, @LastName, @FirstName, @MiddleName, @Blood_Group, @RhesusFactor, @DonationType, @BloodVolume, @RetrieveDate, @purposeOfRetrieval, @contactNumber, @EmailAdd)"
 
                     Using cmdHealthProvider As New MySqlCommand(healthProviderQuery, connection)
                         ' Add parameters for health provider details
                         cmdHealthProvider.Parameters.AddWithValue("@retrieveID", retrieveID)
-                        cmdHealthProvider.Parameters.AddWithValue("@healthproviderID", healthproviderID)
-                        cmdHealthProvider.Parameters.AddWithValue("@companyhospitalname", companyhospitalname)
                         cmdHealthProvider.Parameters.AddWithValue("@personelID", personelID)
+                        cmdHealthProvider.Parameters.AddWithValue("@companyhospitalname", companyhospitalname)
                         cmdHealthProvider.Parameters.AddWithValue("@personelName", PersonelName)
                         cmdHealthProvider.Parameters.AddWithValue("@purposeOfRetrieval", PurposeofRetrieval)
                         cmdHealthProvider.Parameters.AddWithValue("@contactNumber", contactNumber)

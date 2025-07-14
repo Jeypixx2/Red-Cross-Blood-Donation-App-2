@@ -17,7 +17,6 @@ Public Class Health_Provider_Report
             ' Update the query to include a date filter for registration dates
             Dim query As String = "SELECT 
     RetrieveID, 
-    HealthProviderID, 
     CompanyHospitalName, 
     PersonnelID, 
     PersonnelName, 
