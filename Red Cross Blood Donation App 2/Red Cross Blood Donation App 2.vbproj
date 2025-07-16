@@ -669,6 +669,9 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Config\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <Import Project="..\..\Red Cross Blood Donation App 2\Red Cross Blood Donation App 2\packages\Microsoft.Data.SqlClient.SNI.5.2.0\build\net462\Microsoft.Data.SqlClient.SNI.targets" Condition="Exists('..\..\Red Cross Blood Donation App 2\Red Cross Blood Donation App 2\packages\Microsoft.Data.SqlClient.SNI.5.2.0\build\net462\Microsoft.Data.SqlClient.SNI.targets')" />
 </Project>

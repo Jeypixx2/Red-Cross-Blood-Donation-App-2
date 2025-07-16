@@ -27,25 +27,76 @@ Module modDB
 
     Public Sub UpdateConnectionString()
         Try
-            Dim config As String = System.IO.Directory.GetCurrentDirectory & "\config.txt"
-            Dim text As String = Nothing
-            If System.IO.File.Exists(config) Then
-                Using reader As System.IO.StreamReader = New System.IO.StreamReader(config)
+            Dim configPath As String = GetConfigFilePath()
 
+            Dim text As String = Nothing
+            If System.IO.File.Exists(configPath) Then
+                Using reader As System.IO.StreamReader = New System.IO.StreamReader(configPath)
                     text = reader.ReadToEnd
                 End Using
                 Dim arr_text() As String = Split(text, vbCrLf)
 
                 strConnection = "server=" & Split(arr_text(0), "=")(1) & ";uid=" & Split(arr_text(1), "=")(1) & ";password=" & Split(arr_text(2), "=")(1) & ";database=" & Split(arr_text(3), "=")(1) & ";" & "allowuservariables='True';"
             Else
-                MsgBox("Do not exist")
+                ' Create default config file if it doesn't exist
+                CreateDefaultConfigFile(configPath)
+                MsgBox("Config file created at: " & configPath & vbCrLf & "Please configure your database settings.")
             End If
         Catch ex As Exception
             MsgBox(ex.Message, MsgBoxStyle.Critical)
         End Try
     End Sub
 
+    Private Function GetConfigFilePath() As String
+        ' For installed applications, use AppData folder
+        Dim appDataPath As String = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)
+        Dim appConfigFolder As String = Path.Combine(appDataPath, "Red Cross Blood Donation App", "Config")
+        Dim appDataConfigPath As String = Path.Combine(appConfigFolder, "config.txt")
+
+        ' Check if config exists in AppData first (for installed apps)
+        If System.IO.File.Exists(appDataConfigPath) Then
+            Return appDataConfigPath
+        End If
+
+        ' Check in application directory (for development/portable)
+        Dim appDirConfigPath As String = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "config.txt")
+        If System.IO.File.Exists(appDirConfigPath) Then
+            Return appDirConfigPath
+        End If
+
+        ' Check in Config subfolder of application directory
+        Dim configSubfolderPath As String = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Config", "config.txt")
+        If System.IO.File.Exists(configSubfolderPath) Then
+            Return configSubfolderPath
+        End If
+
+        ' Default to AppData location for new config files (best for installed apps)
+        Return appDataConfigPath
+    End Function
+
+    Private Sub CreateDefaultConfigFile(configPath As String)
+        Try
+            ' Ensure directory exists
+            Dim configDirectory As String = Path.GetDirectoryName(configPath)
+            If Not Directory.Exists(configDirectory) Then
+                Directory.CreateDirectory(configDirectory)
+            End If
+
+            ' Create default config
+            Using writer As New StreamWriter(configPath)
+                writer.WriteLine("server=localhost")
+                writer.WriteLine("uid=root")
+                writer.WriteLine("password=")
+                writer.WriteLine("database=redcrossdb")
+            End Using
+        Catch ex As Exception
+            MsgBox("Error creating default config file: " & ex.Message, MsgBoxStyle.Critical)
+        End Try
+    End Sub
+
+
     Public CurrentLoggedUser As LoggedUser = Nothing
+
     Public Sub openConn(ByVal db_name As String)
         Try
             With conn

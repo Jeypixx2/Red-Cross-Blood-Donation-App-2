@@ -729,6 +729,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_8662FE79FAF94B1E9745C9C1F4DB5483"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_87434B2CC12020D6D72D508C90DA9F29"
         "OwnerKey" = "8:_7F85AAEB7F48751FFCA0497713BD47E1"
         "MsmSig" = "8:_UNDEFINED"
@@ -1318,12 +1324,6 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_5803A17FC4C6433BA1A06F2053825386"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_F269FC076556421AAF4AC793EEEF24A3"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -1621,6 +1621,12 @@
         "OwnerKey" = "8:_04830922F9F79D3C2CC647EA3F1860A4"
         "MsmSig" = "8:_UNDEFINED"
         }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_5803A17FC4C6433BA1A06F2053825386"
+        "MsmSig" = "8:_UNDEFINED"
+        }
     }
     "Configurations"
     {
@@ -1639,6 +1645,14 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+            }
         }
         "Release"
         {
@@ -1655,6 +1669,14 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+            }
         }
     }
     "Deployable"
@@ -2672,6 +2694,26 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_8662FE79FAF94B1E9745C9C1F4DB5483"
+            {
+            "SourcePath" = "8:..\\Red Cross Blood Donation App 2\\Config\\config.txt"
+            "TargetName" = "8:config.txt"
+            "Tag" = "8:"
+            "Folder" = "8:_8DDB2AB4C2564778ABDD3D316779D4E0"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_87434B2CC12020D6D72D508C90DA9F29"
             {
             "AssemblyRegister" = "3:1"
@@ -3632,6 +3674,17 @@
                     "Condition" = "8:"
                     "Transitive" = "11:FALSE"
                     "Property" = "8:_9337BA7ED3974583800FDEC2B69EACD9"
+                        "Folders"
+                        {
+                        }
+                    }
+                    "{9EF0B969-E518-4E46-987F-47570745A589}:_8DDB2AB4C2564778ABDD3D316779D4E0"
+                    {
+                    "Name" = "8:Config"
+                    "AlwaysCreate" = "11:FALSE"
+                    "Condition" = "8:"
+                    "Transitive" = "11:FALSE"
+                    "Property" = "8:_2595F77C5149456F8DBB90446E041FB3"
                         "Folders"
                         {
                         }

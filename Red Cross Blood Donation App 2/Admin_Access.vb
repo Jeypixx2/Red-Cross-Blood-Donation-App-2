@@ -9,7 +9,7 @@ Public Class Admin_Access
             If cmdRead.Read() AndAlso cmdRead.GetInt32(0) = 0 Then
                 createAcc.Visible = True ' Show "Create Account" label if table is empty
             Else
-                createAcc.Visible = False ' Hide "Create Account" label if table has records
+                createAcc.Visible = True ' Hide "Create Account" label if table has records
             End If
         Catch ex As Exception
             MessageBox.Show($"Error loading admin_account: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)

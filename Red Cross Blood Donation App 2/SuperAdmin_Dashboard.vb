@@ -401,7 +401,7 @@ Public Class SuperAdmin_Dashboard
         ChartDonut.Series.Add(series)
 
         ChartDonut.Legends.Add(New Legend("Legend"))
-        ChartDonut.Titles.Add("Blood Volume by Blood Type (" & dtpDonutMonth.Value.ToString("MMMM yyyy") & ")")
+        ChartDonut.Titles.Add("Total Donation By Blood Type (" & dtpDonutMonth.Value.ToString("MMMM yyyy") & ")")
 
         Dim bloodTypes As String() = {"A-", "A+", "B-", "B+", "AB-", "AB+", "O-", "O+"}
         Dim bloodVolumes As New Dictionary(Of String, Double)
@@ -413,7 +413,7 @@ Public Class SuperAdmin_Dashboard
         Dim selectedYear As Integer = dtpDonutMonth.Value.Year
 
         Dim query As String =
-            "SELECT Blood_Group, RhesusFactor, SUM(BloodVolume) AS TotalVolume " &
+            "SELECT Blood_Group, RhesusFactor, COUNT(*) AS TotalDonations " &
             "FROM donation " &
             "WHERE MONTH(DonationDate) = @Month AND YEAR(DonationDate) = @Year " &
             "GROUP BY Blood_Group, RhesusFactor"
@@ -430,7 +430,7 @@ Public Class SuperAdmin_Dashboard
                             Dim rhesusPart As String = reader("RhesusFactor").ToString()
                             Dim bt As String = groupPart & If(rhesusPart = "Rh+", "+", "-")
                             If bloodVolumes.ContainsKey(bt) Then
-                                bloodVolumes(bt) = Convert.ToDouble(reader("TotalVolume"))
+                                bloodVolumes(bt) = Convert.ToDouble(reader("TotalDonations"))
                             End If
                         End While
                     End Using
@@ -448,6 +448,7 @@ Public Class SuperAdmin_Dashboard
             For Each bt In bloodTypes
                 Dim pointIndex = series.Points.AddXY(bt, 1)
                 series.Points(pointIndex).Color = Color.LightGray
+                series.Points(pointIndex).ToolTip = "No donations for this blood type."
             Next
         Else
             Dim colors As New Dictionary(Of String, Color) From {
@@ -465,30 +466,34 @@ Public Class SuperAdmin_Dashboard
                 If colors.ContainsKey(bt) Then
                     series.Points(pointIndex).Color = colors(bt)
                 End If
+                Dim volume As Double = bloodVolumes(bt)
+                series.Points(pointIndex).ToolTip = $"{volume:N0} donations collected for {bt}"
             Next
         End If
     End Sub
 
-    ' Bar chart: donations by method for selected blood type and month
+    ' Bar chart: blood volume by donation method for selected blood type
     Private Sub LoadBarChart(bloodType As String)
+        ' Clear and setup chart
         ChartBar.Series.Clear()
         ChartBar.ChartAreas.Clear()
         ChartBar.Titles.Clear()
         ChartBar.Legends.Clear()
-
         ChartBar.BackColor = Color.White
 
         Dim area As New ChartArea("BarArea")
         area.BackColor = Color.White
-        area.AxisX.Title = "Number of Donations"
-        area.AxisY.Title = "Donation Method"
-        area.AxisY.LabelStyle.Font = New Font("Segoe UI", 9, FontStyle.Bold)
+        area.AxisX.Title = "Donation Method"
+        area.AxisY.Title = "Blood Volume (mL)"
         area.AxisX.LabelStyle.Font = New Font("Segoe UI", 9, FontStyle.Bold)
-        area.AxisY.Interval = 1
-        area.AxisX.MajorGrid.LineWidth = 0
+        area.AxisY.LabelStyle.Font = New Font("Segoe UI", 9, FontStyle.Bold)
+        area.AxisX.Interval = 1
         area.AxisY.MajorGrid.LineWidth = 0
+        area.AxisX.MajorGrid.LineWidth = 0
+        ChartBar.ChartAreas.Add(area)
 
-        Dim donationMethods As New Dictionary(Of String, Integer) From {
+        ' Initialize donation methods with 0 volume
+        Dim donationVolumes As New Dictionary(Of String, Double) From {
             {"Whole Blood", 0},
             {"Plasma (A)", 0},
             {"Platelet (A)", 0},
@@ -496,15 +501,18 @@ Public Class SuperAdmin_Dashboard
             {"WBC (A)", 0}
         }
 
+        ' Parse Blood Type
         Dim groupPart As String = ""
         Dim rhesusPart As String = ""
         ParseBloodType(bloodType, groupPart, rhesusPart)
 
+        ' Selected date
         Dim selectedMonth As Integer = dtpDonutMonth.Value.Month
         Dim selectedYear As Integer = dtpDonutMonth.Value.Year
 
+        ' Query to get blood volumes by donation type
         Dim query As String =
-            "SELECT DonationType, COUNT(*) AS DonationCount " &
+            "SELECT DonationType, SUM(BloodVolume) AS TotalVolume " &
             "FROM donation " &
             "WHERE Blood_Group = @Group AND RhesusFactor = @Rhesus " &
             "AND MONTH(DonationDate) = @Month AND YEAR(DonationDate) = @Year " &
@@ -518,65 +526,90 @@ Public Class SuperAdmin_Dashboard
                     cmd.Parameters.AddWithValue("@Rhesus", rhesusPart)
                     cmd.Parameters.AddWithValue("@Month", selectedMonth)
                     cmd.Parameters.AddWithValue("@Year", selectedYear)
+
                     Using reader = cmd.ExecuteReader()
+                        Dim foundData As Boolean = False
                         While reader.Read()
+                            foundData = True
                             Dim methodFull As String = reader("DonationType").ToString()
-                            Dim shortKey As String = Abbreviate(methodFull)
-                            Dim count As Integer = Convert.ToInt32(reader("DonationCount"))
-                            If donationMethods.ContainsKey(shortKey) Then
-                                donationMethods(shortKey) = count
+                            Dim volume As Double = 0
+                            If Not IsDBNull(reader("TotalVolume")) Then
+                                volume = Convert.ToDouble(reader("TotalVolume"))
+                            End If
+                            ' Map full method names to short labels if needed
+                            Dim methodShort As String = Abbreviate(methodFull)
+                            If donationVolumes.ContainsKey(methodShort) Then
+                                donationVolumes(methodShort) += volume
                             End If
                         End While
+
+                        If Not foundData Then
+                            MessageBox.Show("No donation records found for this blood type and month.")
+                        End If
                     End Using
                 End Using
-                conn.Close()
             End Using
         Catch ex As Exception
             MessageBox.Show("Error loading bar chart: " & ex.Message)
+            Exit Sub
         End Try
 
-        ChartBar.ChartAreas.Add(area)
-
-        Dim series As New Series("Donations per Method")
+        ' Setup series
+        Dim series As New Series("Total Volume (mL)")
         series.ChartType = SeriesChartType.Bar
         series.IsValueShownAsLabel = True
         series.Font = New Font("Segoe UI", 9, FontStyle.Bold)
-        series.CustomProperties = "DrawingStyle=Cylinder"
+        series.LabelForeColor = Color.Black
+        series.CustomProperties = "DrawingStyle=Cylinder, BarLabelStyle=Center"
         ChartBar.Series.Add(series)
 
-        ChartBar.Legends.Add(New Legend("Legend"))
-        ChartBar.Titles.Add("This Month's Donations by Method for " & bloodType)
 
+
+        ChartBar.Legends.Add(New Legend("Legend"))
+        ChartBar.Titles.Add("This Month's Blood Volume by Donation Type for " & bloodType)
+
+        ' Define colors for each method
         Dim colors As New Dictionary(Of String, Color) From {
             {"Whole Blood", Color.Green},
             {"Plasma (A)", Color.Yellow},
             {"Platelet (A)", Color.Orange},
             {"RBC (A)", Color.Red},
-            {"WBC (A)", Color.White}
+            {"WBC (A)", Color.Blue}
         }
 
-        For Each kvp In donationMethods
-            Dim pointIndex = series.Points.AddXY(kvp.Key, kvp.Value)
-            series.Points(pointIndex).Color = colors(kvp.Key)
-            series.Points(pointIndex).ToolTip = $"{kvp.Value} donation(s) of {FullName(kvp.Key)}"
-            series.Points(pointIndex).Label = $"{kvp.Value} donation(s)"
+        ' Add chart points with volume label
+        For Each kvp In donationVolumes
+            Dim method As String = kvp.Key
+            Dim volume As Double = kvp.Value
+            Dim pointIndex = series.Points.AddXY(method, volume)
+
+            If colors.ContainsKey(method) Then
+                series.Points(pointIndex).Color = colors(method)
+            End If
+
+            ' Right-align label by padding on the left
+            Dim labelText As String = volume.ToString("N0") & " mL"
+            series.Points(pointIndex).Label = labelText.PadLeft(10 + labelText.Length)
+
+            series.Points(pointIndex).ToolTip = $"{volume:N0} mL collected via {method}"
         Next
     End Sub
 
-    ' Helper to parse blood type (e.g., "O-" -> "O", "Rh-")
+    ' Helper to parse blood type: e.g., "O-" → "O", "Rh-"
     Private Sub ParseBloodType(bloodType As String, ByRef groupPart As String, ByRef rhesusPart As String)
         groupPart = bloodType.Substring(0, bloodType.Length - 1)
         Dim sign = bloodType.Substring(bloodType.Length - 1)
         rhesusPart = If(sign = "+", "Rh+", "Rh-")
     End Sub
 
+
     Private Function Abbreviate(method As String) As String
         Select Case method
             Case "Whole Blood Donation" : Return "Whole Blood"
             Case "Plasma Donation (Apheresis)" : Return "Plasma (A)"
-            Case "Platelet Donation(Apheresis)" : Return "Platelet (A)"
-            Case "Red Blood Cell Donation(Apheresis)" : Return "RBC (A)"
-            Case "White Blood Cell Donation(Apheresis)" : Return "WBC (A)"
+            Case "Platelet Donation (Apheresis)" : Return "Platelet (A)"
+            Case "Red Blood Cell Donation (Apheresis)" : Return "RBC (A)"
+            Case "White Blood Cell Donation (Apheresis)" : Return "WBC (A)"
             Case Else : Return method
         End Select
     End Function
